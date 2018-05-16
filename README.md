@@ -1,5 +1,8 @@
 ## through penis, unity
 
+You need to put game DLLs in Managed folder (just straight copy) suffices,
+but DONT overwrite those which are already there.
+
 Set Patchwork as startup project. Select release and x64 for solution.
 Press ctrl+shift+b, you end up with iphlpapi.exe in `x64/Release`.
 This is not very debuggable though.
