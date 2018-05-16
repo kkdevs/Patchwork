@@ -21,6 +21,8 @@ namespace Patchwork
 	public class Settings
 	{
 		// Second tab
+		public bool lazyGC = true;
+		public bool lazyBundles = true;
 		public bool tumblr = true;
 		public bool watchFolder = true;
 
@@ -76,7 +78,6 @@ namespace Patchwork
 			"3840x2180"
 		};
 		public byte qualitySelect = 1;
-
 
 		// Map listbox selects to real values
 		static Dictionary<String, int[]> parmap = new Dictionary<String, int[]>()

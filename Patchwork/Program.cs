@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Patchwork
 {
-	public static class Program
+	public class Program
 	{
 		public static bool isStudio
 		{
@@ -35,24 +35,33 @@ namespace Patchwork
 #endif
 
 		public static SettingsForm form;
-		public static Settings settings = new Settings();
+		public static Settings _settings;
+		public static Settings settings
+		{
+			get
+			{
+				if (_settings == null)
+					_settings = LoadConfig();
+				GameInit();
+				return _settings;
+			}
+		}
 		public static fsSerializer json;
 		public static bool launched = false;
 
-		public static bool LoadConfig()
+		public static Settings LoadConfig()
 		{
+			var s = new Settings();
 			try
 			{
-				object se = settings;
+				object se = s;
+				if (json == null)
+					json = new fsSerializer();
 				json.TryDeserialize(fsJsonParser.Parse(File.ReadAllText(cfgpath)), typeof(Settings), ref se);
 				if (se != null)
-					settings = se as Settings;
-			}
-			catch
-			{
-				return false;
-			};
-			return true;
+					return se as Settings;
+			} catch {};
+			return s;
 		}
 
 		public static void SaveConfig()
@@ -62,17 +71,6 @@ namespace Patchwork
 			File.WriteAllText(cfgpath, fsJsonPrinter.PrettyJson(data));
 		}
 
-		// Bepinex specific hacks
-		public static Assembly benis;
-		public static Type benis_type;
-		public static FieldInfo benis_loaded;
-		static string late_log;
-
-		public static int Main(string[] args)
-		{
-			return 0;
-		}
-
 		public static bool initdone = false;
 		public static void GameInit()
 		{
@@ -80,14 +78,12 @@ namespace Patchwork
 				return;
 			initdone = true;
 
-			json = new fsSerializer();
 			try
 			{
 				//System.Windows.Forms.Application.EnableVisualStyles();
 				//System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 				form = new SettingsForm(settings);
 				form.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version.Major;
-				LoadConfig();
 				form.resolution.Items.AddRange(settings.resolutions);
 				form.UpdateForm();
 				form.launchButton.Click += (o, e) =>
@@ -119,6 +115,22 @@ namespace Patchwork
 		{
 			settings.Apply("renderingPath");
 			// perhaps apply other overrides as they come up
+		}
+
+		public static void GC(string who, bool wants, object o)
+		{
+			Trace.Spam("[GC]" + who);
+			if (!settings.lazyGC && wants)
+			{
+				Resources.UnloadUnusedAssets();
+			}
+			if (settings.lazyBundles)
+				AssetBundleManager.GC();
+		}
+
+		public static void GCAssets(object caller)
+		{
+			Trace.Spam($"[GC] Asset GC requested by {caller.GetType().Name}");
 		}
 
 	}
