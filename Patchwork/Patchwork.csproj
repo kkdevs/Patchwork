@@ -208,6 +208,7 @@
       <HintPath>..\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <Import Project="..\kksrc\Assembly-CSharp.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>pdb2mdb Assembly-Csharp.dll</PostBuildEvent>
