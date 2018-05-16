@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Patchwork
 {
@@ -13,7 +14,7 @@ namespace Patchwork
 		}
 		public static void Spam(string msg)
 		{
-			Console.WriteLine("[SPAM] " + msg);
+			Console.WriteLine($"[SPAM] [{Time.time}] {msg}");
 		}
 		public static void Info(string msg)
 		{
