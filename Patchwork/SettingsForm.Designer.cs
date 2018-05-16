@@ -47,7 +47,7 @@ namespace Patchwork
 			this.label15 = new System.Windows.Forms.Label();
 			this.lodBias = new System.Windows.Forms.TextBox();
 			this.vsyncText = new System.Windows.Forms.Label();
-			this.vsyncCount = new System.Windows.Forms.ComboBox();
+			this.vSyncCount = new System.Windows.Forms.ComboBox();
 			this.blendWeights = new System.Windows.Forms.ComboBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -83,11 +83,15 @@ namespace Patchwork
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.unlockH = new System.Windows.Forms.CheckBox();
+			this.tumblr = new System.Windows.Forms.CheckBox();
+			this.watchFolder = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.Other.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -164,7 +168,7 @@ namespace Patchwork
 			this.Other.Controls.Add(this.label15);
 			this.Other.Controls.Add(this.lodBias);
 			this.Other.Controls.Add(this.vsyncText);
-			this.Other.Controls.Add(this.vsyncCount);
+			this.Other.Controls.Add(this.vSyncCount);
 			this.Other.Controls.Add(this.blendWeights);
 			this.Other.Controls.Add(this.label13);
 			this.Other.Location = new System.Drawing.Point(561, 47);
@@ -286,20 +290,20 @@ namespace Patchwork
 			this.vsyncText.Text = "V-Sync";
 			this.vsyncText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// vsyncCount
+			// vSyncCount
 			// 
-			this.vsyncCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.vsyncCount.FormattingEnabled = true;
-			this.vsyncCount.Items.AddRange(new object[] {
+			this.vSyncCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.vSyncCount.FormattingEnabled = true;
+			this.vSyncCount.Items.AddRange(new object[] {
             "0 (off)",
             "1 frame",
             "2 frames",
             "3 frames",
             "4 frames"});
-			this.vsyncCount.Location = new System.Drawing.Point(125, 54);
-			this.vsyncCount.Name = "vsyncCount";
-			this.vsyncCount.Size = new System.Drawing.Size(121, 24);
-			this.vsyncCount.TabIndex = 28;
+			this.vSyncCount.Location = new System.Drawing.Point(125, 54);
+			this.vSyncCount.Name = "vSyncCount";
+			this.vSyncCount.Size = new System.Drawing.Size(121, 24);
+			this.vSyncCount.TabIndex = 28;
 			// 
 			// blendWeights
 			// 
@@ -692,6 +696,9 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.watchFolder);
+			this.tabPage2.Controls.Add(this.tumblr);
+			this.tabPage2.Controls.Add(this.unlockH);
 			this.tabPage2.Location = new System.Drawing.Point(4, 25);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -699,6 +706,36 @@ namespace Patchwork
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Game settings";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// unlockH
+			// 
+			this.unlockH.AutoSize = true;
+			this.unlockH.Location = new System.Drawing.Point(20, 27);
+			this.unlockH.Name = "unlockH";
+			this.unlockH.Size = new System.Drawing.Size(199, 21);
+			this.unlockH.TabIndex = 0;
+			this.unlockH.Text = "Debug H (less exp checks)";
+			this.unlockH.UseVisualStyleBackColor = true;
+			// 
+			// tumblr
+			// 
+			this.tumblr.AutoSize = true;
+			this.tumblr.Location = new System.Drawing.Point(20, 55);
+			this.tumblr.Name = "tumblr";
+			this.tumblr.Size = new System.Drawing.Size(447, 21);
+			this.tumblr.TabIndex = 1;
+			this.tumblr.Text = "Allow both sexes in single gender card selection (editor, freeH etc)";
+			this.tumblr.UseVisualStyleBackColor = true;
+			// 
+			// watchFolder
+			// 
+			this.watchFolder.AutoSize = true;
+			this.watchFolder.Location = new System.Drawing.Point(20, 83);
+			this.watchFolder.Name = "watchFolder";
+			this.watchFolder.Size = new System.Drawing.Size(313, 21);
+			this.watchFolder.TabIndex = 2;
+			this.watchFolder.Text = "Watch card folders for changes during select";
+			this.watchFolder.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -718,6 +755,8 @@ namespace Patchwork
 			this.groupBox2.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -738,7 +777,7 @@ namespace Patchwork
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.TextBox lodBias;
 		private System.Windows.Forms.Label vsyncText;
-		private System.Windows.Forms.ComboBox vsyncCount;
+		private System.Windows.Forms.ComboBox vSyncCount;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.ComboBox shadowCascades;
@@ -778,6 +817,9 @@ namespace Patchwork
 		private System.Windows.Forms.ComboBox blendWeights;
 		private System.Windows.Forms.LinkLabel linkUnityDoc;
 		private System.Windows.Forms.Label label22;
+		private System.Windows.Forms.CheckBox tumblr;
+		private System.Windows.Forms.CheckBox unlockH;
+		private System.Windows.Forms.CheckBox watchFolder;
 	}
 }
 

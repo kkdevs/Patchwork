@@ -20,6 +20,10 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		// Second tab
+		public bool tumblr = true;
+		public bool watchFolder = true;
+
 		// Text input fields
 		public float shadowDistance = 50;
 		public float shadowNearPlaneOffset = 4;
@@ -39,7 +43,7 @@ namespace Patchwork
 		public byte shadowProjection = 1;
 		public byte shadowCascades = 1;
 		public byte blendWeights = 2;
-		public byte vsyncCount = 0;
+		public byte vSyncCount = 0;
 		public byte masterTextureLimit = 0;
 		public byte anisotropicFiltering = 1;
 		public byte antiAliasing = 3;
