@@ -1,0 +1,3 @@
+[submodule "kksrc"]
+	path = kksrc
+	url = git@bitbucket.org:kkdevs/kksrc.git
