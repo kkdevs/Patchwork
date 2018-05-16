@@ -86,6 +86,7 @@ namespace Patchwork
 				//System.Windows.Forms.Application.EnableVisualStyles();
 				//System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 				form = new SettingsForm(settings);
+				form.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version.Major;
 				LoadConfig();
 				form.resolution.Items.AddRange(settings.resolutions);
 				form.UpdateForm();
@@ -98,7 +99,10 @@ namespace Patchwork
 				if (form.ShowDialog() == DialogResult.OK)
 					launched = true;
 				if (launched)
+				{
+					form.launchButton.Enabled = false;
 					form.Show();
+				}
 				else
 					UnityEngine.Application.Quit();
 				Trace.Log($"Dropping out of the initial dialog, launched={launched}");
