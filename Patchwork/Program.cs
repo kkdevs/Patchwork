@@ -83,7 +83,7 @@ namespace Patchwork
 				//System.Windows.Forms.Application.EnableVisualStyles();
 				//System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 				form = new SettingsForm(settings);
-				form.Text += " v" + Assembly.GetExecutingAssembly().GetName().Version.Major;
+				form.Text += " Mk." + Assembly.GetExecutingAssembly().GetName().Version.Major;
 				form.resolution.Items.AddRange(settings.resolutions);
 				form.UpdateForm();
 				form.launchButton.Click += (o, e) =>

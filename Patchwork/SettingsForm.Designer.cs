@@ -92,6 +92,9 @@ namespace Patchwork
 			this.watchFolder = new System.Windows.Forms.CheckBox();
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
+			this.hideMoz = new System.Windows.Forms.CheckBox();
+			this.fixVagina = new System.Windows.Forms.CheckBox();
+			this.fixPenis = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -702,6 +705,9 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.fixPenis);
+			this.tabPage2.Controls.Add(this.fixVagina);
+			this.tabPage2.Controls.Add(this.hideMoz);
 			this.tabPage2.Controls.Add(this.equality);
 			this.tabPage2.Controls.Add(this.bothClass);
 			this.tabPage2.Controls.Add(this.bothEdit);
@@ -732,7 +738,7 @@ namespace Patchwork
 			// bothClass
 			// 
 			this.bothClass.AutoSize = true;
-			this.bothClass.Location = new System.Drawing.Point(460, 27);
+			this.bothClass.Location = new System.Drawing.Point(440, 27);
 			this.bothClass.Name = "bothClass";
 			this.bothClass.Size = new System.Drawing.Size(337, 21);
 			this.bothClass.TabIndex = 7;
@@ -784,9 +790,9 @@ namespace Patchwork
 			this.watchFolder.AutoSize = true;
 			this.watchFolder.Location = new System.Drawing.Point(20, 136);
 			this.watchFolder.Name = "watchFolder";
-			this.watchFolder.Size = new System.Drawing.Size(350, 21);
+			this.watchFolder.Size = new System.Drawing.Size(343, 21);
 			this.watchFolder.TabIndex = 2;
-			this.watchFolder.Text = "Watch card folders changes during select in maker";
+			this.watchFolder.Text = "Watch card folder changes during select in maker";
 			this.watchFolder.UseVisualStyleBackColor = true;
 			// 
 			// bothFreeH
@@ -808,6 +814,36 @@ namespace Patchwork
 			this.unlockH.TabIndex = 0;
 			this.unlockH.Text = "Debug H (less exp checks)";
 			this.unlockH.UseVisualStyleBackColor = true;
+			// 
+			// hideMoz
+			// 
+			this.hideMoz.AutoSize = true;
+			this.hideMoz.Location = new System.Drawing.Point(440, 232);
+			this.hideMoz.Name = "hideMoz";
+			this.hideMoz.Size = new System.Drawing.Size(143, 21);
+			this.hideMoz.TabIndex = 9;
+			this.hideMoz.Text = "Hide vagina mesh";
+			this.hideMoz.UseVisualStyleBackColor = true;
+			// 
+			// fixVagina
+			// 
+			this.fixVagina.AutoSize = true;
+			this.fixVagina.Location = new System.Drawing.Point(440, 259);
+			this.fixVagina.Name = "fixVagina";
+			this.fixVagina.Size = new System.Drawing.Size(374, 21);
+			this.fixVagina.TabIndex = 10;
+			this.fixVagina.Text = "Sync vagina material with body w/o clothing alphamask";
+			this.fixVagina.UseVisualStyleBackColor = true;
+			// 
+			// fixPenis
+			// 
+			this.fixPenis.AutoSize = true;
+			this.fixPenis.Location = new System.Drawing.Point(440, 286);
+			this.fixPenis.Name = "fixPenis";
+			this.fixPenis.Size = new System.Drawing.Size(366, 21);
+			this.fixPenis.TabIndex = 11;
+			this.fixPenis.Text = "Sync penis material with body w/o clothing alphamask";
+			this.fixPenis.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -898,6 +934,9 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox bothClass;
 		private System.Windows.Forms.CheckBox bothEdit;
 		private System.Windows.Forms.CheckBox equality;
+		private System.Windows.Forms.CheckBox hideMoz;
+		private System.Windows.Forms.CheckBox fixPenis;
+		private System.Windows.Forms.CheckBox fixVagina;
 	}
 }
 

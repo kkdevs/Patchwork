@@ -21,9 +21,13 @@ namespace Patchwork
 	public class Settings
 	{
 		// Second tab
+		public bool hideMoz = true;
+		public bool fixPenis = true;
+		public bool fixVagina = false;
+
 		public bool bothClass = false;
 		public bool bothFreeH = true;
-		public bool bothEdit = false;
+		public bool bothEdit = true;
 
 		public bool equality = true;
 
@@ -178,7 +182,7 @@ namespace Patchwork
 						var prop = typeof(QualitySettings).GetProperty(name);
 						if (prop == null)
 						{
-							Trace.Error($"Setting unknown property {name}");
+							Trace.Error($"Setting unknown RenderQuality property {name}");
 							return;
 						}
 						Trace.Log($"Updating setting for {name}");
