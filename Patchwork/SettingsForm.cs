@@ -96,7 +96,11 @@ namespace Patchwork
 				if (ff == null) continue;
 				var control = ff.GetValue(this) as Control;
 				if (f.Name != "fullscreen" && f.Name != "resolution")
-					control.Enabled = enabled;
+				{
+					Control[] parents = { groupBox1, groupBox2, groupBox3 };
+					if (parents.Contains(control.Parent))
+						control.Enabled = enabled;
+				}
 				//Trace.Log($"UpdateForm(): Setting {f.Name} to {val}");
 				var t = control as TextBox;
 				if (t != null)

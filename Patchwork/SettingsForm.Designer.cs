@@ -33,7 +33,7 @@ namespace Patchwork
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.linkUnityDoc = new System.Windows.Forms.LinkLabel();
 			this.label22 = new System.Windows.Forms.Label();
-			this.Other = new System.Windows.Forms.GroupBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.maxQueuedFrames = new System.Windows.Forms.TextBox();
 			this.label14 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
@@ -83,12 +83,18 @@ namespace Patchwork
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.unlockH = new System.Windows.Forms.CheckBox();
-			this.tumblr = new System.Windows.Forms.CheckBox();
+			this.equality = new System.Windows.Forms.CheckBox();
+			this.bothClass = new System.Windows.Forms.CheckBox();
+			this.bothEdit = new System.Windows.Forms.CheckBox();
+			this.lazyBundles = new System.Windows.Forms.CheckBox();
+			this.lazyGC = new System.Windows.Forms.CheckBox();
+			this.bgmAsync = new System.Windows.Forms.CheckBox();
 			this.watchFolder = new System.Windows.Forms.CheckBox();
+			this.bothFreeH = new System.Windows.Forms.CheckBox();
+			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
-			this.Other.SuspendLayout();
+			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -122,7 +128,7 @@ namespace Patchwork
 			// 
 			this.tabPage1.Controls.Add(this.linkUnityDoc);
 			this.tabPage1.Controls.Add(this.label22);
-			this.tabPage1.Controls.Add(this.Other);
+			this.tabPage1.Controls.Add(this.groupBox3);
 			this.tabPage1.Controls.Add(this.groupBox2);
 			this.tabPage1.Controls.Add(this.f_qualitySelect);
 			this.tabPage1.Controls.Add(this.groupBox1);
@@ -153,30 +159,30 @@ namespace Patchwork
 			this.label22.TabIndex = 33;
 			this.label22.Text = "Quality";
 			// 
-			// Other
+			// groupBox3
 			// 
-			this.Other.Controls.Add(this.maxQueuedFrames);
-			this.Other.Controls.Add(this.label14);
-			this.Other.Controls.Add(this.label19);
-			this.Other.Controls.Add(this.label18);
-			this.Other.Controls.Add(this.asyncUploadBufferSize);
-			this.Other.Controls.Add(this.asyncUploadTimeSlice);
-			this.Other.Controls.Add(this.label17);
-			this.Other.Controls.Add(this.particleRaycastBudget);
-			this.Other.Controls.Add(this.label16);
-			this.Other.Controls.Add(this.maximumLODLevel);
-			this.Other.Controls.Add(this.label15);
-			this.Other.Controls.Add(this.lodBias);
-			this.Other.Controls.Add(this.vsyncText);
-			this.Other.Controls.Add(this.vSyncCount);
-			this.Other.Controls.Add(this.blendWeights);
-			this.Other.Controls.Add(this.label13);
-			this.Other.Location = new System.Drawing.Point(561, 47);
-			this.Other.Name = "Other";
-			this.Other.Size = new System.Drawing.Size(257, 271);
-			this.Other.TabIndex = 6;
-			this.Other.TabStop = false;
-			this.Other.Text = "Other";
+			this.groupBox3.Controls.Add(this.maxQueuedFrames);
+			this.groupBox3.Controls.Add(this.label14);
+			this.groupBox3.Controls.Add(this.label19);
+			this.groupBox3.Controls.Add(this.label18);
+			this.groupBox3.Controls.Add(this.asyncUploadBufferSize);
+			this.groupBox3.Controls.Add(this.asyncUploadTimeSlice);
+			this.groupBox3.Controls.Add(this.label17);
+			this.groupBox3.Controls.Add(this.particleRaycastBudget);
+			this.groupBox3.Controls.Add(this.label16);
+			this.groupBox3.Controls.Add(this.maximumLODLevel);
+			this.groupBox3.Controls.Add(this.label15);
+			this.groupBox3.Controls.Add(this.lodBias);
+			this.groupBox3.Controls.Add(this.vsyncText);
+			this.groupBox3.Controls.Add(this.vSyncCount);
+			this.groupBox3.Controls.Add(this.blendWeights);
+			this.groupBox3.Controls.Add(this.label13);
+			this.groupBox3.Location = new System.Drawing.Point(561, 47);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(257, 271);
+			this.groupBox3.TabIndex = 6;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Other";
 			// 
 			// maxQueuedFrames
 			// 
@@ -696,8 +702,14 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.equality);
+			this.tabPage2.Controls.Add(this.bothClass);
+			this.tabPage2.Controls.Add(this.bothEdit);
+			this.tabPage2.Controls.Add(this.lazyBundles);
+			this.tabPage2.Controls.Add(this.lazyGC);
+			this.tabPage2.Controls.Add(this.bgmAsync);
 			this.tabPage2.Controls.Add(this.watchFolder);
-			this.tabPage2.Controls.Add(this.tumblr);
+			this.tabPage2.Controls.Add(this.bothFreeH);
 			this.tabPage2.Controls.Add(this.unlockH);
 			this.tabPage2.Location = new System.Drawing.Point(4, 25);
 			this.tabPage2.Name = "tabPage2";
@@ -706,6 +718,86 @@ namespace Patchwork
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Game settings";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// equality
+			// 
+			this.equality.AutoSize = true;
+			this.equality.Location = new System.Drawing.Point(20, 82);
+			this.equality.Name = "equality";
+			this.equality.Size = new System.Drawing.Size(313, 21);
+			this.equality.TabIndex = 8;
+			this.equality.Text = "Unlock all controls in male maker (height etc)";
+			this.equality.UseVisualStyleBackColor = true;
+			// 
+			// bothClass
+			// 
+			this.bothClass.AutoSize = true;
+			this.bothClass.Location = new System.Drawing.Point(460, 27);
+			this.bothClass.Name = "bothClass";
+			this.bothClass.Size = new System.Drawing.Size(337, 21);
+			this.bothClass.TabIndex = 7;
+			this.bothClass.Text = "Allow both sexes in class seats (this breaks a lot)";
+			this.bothClass.UseVisualStyleBackColor = true;
+			// 
+			// bothEdit
+			// 
+			this.bothEdit.AutoSize = true;
+			this.bothEdit.Location = new System.Drawing.Point(20, 109);
+			this.bothEdit.Name = "bothEdit";
+			this.bothEdit.Size = new System.Drawing.Size(300, 21);
+			this.bothEdit.TabIndex = 6;
+			this.bothEdit.Text = "Both sexes in same maker (slightly broken)";
+			this.bothEdit.UseVisualStyleBackColor = true;
+			// 
+			// lazyBundles
+			// 
+			this.lazyBundles.AutoSize = true;
+			this.lazyBundles.Location = new System.Drawing.Point(20, 288);
+			this.lazyBundles.Name = "lazyBundles";
+			this.lazyBundles.Size = new System.Drawing.Size(131, 21);
+			this.lazyBundles.TabIndex = 5;
+			this.lazyBundles.Text = "Lazy bundle GC";
+			this.lazyBundles.UseVisualStyleBackColor = true;
+			// 
+			// lazyGC
+			// 
+			this.lazyGC.AutoSize = true;
+			this.lazyGC.Location = new System.Drawing.Point(20, 260);
+			this.lazyGC.Name = "lazyGC";
+			this.lazyGC.Size = new System.Drawing.Size(122, 21);
+			this.lazyGC.TabIndex = 4;
+			this.lazyGC.Text = "Lazy asset GC";
+			this.lazyGC.UseVisualStyleBackColor = true;
+			// 
+			// bgmAsync
+			// 
+			this.bgmAsync.AutoSize = true;
+			this.bgmAsync.Location = new System.Drawing.Point(20, 232);
+			this.bgmAsync.Name = "bgmAsync";
+			this.bgmAsync.Size = new System.Drawing.Size(145, 21);
+			this.bgmAsync.TabIndex = 3;
+			this.bgmAsync.Text = "Lazy BGM loading";
+			this.bgmAsync.UseVisualStyleBackColor = true;
+			// 
+			// watchFolder
+			// 
+			this.watchFolder.AutoSize = true;
+			this.watchFolder.Location = new System.Drawing.Point(20, 136);
+			this.watchFolder.Name = "watchFolder";
+			this.watchFolder.Size = new System.Drawing.Size(350, 21);
+			this.watchFolder.TabIndex = 2;
+			this.watchFolder.Text = "Watch card folders changes during select in maker";
+			this.watchFolder.UseVisualStyleBackColor = true;
+			// 
+			// bothFreeH
+			// 
+			this.bothFreeH.AutoSize = true;
+			this.bothFreeH.Location = new System.Drawing.Point(20, 54);
+			this.bothFreeH.Name = "bothFreeH";
+			this.bothFreeH.Size = new System.Drawing.Size(150, 21);
+			this.bothFreeH.TabIndex = 1;
+			this.bothFreeH.Text = "Same-sex in free H";
+			this.bothFreeH.UseVisualStyleBackColor = true;
 			// 
 			// unlockH
 			// 
@@ -716,26 +808,6 @@ namespace Patchwork
 			this.unlockH.TabIndex = 0;
 			this.unlockH.Text = "Debug H (less exp checks)";
 			this.unlockH.UseVisualStyleBackColor = true;
-			// 
-			// tumblr
-			// 
-			this.tumblr.AutoSize = true;
-			this.tumblr.Location = new System.Drawing.Point(20, 55);
-			this.tumblr.Name = "tumblr";
-			this.tumblr.Size = new System.Drawing.Size(447, 21);
-			this.tumblr.TabIndex = 1;
-			this.tumblr.Text = "Allow both sexes in single gender card selection (editor, freeH etc)";
-			this.tumblr.UseVisualStyleBackColor = true;
-			// 
-			// watchFolder
-			// 
-			this.watchFolder.AutoSize = true;
-			this.watchFolder.Location = new System.Drawing.Point(20, 83);
-			this.watchFolder.Name = "watchFolder";
-			this.watchFolder.Size = new System.Drawing.Size(313, 21);
-			this.watchFolder.TabIndex = 2;
-			this.watchFolder.Text = "Watch card folders for changes during select";
-			this.watchFolder.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -749,8 +821,8 @@ namespace Patchwork
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
-			this.Other.ResumeLayout(false);
-			this.Other.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
@@ -765,7 +837,7 @@ namespace Patchwork
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.GroupBox Other;
+		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.Label label19;
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.TextBox asyncUploadBufferSize;
@@ -817,9 +889,15 @@ namespace Patchwork
 		private System.Windows.Forms.ComboBox blendWeights;
 		private System.Windows.Forms.LinkLabel linkUnityDoc;
 		private System.Windows.Forms.Label label22;
-		private System.Windows.Forms.CheckBox tumblr;
+		private System.Windows.Forms.CheckBox bothFreeH;
 		private System.Windows.Forms.CheckBox unlockH;
 		private System.Windows.Forms.CheckBox watchFolder;
+		private System.Windows.Forms.CheckBox lazyBundles;
+		private System.Windows.Forms.CheckBox lazyGC;
+		private System.Windows.Forms.CheckBox bgmAsync;
+		private System.Windows.Forms.CheckBox bothClass;
+		private System.Windows.Forms.CheckBox bothEdit;
+		private System.Windows.Forms.CheckBox equality;
 	}
 }
 

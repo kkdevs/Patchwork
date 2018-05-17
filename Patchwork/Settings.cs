@@ -21,6 +21,13 @@ namespace Patchwork
 	public class Settings
 	{
 		// Second tab
+		public bool bothClass = false;
+		public bool bothFreeH = true;
+		public bool bothEdit = false;
+
+		public bool equality = true;
+
+		public bool bgmAsync = true;
 		public bool lazyGC = true;
 		public bool lazyBundles = true;
 		public bool tumblr = true;
