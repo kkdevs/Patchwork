@@ -43,6 +43,8 @@ namespace Patchwork
 		public float maximumLODLevel = 0;
 		public float lodBias = 2;
 		public float shadowCascade2Split = (float)(1.0 / 3.0);
+		public float customShadowStrengthTarget = 0.96f;
+		public float customShadowStrengthLimit = 0.8f;
 
 		public int particleRaycastBudget = 4096;
 		public int asyncUploadTimeSlice = 2;
