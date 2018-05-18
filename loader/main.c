@@ -12,6 +12,26 @@ static struct bundle bundles[32], *list_bundles[32];
 static int bundle_count = 0;
 static char names[32][64];
 
+void *memcpy(
+	void *dest,
+	const void *src,
+	size_t count
+) {
+	const char *s = src;
+	char *d = dest;
+	while (count--) *d++ = *s++;
+	return dest;
+}
+
+void *memset(
+	void *dest,
+	int c,
+	size_t count
+) {
+	char *p = dest;
+	while (count--) *p++ = c;
+	return dest;
+}
 
 __declspec(dllexport)
 DWORD WINAPI  GetIpAddrTable(void *p, long *n, BOOL o) {

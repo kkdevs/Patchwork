@@ -126,6 +126,7 @@ namespace Patchwork
 			}
 			if (settings.lazyBundles)
 				AssetBundleManager.GC();
+			System.GC.Collect();
 		}
 
 		public static void GCAssets(object caller)
