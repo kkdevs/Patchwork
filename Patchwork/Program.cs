@@ -67,6 +67,7 @@ namespace Patchwork
 		public static void SaveConfig()
 		{
 			fsData data = null;
+			settings.version++;
 			json.TrySerialize(settings, out data).AssertSuccess();
 			File.WriteAllText(cfgpath, fsJsonPrinter.PrettyJson(data));
 		}

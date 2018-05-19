@@ -71,6 +71,9 @@ namespace Patchwork
 
 		public bool unlockH = true;
 
+		// bumped each time something changes the config
+		public int version;
+
 		public string resolution = "1280x720";
 		public string[] resolutions =
 		{
