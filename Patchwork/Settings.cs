@@ -52,6 +52,14 @@ namespace Patchwork
 		public int pixelLightCount = 4;
 		public int maxQueuedFrames = 8;
 
+		// Paint texture sizes
+		public int bodyLowPoly = 512;
+		public int bodyHiPoly = 2048;
+		public int faceLowPoly = 512;
+		public int faceHiPoly = 1024;
+		public int eyeLowPoly = 256;
+		public int eyeHiPoly = 512;
+
 		// Dropdowns
 		public byte shadows = 2;
 		public byte shadowResolution = 3;
