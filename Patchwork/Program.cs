@@ -77,6 +77,7 @@ namespace Patchwork
 		{
 			if (initdone)
 				return;
+			Console.WriteLine("GameInit()");
 			initdone = true;
 
 			try

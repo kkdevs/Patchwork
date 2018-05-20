@@ -32,8 +32,8 @@ namespace Patchwork
 		public bool equality = true;
 
 		public bool bgmAsync = true;
-		public bool lazyGC = true;
-		public bool lazyBundles = true;
+		public bool lazyGC = false;
+		public bool lazyBundles = false;
 		public bool tumblr = true;
 		public bool watchFolder = true;
 
@@ -43,6 +43,7 @@ namespace Patchwork
 		public float maximumLODLevel = 0;
 		public float lodBias = 2;
 		public float shadowCascade2Split = (float)(1.0 / 3.0);
+		public bool shadowOverride = false;
 		public float customShadowStrengthTarget = 0.96f;
 		public float customShadowStrengthLimit = 0.8f;
 
