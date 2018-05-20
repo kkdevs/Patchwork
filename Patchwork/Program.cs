@@ -66,10 +66,14 @@ namespace Patchwork
 
 		public static void SaveConfig()
 		{
-			fsData data = null;
-			settings.version++;
-			json.TrySerialize(settings, out data).AssertSuccess();
-			File.WriteAllText(cfgpath, fsJsonPrinter.PrettyJson(data));
+			try
+			{
+				fsData data = null;
+				settings.version++;
+				json.TrySerialize(settings, out data).AssertSuccess();
+				File.WriteAllText(cfgpath, fsJsonPrinter.PrettyJson(data));
+			}
+			catch { };
 		}
 
 		public static bool initdone = false;
@@ -79,6 +83,7 @@ namespace Patchwork
 				return;
 			Console.WriteLine("GameInit()");
 			initdone = true;
+			AssLoader.Init();
 
 			try
 			{

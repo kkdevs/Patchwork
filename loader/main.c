@@ -104,7 +104,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 			return FALSE;
 		}
 	}
-	lstrcpy(name + len - 4 + 5, L"\\Managed\\UnityEngine.dll.bak");
 
 	// resolve symbols
 #define LOAD(n) \

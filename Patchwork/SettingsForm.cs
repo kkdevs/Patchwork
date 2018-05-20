@@ -35,6 +35,11 @@ namespace Patchwork
 				{
 					try
 					{
+						if (f.FieldType == typeof(string))
+						{
+							s.Update(f.Name, t.Text);
+							return;
+						}
 						s.Update(f.Name, float.Parse(t.Text));
 					}
 					catch { };
@@ -127,11 +132,6 @@ namespace Patchwork
 				}
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
-		}
-
-		private void label24_Click(object sender, EventArgs e)
-		{
-
 		}
 	}
 }

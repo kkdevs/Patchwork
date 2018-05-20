@@ -12,6 +12,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loader", "loader\loader.vcx
 		{EFA8AEF5-D97B-49C2-88FA-0552601B48D5} = {EFA8AEF5-D97B-49C2-88FA-0552601B48D5}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssPlug", "AssPlug\AssPlug.csproj", "{40C3F550-53FE-4437-8339-69EE0A8923DD}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		kksrc\Assembly-CSharp.projitems*{efa8aef5-d97b-49c2-88fa-0552601b48d5}*SharedItemsImports = 4
@@ -63,6 +65,24 @@ Global
 		{5B729EE4-4C05-412E-B7EF-2AFCBAAC5441}.Release|x64.Build.0 = Release|x64
 		{5B729EE4-4C05-412E-B7EF-2AFCBAAC5441}.Release|x86.ActiveCfg = Release|Win32
 		{5B729EE4-4C05-412E-B7EF-2AFCBAAC5441}.Release|x86.Build.0 = Release|Win32
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug_local|Any CPU.ActiveCfg = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug_local|Any CPU.Build.0 = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug_local|x64.ActiveCfg = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug_local|x64.Build.0 = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug_local|x86.ActiveCfg = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug_local|x86.Build.0 = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug|x64.Build.0 = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Debug|x86.Build.0 = Debug|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Release|x64.ActiveCfg = Release|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Release|x64.Build.0 = Release|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{40C3F550-53FE-4437-8339-69EE0A8923DD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

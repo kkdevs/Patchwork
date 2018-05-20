@@ -93,19 +93,40 @@ namespace Patchwork
 			this.equality = new System.Windows.Forms.CheckBox();
 			this.bothClass = new System.Windows.Forms.CheckBox();
 			this.bothEdit = new System.Windows.Forms.CheckBox();
-			this.lazyBundles = new System.Windows.Forms.CheckBox();
-			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.bgmAsync = new System.Windows.Forms.CheckBox();
 			this.watchFolder = new System.Windows.Forms.CheckBox();
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.shadowOverride = new System.Windows.Forms.CheckBox();
+			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.libDirs = new System.Windows.Forms.TextBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.lazyBundles = new System.Windows.Forms.CheckBox();
+			this.lazyGC = new System.Windows.Forms.CheckBox();
+			this.assInterval = new System.Windows.Forms.TextBox();
+			this.label25 = new System.Windows.Forms.Label();
+			this.whitePower = new System.Windows.Forms.CheckBox();
+			this.enableSpam = new System.Windows.Forms.CheckBox();
+			this.enableTrace = new System.Windows.Forms.CheckBox();
+			this.bodyHiPoly = new System.Windows.Forms.TextBox();
+			this.bodyLowPoly = new System.Windows.Forms.TextBox();
+			this.faceLowPoly = new System.Windows.Forms.TextBox();
+			this.faceHiPoly = new System.Windows.Forms.TextBox();
+			this.eyeLowPoly = new System.Windows.Forms.TextBox();
+			this.eyeHiPoly = new System.Windows.Forms.TextBox();
+			this.label26 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
+			this.label28 = new System.Windows.Forms.Label();
+			this.label29 = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
+			this.label31 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.tabPage3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -127,6 +148,7 @@ namespace Patchwork
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Location = new System.Drawing.Point(12, 12);
 			this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.tabControl1.Name = "tabControl1";
@@ -755,8 +777,6 @@ namespace Patchwork
 			this.tabPage2.Controls.Add(this.equality);
 			this.tabPage2.Controls.Add(this.bothClass);
 			this.tabPage2.Controls.Add(this.bothEdit);
-			this.tabPage2.Controls.Add(this.lazyBundles);
-			this.tabPage2.Controls.Add(this.lazyGC);
 			this.tabPage2.Controls.Add(this.bgmAsync);
 			this.tabPage2.Controls.Add(this.watchFolder);
 			this.tabPage2.Controls.Add(this.bothFreeH);
@@ -772,7 +792,7 @@ namespace Patchwork
 			// 
 			// customShadowStrengthLimit
 			// 
-			this.customShadowStrengthLimit.Location = new System.Drawing.Point(641, 113);
+			this.customShadowStrengthLimit.Location = new System.Drawing.Point(641, 70);
 			this.customShadowStrengthLimit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.customShadowStrengthLimit.Name = "customShadowStrengthLimit";
 			this.customShadowStrengthLimit.Size = new System.Drawing.Size(132, 22);
@@ -780,7 +800,7 @@ namespace Patchwork
 			// 
 			// customShadowStrengthTarget
 			// 
-			this.customShadowStrengthTarget.Location = new System.Drawing.Point(641, 85);
+			this.customShadowStrengthTarget.Location = new System.Drawing.Point(641, 42);
 			this.customShadowStrengthTarget.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.customShadowStrengthTarget.Name = "customShadowStrengthTarget";
 			this.customShadowStrengthTarget.Size = new System.Drawing.Size(132, 22);
@@ -789,7 +809,7 @@ namespace Patchwork
 			// label23
 			// 
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(437, 113);
+			this.label23.Location = new System.Drawing.Point(437, 70);
 			this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(149, 17);
@@ -799,7 +819,7 @@ namespace Patchwork
 			// label21
 			// 
 			this.label21.AutoSize = true;
-			this.label21.Location = new System.Drawing.Point(437, 86);
+			this.label21.Location = new System.Drawing.Point(437, 43);
 			this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(162, 17);
@@ -853,7 +873,7 @@ namespace Patchwork
 			// bothClass
 			// 
 			this.bothClass.AutoSize = true;
-			this.bothClass.Location = new System.Drawing.Point(440, 27);
+			this.bothClass.Location = new System.Drawing.Point(20, 160);
 			this.bothClass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.bothClass.Name = "bothClass";
 			this.bothClass.Size = new System.Drawing.Size(337, 21);
@@ -872,32 +892,10 @@ namespace Patchwork
 			this.bothEdit.Text = "Both sexes in same maker (slightly broken)";
 			this.bothEdit.UseVisualStyleBackColor = true;
 			// 
-			// lazyBundles
-			// 
-			this.lazyBundles.AutoSize = true;
-			this.lazyBundles.Location = new System.Drawing.Point(20, 288);
-			this.lazyBundles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.lazyBundles.Name = "lazyBundles";
-			this.lazyBundles.Size = new System.Drawing.Size(131, 21);
-			this.lazyBundles.TabIndex = 5;
-			this.lazyBundles.Text = "Lazy bundle GC";
-			this.lazyBundles.UseVisualStyleBackColor = true;
-			// 
-			// lazyGC
-			// 
-			this.lazyGC.AutoSize = true;
-			this.lazyGC.Location = new System.Drawing.Point(20, 260);
-			this.lazyGC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.lazyGC.Name = "lazyGC";
-			this.lazyGC.Size = new System.Drawing.Size(122, 21);
-			this.lazyGC.TabIndex = 4;
-			this.lazyGC.Text = "Lazy asset GC";
-			this.lazyGC.UseVisualStyleBackColor = true;
-			// 
 			// bgmAsync
 			// 
 			this.bgmAsync.AutoSize = true;
-			this.bgmAsync.Location = new System.Drawing.Point(20, 231);
+			this.bgmAsync.Location = new System.Drawing.Point(20, 286);
 			this.bgmAsync.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.bgmAsync.Name = "bgmAsync";
 			this.bgmAsync.Size = new System.Drawing.Size(145, 21);
@@ -941,13 +939,225 @@ namespace Patchwork
 			// shadowOverride
 			// 
 			this.shadowOverride.AutoSize = true;
-			this.shadowOverride.Location = new System.Drawing.Point(440, 60);
+			this.shadowOverride.Location = new System.Drawing.Point(440, 17);
 			this.shadowOverride.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.shadowOverride.Name = "shadowOverride";
 			this.shadowOverride.Size = new System.Drawing.Size(275, 21);
 			this.shadowOverride.TabIndex = 16;
 			this.shadowOverride.Text = "Override default blue hair shadow with:";
 			this.shadowOverride.UseVisualStyleBackColor = true;
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Controls.Add(this.label31);
+			this.tabPage3.Controls.Add(this.label30);
+			this.tabPage3.Controls.Add(this.label29);
+			this.tabPage3.Controls.Add(this.label28);
+			this.tabPage3.Controls.Add(this.label27);
+			this.tabPage3.Controls.Add(this.label26);
+			this.tabPage3.Controls.Add(this.eyeLowPoly);
+			this.tabPage3.Controls.Add(this.eyeHiPoly);
+			this.tabPage3.Controls.Add(this.faceLowPoly);
+			this.tabPage3.Controls.Add(this.faceHiPoly);
+			this.tabPage3.Controls.Add(this.bodyLowPoly);
+			this.tabPage3.Controls.Add(this.bodyHiPoly);
+			this.tabPage3.Controls.Add(this.enableTrace);
+			this.tabPage3.Controls.Add(this.enableSpam);
+			this.tabPage3.Controls.Add(this.whitePower);
+			this.tabPage3.Controls.Add(this.label25);
+			this.tabPage3.Controls.Add(this.assInterval);
+			this.tabPage3.Controls.Add(this.lazyBundles);
+			this.tabPage3.Controls.Add(this.lazyGC);
+			this.tabPage3.Controls.Add(this.label24);
+			this.tabPage3.Controls.Add(this.libDirs);
+			this.tabPage3.Location = new System.Drawing.Point(4, 25);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage3.Size = new System.Drawing.Size(828, 330);
+			this.tabPage3.TabIndex = 2;
+			this.tabPage3.Text = "Debug stuff";
+			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// libDirs
+			// 
+			this.libDirs.Location = new System.Drawing.Point(31, 41);
+			this.libDirs.Multiline = true;
+			this.libDirs.Name = "libDirs";
+			this.libDirs.Size = new System.Drawing.Size(245, 106);
+			this.libDirs.TabIndex = 0;
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(28, 21);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(85, 17);
+			this.label24.TabIndex = 1;
+			this.label24.Text = "aspplug dirs";
+			// 
+			// lazyBundles
+			// 
+			this.lazyBundles.AutoSize = true;
+			this.lazyBundles.Location = new System.Drawing.Point(336, 69);
+			this.lazyBundles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.lazyBundles.Name = "lazyBundles";
+			this.lazyBundles.Size = new System.Drawing.Size(131, 21);
+			this.lazyBundles.TabIndex = 7;
+			this.lazyBundles.Text = "Lazy bundle GC";
+			this.lazyBundles.UseVisualStyleBackColor = true;
+			// 
+			// lazyGC
+			// 
+			this.lazyGC.AutoSize = true;
+			this.lazyGC.Location = new System.Drawing.Point(336, 41);
+			this.lazyGC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.lazyGC.Name = "lazyGC";
+			this.lazyGC.Size = new System.Drawing.Size(122, 21);
+			this.lazyGC.TabIndex = 6;
+			this.lazyGC.Text = "Lazy asset GC";
+			this.lazyGC.UseVisualStyleBackColor = true;
+			// 
+			// assInterval
+			// 
+			this.assInterval.Location = new System.Drawing.Point(176, 153);
+			this.assInterval.Name = "assInterval";
+			this.assInterval.Size = new System.Drawing.Size(100, 22);
+			this.assInterval.TabIndex = 8;
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(28, 156);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(120, 17);
+			this.label25.TabIndex = 9;
+			this.label25.Text = "assloader interval";
+			// 
+			// whitePower
+			// 
+			this.whitePower.AutoSize = true;
+			this.whitePower.Location = new System.Drawing.Point(336, 96);
+			this.whitePower.Name = "whitePower";
+			this.whitePower.Size = new System.Drawing.Size(366, 21);
+			this.whitePower.TabIndex = 10;
+			this.whitePower.Text = "(bench) replace all character textures with a white dot";
+			this.whitePower.UseVisualStyleBackColor = true;
+			// 
+			// enableSpam
+			// 
+			this.enableSpam.AutoSize = true;
+			this.enableSpam.Location = new System.Drawing.Point(336, 124);
+			this.enableSpam.Name = "enableSpam";
+			this.enableSpam.Size = new System.Drawing.Size(124, 21);
+			this.enableSpam.TabIndex = 11;
+			this.enableSpam.Text = "Enable [SPAM]";
+			this.enableSpam.UseVisualStyleBackColor = true;
+			// 
+			// enableTrace
+			// 
+			this.enableTrace.AutoSize = true;
+			this.enableTrace.Location = new System.Drawing.Point(336, 151);
+			this.enableTrace.Name = "enableTrace";
+			this.enableTrace.Size = new System.Drawing.Size(132, 21);
+			this.enableTrace.TabIndex = 12;
+			this.enableTrace.Text = "Enable [TRACE]";
+			this.enableTrace.UseVisualStyleBackColor = true;
+			// 
+			// bodyHiPoly
+			// 
+			this.bodyHiPoly.Location = new System.Drawing.Point(602, 233);
+			this.bodyHiPoly.Name = "bodyHiPoly";
+			this.bodyHiPoly.Size = new System.Drawing.Size(100, 22);
+			this.bodyHiPoly.TabIndex = 13;
+			// 
+			// bodyLowPoly
+			// 
+			this.bodyLowPoly.Location = new System.Drawing.Point(708, 233);
+			this.bodyLowPoly.Name = "bodyLowPoly";
+			this.bodyLowPoly.Size = new System.Drawing.Size(100, 22);
+			this.bodyLowPoly.TabIndex = 14;
+			// 
+			// faceLowPoly
+			// 
+			this.faceLowPoly.Location = new System.Drawing.Point(708, 261);
+			this.faceLowPoly.Name = "faceLowPoly";
+			this.faceLowPoly.Size = new System.Drawing.Size(100, 22);
+			this.faceLowPoly.TabIndex = 16;
+			// 
+			// faceHiPoly
+			// 
+			this.faceHiPoly.Location = new System.Drawing.Point(602, 261);
+			this.faceHiPoly.Name = "faceHiPoly";
+			this.faceHiPoly.Size = new System.Drawing.Size(100, 22);
+			this.faceHiPoly.TabIndex = 15;
+			// 
+			// eyeLowPoly
+			// 
+			this.eyeLowPoly.Location = new System.Drawing.Point(708, 289);
+			this.eyeLowPoly.Name = "eyeLowPoly";
+			this.eyeLowPoly.Size = new System.Drawing.Size(100, 22);
+			this.eyeLowPoly.TabIndex = 18;
+			// 
+			// eyeHiPoly
+			// 
+			this.eyeHiPoly.Location = new System.Drawing.Point(602, 289);
+			this.eyeHiPoly.Name = "eyeHiPoly";
+			this.eyeHiPoly.Size = new System.Drawing.Size(100, 22);
+			this.eyeHiPoly.TabIndex = 17;
+			// 
+			// label26
+			// 
+			this.label26.AutoSize = true;
+			this.label26.Location = new System.Drawing.Point(602, 210);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(45, 17);
+			this.label26.TabIndex = 19;
+			this.label26.Text = "hipoly";
+			// 
+			// label27
+			// 
+			this.label27.AutoSize = true;
+			this.label27.Location = new System.Drawing.Point(708, 209);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(54, 17);
+			this.label27.TabIndex = 20;
+			this.label27.Text = "lowpoly";
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(708, 210);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(54, 17);
+			this.label28.TabIndex = 21;
+			this.label28.Text = "lowpoly";
+			// 
+			// label29
+			// 
+			this.label29.AutoSize = true;
+			this.label29.Location = new System.Drawing.Point(561, 240);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(39, 17);
+			this.label29.TabIndex = 22;
+			this.label29.Text = "body";
+			// 
+			// label30
+			// 
+			this.label30.AutoSize = true;
+			this.label30.Location = new System.Drawing.Point(561, 266);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(35, 17);
+			this.label30.TabIndex = 23;
+			this.label30.Text = "face";
+			// 
+			// label31
+			// 
+			this.label31.AutoSize = true;
+			this.label31.Location = new System.Drawing.Point(561, 291);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(38, 17);
+			this.label31.TabIndex = 24;
+			this.label31.Text = "eyes";
 			// 
 			// SettingsForm
 			// 
@@ -970,6 +1180,8 @@ namespace Patchwork
 			this.groupBox1.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1033,8 +1245,6 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox bothFreeH;
 		private System.Windows.Forms.CheckBox unlockH;
 		private System.Windows.Forms.CheckBox watchFolder;
-		private System.Windows.Forms.CheckBox lazyBundles;
-		private System.Windows.Forms.CheckBox lazyGC;
 		private System.Windows.Forms.CheckBox bgmAsync;
 		private System.Windows.Forms.CheckBox bothClass;
 		private System.Windows.Forms.CheckBox bothEdit;
@@ -1047,6 +1257,28 @@ namespace Patchwork
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label21;
 		private System.Windows.Forms.CheckBox shadowOverride;
+		private System.Windows.Forms.TabPage tabPage3;
+		private System.Windows.Forms.CheckBox lazyBundles;
+		private System.Windows.Forms.CheckBox lazyGC;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.TextBox libDirs;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.TextBox assInterval;
+		private System.Windows.Forms.CheckBox whitePower;
+		private System.Windows.Forms.CheckBox enableTrace;
+		private System.Windows.Forms.CheckBox enableSpam;
+		private System.Windows.Forms.TextBox eyeLowPoly;
+		private System.Windows.Forms.TextBox eyeHiPoly;
+		private System.Windows.Forms.TextBox faceLowPoly;
+		private System.Windows.Forms.TextBox faceHiPoly;
+		private System.Windows.Forms.TextBox bodyLowPoly;
+		private System.Windows.Forms.TextBox bodyHiPoly;
+		private System.Windows.Forms.Label label31;
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.Label label29;
+		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.Label label27;
+		private System.Windows.Forms.Label label26;
 	}
 }
 

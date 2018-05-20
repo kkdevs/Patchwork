@@ -20,6 +20,15 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public string libDirs = "lib";
+		public int assInterval = 60;
+		public bool whitePower = false;
+
+		public bool enableSpam = true;
+		public bool enableTrace = true;
+		public bool enableInfo = true;
+		public bool enableError = true;
+
 		// Second tab
 		public bool hideMoz = true;
 		public bool fixPenis = true;
