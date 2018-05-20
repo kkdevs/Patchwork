@@ -128,5 +128,10 @@ namespace Patchwork
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
 		}
+
+		private void label24_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

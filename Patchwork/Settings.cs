@@ -38,6 +38,7 @@ namespace Patchwork
 		public bool watchFolder = true;
 
 		// Text input fields
+		public float _rimG = 1.0f;
 		public float shadowDistance = 50;
 		public float shadowNearPlaneOffset = 4;
 		public float maximumLODLevel = 0;
@@ -193,14 +194,23 @@ namespace Patchwork
 				default:
 					try
 					{
+						var val = typeof(Settings).GetField(name);
+						Trace.Log($"Updating setting for {name} = {val.GetValue(this)}");
+
+						// shader prop
+						if (name[0] == '_')
+						{
+							Shader.SetGlobalFloat(name, (float)val.GetValue(this));
+							return;
+						}
+
+						// or at last, a renderer prop
 						var prop = typeof(QualitySettings).GetProperty(name);
 						if (prop == null)
 						{
 							Trace.Error($"Setting unknown RenderQuality property {name}");
 							return;
 						}
-						Trace.Log($"Updating setting for {name}");
-						var val = typeof(Settings).GetField(name);
 
 						object setting = val.GetValue(this);
 						if (setting is byte && parmap.TryGetValue(name, out int[] map))
