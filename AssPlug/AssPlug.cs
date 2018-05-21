@@ -8,6 +8,7 @@ public class AssPlug : MonoBehaviour
 {
 	void Start()
 	{
+		return;
 		foreach (var b in Directory.GetFiles("abdata/communication", "*.unity3d"))
 		{
 			var bn = b.Substring(7).Replace("\\", "/");

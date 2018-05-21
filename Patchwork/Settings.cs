@@ -20,6 +20,8 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public bool fetchAssets = true;
+		public bool dumpAssets = true;
 		public string libDirs = "lib";
 		public int assInterval = 60;
 		public bool whitePower = false;
