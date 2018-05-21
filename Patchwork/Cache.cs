@@ -7,6 +7,24 @@ using Patchwork;
 using UnityEngine;
 using System.IO.IsolatedStorage;
 
+interface IDumpable
+{
+	bool Unmarshal(string v);
+	string Marshal();
+}
+
+public class GenericMarshaller : ScriptableObject
+{
+	public bool Unmarshal(string v)
+	{
+		return false;
+	}
+	public string Marshal()
+	{
+		return null;
+	}
+}
+
 public class Cache
 {
 	static string dumpdir => Application.dataPath + "/../mod/";
@@ -23,7 +41,7 @@ public class Cache
 		var basedir = AssetBundleManager.BaseDownloadingURL;
 		var tfolder = dumpdir + Path.ChangeExtension(bundle, null);
 
-		if (type != typeof(ExcelData))
+		if (!typeof(IDumpable).IsAssignableFrom(type))
 			return false;
 		if (!Program.settings.dumpAssets && !Program.settings.fetchAssets)
 			return false;
@@ -34,9 +52,10 @@ public class Cache
 		{
 			try
 			{
-				var ex = ScriptableObject.CreateInstance(typeof(ExcelData)) as ExcelData;
-				ex.Decode(System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(csvfile)));
-				res = new AssetBundleLoadAssetOperationSimulation(ex);
+				var ex = ScriptableObject.CreateInstance(type) as IDumpable;
+				if (!ex.Unmarshal(System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(csvfile))))
+					return false;
+				res = new AssetBundleLoadAssetOperationSimulation((Object)ex);
 			}
 			catch (FileNotFoundException) { }
 			catch (IsolatedStorageException) { }
@@ -60,7 +79,7 @@ public class Cache
 
 		if (!res.IsEmpty() && Program.settings.dumpAssets)
 		{
-			var ex = res.GetAsset<ExcelData>();
+			var ex = res.GetAsset<Object>() as IDumpable;
 			if (ex == null)
 			{
 				try
@@ -73,8 +92,9 @@ public class Cache
 
 			if (Program.settings.dumpAssets)
 			{
-				var buf = ex.GetCSV2();
-				File.WriteAllBytes(csvfile, System.Text.Encoding.UTF8.GetBytes(buf));
+				var buf = ex.Marshal();
+				if (buf != null)
+					File.WriteAllBytes(csvfile, System.Text.Encoding.UTF8.GetBytes(buf));
 			}
 		}
 
