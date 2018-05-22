@@ -99,6 +99,8 @@ namespace Patchwork
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.dumpAssets = new System.Windows.Forms.CheckBox();
+			this.fetchAssets = new System.Windows.Forms.CheckBox();
 			this.label31 = new System.Windows.Forms.Label();
 			this.label30 = new System.Windows.Forms.Label();
 			this.label29 = new System.Windows.Forms.Label();
@@ -120,8 +122,8 @@ namespace Patchwork
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.label24 = new System.Windows.Forms.Label();
 			this.libDirs = new System.Windows.Forms.TextBox();
-			this.fetchAssets = new System.Windows.Forms.CheckBox();
-			this.dumpAssets = new System.Windows.Forms.CheckBox();
+			this.sliderScale = new System.Windows.Forms.TextBox();
+			this.label32 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -768,6 +770,8 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.label32);
+			this.tabPage2.Controls.Add(this.sliderScale);
 			this.tabPage2.Controls.Add(this.shadowOverride);
 			this.tabPage2.Controls.Add(this.customShadowStrengthLimit);
 			this.tabPage2.Controls.Add(this.customShadowStrengthTarget);
@@ -982,6 +986,26 @@ namespace Patchwork
 			this.tabPage3.Text = "Debug stuff";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
+			// dumpAssets
+			// 
+			this.dumpAssets.AutoSize = true;
+			this.dumpAssets.Location = new System.Drawing.Point(368, 261);
+			this.dumpAssets.Name = "dumpAssets";
+			this.dumpAssets.Size = new System.Drawing.Size(145, 21);
+			this.dumpAssets.TabIndex = 26;
+			this.dumpAssets.Text = "Deserialize assets";
+			this.dumpAssets.UseVisualStyleBackColor = true;
+			// 
+			// fetchAssets
+			// 
+			this.fetchAssets.AutoSize = true;
+			this.fetchAssets.Location = new System.Drawing.Point(368, 233);
+			this.fetchAssets.Name = "fetchAssets";
+			this.fetchAssets.Size = new System.Drawing.Size(129, 21);
+			this.fetchAssets.TabIndex = 25;
+			this.fetchAssets.Text = "Serialize assets";
+			this.fetchAssets.UseVisualStyleBackColor = true;
+			// 
 			// label31
 			// 
 			this.label31.AutoSize = true;
@@ -1163,25 +1187,22 @@ namespace Patchwork
 			this.libDirs.Size = new System.Drawing.Size(245, 106);
 			this.libDirs.TabIndex = 0;
 			// 
-			// fetchAssets
+			// sliderScale
 			// 
-			this.fetchAssets.AutoSize = true;
-			this.fetchAssets.Location = new System.Drawing.Point(368, 233);
-			this.fetchAssets.Name = "fetchAssets";
-			this.fetchAssets.Size = new System.Drawing.Size(129, 21);
-			this.fetchAssets.TabIndex = 25;
-			this.fetchAssets.Text = "Serialize assets";
-			this.fetchAssets.UseVisualStyleBackColor = true;
+			this.sliderScale.Location = new System.Drawing.Point(641, 110);
+			this.sliderScale.Name = "sliderScale";
+			this.sliderScale.Size = new System.Drawing.Size(132, 22);
+			this.sliderScale.TabIndex = 17;
 			// 
-			// dumpAssets
+			// label32
 			// 
-			this.dumpAssets.AutoSize = true;
-			this.dumpAssets.Location = new System.Drawing.Point(368, 261);
-			this.dumpAssets.Name = "dumpAssets";
-			this.dumpAssets.Size = new System.Drawing.Size(145, 21);
-			this.dumpAssets.TabIndex = 26;
-			this.dumpAssets.Text = "Deserialize assets";
-			this.dumpAssets.UseVisualStyleBackColor = true;
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(437, 111);
+			this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(141, 17);
+			this.label32.TabIndex = 18;
+			this.label32.Text = "Slider scale multiplier";
 			// 
 			// SettingsForm
 			// 
@@ -1305,6 +1326,8 @@ namespace Patchwork
 		private System.Windows.Forms.Label label26;
 		private System.Windows.Forms.CheckBox dumpAssets;
 		private System.Windows.Forms.CheckBox fetchAssets;
+		private System.Windows.Forms.Label label32;
+		private System.Windows.Forms.TextBox sliderScale;
 	}
 }
 

@@ -26,6 +26,7 @@ namespace Patchwork
 		public int assInterval = 60;
 		public bool whitePower = false;
 
+		public bool enableStack = true;
 		public bool enableSpam = true;
 		public bool enableTrace = true;
 		public bool enableInfo = true;
@@ -49,6 +50,7 @@ namespace Patchwork
 		public bool watchFolder = true;
 
 		// Text input fields
+		public float sliderScale = 1.0f;
 		public float _rimG = 1.0f;
 		public float shadowDistance = 50;
 		public float shadowNearPlaneOffset = 4;

@@ -22,6 +22,12 @@ namespace Patchwork
 			Console.WriteLine($"[{kind}] [{watch.Elapsed.TotalSeconds}] {msg}");
 		}
 
+		public static void Back(string s = "")
+		{
+			if (Program.settings.enableTrace)
+				Spam(s + Environment.StackTrace);
+		}
+
 		public static void Log(string msg)
 		{
 			if (Program.settings.enableTrace)

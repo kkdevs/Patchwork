@@ -28,6 +28,50 @@ public class GenericMarshaller : ScriptableObject
 public class Cache
 {
 	static string dumpdir => Application.dataPath + "/../mod/";
+	public static bool LoadLst(string bundle, string asset, out string[,] data)
+	{
+		var tfolder = dumpdir + Path.ChangeExtension(bundle, null);
+		var lstfile = tfolder + "/" + asset + ".lst";
+		string text = null;
+		data = null;
+
+
+		if (Program.settings.fetchAssets)
+		{
+			try
+			{
+				text = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(lstfile));
+			}
+			catch { Trace.Back(); };
+		}
+		if (text == null)
+		{
+			var ta = CommonLib.LoadAsset<TextAsset>(bundle, asset);
+			if (ta == null)
+				return false;
+			
+			text = ta.text;
+			if (Program.settings.dumpAssets)
+			{
+				try
+				{
+					try
+					{
+						Directory.CreateDirectory(tfolder);
+					}
+					catch { };
+
+					File.WriteAllBytes(lstfile, System.Text.Encoding.UTF8.GetBytes(text));
+				}
+				catch { Trace.Back();  };
+			}
+		}
+
+
+		YS_Assist.GetListString(text, out data);
+		return true;
+	}
+
 	public static bool Asset(string bundle, string asset, System.Type type, string manifest, out AssetBundleLoadAssetOperation res)
 	{
 		res = null;
