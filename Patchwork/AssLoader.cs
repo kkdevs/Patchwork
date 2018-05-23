@@ -126,9 +126,7 @@ namespace Patchwork
 			foreach (var mb in monoBs[newer.Name])
 				Destroy(mb);
 			Trace.Log($"Unloading {older.FullName}, queueing {newer.FullName}");
-			mono_set_ignore_version_and_key_when_finding_assemblies_already_loaded(0);
 			loadPending.Add(path);
-			mono_set_ignore_version_and_key_when_finding_assemblies_already_loaded(1);
 		}
 		Assembly loadAssembly(string file, bool run = true)
 		{
@@ -160,9 +158,10 @@ namespace Patchwork
 			};
 			return null;
 		}
-
-		[DllImport("mono.dll")]
-		public static extern void mono_set_ignore_version_and_key_when_finding_assemblies_already_loaded(int flag);
+		void OnApplicationQuit()
+		{
+			Patchwork.Program.form.Close();
+		}
 	}
 }
 	

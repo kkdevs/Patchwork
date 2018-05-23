@@ -10,11 +10,30 @@ using UnityEngine;
 using System.Threading;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using System.Diagnostics;
 
 namespace Patchwork
 {
 	public class Program
 	{
+		public static int version
+		{
+			get
+			{
+				return Assembly.GetExecutingAssembly().GetName().Version.Major;
+			}
+		}
+		[DllImport("user32.dll")]
+		public static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+		[DllImport("kernel32.dll")]
+		public static extern uint GetCurrentThreadId();
+		public delegate bool EnumThreadDelegate(IntPtr Hwnd, IntPtr lParam);
+		[DllImport("user32.dll")]
+		public static extern bool ShowWindow(IntPtr w, int cmd);
+		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+		public static extern bool SetWindowText(IntPtr hwnd, String lpString);
+
+
 		public static bool isStudio
 		{
 			get
@@ -84,7 +103,15 @@ namespace Patchwork
 			Console.WriteLine("GameInit()");
 			initdone = true;
 			AssLoader.Init();
-
+			var proc = Process.GetCurrentProcess();
+			//ShowWindow(proc.MainWindowHandle, 0);
+			//SetWindowText(proc.MainWindowHandle, proc.MainWindowTitle + " Patchwork Mk." + version);
+			EnumThreadWindows(GetCurrentThreadId(), (W, _) =>
+			{
+				SetWindowText(W, UnityEngine.Application.productName + " Patchwork Mk." + version);
+				ShowWindow(W, 0);
+				return true;
+			}, IntPtr.Zero);
 			try
 			{
 				//System.Windows.Forms.Application.EnableVisualStyles();
@@ -105,6 +132,8 @@ namespace Patchwork
 				{
 					form.launchButton.Enabled = false;
 					form.Show();
+					//form = new SettingsForm(settings);
+					//form.Show();
 				}
 				else
 					UnityEngine.Application.Quit();
@@ -114,7 +143,10 @@ namespace Patchwork
 			{
 				MessageBox.Show(ex.ToString());
 			}
+		}
 
+		public static void PostInit()
+		{
 			settings.Apply(true);
 		}
 

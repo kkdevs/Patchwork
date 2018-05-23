@@ -20,6 +20,8 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public bool showFPS = true;
+		public bool useLR = true;
 		public bool fetchAssets = true;
 		public bool dumpAssets = true;
 		public string libDirs = "lib";
@@ -50,7 +52,8 @@ namespace Patchwork
 		public bool watchFolder = true;
 
 		// Text input fields
-		public float sliderScale = 1.0f;
+		public float sliderMin = 0f;
+		public float sliderMax = 1f;
 		public float _rimG = 1.0f;
 		public float shadowDistance = 50;
 		public float shadowNearPlaneOffset = 4;
@@ -180,6 +183,14 @@ namespace Patchwork
 			if (!Program.launched) return;
 			switch (name)
 			{
+				case "showFPS":
+					try
+					{
+						Manager.Config.DebugStatus.FPS = showFPS;
+					}
+					catch { };
+					break;
+
 				case "fullscreen":
 					if (setres)
 						UnityEngine.Screen.fullScreen = fullscreen;

@@ -133,5 +133,15 @@ namespace Patchwork
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
 		}
+
+		private void label21_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void renderingPath_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

@@ -101,6 +101,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="B83.Win32.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="AssLoader.cs" />
     <Compile Include="Settings.cs" />
