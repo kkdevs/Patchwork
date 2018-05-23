@@ -23,6 +23,7 @@ namespace Patchwork
 		public SettingsForm(Settings _s)
 		{
 			InitializeComponent();
+			CenterToScreen();
 			s = _s;
 
 			// Generate automatic data binding for class Settings

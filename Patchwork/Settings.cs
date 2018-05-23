@@ -20,16 +20,17 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public bool dontshow = false;
 		public bool showFPS = true;
 		public bool useLR = true;
 		public bool fetchAssets = true;
 		public bool dumpAssets = true;
-		public string libDirs = "lib";
+		public string libDirs = "dll\r\nC:/illusion/patchwork/assplug/bin/debug";
 		public int assInterval = 60;
 		public bool whitePower = false;
 
 		public bool enableStack = true;
-		public bool enableSpam = true;
+		public bool enableSpam = false;
 		public bool enableTrace = true;
 		public bool enableInfo = true;
 		public bool enableError = true;
@@ -42,7 +43,7 @@ namespace Patchwork
 		public bool bothMC = false;
 		public bool bothClass = false;
 		public bool bothFreeH = true;
-		public bool bothEdit = true;
+		public bool bothEdit = false;
 
 		public bool equality = true;
 
@@ -53,23 +54,23 @@ namespace Patchwork
 		public bool watchFolder = true;
 
 		// Text input fields
-		public float sliderMin = 0f;
-		public float sliderMax = 1f;
+		public float sliderMin = -1f;
+		public float sliderMax = 2f;
 		public float _rimG = 1.0f;
-		public float shadowDistance = 50;
+		public float shadowDistance = 80;
 		public float shadowNearPlaneOffset = 4;
 		public float maximumLODLevel = 0;
 		public float lodBias = 2;
 		public float shadowCascade2Split = (float)(1.0 / 3.0);
-		public bool shadowOverride = false;
+		public bool shadowOverride = true;
 		public float customShadowStrengthTarget = 0.96f;
 		public float customShadowStrengthLimit = 0.8f;
 
 		public int particleRaycastBudget = 4096;
-		public int asyncUploadTimeSlice = 2;
-		public int asyncUploadBufferSize = 4;
+		public int asyncUploadTimeSlice = 4;
+		public int asyncUploadBufferSize = 8;
 		public int pixelLightCount = 4;
-		public int maxQueuedFrames = 8;
+		public int maxQueuedFrames = 0;
 
 		// Paint texture sizes
 		public int bodyLowPoly = 512;
@@ -96,7 +97,7 @@ namespace Patchwork
 
 		public byte renderingPath = 1;
 
-		public bool unlockH = true;
+		public bool unlockH = false;
 
 		// bumped each time something changes the config
 		public int version;
@@ -108,19 +109,23 @@ namespace Patchwork
 			"1024x576",
 			"1136x640",
 			"1280x720",
-			"1280x800",
 			"1366x768",
 			"1538x864",
 			"1600x900",
-			"1680x1050",
+			"1680x945",
 			"1920x1080",
-			"1920x1200",
 			"2048x1152",
 			"2560x1440",
 			"3200x1800",
 			"3840x2180"
 		};
-		public byte qualitySelect = 1;
+		public byte chardb = 1;
+		public string[] chardbs =
+		{
+			"illusion.jp (jp only)|",
+			"lolicore.org (world)|http://kkdb.lolicore.org:8880/char",
+		};
+		public byte qualitySelect = 0;
 
 		// Map listbox selects to real values
 		static Dictionary<String, int[]> parmap = new Dictionary<String, int[]>()

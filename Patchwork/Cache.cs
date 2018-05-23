@@ -6,6 +6,9 @@ using System.IO;
 using Patchwork;
 using UnityEngine;
 using System.IO.IsolatedStorage;
+using System.Reflection;
+using System.Collections;
+using System.ComponentModel;
 
 interface IDumpable
 {
@@ -17,17 +20,89 @@ public class GenericMarshaller : ScriptableObject
 {
 	public bool Unmarshal(string v)
 	{
-		return false;
+		return fetchList(v);
 	}
 	public string Marshal()
 	{
+		return dumpList();
+	}
+
+	// locate the list element
+	private FieldInfo getParam()
+	{
+		
+		foreach (var fi in this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+		{
+			var ft = fi.FieldType;
+			if (!ft.IsGenericType)
+				continue;
+			if (ft.GetGenericTypeDefinition() != typeof(List<>))
+				continue;
+			return fi;
+		}
 		return null;
+	}
+
+	private bool fetchList(string src)
+	{
+		var tlist = getParam();
+		var param = tlist.FieldType.GetGenericArguments()[0];
+		var add = tlist.FieldType.GetMethod("Add");
+		var listref = tlist.GetValue(this);
+		foreach (var row in ExcelData.SplitAndEscape(src))
+		{
+			var rowo = System.Activator.CreateInstance(param);
+			var rowe = row.GetEnumerator();
+			foreach (var f in param.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+			{
+				var str = rowe.Current;
+				// XXX presumes array of string
+				if (f.FieldType.IsArray)
+				{
+					var strl = new List<string>();
+					while (rowe.MoveNext())
+						strl.Add(rowe.Current);
+					f.SetValue(rowo, strl.ToArray());
+					break; // this is always last one
+				}
+				rowe.MoveNext();
+				var conv = TypeDescriptor.GetConverter(f.FieldType);
+				//f.SetValue(rowo, System.Convert.ChangeType(rowe.Current, f.FieldType));
+				f.SetValue(rowo, conv.ConvertFromInvariantString(rowe.Current));
+			}
+			add.Invoke(listref, new[] { rowo });
+		}
+		return true;
+	}
+
+	private string dumpList()
+	{
+		var list = getParam();
+		//var param = list.FieldType.GetGenericArguments()[0];
+		var sb = new StringBuilder();
+		foreach (var item in (IEnumerable)list.GetValue(this))
+		{
+			var row = new List<string>();
+			foreach (var f in item.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+			{
+				var strarr = (f.GetValue(item) as string[]);
+				if (strarr != null)
+				{
+					foreach (var s in strarr)
+						row.Add("\"" + s.Replace("\"", "\"\"") + "\"");
+				} else
+					row.Add("\"" + f.GetValue(item).ToString().Replace("\"", "\"\"") + "\"");
+			}
+			sb.Append(System.String.Join(",", row.ToArray()));
+			sb.Append("\n");
+		}
+		return sb.ToString();
 	}
 }
 
 public class Cache
 {
-	static string dumpdir => Application.dataPath + "/../mod/";
+	static string dumpdir => UserData.Path + "/csv/";
 	public static bool LoadLst(string bundle, string asset, out string[,] data)
 	{
 		var tfolder = dumpdir + Path.ChangeExtension(bundle, null);
@@ -136,6 +211,7 @@ public class Cache
 
 			if (Program.settings.dumpAssets)
 			{
+				Debug.Log($"[CACHE] Marshalling {csvfile}");
 				var buf = ex.Marshal();
 				if (buf != null)
 					File.WriteAllBytes(csvfile, System.Text.Encoding.UTF8.GetBytes(buf));

@@ -116,27 +116,32 @@ namespace Patchwork
 			{
 				//System.Windows.Forms.Application.EnableVisualStyles();
 				//System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-				form = new SettingsForm(settings);
-				form.Text += " Mk." + Assembly.GetExecutingAssembly().GetName().Version.Major;
-				form.resolution.Items.AddRange(settings.resolutions);
-				form.UpdateForm();
-				form.launchButton.Click += (o, e) =>
+				if (!settings.dontshow)
 				{
-					launched = true;
-					Trace.Log("Launched");
-					form.Close();
-				};
-				if (form.ShowDialog() == DialogResult.OK)
-					launched = true;
-				if (launched)
-				{
-					form.launchButton.Enabled = false;
-					form.Show();
-					//form = new SettingsForm(settings);
-					//form.Show();
+					form = new SettingsForm(settings);
+					form.Text += " Mk." + Assembly.GetExecutingAssembly().GetName().Version.Major;
+					form.resolution.Items.AddRange(settings.resolutions);
+					foreach (var n in settings.chardbs)
+						form.chardb.Items.Add(n.Split('|')[0]);
+					form.UpdateForm();
+					form.launchButton.Click += (o, e) =>
+					{
+						launched = true;
+						Trace.Log("Launched");
+						form.Close();
+					};
+					if (form.ShowDialog() == DialogResult.OK)
+						launched = true;
+					if (launched)
+					{
+						form.launchButton.Enabled = false;
+						form.Show();
+						//form = new SettingsForm(settings);
+						//form.Show();
+					}
+					else
+						UnityEngine.Application.Quit();
 				}
-				else
-					UnityEngine.Application.Quit();
 				Trace.Log($"Dropping out of the initial dialog, launched={launched}");
 			}
 			catch (Exception ex)

@@ -27,7 +27,7 @@ namespace Patchwork
 		Dictionary<string, DateTime> timestamps = new Dictionary<string, DateTime>();
 		List<string> loadPending = new List<string>();
 		static GameObject pin;
-		string[] dirs => Program.settings.libDirs.Split(new[] { '\r', '\n' });
+		List<string> dirs;
 
 		int throttle;
 		public static void Init()
@@ -43,6 +43,28 @@ namespace Patchwork
 
 		void Start()
 		{
+			dirs = new List<string>();
+			try
+			{
+				Directory.CreateDirectory(Path.Combine(UserData.Path, "dll"));
+			}
+			catch { };
+			foreach (var d in Program.settings.libDirs.Split(new[] { '\r', '\n' }))
+			{
+				if (d == "") continue;
+				var dd = Path.GetFullPath(Path.Combine(UserData.Path, d));
+				if (!dirs.Contains(dd) && Directory.Exists(dd))
+					dirs.Add(dd);
+				else
+				{
+					dd = Path.GetFullPath(d);
+					if (!dirs.Contains(dd) && Directory.Exists(dd))
+					{
+						Debug.Log($"[ASSLOADER] Added ${dd} to assplug watch");
+						dirs.Add(dd);
+					}
+				}
+			}
 			AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
 			{
 				var shortname = new System.Reflection.AssemblyName(args.Name).Name;
@@ -160,7 +182,8 @@ namespace Patchwork
 		}
 		void OnApplicationQuit()
 		{
-			Patchwork.Program.form.Close();
+			if (Patchwork.Program.form != null)
+				Patchwork.Program.form.Close();
 		}
 	}
 }

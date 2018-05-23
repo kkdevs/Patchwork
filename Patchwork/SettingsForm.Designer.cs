@@ -131,6 +131,10 @@ namespace Patchwork
 			this.libDirs = new System.Windows.Forms.TextBox();
 			this.bothMC = new System.Windows.Forms.CheckBox();
 			this.tumblr = new System.Windows.Forms.CheckBox();
+			this.chardb = new System.Windows.Forms.ComboBox();
+			this.label35 = new System.Windows.Forms.Label();
+			this.label34 = new System.Windows.Forms.Label();
+			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -559,6 +563,8 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.label35);
+			this.tabPage2.Controls.Add(this.chardb);
 			this.tabPage2.Controls.Add(this.tumblr);
 			this.tabPage2.Controls.Add(this.bothMC);
 			this.tabPage2.Controls.Add(this.useLR);
@@ -700,6 +706,7 @@ namespace Patchwork
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.dontshow);
 			this.tabPage3.Controls.Add(this.dumpAssets);
 			this.tabPage3.Controls.Add(this.fetchAssets);
 			this.tabPage3.Controls.Add(this.label31);
@@ -861,10 +868,34 @@ namespace Patchwork
 			this.tumblr.Name = "tumblr";
 			this.tumblr.UseVisualStyleBackColor = true;
 			// 
+			// chardb
+			// 
+			this.chardb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.chardb.FormattingEnabled = true;
+			resources.ApplyResources(this.chardb, "chardb");
+			this.chardb.Name = "chardb";
+			// 
+			// label35
+			// 
+			resources.ApplyResources(this.label35, "label35");
+			this.label35.Name = "label35";
+			// 
+			// label34
+			// 
+			resources.ApplyResources(this.label34, "label34");
+			this.label34.Name = "label34";
+			// 
+			// dontshow
+			// 
+			resources.ApplyResources(this.dontshow, "dontshow");
+			this.dontshow.Name = "dontshow";
+			this.dontshow.UseVisualStyleBackColor = true;
+			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.label34);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.launchButton);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -886,6 +917,7 @@ namespace Patchwork
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -992,6 +1024,10 @@ namespace Patchwork
 		public System.Windows.Forms.CheckBox showFPS;
 		private System.Windows.Forms.CheckBox bothMC;
 		private System.Windows.Forms.CheckBox tumblr;
+		private System.Windows.Forms.Label label35;
+		public System.Windows.Forms.ComboBox chardb;
+		private System.Windows.Forms.Label label34;
+		private System.Windows.Forms.CheckBox dontshow;
 	}
 }
 
