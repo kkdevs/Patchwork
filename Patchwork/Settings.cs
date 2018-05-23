@@ -39,6 +39,7 @@ namespace Patchwork
 		public bool fixPenis = true;
 		public bool fixVagina = false;
 
+		public bool bothMC = false;
 		public bool bothClass = false;
 		public bool bothFreeH = true;
 		public bool bothEdit = true;

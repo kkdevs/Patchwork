@@ -1800,6 +1800,90 @@
   <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="tumblr.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tumblr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="tumblr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 43</value>
+  </data>
+  <data name="tumblr.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="tumblr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 17</value>
+  </data>
+  <data name="tumblr.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="tumblr.Text" xml:space="preserve">
+    <value>Allow gender bending in general</value>
+  </data>
+  <data name="&gt;&gt;tumblr.Name" xml:space="preserve">
+    <value>tumblr</value>
+  </data>
+  <data name="&gt;&gt;tumblr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tumblr.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;tumblr.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bothMC.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bothMC.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bothMC.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 128</value>
+  </data>
+  <data name="bothMC.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="bothMC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 17</value>
+  </data>
+  <data name="bothMC.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="bothMC.Text" xml:space="preserve">
+    <value>Allow both sexes as MC (dangerous)</value>
+  </data>
+  <data name="&gt;&gt;bothMC.Name" xml:space="preserve">
+    <value>bothMC</value>
+  </data>
+  <data name="&gt;&gt;bothMC.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bothMC.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;bothMC.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="useLR.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="useLR.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 80</value>
+  </data>
+  <data name="useLR.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="useLR.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 17</value>
+  </data>
+  <data name="useLR.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="useLR.Text" xml:space="preserve">
+    <value>L/R sliders</value>
+  </data>
   <data name="&gt;&gt;useLR.Name" xml:space="preserve">
     <value>useLR</value>
   </data>
@@ -1810,7 +1894,19 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;useLR.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
+  </data>
+  <data name="sliderMax.Location" type="System.Drawing.Point, System.Drawing">
+    <value>481, 121</value>
+  </data>
+  <data name="sliderMax.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="sliderMax.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="sliderMax.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
   </data>
   <data name="&gt;&gt;sliderMax.Name" xml:space="preserve">
     <value>sliderMax</value>
@@ -1822,7 +1918,22 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;sliderMax.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
+  </data>
+  <data name="label33.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
+    <value>328, 124</value>
+  </data>
+  <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 13</value>
+  </data>
+  <data name="label33.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>Slider max</value>
   </data>
   <data name="&gt;&gt;label33.Name" xml:space="preserve">
     <value>label33</value>
@@ -1834,7 +1945,22 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
+  </data>
+  <data name="label32.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label32.Location" type="System.Drawing.Point, System.Drawing">
+    <value>328, 99</value>
+  </data>
+  <data name="label32.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 13</value>
+  </data>
+  <data name="label32.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="label32.Text" xml:space="preserve">
+    <value>Slider min</value>
   </data>
   <data name="&gt;&gt;label32.Name" xml:space="preserve">
     <value>label32</value>
@@ -1846,7 +1972,19 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label32.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
+  </data>
+  <data name="sliderMin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>481, 98</value>
+  </data>
+  <data name="sliderMin.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="sliderMin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="sliderMin.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
   </data>
   <data name="&gt;&gt;sliderMin.Name" xml:space="preserve">
     <value>sliderMin</value>
@@ -1858,7 +1996,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;sliderMin.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
+  </data>
+  <data name="shadowOverride.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="shadowOverride.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 14</value>
+  </data>
+  <data name="shadowOverride.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="shadowOverride.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 17</value>
+  </data>
+  <data name="shadowOverride.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="shadowOverride.Text" xml:space="preserve">
+    <value>Override default blue hair shadow with:</value>
   </data>
   <data name="&gt;&gt;shadowOverride.Name" xml:space="preserve">
     <value>shadowOverride</value>
@@ -1870,7 +2026,16 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;shadowOverride.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
+  </data>
+  <data name="customShadowStrengthLimit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>481, 57</value>
+  </data>
+  <data name="customShadowStrengthLimit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="customShadowStrengthLimit.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
   <data name="&gt;&gt;customShadowStrengthLimit.Name" xml:space="preserve">
     <value>customShadowStrengthLimit</value>
@@ -1882,7 +2047,16 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;customShadowStrengthLimit.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
+  </data>
+  <data name="customShadowStrengthTarget.Location" type="System.Drawing.Point, System.Drawing">
+    <value>481, 34</value>
+  </data>
+  <data name="customShadowStrengthTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="customShadowStrengthTarget.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
   <data name="&gt;&gt;customShadowStrengthTarget.Name" xml:space="preserve">
     <value>customShadowStrengthTarget</value>
@@ -1894,7 +2068,22 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;customShadowStrengthTarget.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
+  </data>
+  <data name="label23.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
+    <value>328, 59</value>
+  </data>
+  <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 13</value>
+  </data>
+  <data name="label23.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>Shadow Strength Limit</value>
   </data>
   <data name="&gt;&gt;label23.Name" xml:space="preserve">
     <value>label23</value>
@@ -1906,7 +2095,22 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
+  </data>
+  <data name="label21.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>328, 38</value>
+  </data>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 13</value>
+  </data>
+  <data name="label21.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>Shadow Strength Target</value>
   </data>
   <data name="&gt;&gt;label21.Name" xml:space="preserve">
     <value>label21</value>
@@ -1918,7 +2122,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
+  </data>
+  <data name="fixPenis.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="fixPenis.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 232</value>
+  </data>
+  <data name="fixPenis.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="fixPenis.Size" type="System.Drawing.Size, System.Drawing">
+    <value>281, 17</value>
+  </data>
+  <data name="fixPenis.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="fixPenis.Text" xml:space="preserve">
+    <value>Sync penis material with body w/o clothing alphamask</value>
   </data>
   <data name="&gt;&gt;fixPenis.Name" xml:space="preserve">
     <value>fixPenis</value>
@@ -1930,7 +2152,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;fixPenis.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="fixVagina.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="fixVagina.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 210</value>
+  </data>
+  <data name="fixVagina.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="fixVagina.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 17</value>
+  </data>
+  <data name="fixVagina.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
+  </data>
+  <data name="fixVagina.Text" xml:space="preserve">
+    <value>Sync vagina material with body w/o clothing alphamask</value>
   </data>
   <data name="&gt;&gt;fixVagina.Name" xml:space="preserve">
     <value>fixVagina</value>
@@ -1942,7 +2182,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;fixVagina.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
+  </data>
+  <data name="hideMoz.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hideMoz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 188</value>
+  </data>
+  <data name="hideMoz.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="hideMoz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 17</value>
+  </data>
+  <data name="hideMoz.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="hideMoz.Text" xml:space="preserve">
+    <value>Hide vagina mesh</value>
   </data>
   <data name="&gt;&gt;hideMoz.Name" xml:space="preserve">
     <value>hideMoz</value>
@@ -1954,7 +2212,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;hideMoz.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
+  </data>
+  <data name="equality.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="equality.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 149</value>
+  </data>
+  <data name="equality.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="equality.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 17</value>
+  </data>
+  <data name="equality.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="equality.Text" xml:space="preserve">
+    <value>Unlock all controls in male maker (height etc)</value>
   </data>
   <data name="&gt;&gt;equality.Name" xml:space="preserve">
     <value>equality</value>
@@ -1966,7 +2242,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;equality.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
+  </data>
+  <data name="bothClass.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bothClass.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 107</value>
+  </data>
+  <data name="bothClass.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="bothClass.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 17</value>
+  </data>
+  <data name="bothClass.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="bothClass.Text" xml:space="preserve">
+    <value>Allow both sexes in class seats (dangerous)</value>
   </data>
   <data name="&gt;&gt;bothClass.Name" xml:space="preserve">
     <value>bothClass</value>
@@ -1978,7 +2272,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bothClass.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
+  </data>
+  <data name="bothEdit.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bothEdit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 86</value>
+  </data>
+  <data name="bothEdit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="bothEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 17</value>
+  </data>
+  <data name="bothEdit.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="bothEdit.Text" xml:space="preserve">
+    <value>Allow both sexes in same maker (slightly broken)</value>
   </data>
   <data name="&gt;&gt;bothEdit.Name" xml:space="preserve">
     <value>bothEdit</value>
@@ -1990,7 +2302,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bothEdit.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
+  </data>
+  <data name="bgmAsync.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bgmAsync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 232</value>
+  </data>
+  <data name="bgmAsync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="bgmAsync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 17</value>
+  </data>
+  <data name="bgmAsync.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="bgmAsync.Text" xml:space="preserve">
+    <value>Lazy BGM loading</value>
   </data>
   <data name="&gt;&gt;bgmAsync.Name" xml:space="preserve">
     <value>bgmAsync</value>
@@ -2002,7 +2332,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bgmAsync.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
+  </data>
+  <data name="watchFolder.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="watchFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 170</value>
+  </data>
+  <data name="watchFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="watchFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>261, 17</value>
+  </data>
+  <data name="watchFolder.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="watchFolder.Text" xml:space="preserve">
+    <value>Watch card folder changes during select in maker</value>
   </data>
   <data name="&gt;&gt;watchFolder.Name" xml:space="preserve">
     <value>watchFolder</value>
@@ -2014,7 +2362,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;watchFolder.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
+  </data>
+  <data name="bothFreeH.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bothFreeH.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 65</value>
+  </data>
+  <data name="bothFreeH.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="bothFreeH.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 17</value>
+  </data>
+  <data name="bothFreeH.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="bothFreeH.Text" xml:space="preserve">
+    <value>Allow same-sex in free H</value>
   </data>
   <data name="&gt;&gt;bothFreeH.Name" xml:space="preserve">
     <value>bothFreeH</value>
@@ -2026,7 +2392,25 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bothFreeH.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
+  </data>
+  <data name="unlockH.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="unlockH.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 22</value>
+  </data>
+  <data name="unlockH.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="unlockH.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 17</value>
+  </data>
+  <data name="unlockH.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="unlockH.Text" xml:space="preserve">
+    <value>Debug H (less exp checks)</value>
   </data>
   <data name="&gt;&gt;unlockH.Name" xml:space="preserve">
     <value>unlockH</value>
@@ -2038,7 +2422,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;unlockH.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -2069,894 +2453,6 @@
   </data>
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;dumpAssets.Name" xml:space="preserve">
-    <value>dumpAssets</value>
-  </data>
-  <data name="&gt;&gt;dumpAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dumpAssets.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;dumpAssets.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;fetchAssets.Name" xml:space="preserve">
-    <value>fetchAssets</value>
-  </data>
-  <data name="&gt;&gt;fetchAssets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fetchAssets.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;fetchAssets.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label31.Name" xml:space="preserve">
-    <value>label31</value>
-  </data>
-  <data name="&gt;&gt;label31.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label31.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label31.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label30.Name" xml:space="preserve">
-    <value>label30</value>
-  </data>
-  <data name="&gt;&gt;label30.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label30.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label30.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label29.Name" xml:space="preserve">
-    <value>label29</value>
-  </data>
-  <data name="&gt;&gt;label29.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label29.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label29.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label28.Name" xml:space="preserve">
-    <value>label28</value>
-  </data>
-  <data name="&gt;&gt;label28.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label28.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label27.Name" xml:space="preserve">
-    <value>label27</value>
-  </data>
-  <data name="&gt;&gt;label27.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label27.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;label26.Name" xml:space="preserve">
-    <value>label26</value>
-  </data>
-  <data name="&gt;&gt;label26.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label26.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;eyeLowPoly.Name" xml:space="preserve">
-    <value>eyeLowPoly</value>
-  </data>
-  <data name="&gt;&gt;eyeLowPoly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;eyeLowPoly.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;eyeLowPoly.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;eyeHiPoly.Name" xml:space="preserve">
-    <value>eyeHiPoly</value>
-  </data>
-  <data name="&gt;&gt;eyeHiPoly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;eyeHiPoly.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;eyeHiPoly.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;faceLowPoly.Name" xml:space="preserve">
-    <value>faceLowPoly</value>
-  </data>
-  <data name="&gt;&gt;faceLowPoly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;faceLowPoly.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;faceLowPoly.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;faceHiPoly.Name" xml:space="preserve">
-    <value>faceHiPoly</value>
-  </data>
-  <data name="&gt;&gt;faceHiPoly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;faceHiPoly.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;faceHiPoly.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;bodyLowPoly.Name" xml:space="preserve">
-    <value>bodyLowPoly</value>
-  </data>
-  <data name="&gt;&gt;bodyLowPoly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bodyLowPoly.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;bodyLowPoly.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;bodyHiPoly.Name" xml:space="preserve">
-    <value>bodyHiPoly</value>
-  </data>
-  <data name="&gt;&gt;bodyHiPoly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bodyHiPoly.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;bodyHiPoly.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;enableTrace.Name" xml:space="preserve">
-    <value>enableTrace</value>
-  </data>
-  <data name="&gt;&gt;enableTrace.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;enableTrace.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;enableTrace.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;enableSpam.Name" xml:space="preserve">
-    <value>enableSpam</value>
-  </data>
-  <data name="&gt;&gt;enableSpam.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;enableSpam.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;enableSpam.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;whitePower.Name" xml:space="preserve">
-    <value>whitePower</value>
-  </data>
-  <data name="&gt;&gt;whitePower.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;whitePower.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;whitePower.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;label25.Name" xml:space="preserve">
-    <value>label25</value>
-  </data>
-  <data name="&gt;&gt;label25.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label25.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;assInterval.Name" xml:space="preserve">
-    <value>assInterval</value>
-  </data>
-  <data name="&gt;&gt;assInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;assInterval.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;assInterval.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;lazyBundles.Name" xml:space="preserve">
-    <value>lazyBundles</value>
-  </data>
-  <data name="&gt;&gt;lazyBundles.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lazyBundles.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;lazyBundles.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;lazyGC.Name" xml:space="preserve">
-    <value>lazyGC</value>
-  </data>
-  <data name="&gt;&gt;lazyGC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lazyGC.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;lazyGC.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;label24.Name" xml:space="preserve">
-    <value>label24</value>
-  </data>
-  <data name="&gt;&gt;label24.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;libDirs.Name" xml:space="preserve">
-    <value>libDirs</value>
-  </data>
-  <data name="&gt;&gt;libDirs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;libDirs.Parent" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;libDirs.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPage3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>628, 267</value>
-  </data>
-  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>Debug stuff</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
-    <value>tabPage3</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 10</value>
-  </data>
-  <data name="tabControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>636, 293</value>
-  </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="useLR.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="useLR.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 80</value>
-  </data>
-  <data name="useLR.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="useLR.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 17</value>
-  </data>
-  <data name="useLR.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="useLR.Text" xml:space="preserve">
-    <value>L/R sliders</value>
-  </data>
-  <data name="&gt;&gt;useLR.Name" xml:space="preserve">
-    <value>useLR</value>
-  </data>
-  <data name="&gt;&gt;useLR.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;useLR.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;useLR.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="sliderMax.Location" type="System.Drawing.Point, System.Drawing">
-    <value>481, 121</value>
-  </data>
-  <data name="sliderMax.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="sliderMax.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="sliderMax.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;sliderMax.Name" xml:space="preserve">
-    <value>sliderMax</value>
-  </data>
-  <data name="&gt;&gt;sliderMax.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sliderMax.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;sliderMax.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label33.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 124</value>
-  </data>
-  <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 13</value>
-  </data>
-  <data name="label33.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="label33.Text" xml:space="preserve">
-    <value>Slider max</value>
-  </data>
-  <data name="&gt;&gt;label33.Name" xml:space="preserve">
-    <value>label33</value>
-  </data>
-  <data name="&gt;&gt;label33.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label33.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label32.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label32.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 99</value>
-  </data>
-  <data name="label32.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 13</value>
-  </data>
-  <data name="label32.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="label32.Text" xml:space="preserve">
-    <value>Slider min</value>
-  </data>
-  <data name="&gt;&gt;label32.Name" xml:space="preserve">
-    <value>label32</value>
-  </data>
-  <data name="&gt;&gt;label32.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label32.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label32.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="sliderMin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>481, 98</value>
-  </data>
-  <data name="sliderMin.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="sliderMin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="sliderMin.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;sliderMin.Name" xml:space="preserve">
-    <value>sliderMin</value>
-  </data>
-  <data name="&gt;&gt;sliderMin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sliderMin.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;sliderMin.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="shadowOverride.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="shadowOverride.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 14</value>
-  </data>
-  <data name="shadowOverride.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="shadowOverride.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 17</value>
-  </data>
-  <data name="shadowOverride.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="shadowOverride.Text" xml:space="preserve">
-    <value>Override default blue hair shadow with:</value>
-  </data>
-  <data name="&gt;&gt;shadowOverride.Name" xml:space="preserve">
-    <value>shadowOverride</value>
-  </data>
-  <data name="&gt;&gt;shadowOverride.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;shadowOverride.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;shadowOverride.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="customShadowStrengthLimit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>481, 57</value>
-  </data>
-  <data name="customShadowStrengthLimit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="customShadowStrengthLimit.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.Name" xml:space="preserve">
-    <value>customShadowStrengthLimit</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="customShadowStrengthTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>481, 34</value>
-  </data>
-  <data name="customShadowStrengthTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="customShadowStrengthTarget.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.Name" xml:space="preserve">
-    <value>customShadowStrengthTarget</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="label23.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 59</value>
-  </data>
-  <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 13</value>
-  </data>
-  <data name="label23.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="label23.Text" xml:space="preserve">
-    <value>Shadow Strength Limit</value>
-  </data>
-  <data name="&gt;&gt;label23.Name" xml:space="preserve">
-    <value>label23</value>
-  </data>
-  <data name="&gt;&gt;label23.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="label21.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 38</value>
-  </data>
-  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 13</value>
-  </data>
-  <data name="label21.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="label21.Text" xml:space="preserve">
-    <value>Shadow Strength Target</value>
-  </data>
-  <data name="&gt;&gt;label21.Name" xml:space="preserve">
-    <value>label21</value>
-  </data>
-  <data name="&gt;&gt;label21.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="fixPenis.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fixPenis.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 232</value>
-  </data>
-  <data name="fixPenis.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="fixPenis.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 17</value>
-  </data>
-  <data name="fixPenis.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="fixPenis.Text" xml:space="preserve">
-    <value>Sync penis material with body w/o clothing alphamask</value>
-  </data>
-  <data name="&gt;&gt;fixPenis.Name" xml:space="preserve">
-    <value>fixPenis</value>
-  </data>
-  <data name="&gt;&gt;fixPenis.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fixPenis.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;fixPenis.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="fixVagina.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fixVagina.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 210</value>
-  </data>
-  <data name="fixVagina.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="fixVagina.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 17</value>
-  </data>
-  <data name="fixVagina.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="fixVagina.Text" xml:space="preserve">
-    <value>Sync vagina material with body w/o clothing alphamask</value>
-  </data>
-  <data name="&gt;&gt;fixVagina.Name" xml:space="preserve">
-    <value>fixVagina</value>
-  </data>
-  <data name="&gt;&gt;fixVagina.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fixVagina.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;fixVagina.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="hideMoz.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="hideMoz.Location" type="System.Drawing.Point, System.Drawing">
-    <value>330, 188</value>
-  </data>
-  <data name="hideMoz.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="hideMoz.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 17</value>
-  </data>
-  <data name="hideMoz.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="hideMoz.Text" xml:space="preserve">
-    <value>Hide vagina mesh</value>
-  </data>
-  <data name="&gt;&gt;hideMoz.Name" xml:space="preserve">
-    <value>hideMoz</value>
-  </data>
-  <data name="&gt;&gt;hideMoz.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;hideMoz.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;hideMoz.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="equality.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="equality.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 67</value>
-  </data>
-  <data name="equality.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="equality.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 17</value>
-  </data>
-  <data name="equality.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="equality.Text" xml:space="preserve">
-    <value>Unlock all controls in male maker (height etc)</value>
-  </data>
-  <data name="&gt;&gt;equality.Name" xml:space="preserve">
-    <value>equality</value>
-  </data>
-  <data name="&gt;&gt;equality.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;equality.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;equality.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="bothClass.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bothClass.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 130</value>
-  </data>
-  <data name="bothClass.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="bothClass.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 17</value>
-  </data>
-  <data name="bothClass.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="bothClass.Text" xml:space="preserve">
-    <value>Allow both sexes in class seats (this breaks a lot)</value>
-  </data>
-  <data name="&gt;&gt;bothClass.Name" xml:space="preserve">
-    <value>bothClass</value>
-  </data>
-  <data name="&gt;&gt;bothClass.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bothClass.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;bothClass.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="bothEdit.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bothEdit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 89</value>
-  </data>
-  <data name="bothEdit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="bothEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 17</value>
-  </data>
-  <data name="bothEdit.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="bothEdit.Text" xml:space="preserve">
-    <value>Both sexes in same maker (slightly broken)</value>
-  </data>
-  <data name="&gt;&gt;bothEdit.Name" xml:space="preserve">
-    <value>bothEdit</value>
-  </data>
-  <data name="&gt;&gt;bothEdit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bothEdit.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;bothEdit.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="bgmAsync.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bgmAsync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 232</value>
-  </data>
-  <data name="bgmAsync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="bgmAsync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 17</value>
-  </data>
-  <data name="bgmAsync.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="bgmAsync.Text" xml:space="preserve">
-    <value>Lazy BGM loading</value>
-  </data>
-  <data name="&gt;&gt;bgmAsync.Name" xml:space="preserve">
-    <value>bgmAsync</value>
-  </data>
-  <data name="&gt;&gt;bgmAsync.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bgmAsync.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;bgmAsync.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="watchFolder.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="watchFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 110</value>
-  </data>
-  <data name="watchFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="watchFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>261, 17</value>
-  </data>
-  <data name="watchFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="watchFolder.Text" xml:space="preserve">
-    <value>Watch card folder changes during select in maker</value>
-  </data>
-  <data name="&gt;&gt;watchFolder.Name" xml:space="preserve">
-    <value>watchFolder</value>
-  </data>
-  <data name="&gt;&gt;watchFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;watchFolder.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;watchFolder.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="bothFreeH.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bothFreeH.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 44</value>
-  </data>
-  <data name="bothFreeH.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="bothFreeH.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 17</value>
-  </data>
-  <data name="bothFreeH.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="bothFreeH.Text" xml:space="preserve">
-    <value>Same-sex in free H</value>
-  </data>
-  <data name="&gt;&gt;bothFreeH.Name" xml:space="preserve">
-    <value>bothFreeH</value>
-  </data>
-  <data name="&gt;&gt;bothFreeH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bothFreeH.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;bothFreeH.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="unlockH.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="unlockH.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 22</value>
-  </data>
-  <data name="unlockH.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="unlockH.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 17</value>
-  </data>
-  <data name="unlockH.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="unlockH.Text" xml:space="preserve">
-    <value>Debug H (less exp checks)</value>
-  </data>
-  <data name="&gt;&gt;unlockH.Name" xml:space="preserve">
-    <value>unlockH</value>
-  </data>
-  <data name="&gt;&gt;unlockH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;unlockH.Parent" xml:space="preserve">
-    <value>tabPage2</value>
-  </data>
-  <data name="&gt;&gt;unlockH.ZOrder" xml:space="preserve">
-    <value>19</value>
   </data>
   <data name="dumpAssets.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3602,6 +3098,60 @@
   </data>
   <data name="&gt;&gt;libDirs.ZOrder" xml:space="preserve">
     <value>22</value>
+  </data>
+  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabPage3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>628, 267</value>
+  </data>
+  <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Debug stuff</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 10</value>
+  </data>
+  <data name="tabControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>636, 293</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

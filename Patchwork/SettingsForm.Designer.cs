@@ -129,6 +129,8 @@ namespace Patchwork
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.label24 = new System.Windows.Forms.Label();
 			this.libDirs = new System.Windows.Forms.TextBox();
+			this.bothMC = new System.Windows.Forms.CheckBox();
+			this.tumblr = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -557,6 +559,8 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.tumblr);
+			this.tabPage2.Controls.Add(this.bothMC);
 			this.tabPage2.Controls.Add(this.useLR);
 			this.tabPage2.Controls.Add(this.sliderMax);
 			this.tabPage2.Controls.Add(this.label33);
@@ -845,6 +849,18 @@ namespace Patchwork
 			resources.ApplyResources(this.libDirs, "libDirs");
 			this.libDirs.Name = "libDirs";
 			// 
+			// bothMC
+			// 
+			resources.ApplyResources(this.bothMC, "bothMC");
+			this.bothMC.Name = "bothMC";
+			this.bothMC.UseVisualStyleBackColor = true;
+			// 
+			// tumblr
+			// 
+			resources.ApplyResources(this.tumblr, "tumblr");
+			this.tumblr.Name = "tumblr";
+			this.tumblr.UseVisualStyleBackColor = true;
+			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
@@ -974,6 +990,8 @@ namespace Patchwork
 		private System.Windows.Forms.Label label33;
 		private System.Windows.Forms.CheckBox useLR;
 		public System.Windows.Forms.CheckBox showFPS;
+		private System.Windows.Forms.CheckBox bothMC;
+		private System.Windows.Forms.CheckBox tumblr;
 	}
 }
 
