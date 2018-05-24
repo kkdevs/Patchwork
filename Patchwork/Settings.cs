@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using ParadoxNotion.Serialization.FullSerializer;
 using UnityEngine;
 using System.Threading;
+using MessagePack;
 using System.Runtime.InteropServices;
 
 namespace Patchwork
@@ -21,6 +22,7 @@ namespace Patchwork
 	public class Settings
 	{
 		public bool dontshow = false;
+		public bool useBOM = false;
 		public bool showFPS = true;
 		public bool useLR = true;
 		public bool fetchAssets = true;
@@ -28,6 +30,12 @@ namespace Patchwork
 		public string libDirs = "dll\r\nC:/illusion/patchwork/assplug/bin/debug";
 		public int assInterval = 60;
 		public bool whitePower = false;
+
+		public int physLoopCount = 3;
+		public int physDivisor = 1;
+		public float physReflectSpeed = 1;
+		public float physRate = 60;
+
 
 		public bool enableStack = true;
 		public bool enableSpam = false;

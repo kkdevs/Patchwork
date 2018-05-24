@@ -11,6 +11,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using System.Diagnostics;
+using MessagePack;
 
 namespace Patchwork
 {

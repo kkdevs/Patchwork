@@ -85,6 +85,10 @@ namespace Patchwork
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.label35 = new System.Windows.Forms.Label();
+			this.chardb = new System.Windows.Forms.ComboBox();
+			this.tumblr = new System.Windows.Forms.CheckBox();
+			this.bothMC = new System.Windows.Forms.CheckBox();
 			this.useLR = new System.Windows.Forms.CheckBox();
 			this.sliderMax = new System.Windows.Forms.TextBox();
 			this.label33 = new System.Windows.Forms.Label();
@@ -106,6 +110,8 @@ namespace Patchwork
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.useBOM = new System.Windows.Forms.CheckBox();
+			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.dumpAssets = new System.Windows.Forms.CheckBox();
 			this.fetchAssets = new System.Windows.Forms.CheckBox();
 			this.label31 = new System.Windows.Forms.Label();
@@ -129,12 +135,17 @@ namespace Patchwork
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.label24 = new System.Windows.Forms.Label();
 			this.libDirs = new System.Windows.Forms.TextBox();
-			this.bothMC = new System.Windows.Forms.CheckBox();
-			this.tumblr = new System.Windows.Forms.CheckBox();
-			this.chardb = new System.Windows.Forms.ComboBox();
-			this.label35 = new System.Windows.Forms.Label();
 			this.label34 = new System.Windows.Forms.Label();
-			this.dontshow = new System.Windows.Forms.CheckBox();
+			this.userdataLink = new System.Windows.Forms.LinkLabel();
+			this.physLoopCount = new System.Windows.Forms.TextBox();
+			this.physReflectSpeed = new System.Windows.Forms.TextBox();
+			this.physDivisor = new System.Windows.Forms.TextBox();
+			this.label36 = new System.Windows.Forms.Label();
+			this.label37 = new System.Windows.Forms.Label();
+			this.label38 = new System.Windows.Forms.Label();
+			this.label39 = new System.Windows.Forms.Label();
+			this.physRate = new System.Windows.Forms.TextBox();
+			this.label40 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -591,6 +602,30 @@ namespace Patchwork
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
+			// label35
+			// 
+			resources.ApplyResources(this.label35, "label35");
+			this.label35.Name = "label35";
+			// 
+			// chardb
+			// 
+			this.chardb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.chardb.FormattingEnabled = true;
+			resources.ApplyResources(this.chardb, "chardb");
+			this.chardb.Name = "chardb";
+			// 
+			// tumblr
+			// 
+			resources.ApplyResources(this.tumblr, "tumblr");
+			this.tumblr.Name = "tumblr";
+			this.tumblr.UseVisualStyleBackColor = true;
+			// 
+			// bothMC
+			// 
+			resources.ApplyResources(this.bothMC, "bothMC");
+			this.bothMC.Name = "bothMC";
+			this.bothMC.UseVisualStyleBackColor = true;
+			// 
 			// useLR
 			// 
 			resources.ApplyResources(this.useLR, "useLR");
@@ -706,6 +741,16 @@ namespace Patchwork
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.label40);
+			this.tabPage3.Controls.Add(this.label39);
+			this.tabPage3.Controls.Add(this.physRate);
+			this.tabPage3.Controls.Add(this.label38);
+			this.tabPage3.Controls.Add(this.label37);
+			this.tabPage3.Controls.Add(this.label36);
+			this.tabPage3.Controls.Add(this.physDivisor);
+			this.tabPage3.Controls.Add(this.physReflectSpeed);
+			this.tabPage3.Controls.Add(this.physLoopCount);
+			this.tabPage3.Controls.Add(this.useBOM);
 			this.tabPage3.Controls.Add(this.dontshow);
 			this.tabPage3.Controls.Add(this.dumpAssets);
 			this.tabPage3.Controls.Add(this.fetchAssets);
@@ -733,6 +778,18 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// useBOM
+			// 
+			resources.ApplyResources(this.useBOM, "useBOM");
+			this.useBOM.Name = "useBOM";
+			this.useBOM.UseVisualStyleBackColor = true;
+			// 
+			// dontshow
+			// 
+			resources.ApplyResources(this.dontshow, "dontshow");
+			this.dontshow.Name = "dontshow";
+			this.dontshow.UseVisualStyleBackColor = true;
 			// 
 			// dumpAssets
 			// 
@@ -856,45 +913,67 @@ namespace Patchwork
 			resources.ApplyResources(this.libDirs, "libDirs");
 			this.libDirs.Name = "libDirs";
 			// 
-			// bothMC
-			// 
-			resources.ApplyResources(this.bothMC, "bothMC");
-			this.bothMC.Name = "bothMC";
-			this.bothMC.UseVisualStyleBackColor = true;
-			// 
-			// tumblr
-			// 
-			resources.ApplyResources(this.tumblr, "tumblr");
-			this.tumblr.Name = "tumblr";
-			this.tumblr.UseVisualStyleBackColor = true;
-			// 
-			// chardb
-			// 
-			this.chardb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.chardb.FormattingEnabled = true;
-			resources.ApplyResources(this.chardb, "chardb");
-			this.chardb.Name = "chardb";
-			// 
-			// label35
-			// 
-			resources.ApplyResources(this.label35, "label35");
-			this.label35.Name = "label35";
-			// 
 			// label34
 			// 
 			resources.ApplyResources(this.label34, "label34");
 			this.label34.Name = "label34";
 			// 
-			// dontshow
+			// userdataLink
 			// 
-			resources.ApplyResources(this.dontshow, "dontshow");
-			this.dontshow.Name = "dontshow";
-			this.dontshow.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.userdataLink, "userdataLink");
+			this.userdataLink.Name = "userdataLink";
+			this.userdataLink.TabStop = true;
+			// 
+			// physLoopCount
+			// 
+			resources.ApplyResources(this.physLoopCount, "physLoopCount");
+			this.physLoopCount.Name = "physLoopCount";
+			// 
+			// physReflectSpeed
+			// 
+			resources.ApplyResources(this.physReflectSpeed, "physReflectSpeed");
+			this.physReflectSpeed.Name = "physReflectSpeed";
+			// 
+			// physDivisor
+			// 
+			resources.ApplyResources(this.physDivisor, "physDivisor");
+			this.physDivisor.Name = "physDivisor";
+			// 
+			// label36
+			// 
+			resources.ApplyResources(this.label36, "label36");
+			this.label36.Name = "label36";
+			// 
+			// label37
+			// 
+			resources.ApplyResources(this.label37, "label37");
+			this.label37.Name = "label37";
+			// 
+			// label38
+			// 
+			resources.ApplyResources(this.label38, "label38");
+			this.label38.Name = "label38";
+			// 
+			// label39
+			// 
+			resources.ApplyResources(this.label39, "label39");
+			this.label39.Name = "label39";
+			// 
+			// physRate
+			// 
+			resources.ApplyResources(this.physRate, "physRate");
+			this.physRate.Name = "physRate";
+			// 
+			// label40
+			// 
+			resources.ApplyResources(this.label40, "label40");
+			this.label40.Name = "label40";
 			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.userdataLink);
 			this.Controls.Add(this.label34);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.launchButton);
@@ -1028,6 +1107,17 @@ namespace Patchwork
 		public System.Windows.Forms.ComboBox chardb;
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.CheckBox dontshow;
+		private System.Windows.Forms.LinkLabel userdataLink;
+		private System.Windows.Forms.CheckBox useBOM;
+		private System.Windows.Forms.TextBox physDivisor;
+		private System.Windows.Forms.TextBox physReflectSpeed;
+		private System.Windows.Forms.TextBox physLoopCount;
+		private System.Windows.Forms.Label label36;
+		private System.Windows.Forms.Label label38;
+		private System.Windows.Forms.Label label37;
+		private System.Windows.Forms.Label label39;
+		private System.Windows.Forms.TextBox physRate;
+		private System.Windows.Forms.Label label40;
 	}
 }
 

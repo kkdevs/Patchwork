@@ -90,6 +90,17 @@ namespace Patchwork
 				ProcessStartInfo sInfo = new ProcessStartInfo(linkUnityDoc.Text);
 				Process.Start(sInfo);
 			};
+			userdataLink.Click += (o, e) =>
+			{
+				if (UserData.Path == null) return;
+				Process.Start("explorer.exe", Path.GetFullPath(UserData.Path));
+/*				ProcessStartInfo sInfo = new ProcessStartInfo() {
+					FileName = UserData.Path,
+					UseShellExecute = true,
+					Verb = "open"
+				};
+				Process.Start(sInfo);*/
+			};
 		}
 
 		public void UpdateForm()

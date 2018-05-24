@@ -9,6 +9,7 @@ using System.IO.IsolatedStorage;
 using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
+using ParadoxNotion.Serialization.FullSerializer;
 
 interface IDumpable
 {
@@ -102,10 +103,47 @@ public class GenericMarshaller : ScriptableObject
 
 public class Cache
 {
+	public static void DumpJSON<T>(string bundle, string asset, T v)
+	{
+		var tfolder = dumpdir + Path.ChangeExtension(bundle, null);
+		var jsfile = tfolder + "/" + asset + ".json";
+		try
+		{
+			Directory.CreateDirectory(tfolder);
+		}
+		catch { };
+
+		fsData data = null;
+		Program.json.TrySerialize(v, out data).AssertSuccess();
+		File.WriteAllText(jsfile, fsJsonPrinter.PrettyJson(data));
+	}
+
+	public static string BundleDir(string bundle, bool create = false)
+	{
+		var tfolder = dumpdir + Path.ChangeExtension(bundle, null);
+		if (create)
+			try
+			{
+				Directory.CreateDirectory(tfolder);
+			}
+			catch { };
+		return tfolder;
+	}
+
+	public static void DumpCSV(string bundle, string asset, string v)
+	{
+		File.WriteAllText(BundleDir(bundle, true) + "/" + asset + ".csv", v);
+	}
+
+	public static IEnumerable<IEnumerable<string>> FetchCSV(string bundle, string asset)
+	{
+		return null;
+	}
+
 	static string dumpdir => UserData.Path + "/csv/";
 	public static bool LoadLst(string bundle, string asset, out string[,] data)
 	{
-		var tfolder = dumpdir + Path.ChangeExtension(bundle, null);
+		var tfolder = BundleDir(bundle);
 		var lstfile = tfolder + "/" + asset + ".lst";
 		string text = null;
 		data = null;
@@ -172,7 +210,10 @@ public class Cache
 			try
 			{
 				var ex = ScriptableObject.CreateInstance(type) as IDumpable;
-				if (!ex.Unmarshal(System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(csvfile))))
+				var str = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(csvfile));
+				if (str[0] == '\uFEFF')
+					str = str.Substring(1);
+				if (!ex.Unmarshal(str))
 					return false;
 				res = new AssetBundleLoadAssetOperationSimulation((Object)ex);
 			}
@@ -214,7 +255,11 @@ public class Cache
 				Debug.Log($"[CACHE] Marshalling {csvfile}");
 				var buf = ex.Marshal();
 				if (buf != null)
+				{
+					if (Program.settings.useBOM)
+						buf = "\uFEFF" + buf;
 					File.WriteAllBytes(csvfile, System.Text.Encoding.UTF8.GetBytes(buf));
+				}
 			}
 		}
 

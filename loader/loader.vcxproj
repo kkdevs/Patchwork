@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bc7enc16.c">
-      <WholeProgramOptimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</WholeProgramOptimization>
-    </ClCompile>
     <ClCompile Include="main.c">
       <IntrinsicFunctions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IntrinsicFunctions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Oi- %(AdditionalOptions)</AdditionalOptions>
@@ -30,9 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="bc7enc16.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

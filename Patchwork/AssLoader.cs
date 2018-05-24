@@ -20,16 +20,16 @@ namespace Patchwork
 {
 	class AssLoader : MonoBehaviour
 	{
-		uint ts = 0;
-		string basedir = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
-		Dictionary<string, Assembly> knownDLLs = new Dictionary<string, Assembly>();
-		Dictionary<string, List<Component>> monoBs = new Dictionary<string, List<Component>>();
-		Dictionary<string, DateTime> timestamps = new Dictionary<string, DateTime>();
-		List<string> loadPending = new List<string>();
+		static int ts = -1;
+		static string basedir = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
+		static Dictionary<string, Assembly> knownDLLs = new Dictionary<string, Assembly>();
+		static Dictionary<string, List<Component>> monoBs = new Dictionary<string, List<Component>>();
+		static Dictionary<string, DateTime> timestamps = new Dictionary<string, DateTime>();
+		static List<string> loadPending = new List<string>();
 		static GameObject pin;
-		List<string> dirs;
+		static List<string> dirs;
+		static int throttle;
 
-		int throttle;
 		public static void Init()
 		{
 			pin = new GameObject("ASS LOADER");
@@ -39,10 +39,7 @@ namespace Patchwork
 			}
 			UnityEngine.Object.DontDestroyOnLoad(pin);
 			pin.AddComponent(typeof(AssLoader));
-		}
 
-		void Start()
-		{
 			dirs = new List<string>();
 			try
 			{
@@ -68,16 +65,17 @@ namespace Patchwork
 			AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
 			{
 				var shortname = new System.Reflection.AssemblyName(args.Name).Name;
-				Debug.Log($"[ASSRESOLVE] Looking for shortname {shortname}");
 				var loadedAssembly = System.AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetName().Name == shortname).FirstOrDefault();
 				if (loadedAssembly != null)
+				{
 					return loadedAssembly;
-				Debug.Log($"[ASSRESOLVE] Not in appdomain, trying to load..");
+				}
 				foreach (var dir in dirs)
 				{
 					if (dir == "") continue; // probably for the best
 					var one = Path.Combine(dir, shortname);
-					one += ".dll";
+					if (File.Exists(one))
+						one += ".dll";
 					if (File.Exists(one))
 					{
 						var ret = loadAssembly(one, false);
@@ -86,24 +84,28 @@ namespace Patchwork
 				}
 				return null;
 			};
+			scan();
 		}
 
 		void Update()
 		{
-			if (ts == 0)
+			if (ts == -1)
 				Debug.Log("First tick of ass loader.");
-			int intv = throttle + Program.settings.assInterval;
-			if (intv == 0)
-				intv = 60;
-			if (((ts++) % intv) != 0)
+			ts++;
+			if (ts < throttle + Program.settings.assInterval)
 				return;
+			ts = 0;
+			
+		}
+		static void scan()
+		{
 			foreach (var path in dirs)
 				scanPath(path);
 			foreach (var newdll in loadPending)
 				loadAssembly(newdll);
 			loadPending.Clear();
 		}
-		void scanPath(string path)
+		static void scanPath(string path)
 		{
 			if (path == "") return;
 			try
@@ -141,7 +143,7 @@ namespace Patchwork
 				throttle *= 2;
 			};
 		}
-		void reloadAssembly(string path, AssemblyName newer, Assembly older)
+		static void reloadAssembly(string path, AssemblyName newer, Assembly older)
 		{
 			if (newer.Version <= older.GetName().Version)
 				return;
@@ -150,7 +152,7 @@ namespace Patchwork
 			Trace.Log($"Unloading {older.FullName}, queueing {newer.FullName}");
 			loadPending.Add(path);
 		}
-		Assembly loadAssembly(string file, bool run = true)
+		static Assembly loadAssembly(string file, bool run = true)
 		{
 			try
 			{
