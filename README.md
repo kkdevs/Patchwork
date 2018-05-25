@@ -15,8 +15,9 @@ doesnt have it both sides will use the value for left. Same with other
 settings - whatever new is saved is simply not used by vanilla and
 ignored, or filled with approximate default if possible.
 
-## Plugin compatibility
+## Binary plugins compatibility
 
-Is preserved for public apis. If there are any conflicts, it can be typically
-worked around by fixig up the engine with a compat layer for that particular
-plugin.
+Is preserved for public apis (ie just straight harmony hooks are fine), but
+IL recompiling plugins will sometimes break when expected opcodes are not found.
+If there is such a conflict, it can be typically worked around by fixig up the
+engine with a compat layer for that particular plugin.
