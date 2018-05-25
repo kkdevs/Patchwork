@@ -53,7 +53,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_local|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\</OutputPath>
+    <OutputPath>..\Managed\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DEBUG_LOCAL</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -76,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>..\Managed\</OutputPath>
-    <DefineConstants>TRACE;BEPINEX_FIX</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -102,7 +102,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Cache.cs" />
-    <Compile Include="AssLoader.cs" />
+    <Compile Include="Properties\LocalAssemblyInfo.cs" />
+    <Compile Include="Script.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
@@ -113,6 +114,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trace.cs" />
+    <Compile Include="win32.cs" />
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,6 +167,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Managed\DOTween50.dll</HintPath>
     </Reference>
+    <Reference Include="mcs, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Managed\mcs.dll</HintPath>
+    </Reference>
     <Reference Include="Sirenix.OdinInspector.Attributes, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Managed\Sirenix.OdinInspector.Attributes.dll</HintPath>
@@ -208,6 +214,10 @@
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Vectrosity, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Managed\Vectrosity.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="..\kksrc\Assembly-CSharp.projitems" Label="Shared" />

@@ -15,7 +15,7 @@ using MessagePack;
 
 namespace Patchwork
 {
-	public class Program
+	public partial class Program
 	{
 		public static int version
 		{
@@ -24,16 +24,6 @@ namespace Patchwork
 				return Assembly.GetExecutingAssembly().GetName().Version.Major;
 			}
 		}
-		[DllImport("user32.dll")]
-		public static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
-		[DllImport("kernel32.dll")]
-		public static extern uint GetCurrentThreadId();
-		public delegate bool EnumThreadDelegate(IntPtr Hwnd, IntPtr lParam);
-		[DllImport("user32.dll")]
-		public static extern bool ShowWindow(IntPtr w, int cmd);
-		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-		public static extern bool SetWindowText(IntPtr hwnd, String lpString);
-
 
 		public static bool isStudio
 		{
@@ -48,12 +38,7 @@ namespace Patchwork
 		}
 
 		// Don't touch unity in weird places if local
-#if !DEBUG_LOCAL
 		public static string cfgpath { get { return UserData.Path + "/config.json"; } }
-#else
-		public static string cfgpath = "config.json";
-#endif
-
 		public static SettingsForm form;
 		public static Settings _settings;
 		public static Settings settings
@@ -68,6 +53,15 @@ namespace Patchwork
 		}
 		public static fsSerializer json;
 		public static bool launched = false;
+
+		public static void FixWindow()
+		{
+			if (settings.resizable)
+			{
+				var ow = GetWindowLongPtr(hwnd, -16);
+				SetWindowLongPtr(hwnd, -16, ow | 0x00040000L | 0x00010000L);
+			}
+		}
 
 		public static Settings LoadConfig()
 		{
@@ -84,6 +78,7 @@ namespace Patchwork
 			return s;
 		}
 
+
 		public static void SaveConfig()
 		{
 			try
@@ -96,6 +91,8 @@ namespace Patchwork
 			catch { };
 		}
 
+		public static IntPtr hwnd = (IntPtr)(-1);
+
 		public static bool initdone = false;
 		public static void GameInit()
 		{
@@ -103,20 +100,36 @@ namespace Patchwork
 				return;
 			Console.WriteLine("GameInit()");
 			initdone = true;
-			AssLoader.Init();
+
+			AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
+			{
+				var shortname = new System.Reflection.AssemblyName(args.Name).Name;
+				Debug.Log("something is looking for " + shortname);
+				var loadedAssembly = System.AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetName().Name == shortname).FirstOrDefault();
+				if (loadedAssembly != null)
+				{
+					return loadedAssembly;
+				}
+				return null;
+			};
+
+			Script.Init();
 			var proc = Process.GetCurrentProcess();
-			//ShowWindow(proc.MainWindowHandle, 0);
-			//SetWindowText(proc.MainWindowHandle, proc.MainWindowTitle + " Patchwork Mk." + version);
+
 			EnumThreadWindows(GetCurrentThreadId(), (W, _) =>
 			{
-				SetWindowText(W, UnityEngine.Application.productName + " Patchwork Mk." + version);
-				ShowWindow(W, 0);
+				var sb = new System.Text.StringBuilder(256);
+				GetClassName(W, sb, 256);
+				if (sb.ToString() == "UnityWndClass")
+					hwnd = W;
 				return true;
 			}, IntPtr.Zero);
+			SetWindowText(hwnd, UnityEngine.Application.productName + " Mk." + version);
+			ShowWindow(hwnd, 0);
+
+			FixWindow();
 			try
 			{
-				//System.Windows.Forms.Application.EnableVisualStyles();
-				//System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 				if (!settings.dontshow)
 				{
 					form = new SettingsForm(settings);

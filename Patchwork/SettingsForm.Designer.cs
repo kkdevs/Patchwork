@@ -110,6 +110,15 @@ namespace Patchwork
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.label40 = new System.Windows.Forms.Label();
+			this.label39 = new System.Windows.Forms.Label();
+			this.physRate = new System.Windows.Forms.TextBox();
+			this.label38 = new System.Windows.Forms.Label();
+			this.label37 = new System.Windows.Forms.Label();
+			this.label36 = new System.Windows.Forms.Label();
+			this.physDivisor = new System.Windows.Forms.TextBox();
+			this.physReflectSpeed = new System.Windows.Forms.TextBox();
+			this.physLoopCount = new System.Windows.Forms.TextBox();
 			this.useBOM = new System.Windows.Forms.CheckBox();
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.dumpAssets = new System.Windows.Forms.CheckBox();
@@ -129,23 +138,11 @@ namespace Patchwork
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.whitePower = new System.Windows.Forms.CheckBox();
-			this.label25 = new System.Windows.Forms.Label();
-			this.assInterval = new System.Windows.Forms.TextBox();
 			this.lazyBundles = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
-			this.label24 = new System.Windows.Forms.Label();
-			this.libDirs = new System.Windows.Forms.TextBox();
 			this.label34 = new System.Windows.Forms.Label();
 			this.userdataLink = new System.Windows.Forms.LinkLabel();
-			this.physLoopCount = new System.Windows.Forms.TextBox();
-			this.physReflectSpeed = new System.Windows.Forms.TextBox();
-			this.physDivisor = new System.Windows.Forms.TextBox();
-			this.label36 = new System.Windows.Forms.Label();
-			this.label37 = new System.Windows.Forms.Label();
-			this.label38 = new System.Windows.Forms.Label();
-			this.label39 = new System.Windows.Forms.Label();
-			this.physRate = new System.Windows.Forms.TextBox();
-			this.label40 = new System.Windows.Forms.Label();
+			this.resizable = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -452,6 +449,7 @@ namespace Patchwork
 			// groupBox1
 			// 
 			resources.ApplyResources(this.groupBox1, "groupBox1");
+			this.groupBox1.Controls.Add(this.resizable);
 			this.groupBox1.Controls.Add(this.label20);
 			this.groupBox1.Controls.Add(this.renderingPath);
 			this.groupBox1.Controls.Add(this.softParticles);
@@ -769,15 +767,56 @@ namespace Patchwork
 			this.tabPage3.Controls.Add(this.enableTrace);
 			this.tabPage3.Controls.Add(this.enableSpam);
 			this.tabPage3.Controls.Add(this.whitePower);
-			this.tabPage3.Controls.Add(this.label25);
-			this.tabPage3.Controls.Add(this.assInterval);
 			this.tabPage3.Controls.Add(this.lazyBundles);
 			this.tabPage3.Controls.Add(this.lazyGC);
-			this.tabPage3.Controls.Add(this.label24);
-			this.tabPage3.Controls.Add(this.libDirs);
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// label40
+			// 
+			resources.ApplyResources(this.label40, "label40");
+			this.label40.Name = "label40";
+			// 
+			// label39
+			// 
+			resources.ApplyResources(this.label39, "label39");
+			this.label39.Name = "label39";
+			// 
+			// physRate
+			// 
+			resources.ApplyResources(this.physRate, "physRate");
+			this.physRate.Name = "physRate";
+			// 
+			// label38
+			// 
+			resources.ApplyResources(this.label38, "label38");
+			this.label38.Name = "label38";
+			// 
+			// label37
+			// 
+			resources.ApplyResources(this.label37, "label37");
+			this.label37.Name = "label37";
+			// 
+			// label36
+			// 
+			resources.ApplyResources(this.label36, "label36");
+			this.label36.Name = "label36";
+			// 
+			// physDivisor
+			// 
+			resources.ApplyResources(this.physDivisor, "physDivisor");
+			this.physDivisor.Name = "physDivisor";
+			// 
+			// physReflectSpeed
+			// 
+			resources.ApplyResources(this.physReflectSpeed, "physReflectSpeed");
+			this.physReflectSpeed.Name = "physReflectSpeed";
+			// 
+			// physLoopCount
+			// 
+			resources.ApplyResources(this.physLoopCount, "physLoopCount");
+			this.physLoopCount.Name = "physLoopCount";
 			// 
 			// useBOM
 			// 
@@ -881,16 +920,6 @@ namespace Patchwork
 			this.whitePower.Name = "whitePower";
 			this.whitePower.UseVisualStyleBackColor = true;
 			// 
-			// label25
-			// 
-			resources.ApplyResources(this.label25, "label25");
-			this.label25.Name = "label25";
-			// 
-			// assInterval
-			// 
-			resources.ApplyResources(this.assInterval, "assInterval");
-			this.assInterval.Name = "assInterval";
-			// 
 			// lazyBundles
 			// 
 			resources.ApplyResources(this.lazyBundles, "lazyBundles");
@@ -903,16 +932,6 @@ namespace Patchwork
 			this.lazyGC.Name = "lazyGC";
 			this.lazyGC.UseVisualStyleBackColor = true;
 			// 
-			// label24
-			// 
-			resources.ApplyResources(this.label24, "label24");
-			this.label24.Name = "label24";
-			// 
-			// libDirs
-			// 
-			resources.ApplyResources(this.libDirs, "libDirs");
-			this.libDirs.Name = "libDirs";
-			// 
 			// label34
 			// 
 			resources.ApplyResources(this.label34, "label34");
@@ -924,50 +943,11 @@ namespace Patchwork
 			this.userdataLink.Name = "userdataLink";
 			this.userdataLink.TabStop = true;
 			// 
-			// physLoopCount
+			// resizable
 			// 
-			resources.ApplyResources(this.physLoopCount, "physLoopCount");
-			this.physLoopCount.Name = "physLoopCount";
-			// 
-			// physReflectSpeed
-			// 
-			resources.ApplyResources(this.physReflectSpeed, "physReflectSpeed");
-			this.physReflectSpeed.Name = "physReflectSpeed";
-			// 
-			// physDivisor
-			// 
-			resources.ApplyResources(this.physDivisor, "physDivisor");
-			this.physDivisor.Name = "physDivisor";
-			// 
-			// label36
-			// 
-			resources.ApplyResources(this.label36, "label36");
-			this.label36.Name = "label36";
-			// 
-			// label37
-			// 
-			resources.ApplyResources(this.label37, "label37");
-			this.label37.Name = "label37";
-			// 
-			// label38
-			// 
-			resources.ApplyResources(this.label38, "label38");
-			this.label38.Name = "label38";
-			// 
-			// label39
-			// 
-			resources.ApplyResources(this.label39, "label39");
-			this.label39.Name = "label39";
-			// 
-			// physRate
-			// 
-			resources.ApplyResources(this.physRate, "physRate");
-			this.physRate.Name = "physRate";
-			// 
-			// label40
-			// 
-			resources.ApplyResources(this.label40, "label40");
-			this.label40.Name = "label40";
+			resources.ApplyResources(this.resizable, "resizable");
+			this.resizable.Name = "resizable";
+			this.resizable.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -1074,10 +1054,6 @@ namespace Patchwork
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.CheckBox lazyBundles;
 		private System.Windows.Forms.CheckBox lazyGC;
-		private System.Windows.Forms.Label label24;
-		private System.Windows.Forms.TextBox libDirs;
-		private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.TextBox assInterval;
 		private System.Windows.Forms.CheckBox whitePower;
 		private System.Windows.Forms.CheckBox enableTrace;
 		private System.Windows.Forms.CheckBox enableSpam;
@@ -1118,6 +1094,7 @@ namespace Patchwork
 		private System.Windows.Forms.Label label39;
 		private System.Windows.Forms.TextBox physRate;
 		private System.Windows.Forms.Label label40;
+		public System.Windows.Forms.CheckBox resizable;
 	}
 }
 

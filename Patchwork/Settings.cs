@@ -21,14 +21,13 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public bool resizable = true;
 		public bool dontshow = false;
 		public bool useBOM = false;
 		public bool showFPS = true;
 		public bool useLR = true;
 		public bool fetchAssets = true;
 		public bool dumpAssets = true;
-		public string libDirs = "dll\r\nC:/illusion/patchwork/assplug/bin/debug";
-		public int assInterval = 60;
 		public bool whitePower = false;
 
 		public int physLoopCount = 3;
