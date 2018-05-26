@@ -85,7 +85,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 	if (!bundle_count)
 		MessageBoxA(NULL, "No assemblies found to preload", "Error", MB_OK | MB_ICONASTERISK);
 
-	mono_debug_init(1);
+	if (GetEnvironmentVariable("KKDEBUG", NULL, 0))
+		mono_debug_init(1);
 	// register bundled assemblies
 	mono_register_bundled_assemblies(&list_bundles[0]);
 

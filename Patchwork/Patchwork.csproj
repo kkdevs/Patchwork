@@ -102,6 +102,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Cache.cs" />
+    <Compile Include="CSV.cs" />
+    <Compile Include="Ext.cs" />
+    <Compile Include="Serialize.cs" />
     <Compile Include="Properties\LocalAssemblyInfo.cs" />
     <Compile Include="Script.cs" />
     <Compile Include="Settings.cs" />
