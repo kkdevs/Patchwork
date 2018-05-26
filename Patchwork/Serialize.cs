@@ -27,6 +27,7 @@ public class GenericMarshaller : ScriptableObject
 				return fi;
 		return null;
 	}
+
 	public bool Unmarshal(IEnumerable<IEnumerable<string>> src)
 	{
 		var tlist = getParam();
@@ -35,6 +36,7 @@ public class GenericMarshaller : ScriptableObject
 		var listref = tlist.GetValue(this);
 		foreach (var row in src)
 		{
+			// XXX TODO: This usage of reflection is fairly slow. Check if we're not slowing something too much.
 			var rowo = System.Activator.CreateInstance(param);
 			var rowe = row.GetEnumerator();
 			foreach (var f in param.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
@@ -62,18 +64,15 @@ public class GenericMarshaller : ScriptableObject
 	public IEnumerable<IEnumerable<string>> Marshal()
 	{
 		var list = getParam();
-		var sb = new StringBuilder();
+		var row = new List<string>();
 		foreach (var item in (IEnumerable)list.GetValue(this))
 		{
-			var row = new List<string>();
+			row.Clear();
 			foreach (var f in item.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
 			{
-				var strarr = (f.GetValue(item) as IEnumerable<string>);
-				if (strarr != null)
-				{
-					foreach (var s in strarr)
-						row.Add(s);
-				}
+				if (f.FieldType.IsArray || f.FieldType.IsList())
+					foreach (var s in f.GetValue(item) as IEnumerable)
+						row.Add(s as string);
 				else
 					row.Add(f.GetValue(item).ToString());
 			}

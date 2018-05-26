@@ -51,11 +51,11 @@ namespace Patchwork
 			if (text == null)
 				return false;
 			YS_Assist.GetListString(text, out data);
-			if (Program.settings.dumpAssets)
+			if (Program.settings.dumpAssets && !File.Exists(ABPath(bundle, asset, "csv")))
 			{
-				var ex = CSV.ParseTSV(text);
-				if (ex != null)
-					CSV.Save(ex, bundle, asset);
+				var ex = ScriptableObject.CreateInstance<ExcelData>();
+				ex.Import(CSV.ParseTSV(text));
+				CSV.Save(ex, bundle, asset);
 			}
 			return true;
 		}
@@ -63,23 +63,36 @@ namespace Patchwork
 		// Load plain string from cache
 		public static string LoadString(string bundle, string asset, string suffix = "csv")
 		{
-			var str = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(ABPath(bundle, asset, suffix)));
-			if (str[0] == '\uFEFF')
-				str = str.Substring(1); // skip BOM
-			return str;
+			try
+			{
+				var str = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(ABPath(bundle, asset, suffix)));
+				if (str[0] == '\uFEFF')
+					str = str.Substring(1); // skip BOM
+				return str;
+			} catch
+			{
+				return null;
+			}
 		}
 
 		// Save plain string to cache
 		public static bool SaveString(string buf, string bundle, string asset, string suffix = "csv")
 		{
-			var file = ABPath(bundle, asset, suffix);
-			if (Program.settings.useBOM)
-				buf = "\uFEFF" + buf;
-			File.WriteAllBytes(file, System.Text.Encoding.UTF8.GetBytes(buf));
-			return true; // XXX
+			try
+			{
+				var file = ABPath(bundle, asset, suffix, true); // makes the folder too
+				if (Program.settings.useBOM)
+					buf = "\uFEFF" + buf;
+				File.WriteAllBytes(file, System.Text.Encoding.UTF8.GetBytes(buf));
+				return true; // XXX
+			} catch
+			{
+				return false;
+			}
 		}
 
-		// Load generic asset. Text assets may get special hacky treatment.
+		// Load generic asset. Serializable assets are re-routed to/from CSV.
+		// Returns true if we *handle* the request, regardless of success.
 		public static bool Asset(string bundle, string asset, System.Type type, string manifest, out AssetBundleLoadAssetOperation res)
 		{
 			res = null;
@@ -92,24 +105,22 @@ namespace Patchwork
 
 			if (!typeof(IDumpable).IsAssignableFrom(type))
 				return false;
-			if (!Program.settings.dumpAssets && !Program.settings.fetchAssets)
-				return false;
-			var obj = CSV.Load(bundle, asset, type);
-
-			// Hmm, nothing found
-			if (obj == null || !Program.settings.dumpAssets)
+			if (Program.settings.fetchAssets)
+			{
+				var obj = CSV.Load(bundle, asset, type);
+				if (obj != null)
+				{
+					res = new AssetBundleLoadAssetOperationSimulation(obj);
+					return true;
+				}
+			}
+			if (!Program.settings.dumpAssets)
 				return false;
 
 			res = AssetBundleManager._LoadAsset(bundle, asset, type, manifest);
-			// We know for certain it isn't anywhere now
-			if (res.IsEmpty())
-				return true;
 
-			var ex = res.GetAsset<Object>() as IDumpable;
-			// not actually dumpable
-			if (ex == null)
-				return true;
-			CSV.Save(ex.Marshal(), bundle, asset);
+			if (!res.IsEmpty())
+				CSV.Save(res.GetAsset<UnityEngine.Object>(), bundle, asset);
 			return true;
 		}
 	}

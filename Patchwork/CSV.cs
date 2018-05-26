@@ -9,13 +9,13 @@ namespace Patchwork
 	public static class CSV
 	{
 		// Load lst from CSV - a slightly odd dance by making it exceldata first
-		public static bool LoadLst(string bundle, string asset, out string[,] data, int fixcol = -1)
+		public static bool LoadLst(string bundle, string asset, out string[,] data, int fixcol = 0)
 		{
 			data = null;
 			var ex = Load(bundle, asset, typeof(ExcelData), false) as ExcelData;
 			if (ex == null)
 				return false;
-			if (fixcol == -1) {
+			if (fixcol == 0) {
 				foreach (var line in ex.list)
 					if (line.list.Count > fixcol)
 						fixcol = line.list.Count;
@@ -33,7 +33,7 @@ namespace Patchwork
 		}
 
 		// Load marhsalled type from csv
-		public static object Load(string bundle, string asset, Type typ, bool islst = false)
+		public static UnityEngine.Object Load(string bundle, string asset, Type typ, bool islst = false)
 		{
 			var ex = ScriptableObject.CreateInstance(typ) as IDumpable;
 			if (ex == null)
@@ -43,13 +43,13 @@ namespace Patchwork
 				return null;
 			if (ex.Unmarshal(Parse(str)))
 				return null;
-			return ex;
+			return ex as UnityEngine.Object;
 		}
 
 		// Save marshalled type to csv
-		public static bool Save(object o, string bundle, string asset)
+		public static bool Save(UnityEngine.Object o, string bundle, string asset)
 		{
-			var ex = ScriptableObject.CreateInstance(o.GetType()) as IDumpable;
+			var ex = o as IDumpable;
 			if (ex == null)
 				return false;
 			var ie = ex.Marshal();
@@ -62,7 +62,7 @@ namespace Patchwork
 		// Retrieve lst iterator
 		public static IEnumerable<IEnumerable<string>> ParseTSV(string source)
 		{
-			foreach (var line in source.Split('\n'))
+			foreach (var line in source.Replace("\r","").Split('\n'))
 				yield return line.Split('\t');
 		}
 
@@ -73,11 +73,17 @@ namespace Patchwork
 			var row = new List<string>();
 			foreach (var line in csv)
 			{
+				bool havecol = false;
 				foreach (var s in line)
-					row.Add("\"" + s.Replace("\"", "\"\"") + "\"");
-				sb.Append(System.String.Join(",", row.ToArray()));
+				{
+					sb.Append('"');
+					sb.Append(s.Replace("\"", "\"\""));
+					sb.Append("\",");
+					havecol = true;
+				}
+				if (havecol)
+					sb.Length--;
 				sb.Append("\n");
-				row.Clear();
 			}
 			return sb.ToString();
 		}
