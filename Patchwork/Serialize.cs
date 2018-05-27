@@ -11,14 +11,37 @@ using UnityEngine;
 using Patchwork;
 
 // We frequently re-parent game types to those, hence the global NS
-interface IDumpable
+public interface IDumpable
 {
-	bool Unmarshal(IEnumerable<IEnumerable<string>> src);
-	IEnumerable<IEnumerable<string>> Marshal();
+	bool Unmarshal(string src, string ext);
+	string Marshal();
+	string GetFileExt();
 }
 
-public class GenericMarshaller : ScriptableObject
+public class JSONMarshaller : ScriptableObject
 {
+	public string GetFileExt()
+	{
+		return "json";
+	}
+	public bool Unmarshal(string src, string ext)
+	{
+		return false;
+	}
+	public string Marshal()
+	{
+		fsData data = null;
+		Program.json.TrySerialize(this, out data).AssertSuccess();
+		return fsJsonPrinter.PrettyJson(data);
+	}
+}
+
+public class CSVMarshaller : ScriptableObject
+{
+	public string GetFileExt()
+	{
+		return "csv";
+	}
 	// locate the list element
 	private FieldInfo getParam()
 	{
@@ -28,14 +51,21 @@ public class GenericMarshaller : ScriptableObject
 		return null;
 	}
 
-	public bool Unmarshal(IEnumerable<IEnumerable<string>> src)
+	public bool Unmarshal(string src, string ext)
 	{
 		var tlist = getParam();
 		var param = tlist.FieldType.GetGenericArguments()[0];
 		var add = tlist.FieldType.GetMethod("Add");
 		var listref = tlist.GetValue(this);
-		foreach (var row in src)
+		var first = true;
+		foreach (var row in CSV.Parse(src, ext))
 		{
+			// Skip header for anything but excel
+			if (first && (!(this is ExcelData)))
+			{
+				first = false;
+				continue;
+			}
 			// XXX TODO: This usage of reflection is fairly slow. Check if we're not slowing something too much.
 			var rowo = System.Activator.CreateInstance(param);
 			var rowe = row.GetEnumerator();
@@ -61,13 +91,29 @@ public class GenericMarshaller : ScriptableObject
 		return true;
 	}
 
-	public IEnumerable<IEnumerable<string>> Marshal()
+	public string Marshal()
+	{
+		return CSV.ToString(MarshalEnum());
+	}
+
+	public IEnumerable<IEnumerable<string>> MarshalEnum()
 	{
 		var list = getParam();
 		var row = new List<string>();
+		var first = true;
 		foreach (var item in (IEnumerable)list.GetValue(this))
 		{
 			row.Clear();
+			if ((!(this is ExcelData)) && first)
+			{
+				foreach (var f in item.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+				{
+					row.Add(f.Name);
+				}
+				yield return row;
+				first = false;
+				row.Clear();
+			}
 			foreach (var f in item.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
 			{
 				if (f.FieldType.IsArray || f.FieldType.IsList())

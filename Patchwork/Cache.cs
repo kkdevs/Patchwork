@@ -10,13 +10,13 @@ using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
 using ParadoxNotion.Serialization.FullSerializer;
-
+using System;
 
 namespace Patchwork
 {
 	public class Cache
 	{
-		static string dumpdir => UserData.Path + "/csv/";
+		public static string dumpdir => UserData.Path + "/csv/";
 
 		// Resolve cache folder from bundle name
 		public static string BundleDir(string bundle, bool create = false)
@@ -43,7 +43,10 @@ namespace Patchwork
 		{
 			data = null;
 			if (CSV.LoadLst(bundle, asset, out data))
+			{
+				Debug.Log($"[CACHE] Loading LST {bundle}/{asset}");
 				return true;
+			}
 			var ta = CommonLib.LoadAsset<TextAsset>(bundle, asset);
 			if (ta == null)
 				return false;
@@ -53,19 +56,39 @@ namespace Patchwork
 			YS_Assist.GetListString(text, out data);
 			if (Program.settings.dumpAssets && !File.Exists(ABPath(bundle, asset, "csv")))
 			{
-				var ex = ScriptableObject.CreateInstance<ExcelData>();
+				Debug.Log($"[CACHE] Dumped LST {bundle}/{asset}");
+				var ex = New<ExcelData>();
 				ex.Import(CSV.ParseTSV(text));
-				CSV.Save(ex, bundle, asset);
+				Save(ex, bundle, asset);
 			}
 			return true;
 		}
 
-		// Load plain string from cache
+		public static T New<T>() where T : class, new()
+		{
+			return New(typeof(T)) as T;
+		}
+		public static object New(Type t)
+		{
+			if (typeof(ScriptableObject).IsAssignableFrom(t))
+			{
+				return ScriptableObject.CreateInstance(t);
+			} else
+			{
+				return Activator.CreateInstance(t);
+			}
+		}
+
 		public static string LoadString(string bundle, string asset, string suffix = "csv")
+		{
+			return LoadString(ABPath(bundle, asset, suffix));
+		}
+		// Load plain string from cache
+		public static string LoadString(string path)
 		{
 			try
 			{
-				var str = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(ABPath(bundle, asset, suffix)));
+				var str = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(path));
 				if (str[0] == '\uFEFF')
 					str = str.Substring(1); // skip BOM
 				return str;
@@ -91,15 +114,53 @@ namespace Patchwork
 			}
 		}
 
+		public static T Load<T>(string bundle, string asset, string ext = "csv") where T : class, IDumpable, new()
+		{
+			return Load(bundle, asset, typeof(T), ext) as T;
+		}
+		public static T Load<T>(string path, string ext = "csv") where T : class, IDumpable, new()
+		{
+			return Load(path, typeof(T), ext) as T;
+		}
+		public static object Load(string bundle, string asset, Type typ, string ext = "csv")
+		{
+			return Load(ABPath(bundle, asset, ext), typ, ext);
+		}
+		// Load marhsalled type from csv
+		public static object Load(string path, Type typ, string ext = null)
+		{
+			var str = Cache.LoadString(path);
+			if (str == null)
+				return null;
+			var ex = New(typ) as IDumpable;
+			if (ext == null)
+				ext = ex.GetFileExt();
+			if (!ex.Unmarshal(str, ext))
+				return null;
+			return ex;
+		}
+
+		// Save marshalled type to csv
+		public static bool Save(object o, string bundle, string asset)
+		{
+			var ex = o as IDumpable;
+			var ext = ex.GetFileExt();
+			// already saved
+			if (!Program.settings.dumpAssets || File.Exists(ABPath(bundle, asset, ext)))
+				return true;
+			if (ex == null)
+				return false;
+			var str = ex.Marshal();
+			if (str == null)
+				return false;
+			return Cache.SaveString(str, bundle, asset, ext);
+		}
+
 		// Load generic asset. Serializable assets are re-routed to/from CSV.
 		// Returns true if we *handle* the request, regardless of success.
 		public static bool Asset(string bundle, string asset, System.Type type, string manifest, out AssetBundleLoadAssetOperation res)
 		{
 			res = null;
-			if (Application.dataPath == null)
-				return false;
-			if (Program.settings == null)
-				return false;
 			if (asset == null)
 				return false;
 
@@ -107,9 +168,10 @@ namespace Patchwork
 				return false;
 			if (Program.settings.fetchAssets)
 			{
-				var obj = CSV.Load(bundle, asset, type);
+				var obj = Load(bundle, asset, type) as UnityEngine.Object;
 				if (obj != null)
 				{
+					Debug.Log($"[CACHE] Loading CSV {bundle}/{asset}");
 					res = new AssetBundleLoadAssetOperationSimulation(obj);
 					return true;
 				}
@@ -119,9 +181,39 @@ namespace Patchwork
 
 			res = AssetBundleManager._LoadAsset(bundle, asset, type, manifest);
 
-			if (!res.IsEmpty())
-				CSV.Save(res.GetAsset<UnityEngine.Object>(), bundle, asset);
+			if (!res.IsEmpty() && !File.Exists(ABPath(bundle, asset, "csv")))
+			{
+				Debug.Log($"[CACHE] Saving CSV {bundle}/{asset}");
+				Save(res.GetAsset<UnityEngine.Object>(), bundle, asset);
+			}
 			return true;
 		}
+	}
+}
+
+public partial class GlobalMethod
+{
+	public static string[,] gArray;
+	// XXX get rid of this horrible hack. Or at least add ability to concat files too.
+	public static string LoadAllListText(string _assetbundleFolder, string _strLoadFile, List<string> _OmitFolderName = null)
+	{
+		if (_strLoadFile.IsNullOrEmpty())
+			return null;
+		if (Program.settings.fetchAssets)
+		{
+			if (CSV.LoadLst(_assetbundleFolder, _strLoadFile, out gArray))
+			{
+				Debug.Log($"[CACHE] Loading multi-LST {_assetbundleFolder}/{_strLoadFile}");
+				return "@garray";
+			}
+		}
+		var res = _LoadAllListText(_assetbundleFolder, _strLoadFile, _OmitFolderName);
+		if (res == null || !Patchwork.Program.settings.dumpAssets || File.Exists(Cache.ABPath(_assetbundleFolder, _strLoadFile, "csv")))
+			return res;
+		Debug.Log($"[CACHE] Saving multi-LST {_assetbundleFolder}/{_strLoadFile}");
+		var ex = ScriptableObject.CreateInstance<ExcelData>();
+		ex.Import(CSV.ParseTSV(res));
+		Cache.Save(ex, _assetbundleFolder, _strLoadFile);
+		return res;
 	}
 }

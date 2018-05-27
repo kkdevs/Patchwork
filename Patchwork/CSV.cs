@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+// csv helpers
 namespace Patchwork
 {
 	public static class CSV
 	{
-		// Load lst from CSV - a slightly odd dance by making it exceldata first
+		// Special case - lst from CSV - a slightly odd dance by making it exceldata first
+		// It is saved back to csv, and used as a csv from then on.
 		public static bool LoadLst(string bundle, string asset, out string[,] data, int fixcol = 0)
 		{
 			data = null;
-			var ex = Load(bundle, asset, typeof(ExcelData), false) as ExcelData;
+			var ex = Cache.Load(bundle, asset, typeof(ExcelData)) as ExcelData;
 			if (ex == null)
 				return false;
 			if (fixcol == 0) {
@@ -32,38 +34,15 @@ namespace Patchwork
 			return true;
 		}
 
-		// Load marhsalled type from csv
-		public static UnityEngine.Object Load(string bundle, string asset, Type typ, bool islst = false)
-		{
-			var ex = ScriptableObject.CreateInstance(typ) as IDumpable;
-			if (ex == null)
-				return null;
-			var str = Cache.LoadString(bundle, asset);
-			if (str == null)
-				return null;
-			if (ex.Unmarshal(Parse(str)))
-				return null;
-			return ex as UnityEngine.Object;
-		}
-
-		// Save marshalled type to csv
-		public static bool Save(UnityEngine.Object o, string bundle, string asset)
-		{
-			var ex = o as IDumpable;
-			if (ex == null)
-				return false;
-			var ie = ex.Marshal();
-			if (ie == null)
-				return false;
-			var str = ToString(ie);
-			return Cache.SaveString(str, bundle, asset);
-		}
-
 		// Retrieve lst iterator
 		public static IEnumerable<IEnumerable<string>> ParseTSV(string source)
 		{
-			foreach (var line in source.Replace("\r","").Split('\n'))
-				yield return line.Split('\t');
+			var lines = source.Replace("\r", "").Split('\n');
+			var len = lines.Length;
+			while (len > 0 && lines[len-1].Trim() == "")
+				len--;
+			for (int i = 0; i < len; i++)
+				yield return lines[i].Split('\t');
 		}
 
 		// Serialize csv iterator to actual string repr
@@ -89,11 +68,18 @@ namespace Patchwork
 		}
 
 		// Parse csv to iterator
-		public static IEnumerable<IEnumerable<string>> Parse(string source)
+		public static IEnumerable<IEnumerable<string>> Parse(string source, string ext)
+		{
+			if (ext == "lst")
+				return ParseTSV(source);
+			else
+				return ParseCSV(source);
+		}
+
+		public static IEnumerable<IEnumerable<string>> ParseCSV(string source)
 		{
 			StringBuilder bodyBuilder = new StringBuilder();
 
-			// here we build rows, one by one
 			int i = 0;
 			var row = new List<string>();
 			var limit = source.Length;
@@ -101,21 +87,18 @@ namespace Patchwork
 
 			while (i < limit)
 			{
-				if (source[i] == '\r')
-				{
-					//( ͠° ͜ʖ °)
-				}
+				if (source[i] == '\r' && !inQuote) { }
 				else if (source[i] == ',' && !inQuote)
 				{
 					row.Add(bodyBuilder.ToString());
-					bodyBuilder.Length = 0; //.NET 2.0 ghetto clear
+					bodyBuilder.Length = 0;
 				}
 				else if (source[i] == '\n' && !inQuote)
 				{
 					if (bodyBuilder.Length != 0 || row.Count != 0)
 					{
 						row.Add(bodyBuilder.ToString());
-						bodyBuilder.Length = 0; //.NET 2.0 ghetto clear
+						bodyBuilder.Length = 0;
 					}
 
 					yield return row;
