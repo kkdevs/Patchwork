@@ -172,10 +172,15 @@ namespace Patchwork
 				UnityEngine.QualitySettings.SetQualityLevel(n);
 			}
 		}
-
 		public void Apply(bool setres = false)
 		{
-			if (!Program.launched) return;
+			if (Program.initdone)
+				DoApply(setres);
+		}
+
+		// CAVEAT: Fires up engine
+		public void DoApply(bool setres = false)
+		{
 			if (qualitySelect > 0)
 			{
 				SetQuality((((int)qualitySelect) - 1)*2);
@@ -193,7 +198,13 @@ namespace Patchwork
 
 		public void Apply(string name, bool setres = false)
 		{
-			if (!Program.launched) return;
+			if (Program.initdone)
+				DoApply(name, setres);
+		}
+
+		// CAVEAT: Fires up engine
+		public void DoApply(string name, bool setres = false)
+		{
 			switch (name)
 			{
 				case "showFPS":

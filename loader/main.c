@@ -1,70 +1,76 @@
 #include <Windows.h>
-struct bundle {
-	char *name;
-	unsigned char *data;
-	unsigned int len;
-};
-static struct bundle bundles[32], *list_bundles[32];
-static int len, bundle_count = 0;
-static char names[32][64];
 
-__declspec(dllexport)
-DWORD WINAPI  GetIpAddrTable(void *p, long *n, BOOL o) {
+//import
+void *(*mono_runtime_invoke)(void *, void *, void **, void **);
+void *(*mono_method_desc_new)(const char *name, BOOL include_namespace);
+void *(*mono_method_desc_search_in_image)(void *, void*);
+void *(*mono_array_new)(void *, void *, uintptr_t);
+void *(*mono_get_string_class)();
+void *(*mono_jit_init_version)(void *, void *);
+void *(*mono_domain_set_config)(void *, char *, char *);
+void *(*mono_assembly_load_from)(void *, char *, int *);
+void *(*mono_debug_init)(int v);
+void *(*mono_image_open_from_data)(char *, int, BOOL, int *);
+
+
+static int bad_dir(const char *top) {
+	MessageBoxA(NULL, "You must place this exe in the game folder (next to other launchers).", top, MB_OK);
+	ExitProcess(1);
 	return 1;
 }
 
-//import
-void *(*mono_assembly_open_full)(const char *name, int *stat, BOOL refonly);
-void (*mono_register_bundled_assemblies)(void **);
-void(*mono_profiler_install)(void *, void *);
-void(*mono_profiler_set_events)(int mask);
-void(*mono_profiler_install_module)(void *, void *, void *, void *);
-void(*mono_profiler_install_assembly)(void *, void *, void *, void *);
+void *hook(void *fname, void *ver) {
+	void *domain = mono_jit_init_version(fname, ver);
+	HRSRC hres;
+	int i;
+	static void *images[32];
+	static void *asms[32];
+	for (i = 0; (hres = FindResource(NULL, MAKEINTRESOURCE(10000+i), MAKEINTRESOURCE(RT_RCDATA))); i++) {
+		HGLOBAL hglob = LoadResource(NULL, hres);
+		void *res_data = (char*)LockResource(hglob);
+		int res_len = SizeofResource(NULL, hres);
+		images[i] = mono_image_open_from_data(res_data, res_len, FALSE, NULL);
+	}
+	for (int j = 0; j < i; j++)
+		asms[j] = mono_assembly_load_from(images[j], "patchwork.exe", NULL);
 
-void *(*mono_debug_init)(int v);
-
-static int count = 0;
-static void hook(void *data, void *img) {
-	if (!count++) return;
-	mono_profiler_set_events(0);
-	for (int i = 0; i < bundle_count; i++)
-		mono_assembly_open_full(names[i], NULL, FALSE);
+	void *desc = mono_method_desc_new("*:Main", FALSE);
+	void *meth = mono_method_desc_search_in_image(desc, images[0]);
+	void *args = mono_array_new(domain, mono_get_string_class(), 0);
+	mono_runtime_invoke(meth, NULL, args, NULL);
+	return domain;
 }
 
-static BOOL CALLBACK enum_cb(HMODULE  hModule, _In_ const char *t, const char *name, void *par)
-{
-	struct bundle *b = &bundles[bundle_count];
-	list_bundles[bundle_count] = b;
-	b->name = &names[bundle_count][0];
-	lstrcpyA(b->name, name);
 
-	HRSRC hres = FindResourceA(hModule, name, MAKEINTRESOURCEA(RT_RCDATA));
-	HGLOBAL hglob = LoadResource(hModule, hres);
-	void *res_data = (char*)LockResource(hglob);
-	if (res_data) {
-		b->data = LockResource(hglob);
-		b->len = SizeofResource(hModule, hres);
-		bundle_count++;
+wchar_t name[MAX_PATH];
+int nlen;
+DWORD WINAPI wrapGetModuleFileNameW(HMODULE hModule, LPWSTR  lpFilename, DWORD   nSize) {
+	// Unity asks for its exe name?
+	if (hModule == NULL) {
+		lstrcpyW(lpFilename, name);
+		return lstrlenW(lpFilename);
 	}
-};
+	return GetModuleFileNameW(hModule, lpFilename, nSize);
+}
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
-{
-	wchar_t name[_MAX_PATH + 1];
-	if (ul_reason_for_call != DLL_PROCESS_ATTACH)
-		return TRUE;
+void *wrapGetProcAddress(HMODULE h, const char *name) {
+	if (!lstrcmpA(name, "mono_jit_init_version")) {
+		return &hook;
+	}
+	return GetProcAddress(h, name);
+}
+
+int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow) {
 	// load mono
-	len = GetModuleFileName(NULL, name, MAX_PATH);
-	lstrcpy(name + len - 4, L"_Data\\Mono\\mono.dll");
+	nlen = GetModuleFileName(NULL, name, MAX_PATH);
+	while (name[--nlen] != '\\');
+
+	lstrcpyW(name + nlen, L"\\koikatu_data\\mono\\mono.dll");
+	if (GetEnvironmentVariableA("KK_RUNSTUDIO", NULL, 0))
+		lstrcpyW(name + nlen, L"\\charastudio_data\\mono\\mono.dll");
 	HMODULE mono = LoadLibrary(name);
-	if (!mono) {
-		lstrcpy(name + len - 4 + 5, L"\\EmbedRuntime\\mono.dll");
-		mono = LoadLibrary(name);
-		if (!mono) {
-			MessageBoxA(NULL, "Can't find mono.dll. Is this the right game folder?", "Fatal", MB_OK | MB_ICONASTERISK);
-			return FALSE;
-		}
-	}
+	if (!mono)
+		return bad_dir("mono.dll not found");
 
 	// resolve symbols
 #define LOAD(n) \
@@ -73,25 +79,89 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		MessageBoxA(NULL, #n, "Method missing", MB_OK | MB_ICONASTERISK); \
 		ExitProcess(1); \
 	}
-	LOAD(mono_register_bundled_assemblies);
-	LOAD(mono_profiler_install_assembly);
-	LOAD(mono_assembly_open_full);
-	LOAD(mono_profiler_install);
-	LOAD(mono_profiler_set_events);
-	LOAD(mono_profiler_install_module);
-	LOAD(mono_debug_init);
+	LOAD(mono_runtime_invoke);
+	LOAD(mono_method_desc_new);
+	LOAD(mono_method_desc_search_in_image);
+	LOAD(mono_array_new);
+	LOAD(mono_get_string_class);
+	LOAD(mono_jit_init_version);
+	LOAD(mono_image_open_from_data);
+	LOAD(mono_assembly_load_from);
 
-	EnumResourceNamesA(hModule, MAKEINTRESOURCEA(RT_RCDATA), enum_cb, 0);
-	if (!bundle_count)
-		MessageBoxA(NULL, "No assemblies found to preload", "Error", MB_OK | MB_ICONASTERISK);
 
-	if (GetEnvironmentVariable("KKDEBUG", NULL, 0))
-		mono_debug_init(1);
-	// register bundled assemblies
-	mono_register_bundled_assemblies(&list_bundles[0]);
+	// alright, now do the horrible thing and run the exe via loadlibrary.
+	// it will re-load mono, too.
+	lstrcpyW(name + nlen, L"\\Koikatu.exe");
+	if (GetEnvironmentVariableA("KK_RUNSTUDIO", NULL, 0))
+		lstrcpyW(name + nlen, L"\\CharaStudio.exe");
+	HINSTANCE unityexe = LoadLibraryW(name);
+	if (unityexe == NULL)
+		return bad_dir("koikatu/charastudio.exe not found or unsupported version of Windows");
+	PIMAGE_DOS_HEADER mz = (PIMAGE_DOS_HEADER)unityexe;
+	PIMAGE_IMPORT_DESCRIPTOR imports;
+#define RVA2PTR(t,base,rva) ((t)(((PCHAR) base) + rva))
+	PIMAGE_NT_HEADERS nth = RVA2PTR(PIMAGE_NT_HEADERS, mz, mz->e_lfanew);
+	imports = RVA2PTR(PIMAGE_IMPORT_DESCRIPTOR, mz, nth->
+		OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
+	for (int i = 0; imports[i].Characteristics; i++) {
+		PIMAGE_IMPORT_BY_NAME import;
 
-	mono_profiler_install(NULL, NULL);
-	mono_profiler_set_events(1 << 2);
-	mono_profiler_install_module(&hook, NULL, NULL, NULL);
-	return TRUE;
+		PIMAGE_THUNK_DATA thunk = RVA2PTR(PIMAGE_THUNK_DATA, mz, imports[i].FirstThunk);
+		char *dllname = RVA2PTR(char*, mz, imports[i].Name);
+		HMODULE dll = LoadLibraryA(dllname);
+		if (!dll) {
+			MessageBoxA(NULL, dllname, "Missing DLL", MB_OK);
+			return 0;
+		}
+		for (; thunk->u1.Function; thunk++) {
+			DWORD oldp;
+			MEMORY_BASIC_INFORMATION vmi;
+			void *tfun;
+			if (thunk->u1.Ordinal & IMAGE_ORDINAL_FLAG64) {
+				tfun = GetProcAddress(dll, (char*)MAKEINTRESOURCE(IMAGE_ORDINAL64(thunk->u1.Ordinal)));
+			}
+			else {
+				import = RVA2PTR(PIMAGE_IMPORT_BY_NAME, mz, thunk->u1.Function);
+				if (!lstrcmpA(import->Name, "GetModuleFileNameW")) {
+					tfun = &wrapGetModuleFileNameW;
+				} else
+				if (!lstrcmpA(import->Name, "GetProcAddress")) {
+					tfun = &wrapGetProcAddress;
+				} else
+				tfun = GetProcAddress(dll, import->Name);
+			}
+			if (!tfun) {
+				//MessageBoxA(NULL, dllname, "oops", MB_OK);
+				return 0;
+			}
+			VirtualQuery(thunk, &vmi, sizeof(vmi));
+			if (!VirtualProtect(vmi.BaseAddress, vmi.RegionSize, PAGE_READWRITE, &oldp)) {
+				//MessageBoxA(NULL, dllname, "WP", MB_OK);
+				return 0;
+			}
+			thunk->u1.Function = (ULONG_PTR)tfun;
+			VirtualProtect(vmi.BaseAddress, vmi.RegionSize, oldp, &oldp);
+		}
+
+	}
+	int (CALLBACK *dllWinMain)(HINSTANCE, HINSTANCE, LPWSTR, int) = RVA2PTR(void*, mz, nth->OptionalHeader.AddressOfEntryPoint);
+	return dllWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

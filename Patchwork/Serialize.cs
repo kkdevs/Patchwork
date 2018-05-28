@@ -31,7 +31,7 @@ public class JSONMarshaller : ScriptableObject
 	public string Marshal()
 	{
 		fsData data = null;
-		Program.json.TrySerialize(this, out data).AssertSuccess();
+		Program.fsjson.TrySerialize(this, out data).AssertSuccess();
 		return fsJsonPrinter.PrettyJson(data);
 	}
 }

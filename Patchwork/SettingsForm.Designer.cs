@@ -70,6 +70,7 @@ namespace Patchwork
 			this.label2 = new System.Windows.Forms.Label();
 			this.f_qualitySelect = new System.Windows.Forms.ComboBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.resizable = new System.Windows.Forms.CheckBox();
 			this.label20 = new System.Windows.Forms.Label();
 			this.renderingPath = new System.Windows.Forms.ComboBox();
 			this.softParticles = new System.Windows.Forms.CheckBox();
@@ -140,9 +141,7 @@ namespace Patchwork
 			this.whitePower = new System.Windows.Forms.CheckBox();
 			this.lazyBundles = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
-			this.label34 = new System.Windows.Forms.Label();
-			this.userdataLink = new System.Windows.Forms.LinkLabel();
-			this.resizable = new System.Windows.Forms.CheckBox();
+			this.runChara = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -467,6 +466,12 @@ namespace Patchwork
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.TabStop = false;
 			// 
+			// resizable
+			// 
+			resources.ApplyResources(this.resizable, "resizable");
+			this.resizable.Name = "resizable";
+			this.resizable.UseVisualStyleBackColor = true;
+			// 
 			// label20
 			// 
 			resources.ApplyResources(this.label20, "label20");
@@ -483,7 +488,6 @@ namespace Patchwork
             resources.GetString("renderingPath.Items3")});
 			resources.ApplyResources(this.renderingPath, "renderingPath");
 			this.renderingPath.Name = "renderingPath";
-			this.renderingPath.SelectedIndexChanged += new System.EventHandler(this.renderingPath_SelectedIndexChanged);
 			// 
 			// softParticles
 			// 
@@ -675,7 +679,6 @@ namespace Patchwork
 			// 
 			resources.ApplyResources(this.label21, "label21");
 			this.label21.Name = "label21";
-			this.label21.Click += new System.EventHandler(this.label21_Click);
 			// 
 			// fixPenis
 			// 
@@ -932,35 +935,24 @@ namespace Patchwork
 			this.lazyGC.Name = "lazyGC";
 			this.lazyGC.UseVisualStyleBackColor = true;
 			// 
-			// label34
+			// runChara
 			// 
-			resources.ApplyResources(this.label34, "label34");
-			this.label34.Name = "label34";
-			// 
-			// userdataLink
-			// 
-			resources.ApplyResources(this.userdataLink, "userdataLink");
-			this.userdataLink.Name = "userdataLink";
-			this.userdataLink.TabStop = true;
-			// 
-			// resizable
-			// 
-			resources.ApplyResources(this.resizable, "resizable");
-			this.resizable.Name = "resizable";
-			this.resizable.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.runChara, "runChara");
+			this.runChara.Name = "runChara";
+			this.runChara.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.userdataLink);
-			this.Controls.Add(this.label34);
+			this.Controls.Add(this.runChara);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.launchButton);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.Name = "SettingsForm";
 			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
@@ -976,7 +968,6 @@ namespace Patchwork
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -1081,9 +1072,7 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox tumblr;
 		private System.Windows.Forms.Label label35;
 		public System.Windows.Forms.ComboBox chardb;
-		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.CheckBox dontshow;
-		private System.Windows.Forms.LinkLabel userdataLink;
 		private System.Windows.Forms.CheckBox useBOM;
 		private System.Windows.Forms.TextBox physDivisor;
 		private System.Windows.Forms.TextBox physReflectSpeed;
@@ -1095,6 +1084,7 @@ namespace Patchwork
 		private System.Windows.Forms.TextBox physRate;
 		private System.Windows.Forms.Label label40;
 		public System.Windows.Forms.CheckBox resizable;
+		public System.Windows.Forms.Button runChara;
 	}
 }
 

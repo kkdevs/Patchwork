@@ -6,8 +6,22 @@ using System.Text;
 
 namespace Patchwork
 {
-	public partial class Program
+	public static partial class Program
 	{
+		[DllImport("kernel32.dll", SetLastError = true)]
+		[PreserveSig]
+		public static extern uint GetModuleFileName
+		(
+			[In]
+			IntPtr hModule,
+
+			[Out]
+			StringBuilder lpFilename,
+
+			[In]
+			[MarshalAs(UnmanagedType.U4)]
+			int nSize
+		);
 		[DllImport("user32.dll")]
 		public static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
 		[DllImport("kernel32.dll")]

@@ -19,13 +19,17 @@ namespace Patchwork
 				watch = new Stopwatch();
 				watch.Start();
 			}
-			Console.WriteLine($"[{kind}] [{watch.Elapsed.TotalSeconds}] {msg}");
-		}
 
-		public static void Back(string s = "")
+			Console.WriteLine($"[{kind}] [{watch.Elapsed.TotalSeconds}] {msg}");
+			/*if (kind == "SPAM")
+				System.Diagnostics.Debug.WriteLine($"[{kind}] [{watch.Elapsed.TotalSeconds}] {msg}");
+			else
+				System.Diagnostics.Trace.WriteLine($"[{kind}] [{watch.Elapsed.TotalSeconds}] {msg}");*/
+		}
+		public static void Back(string msg)
 		{
 			if (Program.settings.enableTrace)
-				Spam(s + Environment.StackTrace);
+				Spam(msg + Environment.StackTrace);
 		}
 
 		public static void Log(string msg)

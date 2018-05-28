@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ParadoxNotion.Serialization.FullSerializer;
-using UnityEngine;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
@@ -90,17 +89,6 @@ namespace Patchwork
 				ProcessStartInfo sInfo = new ProcessStartInfo(linkUnityDoc.Text);
 				Process.Start(sInfo);
 			};
-			userdataLink.Click += (o, e) =>
-			{
-				if (UserData.Path == null) return;
-				Process.Start("explorer.exe", Path.GetFullPath(UserData.Path));
-/*				ProcessStartInfo sInfo = new ProcessStartInfo() {
-					FileName = UserData.Path,
-					UseShellExecute = true,
-					Verb = "open"
-				};
-				Process.Start(sInfo);*/
-			};
 		}
 
 		public void UpdateForm()
@@ -144,16 +132,6 @@ namespace Patchwork
 				}
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
-		}
-
-		private void label21_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void renderingPath_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
 		}
 	}
 }
