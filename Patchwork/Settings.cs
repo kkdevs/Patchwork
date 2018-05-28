@@ -21,6 +21,9 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public float rimOverride = -1;
+		public int visTick = 1;
+		public int shaderTick = 1;
 		public bool resizable = true;
 		public bool dontshow = false;
 		public bool useBOM = false;

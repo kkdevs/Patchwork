@@ -15,10 +15,10 @@ public class fixplugins : MonoBehaviour
 	}
 	public fixplugins()
 	{
+		// its already in appdomain, it probably loaded correctly
 		if (hasBepin())
 			return;
 		Patchwork.Trace.Log("Trying to fix plugins");
-		// its already in appdomain, it probably loaded correctly
 		// it broke, so load all plugins "manually"
 		string path = Path.GetFullPath(Application.dataPath + "/../bepinex");
 		try

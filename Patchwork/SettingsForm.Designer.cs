@@ -111,6 +111,10 @@ namespace Patchwork
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.label25 = new System.Windows.Forms.Label();
+			this.visTick = new System.Windows.Forms.TextBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.shaderTick = new System.Windows.Forms.TextBox();
 			this.label40 = new System.Windows.Forms.Label();
 			this.label39 = new System.Windows.Forms.Label();
 			this.physRate = new System.Windows.Forms.TextBox();
@@ -142,6 +146,8 @@ namespace Patchwork
 			this.lazyBundles = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
+			this.rimOverride = new System.Windows.Forms.TextBox();
+			this.label34 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -576,6 +582,8 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.label34);
+			this.tabPage2.Controls.Add(this.rimOverride);
 			this.tabPage2.Controls.Add(this.label35);
 			this.tabPage2.Controls.Add(this.chardb);
 			this.tabPage2.Controls.Add(this.tumblr);
@@ -742,6 +750,10 @@ namespace Patchwork
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.label25);
+			this.tabPage3.Controls.Add(this.visTick);
+			this.tabPage3.Controls.Add(this.label24);
+			this.tabPage3.Controls.Add(this.shaderTick);
 			this.tabPage3.Controls.Add(this.label40);
 			this.tabPage3.Controls.Add(this.label39);
 			this.tabPage3.Controls.Add(this.physRate);
@@ -775,6 +787,26 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// label25
+			// 
+			resources.ApplyResources(this.label25, "label25");
+			this.label25.Name = "label25";
+			// 
+			// visTick
+			// 
+			resources.ApplyResources(this.visTick, "visTick");
+			this.visTick.Name = "visTick";
+			// 
+			// label24
+			// 
+			resources.ApplyResources(this.label24, "label24");
+			this.label24.Name = "label24";
+			// 
+			// shaderTick
+			// 
+			resources.ApplyResources(this.shaderTick, "shaderTick");
+			this.shaderTick.Name = "shaderTick";
 			// 
 			// label40
 			// 
@@ -941,6 +973,16 @@ namespace Patchwork
 			this.runChara.Name = "runChara";
 			this.runChara.UseVisualStyleBackColor = true;
 			// 
+			// rimOverride
+			// 
+			resources.ApplyResources(this.rimOverride, "rimOverride");
+			this.rimOverride.Name = "rimOverride";
+			// 
+			// label34
+			// 
+			resources.ApplyResources(this.label34, "label34");
+			this.label34.Name = "label34";
+			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
@@ -1085,6 +1127,12 @@ namespace Patchwork
 		private System.Windows.Forms.Label label40;
 		public System.Windows.Forms.CheckBox resizable;
 		public System.Windows.Forms.Button runChara;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.TextBox shaderTick;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.TextBox visTick;
+		private System.Windows.Forms.Label label34;
+		private System.Windows.Forms.TextBox rimOverride;
 	}
 }
 
