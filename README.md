@@ -20,4 +20,4 @@ ignored, or filled with approximate default if possible.
 Is preserved for public apis (ie just straight harmony hooks are fine), but
 IL recompiling plugins will sometimes break when expected opcodes are not found.
 If there is such a conflict, it can be typically worked around by fixig up the
-engine with a compat layer for that particular plugin.
+engine with a compat layer for that particular plugin - open an issue for it.
