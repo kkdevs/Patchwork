@@ -177,6 +177,18 @@ namespace Patchwork
 			settings.Apply(true);
 			SaveConfig();
 
+			AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
+			{
+				var shortname = new System.Reflection.AssemblyName(args.Name).Name;
+				Debug.Log("something is looking for " + shortname);
+				var loadedAssembly = System.AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetName().Name == shortname).FirstOrDefault();
+				if (loadedAssembly != null)
+				{
+					return loadedAssembly;
+				}
+				return null;
+			};
+
 			// Fire up scripts
 			Script.Init();
 

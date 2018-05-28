@@ -94,6 +94,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmd
 	lstrcpyW(name + nlen, L"\\Koikatu.exe");
 	if (GetEnvironmentVariableA("KK_RUNSTUDIO", NULL, 0))
 		lstrcpyW(name + nlen, L"\\CharaStudio.exe");
+	SetEnvironmentVariableA("DOORSTOP_DISABLE", "1");
 	HINSTANCE unityexe = LoadLibraryW(name);
 	if (unityexe == NULL)
 		return bad_dir("koikatu/charastudio.exe not found or unsupported version of Windows");
