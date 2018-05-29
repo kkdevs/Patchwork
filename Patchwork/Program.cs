@@ -80,7 +80,9 @@ namespace Patchwork
 				return;
 			}
 			form = new SettingsForm(settings);
-			form.Text += " Mk." + Assembly.GetExecutingAssembly().GetName().Version.Major;
+			var ver = Assembly.GetExecutingAssembly().GetName().Version;
+			form.Text += " Mk." + ver.Major + (ver.Minor != 0 ? $"({ver.Minor})" : "");
+
 			form.resolution.Items.AddRange(settings.resolutions);
 			foreach (var n in settings.chardbs)
 				form.chardb.Items.Add(n.Split('|')[0]);
