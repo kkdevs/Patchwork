@@ -74,11 +74,12 @@ namespace Patchwork
 		{
 			//System.Windows.Forms.Application.EnableVisualStyles();
 			System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(true);
-			if (settings.dontshow || (Environment.GetEnvironmentVariable("KK_RUNSTUDIO") != null))
+			if (settings.dontshow)
 			{
 				launched = true;
 				return;
 			}
+
 			form = new SettingsForm(settings);
 			var ver = Assembly.GetExecutingAssembly().GetName().Version;
 			form.Text += " Mk." + ver.Major + (ver.Minor != 0 ? $"({ver.Minor})" : "");
@@ -87,6 +88,13 @@ namespace Patchwork
 			foreach (var n in settings.chardbs)
 				form.chardb.Items.Add(n.Split('|')[0]);
 			form.UpdateForm();
+
+			if (Environment.GetEnvironmentVariable("KK_RUNSTUDIO") != null)
+			{
+				form.Show();
+				launched = true;
+				return;
+			}
 			form.launchButton.Click += (o, e) =>
 			{
 				launched = true;
