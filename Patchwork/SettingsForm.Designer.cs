@@ -86,6 +86,8 @@ namespace Patchwork
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.label34 = new System.Windows.Forms.Label();
+			this.rimOverride = new System.Windows.Forms.TextBox();
 			this.label35 = new System.Windows.Forms.Label();
 			this.chardb = new System.Windows.Forms.ComboBox();
 			this.tumblr = new System.Windows.Forms.CheckBox();
@@ -146,8 +148,8 @@ namespace Patchwork
 			this.lazyBundles = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
-			this.rimOverride = new System.Windows.Forms.TextBox();
-			this.label34 = new System.Windows.Forms.Label();
+			this.skipLogo = new System.Windows.Forms.CheckBox();
+			this.noFade = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -582,6 +584,8 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.noFade);
+			this.tabPage2.Controls.Add(this.skipLogo);
 			this.tabPage2.Controls.Add(this.label34);
 			this.tabPage2.Controls.Add(this.rimOverride);
 			this.tabPage2.Controls.Add(this.label35);
@@ -611,6 +615,16 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage2, "tabPage2");
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// label34
+			// 
+			resources.ApplyResources(this.label34, "label34");
+			this.label34.Name = "label34";
+			// 
+			// rimOverride
+			// 
+			resources.ApplyResources(this.rimOverride, "rimOverride");
+			this.rimOverride.Name = "rimOverride";
 			// 
 			// label35
 			// 
@@ -973,15 +987,17 @@ namespace Patchwork
 			this.runChara.Name = "runChara";
 			this.runChara.UseVisualStyleBackColor = true;
 			// 
-			// rimOverride
+			// skipLogo
 			// 
-			resources.ApplyResources(this.rimOverride, "rimOverride");
-			this.rimOverride.Name = "rimOverride";
+			resources.ApplyResources(this.skipLogo, "skipLogo");
+			this.skipLogo.Name = "skipLogo";
+			this.skipLogo.UseVisualStyleBackColor = true;
 			// 
-			// label34
+			// noFade
 			// 
-			resources.ApplyResources(this.label34, "label34");
-			this.label34.Name = "label34";
+			resources.ApplyResources(this.noFade, "noFade");
+			this.noFade.Name = "noFade";
+			this.noFade.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -1133,6 +1149,8 @@ namespace Patchwork
 		private System.Windows.Forms.TextBox visTick;
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.TextBox rimOverride;
+		private System.Windows.Forms.CheckBox skipLogo;
+		private System.Windows.Forms.CheckBox noFade;
 	}
 }
 

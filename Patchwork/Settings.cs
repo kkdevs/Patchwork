@@ -21,6 +21,8 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public bool noFade = true;
+		public bool skipLogo = true;
 		public float rimOverride = -1;
 		public int visTick = 1;
 		public int shaderTick = 1;

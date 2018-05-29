@@ -107,15 +107,24 @@ namespace Patchwork
 			form.Show();
 		}
 		public static string exename;
+		public static bool initConfig;
 
-		public static int Main(string[] args)
+		public static void InitConfig()
 		{
+			if (initConfig)
+				return;
+			initConfig = true;
 			var fn = new StringBuilder(256);
 			GetModuleFileName(IntPtr.Zero, fn, fn.Capacity);
 			exename = fn.ToString();
 			BasePath = Path.GetDirectoryName(exename) + "/";
 			LoadConfig();
 			Trace.Info("Basepath=" + BasePath);
+		}
+
+		public static int Main(string[] args)
+		{
+			InitConfig();
 			ConfigDialog();
 			earlydone = true;
 			return 0;
@@ -161,7 +170,7 @@ namespace Patchwork
 		public static bool initdone = false;
 		public static void AssertLate(string by="")
 		{
-			if (!earlydone)
+			if (!earlydone && initConfig)
 			{
 				var msg = "AssertLate failed from: " + by + "\n" + Environment.StackTrace;
 				Console.WriteLine(msg);
@@ -174,6 +183,12 @@ namespace Patchwork
 		public static void PostInit()
 		{
 			initdone = true;
+			earlydone = true;
+			if (!initConfig)
+			{
+				InitConfig(); // If we're running standalone
+				ConfigDialog();
+			}
 			settings.Apply(true);
 			SaveConfig();
 
