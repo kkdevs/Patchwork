@@ -65,6 +65,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmd
 	nlen = GetModuleFileName(NULL, name, MAX_PATH);
 	while (name[--nlen] != '\\');
 
+	lstrcpyW(name + nlen, L"\\iphlpapi.dll");
+	DeleteFileW(name);
+
 	lstrcpyW(name + nlen, L"\\koikatu_data\\mono\\mono.dll");
 	if (GetEnvironmentVariableA("KK_RUNSTUDIO", NULL, 0))
 		lstrcpyW(name + nlen, L"\\charastudio_data\\mono\\mono.dll");
