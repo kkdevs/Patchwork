@@ -21,6 +21,8 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public bool noBustNorm = false;
+		public bool mcChange = true;
 		public bool noFade = true;
 		public bool skipLogo = true;
 		public float rimOverride = -1;
@@ -74,7 +76,7 @@ namespace Patchwork
 		public float maximumLODLevel = 0;
 		public float lodBias = 2;
 		public float shadowCascade2Split = (float)(1.0 / 3.0);
-		public bool shadowOverride = true;
+		public bool shadowOverride = false;
 		public float customShadowStrengthTarget = 0.96f;
 		public float customShadowStrengthLimit = 0.8f;
 
@@ -239,9 +241,15 @@ namespace Patchwork
 					Trace.Log($"Changing rendering path, new = {renderingPath}");
 					var path = (RenderingPath)renderingPath;
 					if (Camera.main != null)
+					{
 						Camera.main.renderingPath = path;
+//						Camera.main.targetTexture = null;
+					}
 					if (Camera.current != null)
+					{
 						Camera.current.renderingPath = path;
+//						Camera.current.targetTexture = null;
+					}
 
 					break;
 				default:

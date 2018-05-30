@@ -86,6 +86,8 @@ namespace Patchwork
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.noFade = new System.Windows.Forms.CheckBox();
+			this.skipLogo = new System.Windows.Forms.CheckBox();
 			this.label34 = new System.Windows.Forms.Label();
 			this.rimOverride = new System.Windows.Forms.TextBox();
 			this.label35 = new System.Windows.Forms.Label();
@@ -104,7 +106,7 @@ namespace Patchwork
 			this.label21 = new System.Windows.Forms.Label();
 			this.fixPenis = new System.Windows.Forms.CheckBox();
 			this.fixVagina = new System.Windows.Forms.CheckBox();
-			this.hideMoz = new System.Windows.Forms.CheckBox();
+			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.equality = new System.Windows.Forms.CheckBox();
 			this.bothClass = new System.Windows.Forms.CheckBox();
 			this.bothEdit = new System.Windows.Forms.CheckBox();
@@ -148,8 +150,6 @@ namespace Patchwork
 			this.lazyBundles = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
-			this.skipLogo = new System.Windows.Forms.CheckBox();
-			this.noFade = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -604,7 +604,7 @@ namespace Patchwork
 			this.tabPage2.Controls.Add(this.label21);
 			this.tabPage2.Controls.Add(this.fixPenis);
 			this.tabPage2.Controls.Add(this.fixVagina);
-			this.tabPage2.Controls.Add(this.hideMoz);
+			this.tabPage2.Controls.Add(this.noBustNorm);
 			this.tabPage2.Controls.Add(this.equality);
 			this.tabPage2.Controls.Add(this.bothClass);
 			this.tabPage2.Controls.Add(this.bothEdit);
@@ -615,6 +615,18 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage2, "tabPage2");
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// noFade
+			// 
+			resources.ApplyResources(this.noFade, "noFade");
+			this.noFade.Name = "noFade";
+			this.noFade.UseVisualStyleBackColor = true;
+			// 
+			// skipLogo
+			// 
+			resources.ApplyResources(this.skipLogo, "skipLogo");
+			this.skipLogo.Name = "skipLogo";
+			this.skipLogo.UseVisualStyleBackColor = true;
 			// 
 			// label34
 			// 
@@ -714,11 +726,11 @@ namespace Patchwork
 			this.fixVagina.Name = "fixVagina";
 			this.fixVagina.UseVisualStyleBackColor = true;
 			// 
-			// hideMoz
+			// noBustNorm
 			// 
-			resources.ApplyResources(this.hideMoz, "hideMoz");
-			this.hideMoz.Name = "hideMoz";
-			this.hideMoz.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.noBustNorm, "noBustNorm");
+			this.noBustNorm.Name = "noBustNorm";
+			this.noBustNorm.UseVisualStyleBackColor = true;
 			// 
 			// equality
 			// 
@@ -987,18 +999,6 @@ namespace Patchwork
 			this.runChara.Name = "runChara";
 			this.runChara.UseVisualStyleBackColor = true;
 			// 
-			// skipLogo
-			// 
-			resources.ApplyResources(this.skipLogo, "skipLogo");
-			this.skipLogo.Name = "skipLogo";
-			this.skipLogo.UseVisualStyleBackColor = true;
-			// 
-			// noFade
-			// 
-			resources.ApplyResources(this.noFade, "noFade");
-			this.noFade.Name = "noFade";
-			this.noFade.UseVisualStyleBackColor = true;
-			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
@@ -1010,7 +1010,6 @@ namespace Patchwork
 			this.MaximizeBox = false;
 			this.Name = "SettingsForm";
 			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
@@ -1092,7 +1091,7 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox bothClass;
 		private System.Windows.Forms.CheckBox bothEdit;
 		private System.Windows.Forms.CheckBox equality;
-		private System.Windows.Forms.CheckBox hideMoz;
+		private System.Windows.Forms.CheckBox noBustNorm;
 		private System.Windows.Forms.CheckBox fixPenis;
 		private System.Windows.Forms.CheckBox fixVagina;
         private System.Windows.Forms.TextBox customShadowStrengthLimit;

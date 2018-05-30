@@ -1843,7 +1843,7 @@
     <value>NoControl</value>
   </data>
   <data name="noFade.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 232</value>
+    <value>233, 241</value>
   </data>
   <data name="noFade.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -1876,7 +1876,7 @@
     <value>NoControl</value>
   </data>
   <data name="skipLogo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 232</value>
+    <value>137, 241</value>
   </data>
   <data name="skipLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -1960,7 +1960,7 @@
     <value>True</value>
   </data>
   <data name="label35.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 200</value>
+    <value>14, 209</value>
   </data>
   <data name="label35.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 13</value>
@@ -1984,7 +1984,7 @@
     <value>4</value>
   </data>
   <data name="chardb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 197</value>
+    <value>120, 206</value>
   </data>
   <data name="chardb.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 21</value>
@@ -2011,7 +2011,7 @@
     <value>NoControl</value>
   </data>
   <data name="tumblr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 43</value>
+    <value>11, 37</value>
   </data>
   <data name="tumblr.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2044,7 +2044,7 @@
     <value>NoControl</value>
   </data>
   <data name="bothMC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 128</value>
+    <value>11, 122</value>
   </data>
   <data name="bothMC.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2388,41 +2388,41 @@
   <data name="&gt;&gt;fixVagina.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
-  <data name="hideMoz.AutoSize" type="System.Boolean, mscorlib">
+  <data name="noBustNorm.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="hideMoz.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="noBustNorm.Location" type="System.Drawing.Point, System.Drawing">
     <value>330, 188</value>
   </data>
-  <data name="hideMoz.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="noBustNorm.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="hideMoz.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 17</value>
+  <data name="noBustNorm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 17</value>
   </data>
-  <data name="hideMoz.TabIndex" type="System.Int32, mscorlib">
+  <data name="noBustNorm.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="hideMoz.Text" xml:space="preserve">
-    <value>Hide vagina mesh</value>
+  <data name="noBustNorm.Text" xml:space="preserve">
+    <value>Disable bust normals recalc</value>
   </data>
-  <data name="&gt;&gt;hideMoz.Name" xml:space="preserve">
-    <value>hideMoz</value>
+  <data name="&gt;&gt;noBustNorm.Name" xml:space="preserve">
+    <value>noBustNorm</value>
   </data>
-  <data name="&gt;&gt;hideMoz.Type" xml:space="preserve">
+  <data name="&gt;&gt;noBustNorm.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;hideMoz.Parent" xml:space="preserve">
+  <data name="&gt;&gt;noBustNorm.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;hideMoz.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;noBustNorm.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
   <data name="equality.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="equality.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 149</value>
+    <value>11, 143</value>
   </data>
   <data name="equality.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2452,7 +2452,7 @@
     <value>True</value>
   </data>
   <data name="bothClass.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 107</value>
+    <value>11, 101</value>
   </data>
   <data name="bothClass.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2482,7 +2482,7 @@
     <value>True</value>
   </data>
   <data name="bothEdit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 86</value>
+    <value>11, 80</value>
   </data>
   <data name="bothEdit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2512,7 +2512,7 @@
     <value>True</value>
   </data>
   <data name="bgmAsync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 232</value>
+    <value>21, 241</value>
   </data>
   <data name="bgmAsync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2542,7 +2542,7 @@
     <value>True</value>
   </data>
   <data name="watchFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 170</value>
+    <value>11, 164</value>
   </data>
   <data name="watchFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2572,7 +2572,7 @@
     <value>True</value>
   </data>
   <data name="bothFreeH.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 65</value>
+    <value>11, 59</value>
   </data>
   <data name="bothFreeH.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2602,7 +2602,7 @@
     <value>True</value>
   </data>
   <data name="unlockH.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 22</value>
+    <value>11, 16</value>
   </data>
   <data name="unlockH.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>

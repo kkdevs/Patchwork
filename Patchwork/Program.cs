@@ -16,6 +16,7 @@ using System.Text;
 using System.Configuration;
 using System.Xml.Serialization;
 using System.Drawing;
+using UnityEngine.Rendering;
 
 namespace Patchwork
 {
@@ -26,6 +27,15 @@ namespace Patchwork
 			get
 			{
 				return Assembly.GetExecutingAssembly().GetName().Version.Major;
+			}
+		}
+
+		public static string mkver
+		{
+			get
+			{
+				var ver = Assembly.GetExecutingAssembly().GetName().Version;
+				return " Mk." + ver.Major + (ver.Minor != 0 ? $"({ver.Minor})" : "");
 			}
 		}
 
@@ -81,8 +91,7 @@ namespace Patchwork
 			}
 
 			form = new SettingsForm(settings);
-			var ver = Assembly.GetExecutingAssembly().GetName().Version;
-			form.Text += " Mk." + ver.Major + (ver.Minor != 0 ? $"({ver.Minor})" : "");
+			form.Text += mkver;
 
 			form.resolution.Items.AddRange(settings.resolutions);
 			foreach (var n in settings.chardbs)
@@ -226,7 +235,7 @@ namespace Patchwork
 					hwnd = W;
 				return true;
 			}, IntPtr.Zero);
-			SetWindowText(hwnd, UnityEngine.Application.productName + " Mk." + version);
+			SetWindowText(hwnd, UnityEngine.Application.productName + mkver);
 
 		}
 
