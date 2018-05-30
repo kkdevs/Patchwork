@@ -150,6 +150,7 @@ namespace Patchwork
 			this.lazyBundles = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
+			this.hideMoz = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -584,6 +585,7 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.hideMoz);
 			this.tabPage2.Controls.Add(this.noFade);
 			this.tabPage2.Controls.Add(this.skipLogo);
 			this.tabPage2.Controls.Add(this.label34);
@@ -999,6 +1001,12 @@ namespace Patchwork
 			this.runChara.Name = "runChara";
 			this.runChara.UseVisualStyleBackColor = true;
 			// 
+			// hideMoz
+			// 
+			resources.ApplyResources(this.hideMoz, "hideMoz");
+			this.hideMoz.Name = "hideMoz";
+			this.hideMoz.UseVisualStyleBackColor = true;
+			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
@@ -1150,6 +1158,7 @@ namespace Patchwork
 		private System.Windows.Forms.TextBox rimOverride;
 		private System.Windows.Forms.CheckBox skipLogo;
 		private System.Windows.Forms.CheckBox noFade;
+		private System.Windows.Forms.CheckBox hideMoz;
 	}
 }
 

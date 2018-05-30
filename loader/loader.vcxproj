@@ -123,6 +123,7 @@
       <EntryPointSymbol>wWinMain</EntryPointSymbol>
       <OutputFile>$(TargetPath)</OutputFile>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <BaseAddress>0x0000000120000000</BaseAddress>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions);RCPATH="$(SolutionDir)\AnyCpu\$(Configuration)\patchu.dll"</PreprocessorDefinitions>
@@ -229,6 +230,8 @@
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
       <EntryPointSymbol>wWinMain</EntryPointSymbol>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <TurnOffAssemblyGeneration>false</TurnOffAssemblyGeneration>
+      <BaseAddress>0x0000000120000000</BaseAddress>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>

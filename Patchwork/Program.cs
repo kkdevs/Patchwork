@@ -133,9 +133,13 @@ namespace Patchwork
 			if (initConfig)
 				return;
 			initConfig = true;
-			var fn = new StringBuilder(256);
-			GetModuleFileName(IntPtr.Zero, fn, fn.Capacity);
-			exename = fn.ToString();
+			exename = Environment.GetEnvironmentVariable("PATCHWORK_EXE");
+			if (exename == null)
+			{
+				var fn = new StringBuilder(256);
+				GetModuleFileName(IntPtr.Zero, fn, fn.Capacity);
+				exename = fn.ToString();
+			}
 			BasePath = Path.GetDirectoryName(exename) + "/";
 			LoadConfig();
 			Trace.Info("Basepath=" + BasePath);

@@ -19,16 +19,18 @@ static int bad_dir(const char *top) {
 	return 1;
 }
 
+static HMODULE hInst;
+
 void *hook(void *fname, void *ver) {
 	void *domain = mono_jit_init_version(fname, ver);
 	HRSRC hres;
 	int i;
 	static void *images[32];
 	static void *asms[32];
-	for (i = 0; (hres = FindResource(NULL, MAKEINTRESOURCE(10000+i), MAKEINTRESOURCE(RT_RCDATA))); i++) {
-		HGLOBAL hglob = LoadResource(NULL, hres);
+	for (i = 0; (hres = FindResource(hInst, MAKEINTRESOURCE(10000+i), MAKEINTRESOURCE(RT_RCDATA))); i++) {
+		HGLOBAL hglob = LoadResource(hInst, hres);
 		void *res_data = (char*)LockResource(hglob);
-		int res_len = SizeofResource(NULL, hres);
+		int res_len = SizeofResource(hInst, hres);
 		images[i] = mono_image_open_from_data(res_data, res_len, FALSE, NULL);
 	}
 	for (int j = 0; j < i; j++)
@@ -63,6 +65,7 @@ void *wrapGetProcAddress(HMODULE h, const char *name) {
 int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow) {
 	// load mono
 	nlen = GetModuleFileName(NULL, name, MAX_PATH);
+	SetEnvironmentVariableW(L"PATCHWORK_EXE", name);
 	while (name[--nlen] != '\\');
 
 	lstrcpyW(name + nlen, L"\\iphlpapi.dll");
@@ -120,12 +123,14 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmd
 		for (; thunk->u1.Function; thunk++) {
 			DWORD oldp;
 			MEMORY_BASIC_INFORMATION vmi;
-			void *tfun;
+			void *tfun = NULL;
+			char *fname = "(ordinal)";
 			if (thunk->u1.Ordinal & IMAGE_ORDINAL_FLAG64) {
 				tfun = GetProcAddress(dll, (char*)MAKEINTRESOURCE(IMAGE_ORDINAL64(thunk->u1.Ordinal)));
 			}
 			else {
 				import = RVA2PTR(PIMAGE_IMPORT_BY_NAME, mz, thunk->u1.Function);
+				fname = import->Name;
 				if (!lstrcmpA(import->Name, "GetModuleFileNameW")) {
 					tfun = &wrapGetModuleFileNameW;
 				} else
@@ -135,12 +140,12 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmd
 				tfun = GetProcAddress(dll, import->Name);
 			}
 			if (!tfun) {
-				//MessageBoxA(NULL, dllname, "oops", MB_OK);
+				MessageBoxA(NULL, fname, dllname, MB_OK);
 				return 0;
 			}
 			VirtualQuery(thunk, &vmi, sizeof(vmi));
 			if (!VirtualProtect(vmi.BaseAddress, vmi.RegionSize, PAGE_READWRITE, &oldp)) {
-				//MessageBoxA(NULL, dllname, "WP", MB_OK);
+				MessageBoxA(NULL, dllname, "WP", MB_OK);
 				return 0;
 			}
 			thunk->u1.Function = (ULONG_PTR)tfun;
@@ -148,6 +153,11 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmd
 		}
 
 	}
+	BYTE* _teb64 = (BYTE*)__readgsqword(0x30);
+	DWORD64 *_peb64 = *(DWORD64**)(_teb64 + 0x60);
+	hInst = _peb64[2];
+	_peb64[2] = ((DWORD64)unityexe);
+
 	int (CALLBACK *dllWinMain)(HINSTANCE, HINSTANCE, LPWSTR, int) = RVA2PTR(void*, mz, nth->OptionalHeader.AddressOfEntryPoint);
 	return dllWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 }
