@@ -86,6 +86,7 @@ namespace Patchwork
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.hideMoz = new System.Windows.Forms.CheckBox();
 			this.noFade = new System.Windows.Forms.CheckBox();
 			this.skipLogo = new System.Windows.Forms.CheckBox();
 			this.label34 = new System.Windows.Forms.Label();
@@ -150,7 +151,14 @@ namespace Patchwork
 			this.lazyBundles = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
-			this.hideMoz = new System.Windows.Forms.CheckBox();
+			this.label41 = new System.Windows.Forms.Label();
+			this.ooFemale = new System.Windows.Forms.TextBox();
+			this.label42 = new System.Windows.Forms.Label();
+			this.ooMale = new System.Windows.Forms.TextBox();
+			this.mmFemale = new System.Windows.Forms.TextBox();
+			this.mmMale = new System.Windows.Forms.TextBox();
+			this.label43 = new System.Windows.Forms.Label();
+			this.label44 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -618,6 +626,12 @@ namespace Patchwork
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
+			// hideMoz
+			// 
+			resources.ApplyResources(this.hideMoz, "hideMoz");
+			this.hideMoz.Name = "hideMoz";
+			this.hideMoz.UseVisualStyleBackColor = true;
+			// 
 			// noFade
 			// 
 			resources.ApplyResources(this.noFade, "noFade");
@@ -778,6 +792,14 @@ namespace Patchwork
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.label44);
+			this.tabPage3.Controls.Add(this.label43);
+			this.tabPage3.Controls.Add(this.mmFemale);
+			this.tabPage3.Controls.Add(this.mmMale);
+			this.tabPage3.Controls.Add(this.label41);
+			this.tabPage3.Controls.Add(this.ooFemale);
+			this.tabPage3.Controls.Add(this.label42);
+			this.tabPage3.Controls.Add(this.ooMale);
 			this.tabPage3.Controls.Add(this.label25);
 			this.tabPage3.Controls.Add(this.visTick);
 			this.tabPage3.Controls.Add(this.label24);
@@ -1001,11 +1023,45 @@ namespace Patchwork
 			this.runChara.Name = "runChara";
 			this.runChara.UseVisualStyleBackColor = true;
 			// 
-			// hideMoz
+			// label41
 			// 
-			resources.ApplyResources(this.hideMoz, "hideMoz");
-			this.hideMoz.Name = "hideMoz";
-			this.hideMoz.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.label41, "label41");
+			this.label41.Name = "label41";
+			// 
+			// ooFemale
+			// 
+			resources.ApplyResources(this.ooFemale, "ooFemale");
+			this.ooFemale.Name = "ooFemale";
+			// 
+			// label42
+			// 
+			resources.ApplyResources(this.label42, "label42");
+			this.label42.Name = "label42";
+			// 
+			// ooMale
+			// 
+			resources.ApplyResources(this.ooMale, "ooMale");
+			this.ooMale.Name = "ooMale";
+			// 
+			// mmFemale
+			// 
+			resources.ApplyResources(this.mmFemale, "mmFemale");
+			this.mmFemale.Name = "mmFemale";
+			// 
+			// mmMale
+			// 
+			resources.ApplyResources(this.mmMale, "mmMale");
+			this.mmMale.Name = "mmMale";
+			// 
+			// label43
+			// 
+			resources.ApplyResources(this.label43, "label43");
+			this.label43.Name = "label43";
+			// 
+			// label44
+			// 
+			resources.ApplyResources(this.label44, "label44");
+			this.label44.Name = "label44";
 			// 
 			// SettingsForm
 			// 
@@ -1159,6 +1215,14 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox skipLogo;
 		private System.Windows.Forms.CheckBox noFade;
 		private System.Windows.Forms.CheckBox hideMoz;
+		private System.Windows.Forms.Label label44;
+		private System.Windows.Forms.Label label43;
+		private System.Windows.Forms.TextBox mmFemale;
+		private System.Windows.Forms.TextBox mmMale;
+		private System.Windows.Forms.Label label41;
+		private System.Windows.Forms.TextBox ooFemale;
+		private System.Windows.Forms.Label label42;
+		private System.Windows.Forms.TextBox ooMale;
 	}
 }
 

@@ -21,6 +21,10 @@ namespace Patchwork
 	[Serializable]
 	public class Settings
 	{
+		public string ooMale = "chara/oo_base";
+		public string ooFemale = "chara/oo_base";
+		public string mmMale = "chara/mm_base";
+		public string mmFemale = "chara/mm_base";
 		public bool noBustNorm = false;
 		public bool mcChange = true;
 		public bool noFade = true;

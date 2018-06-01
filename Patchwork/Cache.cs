@@ -188,7 +188,20 @@ namespace Patchwork
 			}
 			return true;
 		}
+
+		public static string Base(ChaInfo who, string typ = "oo")
+		{
+			if (typ == "oo")
+			{
+				return (who.sex == 0 ? Program.settings.ooMale : Program.settings.ooFemale) + ".unity3d";
+			} else
+			{
+				return who.sex == 0 ? Program.settings.mmMale : Program.settings.mmFemale + ".unity3d";
+			}
+			return null;
+		}
 	}
+
 }
 
 public partial class GlobalMethod
