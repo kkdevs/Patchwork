@@ -62,6 +62,8 @@ public class LoadedAssetBundle
 				pair.Value.m_AssetBundle.Unload(false);
 		}
 		loadedBundles.Clear();
+		ChaCustom.CustomSelectListCtrl.cache.cache.Clear();
+		ChaCustom.CustomPushListCtrl.cache.cache.Clear();
 		System.GC.Collect();
 		System.GC.Collect();
 	}
@@ -159,9 +161,9 @@ public class LoadedAssetBundle
 
 	public IEnumerator LoadAssetAsync(string name, Type t, Action<UnityEngine.Object> cb)
 	{
-		Debug.Log($"[ABM] Async loading {name}");
 		if (!caching || !cache.TryGetValue(name, out UnityEngine.Object obj))
 		{
+			Debug.Log($"[ABM] Cache miss {path}/{name}");
 			if (!Ensure(name))
 			{
 				cb(null);
@@ -179,6 +181,7 @@ public class LoadedAssetBundle
 				cb(MaybeCache(name, req.asset));
 			yield break;
 		}
+		Debug.Log($"[ABM] Cache hit {path}/{name}");
 		cb(obj);
 	}
 
@@ -188,11 +191,12 @@ public class LoadedAssetBundle
 	/// <param name="name"></param>
 	/// <param name="typ"></param>
 	/// <returns></returns>
-	public UnityEngine.Object LoadAsset(string name, Type typ)
+	public UnityEngine.Object LoadAsset(string name, Type typ, bool nocache=false)
 	{
-		Debug.Log($"[ABM] Loading {path}/{name}");
-		if (!caching || !cache.TryGetValue(name, out UnityEngine.Object obj))
+		//Debug.Log($"[ABM] Loading {path}/{name}");
+		if (nocache || !caching || !cache.TryGetValue(name, out UnityEngine.Object obj))
 		{
+			Debug.Log($"[ABM] Cache miss {path}/{name}");
 			if (!Ensure(name))
 				return null;
 			obj = m_AssetBundle.LoadAsset(name, typ);
@@ -205,8 +209,11 @@ public class LoadedAssetBundle
 			}*/	
 			if (obj == null)
 				return null;
+			if (nocache)
+				return obj;
 			return MaybeCache(name, obj);
 		}
+		Debug.Log($"[ABM] Cache hit {path}/{name}.");
 		return Clone(obj);
 	}
 
@@ -304,3 +311,34 @@ public class LoadedAssetBundle
 	}
 }
 
+public class SpriteCache<T>
+{
+	public Dictionary<T, Sprite> cache = new Dictionary<T, Sprite>();
+	public bool Get(T key, string bundle, string name, out Sprite ret)
+	{
+		ret = null;
+		if (!Program.settings.cacheSprites || !cache.TryGetValue(key, out ret))
+		{
+			Debug.Log($"[SPRITE] Miss {bundle}/{name} @ {key}");
+			var ab = LoadedAssetBundle.Load(bundle);
+			if (ab == null)
+				return false;
+			// dont cache the sprite texture when the sprite is cached as such
+			var tex = ab.LoadAsset(name, typeof(Texture2D), true) as Texture2D;
+			if (tex == null)
+				return false;
+			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
+			if (Program.settings.cacheSprites)
+			{
+				cache[key] = ret;
+				UnityEngine.Object.DontDestroyOnLoad(ret);
+			}
+		}
+		else
+		{
+			Debug.Log($"[SPRITE] Hit {bundle}/{name} @ {key}");
+		}
+		//ret = UnityEngine.Object.Instantiate(ret);
+		return true;
+	}
+}

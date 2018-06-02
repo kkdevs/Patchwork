@@ -23,14 +23,16 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool cacheSprites = true;
+		public string cardFmt = "Koikatu_{0}_{1}.png";
 		public string ooMale = "chara/oo_base";
 		public string ooFemale = "chara/oo_base";
 		public string mmMale = "chara/mm_base";
 		public string mmFemale = "chara/mm_base";
 		public bool noBustNorm = false;
 		public bool mcChange = true;
-		public bool noFade = true;
-		public bool skipLogo = true;
+		public bool noFade = false;
+		public bool skipLogo = false;
 		public float rimOverride = -1;
 		public int visTick = 1;
 		public int shaderTick = 1;
@@ -104,7 +106,7 @@ namespace Patchwork
 		public byte shadows = 2;
 		public byte shadowResolution = 3;
 		public byte shadowProjection = 1;
-		public byte shadowCascades = 1;
+		public byte shadowCascades = 2;
 		public byte blendWeights = 2;
 		public byte vSyncCount = 0;
 		public byte masterTextureLimit = 0;

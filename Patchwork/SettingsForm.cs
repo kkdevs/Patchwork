@@ -83,7 +83,7 @@ namespace Patchwork
 			{
 				s.qualitySelect = (byte)f_qualitySelect.SelectedIndex;
 				s.Apply(false);
-				Program.settings.UpdateCamera(null);
+				Program.settings.DoUpdateCamera(null);
 				UpdateForm();
 				Program.SaveConfig();
 			};
@@ -131,10 +131,17 @@ namespace Patchwork
 				var b = control as CheckBox;
 				if (b != null)
 				{
+					foreach (var en in Controls.Find("enabler_" + f.Name, true))
+						en.Enabled = (bool)val;
 					b.Checked = (bool)val;
 				}
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
+		}
+
+		private void tabPage2_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

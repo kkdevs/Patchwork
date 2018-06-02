@@ -141,10 +141,6 @@ namespace Patchwork
 			this.ooFemale = new System.Windows.Forms.TextBox();
 			this.label42 = new System.Windows.Forms.Label();
 			this.ooMale = new System.Windows.Forms.TextBox();
-			this.label25 = new System.Windows.Forms.Label();
-			this.visTick = new System.Windows.Forms.TextBox();
-			this.label24 = new System.Windows.Forms.Label();
-			this.shaderTick = new System.Windows.Forms.TextBox();
 			this.label40 = new System.Windows.Forms.Label();
 			this.label39 = new System.Windows.Forms.Label();
 			this.physRate = new System.Windows.Forms.TextBox();
@@ -173,9 +169,12 @@ namespace Patchwork
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.whitePower = new System.Windows.Forms.CheckBox();
-			this.assetAsync = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
+			this.cardFmt = new System.Windows.Forms.TextBox();
+			this.label47 = new System.Windows.Forms.Label();
+			this.label48 = new System.Windows.Forms.Label();
+			this.cacheSprites = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -771,6 +770,9 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.label48);
+			this.tabPage2.Controls.Add(this.label47);
+			this.tabPage2.Controls.Add(this.cardFmt);
 			this.tabPage2.Controls.Add(this.hideMoz);
 			this.tabPage2.Controls.Add(this.noFade);
 			this.tabPage2.Controls.Add(this.skipLogo);
@@ -796,6 +798,7 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage2, "tabPage2");
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
 			// 
 			// hideMoz
 			// 
@@ -927,6 +930,7 @@ namespace Patchwork
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.cacheSprites);
 			this.tabPage3.Controls.Add(this.label44);
 			this.tabPage3.Controls.Add(this.label43);
 			this.tabPage3.Controls.Add(this.mmFemale);
@@ -935,10 +939,6 @@ namespace Patchwork
 			this.tabPage3.Controls.Add(this.ooFemale);
 			this.tabPage3.Controls.Add(this.label42);
 			this.tabPage3.Controls.Add(this.ooMale);
-			this.tabPage3.Controls.Add(this.label25);
-			this.tabPage3.Controls.Add(this.visTick);
-			this.tabPage3.Controls.Add(this.label24);
-			this.tabPage3.Controls.Add(this.shaderTick);
 			this.tabPage3.Controls.Add(this.label40);
 			this.tabPage3.Controls.Add(this.label39);
 			this.tabPage3.Controls.Add(this.physRate);
@@ -967,7 +967,6 @@ namespace Patchwork
 			this.tabPage3.Controls.Add(this.enableTrace);
 			this.tabPage3.Controls.Add(this.enableSpam);
 			this.tabPage3.Controls.Add(this.whitePower);
-			this.tabPage3.Controls.Add(this.assetAsync);
 			this.tabPage3.Controls.Add(this.assetCache);
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
@@ -1012,26 +1011,6 @@ namespace Patchwork
 			// 
 			resources.ApplyResources(this.ooMale, "ooMale");
 			this.ooMale.Name = "ooMale";
-			// 
-			// label25
-			// 
-			resources.ApplyResources(this.label25, "label25");
-			this.label25.Name = "label25";
-			// 
-			// visTick
-			// 
-			resources.ApplyResources(this.visTick, "visTick");
-			this.visTick.Name = "visTick";
-			// 
-			// label24
-			// 
-			resources.ApplyResources(this.label24, "label24");
-			this.label24.Name = "label24";
-			// 
-			// shaderTick
-			// 
-			resources.ApplyResources(this.shaderTick, "shaderTick");
-			this.shaderTick.Name = "shaderTick";
 			// 
 			// label40
 			// 
@@ -1180,12 +1159,6 @@ namespace Patchwork
 			this.whitePower.Name = "whitePower";
 			this.whitePower.UseVisualStyleBackColor = true;
 			// 
-			// assetAsync
-			// 
-			resources.ApplyResources(this.assetAsync, "assetAsync");
-			this.assetAsync.Name = "assetAsync";
-			this.assetAsync.UseVisualStyleBackColor = true;
-			// 
 			// assetCache
 			// 
 			resources.ApplyResources(this.assetCache, "assetCache");
@@ -1197,6 +1170,27 @@ namespace Patchwork
 			resources.ApplyResources(this.runChara, "runChara");
 			this.runChara.Name = "runChara";
 			this.runChara.UseVisualStyleBackColor = true;
+			// 
+			// cardFmt
+			// 
+			resources.ApplyResources(this.cardFmt, "cardFmt");
+			this.cardFmt.Name = "cardFmt";
+			// 
+			// label47
+			// 
+			resources.ApplyResources(this.label47, "label47");
+			this.label47.Name = "label47";
+			// 
+			// label48
+			// 
+			resources.ApplyResources(this.label48, "label48");
+			this.label48.Name = "label48";
+			// 
+			// cacheSprites
+			// 
+			resources.ApplyResources(this.cacheSprites, "cacheSprites");
+			this.cacheSprites.Name = "cacheSprites";
+			this.cacheSprites.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -1299,7 +1293,6 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox fixPenis;
 		private System.Windows.Forms.CheckBox fixVagina;
 		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.CheckBox assetAsync;
 		private System.Windows.Forms.CheckBox assetCache;
 		private System.Windows.Forms.CheckBox whitePower;
 		private System.Windows.Forms.CheckBox enableTrace;
@@ -1341,10 +1334,6 @@ namespace Patchwork
 		private System.Windows.Forms.Label label40;
 		public System.Windows.Forms.CheckBox resizable;
 		public System.Windows.Forms.Button runChara;
-		private System.Windows.Forms.Label label24;
-		private System.Windows.Forms.TextBox shaderTick;
-		private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.TextBox visTick;
 		private System.Windows.Forms.CheckBox skipLogo;
 		private System.Windows.Forms.CheckBox noFade;
 		private System.Windows.Forms.CheckBox hideMoz;
@@ -1381,6 +1370,10 @@ namespace Patchwork
 		private System.Windows.Forms.Label label46;
 		private System.Windows.Forms.TextBox cam_aoeRadius;
 		private System.Windows.Forms.CheckBox realtimeReflectionProbes;
+		private System.Windows.Forms.Label label47;
+		private System.Windows.Forms.TextBox cardFmt;
+		private System.Windows.Forms.Label label48;
+		private System.Windows.Forms.CheckBox cacheSprites;
 	}
 }
 

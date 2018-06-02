@@ -19,9 +19,14 @@ namespace Patchwork
 		public bool cam_useCrossFade;
 		public bool cam_useSepia;
 
-		public bool cam_ppOverride = true;
+		public bool cam_ppOverride = false;
 
-
+		public void DoUpdateCamera(Camera cam, bool fix = false)
+		{
+			if (!Program.initdone)
+				return;
+			UpdateCamera(cam, fix);
+		}
 		public void UpdateCamera(Camera cam, bool fix = false)
 		{
 			if (cam == null)
@@ -39,6 +44,7 @@ namespace Patchwork
 			{
 				Debug.Log($"[CAM] Effector not found, hmm, fix={fix}...");
 			}*/
+			if (!cam_ppOverride) return;
 			var ac = cam.GetComponent<AmplifyColorEffect>();
 			if (ac != null)
 			{

@@ -16,6 +16,7 @@ namespace Patchwork
 {
 	public class Cache
 	{
+		public static SaveFrameAssist saveFrameAssist;
 		public static string dumpdir => UserData.Path + "/csv/";
 
 		// Resolve cache folder from bundle name
@@ -229,4 +230,6 @@ public partial class GlobalMethod
 		Cache.Save(ex, _assetbundleFolder, _strLoadFile);
 		return res;
 	}
+
+
 }
