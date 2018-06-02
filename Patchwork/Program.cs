@@ -188,6 +188,17 @@ namespace Patchwork
 			};
 		}
 
+		public static void DoExit()
+		{
+			try
+			{
+				Program.form.Close();
+			}
+			catch { };
+			for (int i = 0; i < 1000; i++)
+				System.Windows.Forms.Application.DoEvents();
+		}
+
 		public static IntPtr hwnd = (IntPtr)(-1);
 
 		public static bool initdone = false;
@@ -240,7 +251,10 @@ namespace Patchwork
 				return true;
 			}, IntPtr.Zero);
 			SetWindowText(hwnd, UnityEngine.Application.productName + mkver);
-
+			System.Windows.Forms.Application.ApplicationExit += (s, e) =>
+			{
+				Environment.Exit(0);
+			};
 		}
 
 		public static void UpdateCamera()
@@ -251,13 +265,13 @@ namespace Patchwork
 
 		public static void GC(string who, bool wants, object o)
 		{
-			Trace.Spam("[GC]" + who);
+			/*Trace.Spam("[GC]" + who);
 			if (!settings.lazyGC && wants)
 			{
 				Resources.UnloadUnusedAssets();
 			}
 			if (settings.lazyBundles)
-				AssetBundleManager.GC();
+				AssetBundleManager.GC();*/
 			System.GC.Collect();
 		}
 

@@ -26,6 +26,8 @@ namespace Patchwork
 			else
 				System.Diagnostics.Trace.WriteLine($"[{kind}] [{watch.Elapsed.TotalSeconds}] {msg}");*/
 		}
+
+		[Conditional("GAME_DEBUG")]
 		public static void Back(string msg)
 		{
 			if (Program.settings.enableTrace)

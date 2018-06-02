@@ -99,14 +99,20 @@ namespace Patchwork
 			DontDestroyOnLoad(pin);
 			pin.AddComponent(typeof(Script));
 
-			var scripts = Path.Combine(UserData.Path, "scripts");
-			try { Directory.CreateDirectory(scripts); } catch { };
-			var ass = Compile(Directory.GetFiles(scripts, "*.cs"));
-			foreach (var t in ass.GetTypes())
+			try
 			{
-				if (!t.IsSubclassOf(typeof(MonoBehaviour)))
-					continue;
-				pin.AddComponent(t);
+				var scripts = Path.Combine(UserData.Path, "scripts");
+				try { Directory.CreateDirectory(scripts); } catch { };
+				var ass = Compile(Directory.GetFiles(scripts, "*.cs"));
+				foreach (var t in ass.GetTypes())
+				{
+					if (!t.IsSubclassOf(typeof(MonoBehaviour)))
+						continue;
+					pin.AddComponent(t);
+				}
+			} catch (Exception ex)
+			{
+				Trace.Error(ex.ToString());
 			}
 		}
 

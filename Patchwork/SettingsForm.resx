@@ -3795,64 +3795,64 @@
   <data name="&gt;&gt;whitePower.ZOrder" xml:space="preserve">
     <value>39</value>
   </data>
-  <data name="lazyBundles.AutoSize" type="System.Boolean, mscorlib">
+  <data name="assetAsync.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lazyBundles.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="assetAsync.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 212</value>
   </data>
-  <data name="lazyBundles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="assetAsync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="lazyBundles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 17</value>
+  <data name="assetAsync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>329, 17</value>
   </data>
-  <data name="lazyBundles.TabIndex" type="System.Int32, mscorlib">
+  <data name="assetAsync.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="lazyBundles.Text" xml:space="preserve">
-    <value>Lazy bundle GC (doesn't work with broken mods)</value>
+  <data name="assetAsync.Text" xml:space="preserve">
+    <value>Multithreaded asset loading (faster loads; may introduce glitches)</value>
   </data>
-  <data name="&gt;&gt;lazyBundles.Name" xml:space="preserve">
-    <value>lazyBundles</value>
+  <data name="&gt;&gt;assetAsync.Name" xml:space="preserve">
+    <value>assetAsync</value>
   </data>
-  <data name="&gt;&gt;lazyBundles.Type" xml:space="preserve">
+  <data name="&gt;&gt;assetAsync.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lazyBundles.Parent" xml:space="preserve">
+  <data name="&gt;&gt;assetAsync.Parent" xml:space="preserve">
     <value>tabPage3</value>
   </data>
-  <data name="&gt;&gt;lazyBundles.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;assetAsync.ZOrder" xml:space="preserve">
     <value>40</value>
   </data>
-  <data name="lazyGC.AutoSize" type="System.Boolean, mscorlib">
+  <data name="assetCache.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lazyGC.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="assetCache.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 189</value>
   </data>
-  <data name="lazyGC.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="assetCache.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="lazyGC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 17</value>
+  <data name="assetCache.Size" type="System.Drawing.Size, System.Drawing">
+    <value>262, 17</value>
   </data>
-  <data name="lazyGC.TabIndex" type="System.Int32, mscorlib">
+  <data name="assetCache.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="lazyGC.Text" xml:space="preserve">
-    <value>Lazy asset GC (doesnt work with broken mods)</value>
+  <data name="assetCache.Text" xml:space="preserve">
+    <value>Asset caching (faster loads; higher memory usage)</value>
   </data>
-  <data name="&gt;&gt;lazyGC.Name" xml:space="preserve">
-    <value>lazyGC</value>
+  <data name="&gt;&gt;assetCache.Name" xml:space="preserve">
+    <value>assetCache</value>
   </data>
-  <data name="&gt;&gt;lazyGC.Type" xml:space="preserve">
+  <data name="&gt;&gt;assetCache.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lazyGC.Parent" xml:space="preserve">
+  <data name="&gt;&gt;assetCache.Parent" xml:space="preserve">
     <value>tabPage3</value>
   </data>
-  <data name="&gt;&gt;lazyGC.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;assetCache.ZOrder" xml:space="preserve">
     <value>41</value>
   </data>
   <data name="tabPage3.Font" type="System.Drawing.Font, System.Drawing">

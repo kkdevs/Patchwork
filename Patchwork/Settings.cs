@@ -66,8 +66,8 @@ namespace Patchwork
 		public bool equality = true;
 
 		public bool bgmAsync = true;
-		public bool lazyGC = false;
-		public bool lazyBundles = false;
+		public bool assetCache = true;
+		public bool assetAsync = true;
 		public bool tumblr = true;
 		public bool watchFolder = true;
 

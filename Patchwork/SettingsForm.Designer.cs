@@ -148,8 +148,8 @@ namespace Patchwork
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.whitePower = new System.Windows.Forms.CheckBox();
-			this.lazyBundles = new System.Windows.Forms.CheckBox();
-			this.lazyGC = new System.Windows.Forms.CheckBox();
+			this.assetAsync = new System.Windows.Forms.CheckBox();
+			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
 			this.label41 = new System.Windows.Forms.Label();
 			this.ooFemale = new System.Windows.Forms.TextBox();
@@ -832,8 +832,8 @@ namespace Patchwork
 			this.tabPage3.Controls.Add(this.enableTrace);
 			this.tabPage3.Controls.Add(this.enableSpam);
 			this.tabPage3.Controls.Add(this.whitePower);
-			this.tabPage3.Controls.Add(this.lazyBundles);
-			this.tabPage3.Controls.Add(this.lazyGC);
+			this.tabPage3.Controls.Add(this.assetAsync);
+			this.tabPage3.Controls.Add(this.assetCache);
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -1005,17 +1005,17 @@ namespace Patchwork
 			this.whitePower.Name = "whitePower";
 			this.whitePower.UseVisualStyleBackColor = true;
 			// 
-			// lazyBundles
+			// assetAsync
 			// 
-			resources.ApplyResources(this.lazyBundles, "lazyBundles");
-			this.lazyBundles.Name = "lazyBundles";
-			this.lazyBundles.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.assetAsync, "assetAsync");
+			this.assetAsync.Name = "assetAsync";
+			this.assetAsync.UseVisualStyleBackColor = true;
 			// 
-			// lazyGC
+			// assetCache
 			// 
-			resources.ApplyResources(this.lazyGC, "lazyGC");
-			this.lazyGC.Name = "lazyGC";
-			this.lazyGC.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.assetCache, "assetCache");
+			this.assetCache.Name = "assetCache";
+			this.assetCache.UseVisualStyleBackColor = true;
 			// 
 			// runChara
 			// 
@@ -1164,8 +1164,8 @@ namespace Patchwork
         private System.Windows.Forms.Label label21;
 		private System.Windows.Forms.CheckBox shadowOverride;
 		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.CheckBox lazyBundles;
-		private System.Windows.Forms.CheckBox lazyGC;
+		private System.Windows.Forms.CheckBox assetAsync;
+		private System.Windows.Forms.CheckBox assetCache;
 		private System.Windows.Forms.CheckBox whitePower;
 		private System.Windows.Forms.CheckBox enableTrace;
 		private System.Windows.Forms.CheckBox enableSpam;

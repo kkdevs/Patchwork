@@ -1,15 +1,124 @@
-﻿// These are virtually all no-op wrappers.
+﻿// These are all no-op wrappers to make rest of the code happy.
 
+using Patchwork;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-
-public partial class AssetBundleManager : Singleton<AssetBundleManager>
+public class AssetBundleManifestData : AssetBundleData
 {
+	public string manifest { get; set; }
+	public AssetBundleManifestData(string bundle, string asset, string manifest)
+	: base(bundle, asset)
+	{
+		manifest = manifest;
+	}
+	public AssetBundleManifestData()
+	{
+	}
+}
+
+public class AssetBundleManager : Singleton<AssetBundleManager>
+{
+	public static bool isInitialized = false;
+	public static string BaseDownloadingURL { get; set; }
+	public static void Initialize(string basePath)
+	{
+		if (!isInitialized)
+		{
+			BaseDownloadingURL = basePath;
+			LoadedAssetBundle.basePath = basePath;
+			GameObject gameObject = new GameObject("AssetBundleManager", typeof(AssetBundleManager));
+			UnityEngine.Object.DontDestroyOnLoad(gameObject);
+			isInitialized = true;
+			InitAddComponent.AddComponents(gameObject);
+		}
+	}
+
+	static Dictionary<string, LoadedAssetBundle> loadedBundles = new Dictionary<string, LoadedAssetBundle>();
+	public static LoadedAssetBundle GetLoadedAssetBundle(string assetBundleName, out string error, string manifestAssetBundleName = null)
+	{
+		error = null;
+		return LoadedAssetBundle.Get(assetBundleName);
+	}
+
+	public static void UnloadAssetBundle(string assetBundleName, bool isUnloadForceRefCount, string manifestAssetBundleName = null, bool unloadAllLoadedObjects = false)
+	{
+	}
+
+	public static LoadedAssetBundle LoadAssetBundle(string assetBundleName, bool isAsync, string manifestAssetBundleName, string forasset)
+	{
+		return LoadedAssetBundle.Load(assetBundleName, forasset);
+	}
+
+	public static AssetBundleLoadAssetOperation LoadAsset(string assetBundleName, string assetName, Type type, string manifestAssetBundleName = null)
+	{
+		if (Cache.Asset(assetBundleName, assetName, type, manifestAssetBundleName, out AssetBundleLoadAssetOperation cached))
+			return cached;
+		return _LoadAsset(assetBundleName, assetName, type, manifestAssetBundleName);
+	}
+	public static AssetBundleLoadAssetOperation _LoadAsset(string assetBundleName, string assetName, Type type, string manifestAssetBundleName = null)
+	{
+		var b = LoadAssetBundle(assetBundleName, false, null, assetName);
+		if (b == null)
+			return null;
+		return new AssetBundleLoadAssetOperationSimulation(b.LoadAsset(assetName, type));
+	}
+
+	public static AssetBundleLoadAssetOperation LoadAssetAsync(AssetBundleData data, Type type)
+	{
+		return LoadAssetAsync(data.bundle, data.asset, type, null);
+	}
+
+	public static AssetBundleLoadAssetOperation LoadAssetAsync(AssetBundleManifestData data, Type type)
+	{
+		return LoadAssetAsync(data.bundle, data.asset, type, data.manifest);
+	}
+
+	public static AssetBundleLoadAssetOperation LoadAssetAsync(string assetBundleName, string assetName, Type type, string manifestAssetBundleName = null)
+	{
+		return new AssetBundleLoadAssetOperationFull(assetBundleName, assetName, type, manifestAssetBundleName);
+	}
+
+
+	public static AssetBundleLoadAssetOperation LoadAllAsset(string assetBundleName, Type type, string manifestAssetBundleName = null)
+	{
+		var b = LoadAssetBundle(assetBundleName, false, null, "*");
+		if (b == null)
+			return null; // maybe return Object[] ?
+		return new AssetBundleLoadAssetOperationSimulation(b.LoadAllAssets(type));
+	}
+
+	public static AssetBundleLoadOperation LoadLevel(string assetBundleName, string levelName, bool isAdditive, string manifestAssetBundleName = null)
+	{
+		var b = LoadAssetBundle(assetBundleName, false, null, levelName);
+		SceneManager.LoadScene(levelName, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
+		return new AssetBundleLoadLevelSimulationOperation();
+	}
+
+	public static AssetBundleLoadOperation LoadLevelAsync(string assetBundleName, string levelName, bool isAdditive, string manifestAssetBundleName = null)
+	{
+		LoadAssetBundle(assetBundleName, false, null, levelName);
+		return new AssetBundleLoadLevelOperation(assetBundleName, levelName, isAdditive, manifestAssetBundleName);
+	}
+
+	public static float Progress
+	{
+		get
+		{
+			return 1;
+		}
+	}
+
+	public static void GC()
+	{
+	}
+
 	public static LoadedAssetBundle LoadAssetBundle(string assetBundleName, bool isAsync, string manifestAssetBundleName = null)
 	{
 		return LoadAssetBundle(assetBundleName, isAsync, manifestAssetBundleName, null);
