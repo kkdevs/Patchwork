@@ -17,6 +17,8 @@ using System.Configuration;
 using System.Xml.Serialization;
 using System.Drawing;
 using UnityEngine.Rendering;
+using UnityStandardAssets.ImageEffects;
+using Manager;
 
 namespace Patchwork
 {
@@ -213,6 +215,9 @@ namespace Patchwork
 				Environment.FailFast(msg);
 			}
 		}
+		public static void InitBeforeBaseLoader()
+		{
+		}
 
 		public static void PostInit()
 		{
@@ -224,6 +229,7 @@ namespace Patchwork
 				ConfigDialog();
 			}
 			settings.Apply(true);
+			settings.UpdateCamera(null);
 			SaveConfig();
 
 			AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
@@ -241,6 +247,7 @@ namespace Patchwork
 			// Fire up scripts
 			Script.Init();
 
+
 			// Fix up window
 			var proc = Process.GetCurrentProcess();
 			EnumThreadWindows(GetCurrentThreadId(), (W, _) => {
@@ -255,12 +262,6 @@ namespace Patchwork
 			{
 				Environment.Exit(0);
 			};
-		}
-
-		public static void UpdateCamera()
-		{
-			settings.Apply("renderingPath");
-			// perhaps apply other overrides as they come up
 		}
 
 		public static void GC(string who, bool wants, object o)

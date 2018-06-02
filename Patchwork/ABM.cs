@@ -292,11 +292,11 @@ public class LoadedAssetBundle
 		m_AssetBundle = AssetBundle.LoadFromFile(path);
 		if (m_AssetBundle == null)
 		{
-			Debug.Log($"[ABM] The load for {forname} failed anyway. Currently loaded bundles:");
+			Trace.Error($"[ABM] The load for {forname} failed due to unresolvable conflict. Currently loaded bundles (enable SPAM):");
 			foreach (var item in loadedBundles)
 			{
 				if (item.Value.m_AssetBundle == null) continue;
-				Debug.Log($"{item.Key}, assets={String.Join(",", item.Value.assetNames)}");
+				Trace.Log($"{item.Key}, assets={String.Join(",", item.Value.assetNames)}");
 			}
 			return false;
 		}

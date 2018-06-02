@@ -65,6 +65,8 @@ namespace Patchwork
 				var c = control as CheckBox; if (c != null) c.CheckedChanged += (o, e) =>
 				{
 					s.Update(f.Name, c.Checked);
+					foreach (var en in Controls.Find("enabler_" + f.Name, true))
+						en.Enabled = c.Checked;
 				};
 				var b = control as Button; if (b != null)
 				{
@@ -81,6 +83,7 @@ namespace Patchwork
 			{
 				s.qualitySelect = (byte)f_qualitySelect.SelectedIndex;
 				s.Apply(false);
+				Program.settings.UpdateCamera(null);
 				UpdateForm();
 				Program.SaveConfig();
 			};
@@ -132,6 +135,11 @@ namespace Patchwork
 				}
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
+		}
+
+		private void cam_useAmplifyColor_CheckedChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

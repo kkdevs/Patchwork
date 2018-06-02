@@ -14,12 +14,14 @@ using UnityEngine;
 using System.Threading;
 using MessagePack;
 using System.Runtime.InteropServices;
+using UnityStandardAssets.ImageEffects;
+using Manager;
 
 namespace Patchwork
 {
 	// The serialized fields match 1:1 to controls in SettingsForm
 	[Serializable]
-	public class Settings
+	public partial class Settings
 	{
 		public string ooMale = "chara/oo_base";
 		public string ooFemale = "chara/oo_base";
@@ -113,7 +115,7 @@ namespace Patchwork
 		public bool realtimeReflectionProbes = false;
 		public bool fullscreen = false;
 
-		public byte renderingPath = 1;
+		public byte cam_renderingPath = 1;
 
 		public bool unlockH = false;
 
@@ -149,13 +151,13 @@ namespace Patchwork
 		static Dictionary<String, int[]> parmap = new Dictionary<String, int[]>()
 		{
 			{ "antiAliasing" , new [] { 0,2,4,8,16,32 } },
-			{ "renderingPath", new [] { 0,1,2,3,4,5 } },
+			{ "cam_renderingPath", new [] { 0,1,2,3,4,5 } },
 			{ "shadowCascades", new [] {0,2,4 } },
 			{ "blendWeights", new [] {1,2,4 } },
 		};
 
 
-		// Maps non-linear listboxes
+		// Apply a singular setting
 		public void Update(string name, object val)
 		{
 			try
@@ -214,6 +216,7 @@ namespace Patchwork
 		}
 
 		// CAVEAT: Fires up engine
+		// setres is a bit of misnomer. if false, it means settings are applied in bulk
 		public void DoApply(string name, bool setres = false)
 		{
 			switch (name)
@@ -241,22 +244,12 @@ namespace Patchwork
 						catch { };
 					}
 					break;
-				case "renderingPath":
-					Trace.Log($"Changing rendering path, new = {renderingPath}");
-					var path = (RenderingPath)renderingPath;
-					if (Camera.main != null)
-					{
-						Camera.main.renderingPath = path;
-//						Camera.main.targetTexture = null;
-					}
-					if (Camera.current != null)
-					{
-						Camera.current.renderingPath = path;
-//						Camera.current.targetTexture = null;
-					}
-
-					break;
 				default:
+					if (name.StartsWith("cam_") && setres)
+					{
+						UpdateCamera(null);
+						break;
+					}
 					try
 					{
 						var val = typeof(Settings).GetField(name);

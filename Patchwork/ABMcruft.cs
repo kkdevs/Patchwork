@@ -10,6 +10,26 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public static class AssetBundleCheck
+{
+	public static bool IsSimulation => false;
+
+	public static bool IsFile(string assetBundleName, string fileName = "")
+	{
+		if (!File.Exists(AssetBundleManager.BaseDownloadingURL + assetBundleName))
+			return false;
+		return true;
+	}
+
+	public static string[] GetAllAssetName(string assetBundleName, bool _WithExtension = true, string manifestAssetBundleName = null, bool isAllCheck = false)
+	{
+		var ab = LoadedAssetBundle.Load(assetBundleName);
+		if ((ab == null) || (!ab.Ensure())) return null;
+		var assetBundle = ab.m_AssetBundle;
+		return (!_WithExtension) ? assetBundle.GetAllAssetNames().Select(Path.GetFileNameWithoutExtension).ToArray() : assetBundle.GetAllAssetNames().Select(Path.GetFileName).ToArray();
+	}
+}
+
 public class AssetBundleManifestData : AssetBundleData
 {
 	public string manifest { get; set; }

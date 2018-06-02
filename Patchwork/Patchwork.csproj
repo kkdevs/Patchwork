@@ -84,7 +84,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugSymbols>true</DebugSymbols>
-    <WarningLevel>0</WarningLevel>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>CS0169,CS0649,CS0219,CS0105,CS0414,CS0642,CS0618,CS0642,CS1522,CS0164,CS0162,CS0067,CS1717,CS8012,CS0626</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_local|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -104,6 +105,7 @@
     <Compile Include="ABM.cs" />
     <Compile Include="ABMcruft.cs" />
     <Compile Include="Cache.cs" />
+    <Compile Include="CamEffect.cs" />
     <Compile Include="CSV.cs" />
     <Compile Include="Ext.cs" />
     <Compile Include="Serialize.cs" />

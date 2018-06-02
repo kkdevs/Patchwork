@@ -72,7 +72,7 @@ namespace Patchwork
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.resizable = new System.Windows.Forms.CheckBox();
 			this.label20 = new System.Windows.Forms.Label();
-			this.renderingPath = new System.Windows.Forms.ComboBox();
+			this.cam_renderingPath = new System.Windows.Forms.ComboBox();
 			this.softParticles = new System.Windows.Forms.CheckBox();
 			this.pixelLightCount = new System.Windows.Forms.TextBox();
 			this.fullscreen = new System.Windows.Forms.CheckBox();
@@ -85,12 +85,11 @@ namespace Patchwork
 			this.masterTextureLimit = new System.Windows.Forms.ComboBox();
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.hideMoz = new System.Windows.Forms.CheckBox();
 			this.noFade = new System.Windows.Forms.CheckBox();
 			this.skipLogo = new System.Windows.Forms.CheckBox();
-			this.label34 = new System.Windows.Forms.Label();
-			this.rimOverride = new System.Windows.Forms.TextBox();
 			this.label35 = new System.Windows.Forms.Label();
 			this.chardb = new System.Windows.Forms.ComboBox();
 			this.tumblr = new System.Windows.Forms.CheckBox();
@@ -100,11 +99,6 @@ namespace Patchwork
 			this.label33 = new System.Windows.Forms.Label();
 			this.label32 = new System.Windows.Forms.Label();
 			this.sliderMin = new System.Windows.Forms.TextBox();
-			this.shadowOverride = new System.Windows.Forms.CheckBox();
-			this.customShadowStrengthLimit = new System.Windows.Forms.TextBox();
-			this.customShadowStrengthTarget = new System.Windows.Forms.TextBox();
-			this.label23 = new System.Windows.Forms.Label();
-			this.label21 = new System.Windows.Forms.Label();
 			this.fixPenis = new System.Windows.Forms.CheckBox();
 			this.fixVagina = new System.Windows.Forms.CheckBox();
 			this.noBustNorm = new System.Windows.Forms.CheckBox();
@@ -116,6 +110,14 @@ namespace Patchwork
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.label44 = new System.Windows.Forms.Label();
+			this.label43 = new System.Windows.Forms.Label();
+			this.mmFemale = new System.Windows.Forms.TextBox();
+			this.mmMale = new System.Windows.Forms.TextBox();
+			this.label41 = new System.Windows.Forms.Label();
+			this.ooFemale = new System.Windows.Forms.TextBox();
+			this.label42 = new System.Windows.Forms.Label();
+			this.ooMale = new System.Windows.Forms.TextBox();
 			this.label25 = new System.Windows.Forms.Label();
 			this.visTick = new System.Windows.Forms.TextBox();
 			this.label24 = new System.Windows.Forms.Label();
@@ -151,21 +153,39 @@ namespace Patchwork
 			this.assetAsync = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
-			this.label41 = new System.Windows.Forms.Label();
-			this.ooFemale = new System.Windows.Forms.TextBox();
-			this.label42 = new System.Windows.Forms.Label();
-			this.ooMale = new System.Windows.Forms.TextBox();
-			this.mmFemale = new System.Windows.Forms.TextBox();
-			this.mmMale = new System.Windows.Forms.TextBox();
-			this.label43 = new System.Windows.Forms.Label();
-			this.label44 = new System.Windows.Forms.Label();
+			this.enabler_cam_ppOverride = new System.Windows.Forms.GroupBox();
+			this.cam_ppOverride = new System.Windows.Forms.CheckBox();
+			this.cam_useFog = new System.Windows.Forms.CheckBox();
+			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
+			this.cam_useAmplifyOcclus = new System.Windows.Forms.CheckBox();
+			this.cam_useBloom = new System.Windows.Forms.CheckBox();
+			this.cam_useSunShafts = new System.Windows.Forms.CheckBox();
+			this.cam_useVignette = new System.Windows.Forms.CheckBox();
+			this.cam_useDOF = new System.Windows.Forms.CheckBox();
+			this.cam_useBlur = new System.Windows.Forms.CheckBox();
+			this.cam_useSepia = new System.Windows.Forms.CheckBox();
+			this.label34 = new System.Windows.Forms.Label();
+			this.rimOverride = new System.Windows.Forms.TextBox();
+			this.shadowOverride = new System.Windows.Forms.CheckBox();
+			this.customShadowStrengthLimit = new System.Windows.Forms.TextBox();
+			this.customShadowStrengthTarget = new System.Windows.Forms.TextBox();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label21 = new System.Windows.Forms.Label();
+			this.enabler_shadowOverride = new System.Windows.Forms.GroupBox();
+			this.cam_amplColorExposure = new System.Windows.Forms.TextBox();
+			this.label45 = new System.Windows.Forms.Label();
+			this.label46 = new System.Windows.Forms.Label();
+			this.cam_aoeRadius = new System.Windows.Forms.TextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			this.tabPage4.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabPage3.SuspendLayout();
+			this.enabler_cam_ppOverride.SuspendLayout();
+			this.enabler_shadowOverride.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -178,6 +198,7 @@ namespace Patchwork
 			// 
 			resources.ApplyResources(this.tabControl1, "tabControl1");
 			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Name = "tabControl1";
@@ -467,7 +488,7 @@ namespace Patchwork
 			resources.ApplyResources(this.groupBox1, "groupBox1");
 			this.groupBox1.Controls.Add(this.resizable);
 			this.groupBox1.Controls.Add(this.label20);
-			this.groupBox1.Controls.Add(this.renderingPath);
+			this.groupBox1.Controls.Add(this.cam_renderingPath);
 			this.groupBox1.Controls.Add(this.softParticles);
 			this.groupBox1.Controls.Add(this.pixelLightCount);
 			this.groupBox1.Controls.Add(this.fullscreen);
@@ -494,17 +515,17 @@ namespace Patchwork
 			resources.ApplyResources(this.label20, "label20");
 			this.label20.Name = "label20";
 			// 
-			// renderingPath
+			// cam_renderingPath
 			// 
-			this.renderingPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.renderingPath.FormattingEnabled = true;
-			this.renderingPath.Items.AddRange(new object[] {
-            resources.GetString("renderingPath.Items"),
-            resources.GetString("renderingPath.Items1"),
-            resources.GetString("renderingPath.Items2"),
-            resources.GetString("renderingPath.Items3")});
-			resources.ApplyResources(this.renderingPath, "renderingPath");
-			this.renderingPath.Name = "renderingPath";
+			this.cam_renderingPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cam_renderingPath.FormattingEnabled = true;
+			this.cam_renderingPath.Items.AddRange(new object[] {
+            resources.GetString("cam_renderingPath.Items"),
+            resources.GetString("cam_renderingPath.Items1"),
+            resources.GetString("cam_renderingPath.Items2"),
+            resources.GetString("cam_renderingPath.Items3")});
+			resources.ApplyResources(this.cam_renderingPath, "cam_renderingPath");
+			this.cam_renderingPath.Name = "cam_renderingPath";
 			// 
 			// softParticles
 			// 
@@ -591,13 +612,21 @@ namespace Patchwork
 			resources.ApplyResources(this.label3, "label3");
 			this.label3.Name = "label3";
 			// 
+			// tabPage4
+			// 
+			this.tabPage4.Controls.Add(this.enabler_shadowOverride);
+			this.tabPage4.Controls.Add(this.shadowOverride);
+			this.tabPage4.Controls.Add(this.cam_ppOverride);
+			this.tabPage4.Controls.Add(this.enabler_cam_ppOverride);
+			resources.ApplyResources(this.tabPage4, "tabPage4");
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.hideMoz);
 			this.tabPage2.Controls.Add(this.noFade);
 			this.tabPage2.Controls.Add(this.skipLogo);
-			this.tabPage2.Controls.Add(this.label34);
-			this.tabPage2.Controls.Add(this.rimOverride);
 			this.tabPage2.Controls.Add(this.label35);
 			this.tabPage2.Controls.Add(this.chardb);
 			this.tabPage2.Controls.Add(this.tumblr);
@@ -607,11 +636,6 @@ namespace Patchwork
 			this.tabPage2.Controls.Add(this.label33);
 			this.tabPage2.Controls.Add(this.label32);
 			this.tabPage2.Controls.Add(this.sliderMin);
-			this.tabPage2.Controls.Add(this.shadowOverride);
-			this.tabPage2.Controls.Add(this.customShadowStrengthLimit);
-			this.tabPage2.Controls.Add(this.customShadowStrengthTarget);
-			this.tabPage2.Controls.Add(this.label23);
-			this.tabPage2.Controls.Add(this.label21);
 			this.tabPage2.Controls.Add(this.fixPenis);
 			this.tabPage2.Controls.Add(this.fixVagina);
 			this.tabPage2.Controls.Add(this.noBustNorm);
@@ -643,16 +667,6 @@ namespace Patchwork
 			resources.ApplyResources(this.skipLogo, "skipLogo");
 			this.skipLogo.Name = "skipLogo";
 			this.skipLogo.UseVisualStyleBackColor = true;
-			// 
-			// label34
-			// 
-			resources.ApplyResources(this.label34, "label34");
-			this.label34.Name = "label34";
-			// 
-			// rimOverride
-			// 
-			resources.ApplyResources(this.rimOverride, "rimOverride");
-			this.rimOverride.Name = "rimOverride";
 			// 
 			// label35
 			// 
@@ -703,32 +717,6 @@ namespace Patchwork
 			// 
 			resources.ApplyResources(this.sliderMin, "sliderMin");
 			this.sliderMin.Name = "sliderMin";
-			// 
-			// shadowOverride
-			// 
-			resources.ApplyResources(this.shadowOverride, "shadowOverride");
-			this.shadowOverride.Name = "shadowOverride";
-			this.shadowOverride.UseVisualStyleBackColor = true;
-			// 
-			// customShadowStrengthLimit
-			// 
-			resources.ApplyResources(this.customShadowStrengthLimit, "customShadowStrengthLimit");
-			this.customShadowStrengthLimit.Name = "customShadowStrengthLimit";
-			// 
-			// customShadowStrengthTarget
-			// 
-			resources.ApplyResources(this.customShadowStrengthTarget, "customShadowStrengthTarget");
-			this.customShadowStrengthTarget.Name = "customShadowStrengthTarget";
-			// 
-			// label23
-			// 
-			resources.ApplyResources(this.label23, "label23");
-			this.label23.Name = "label23";
-			// 
-			// label21
-			// 
-			resources.ApplyResources(this.label21, "label21");
-			this.label21.Name = "label21";
 			// 
 			// fixPenis
 			// 
@@ -837,6 +825,46 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// label44
+			// 
+			resources.ApplyResources(this.label44, "label44");
+			this.label44.Name = "label44";
+			// 
+			// label43
+			// 
+			resources.ApplyResources(this.label43, "label43");
+			this.label43.Name = "label43";
+			// 
+			// mmFemale
+			// 
+			resources.ApplyResources(this.mmFemale, "mmFemale");
+			this.mmFemale.Name = "mmFemale";
+			// 
+			// mmMale
+			// 
+			resources.ApplyResources(this.mmMale, "mmMale");
+			this.mmMale.Name = "mmMale";
+			// 
+			// label41
+			// 
+			resources.ApplyResources(this.label41, "label41");
+			this.label41.Name = "label41";
+			// 
+			// ooFemale
+			// 
+			resources.ApplyResources(this.ooFemale, "ooFemale");
+			this.ooFemale.Name = "ooFemale";
+			// 
+			// label42
+			// 
+			resources.ApplyResources(this.label42, "label42");
+			this.label42.Name = "label42";
+			// 
+			// ooMale
+			// 
+			resources.ApplyResources(this.ooMale, "ooMale");
+			this.ooMale.Name = "ooMale";
 			// 
 			// label25
 			// 
@@ -1023,52 +1051,160 @@ namespace Patchwork
 			this.runChara.Name = "runChara";
 			this.runChara.UseVisualStyleBackColor = true;
 			// 
-			// label41
+			// enabler_cam_ppOverride
 			// 
-			resources.ApplyResources(this.label41, "label41");
-			this.label41.Name = "label41";
+			this.enabler_cam_ppOverride.Controls.Add(this.label46);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_aoeRadius);
+			this.enabler_cam_ppOverride.Controls.Add(this.label45);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_amplColorExposure);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useSepia);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useBlur);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useDOF);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useVignette);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useSunShafts);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useBloom);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useAmplifyOcclus);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useAmplifyColor);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useFog);
+			resources.ApplyResources(this.enabler_cam_ppOverride, "enabler_cam_ppOverride");
+			this.enabler_cam_ppOverride.Name = "enabler_cam_ppOverride";
+			this.enabler_cam_ppOverride.TabStop = false;
 			// 
-			// ooFemale
+			// cam_ppOverride
 			// 
-			resources.ApplyResources(this.ooFemale, "ooFemale");
-			this.ooFemale.Name = "ooFemale";
+			resources.ApplyResources(this.cam_ppOverride, "cam_ppOverride");
+			this.cam_ppOverride.Name = "cam_ppOverride";
+			this.cam_ppOverride.UseVisualStyleBackColor = true;
 			// 
-			// label42
+			// cam_useFog
 			// 
-			resources.ApplyResources(this.label42, "label42");
-			this.label42.Name = "label42";
+			resources.ApplyResources(this.cam_useFog, "cam_useFog");
+			this.cam_useFog.Name = "cam_useFog";
+			this.cam_useFog.UseVisualStyleBackColor = true;
 			// 
-			// ooMale
+			// cam_useAmplifyColor
 			// 
-			resources.ApplyResources(this.ooMale, "ooMale");
-			this.ooMale.Name = "ooMale";
+			resources.ApplyResources(this.cam_useAmplifyColor, "cam_useAmplifyColor");
+			this.cam_useAmplifyColor.Name = "cam_useAmplifyColor";
+			this.cam_useAmplifyColor.UseVisualStyleBackColor = true;
+			this.cam_useAmplifyColor.CheckedChanged += new System.EventHandler(this.cam_useAmplifyColor_CheckedChanged);
 			// 
-			// mmFemale
+			// cam_useAmplifyOcclus
 			// 
-			resources.ApplyResources(this.mmFemale, "mmFemale");
-			this.mmFemale.Name = "mmFemale";
+			resources.ApplyResources(this.cam_useAmplifyOcclus, "cam_useAmplifyOcclus");
+			this.cam_useAmplifyOcclus.Name = "cam_useAmplifyOcclus";
+			this.cam_useAmplifyOcclus.UseVisualStyleBackColor = true;
 			// 
-			// mmMale
+			// cam_useBloom
 			// 
-			resources.ApplyResources(this.mmMale, "mmMale");
-			this.mmMale.Name = "mmMale";
+			resources.ApplyResources(this.cam_useBloom, "cam_useBloom");
+			this.cam_useBloom.Name = "cam_useBloom";
+			this.cam_useBloom.UseVisualStyleBackColor = true;
 			// 
-			// label43
+			// cam_useSunShafts
 			// 
-			resources.ApplyResources(this.label43, "label43");
-			this.label43.Name = "label43";
+			resources.ApplyResources(this.cam_useSunShafts, "cam_useSunShafts");
+			this.cam_useSunShafts.Name = "cam_useSunShafts";
+			this.cam_useSunShafts.UseVisualStyleBackColor = true;
 			// 
-			// label44
+			// cam_useVignette
 			// 
-			resources.ApplyResources(this.label44, "label44");
-			this.label44.Name = "label44";
+			resources.ApplyResources(this.cam_useVignette, "cam_useVignette");
+			this.cam_useVignette.Name = "cam_useVignette";
+			this.cam_useVignette.UseVisualStyleBackColor = true;
+			// 
+			// cam_useDOF
+			// 
+			resources.ApplyResources(this.cam_useDOF, "cam_useDOF");
+			this.cam_useDOF.Name = "cam_useDOF";
+			this.cam_useDOF.UseVisualStyleBackColor = true;
+			// 
+			// cam_useBlur
+			// 
+			resources.ApplyResources(this.cam_useBlur, "cam_useBlur");
+			this.cam_useBlur.Name = "cam_useBlur";
+			this.cam_useBlur.UseVisualStyleBackColor = true;
+			// 
+			// cam_useSepia
+			// 
+			resources.ApplyResources(this.cam_useSepia, "cam_useSepia");
+			this.cam_useSepia.Name = "cam_useSepia";
+			this.cam_useSepia.UseVisualStyleBackColor = true;
+			// 
+			// label34
+			// 
+			resources.ApplyResources(this.label34, "label34");
+			this.label34.Name = "label34";
+			// 
+			// rimOverride
+			// 
+			resources.ApplyResources(this.rimOverride, "rimOverride");
+			this.rimOverride.Name = "rimOverride";
+			// 
+			// shadowOverride
+			// 
+			resources.ApplyResources(this.shadowOverride, "shadowOverride");
+			this.shadowOverride.Name = "shadowOverride";
+			this.shadowOverride.UseVisualStyleBackColor = true;
+			// 
+			// customShadowStrengthLimit
+			// 
+			resources.ApplyResources(this.customShadowStrengthLimit, "customShadowStrengthLimit");
+			this.customShadowStrengthLimit.Name = "customShadowStrengthLimit";
+			// 
+			// customShadowStrengthTarget
+			// 
+			resources.ApplyResources(this.customShadowStrengthTarget, "customShadowStrengthTarget");
+			this.customShadowStrengthTarget.Name = "customShadowStrengthTarget";
+			// 
+			// label23
+			// 
+			resources.ApplyResources(this.label23, "label23");
+			this.label23.Name = "label23";
+			// 
+			// label21
+			// 
+			resources.ApplyResources(this.label21, "label21");
+			this.label21.Name = "label21";
+			// 
+			// enabler_shadowOverride
+			// 
+			this.enabler_shadowOverride.Controls.Add(this.customShadowStrengthLimit);
+			this.enabler_shadowOverride.Controls.Add(this.label34);
+			this.enabler_shadowOverride.Controls.Add(this.label21);
+			this.enabler_shadowOverride.Controls.Add(this.rimOverride);
+			this.enabler_shadowOverride.Controls.Add(this.label23);
+			this.enabler_shadowOverride.Controls.Add(this.customShadowStrengthTarget);
+			resources.ApplyResources(this.enabler_shadowOverride, "enabler_shadowOverride");
+			this.enabler_shadowOverride.Name = "enabler_shadowOverride";
+			this.enabler_shadowOverride.TabStop = false;
+			// 
+			// cam_amplColorExposure
+			// 
+			resources.ApplyResources(this.cam_amplColorExposure, "cam_amplColorExposure");
+			this.cam_amplColorExposure.Name = "cam_amplColorExposure";
+			// 
+			// label45
+			// 
+			resources.ApplyResources(this.label45, "label45");
+			this.label45.Name = "label45";
+			// 
+			// label46
+			// 
+			resources.ApplyResources(this.label46, "label46");
+			this.label46.Name = "label46";
+			// 
+			// cam_aoeRadius
+			// 
+			resources.ApplyResources(this.cam_aoeRadius, "cam_aoeRadius");
+			this.cam_aoeRadius.Name = "cam_aoeRadius";
 			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.runChara);
 			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.runChara);
 			this.Controls.Add(this.launchButton);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
@@ -1084,10 +1220,16 @@ namespace Patchwork
 			this.groupBox2.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.tabPage4.ResumeLayout(false);
+			this.tabPage4.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
+			this.enabler_cam_ppOverride.ResumeLayout(false);
+			this.enabler_cam_ppOverride.PerformLayout();
+			this.enabler_shadowOverride.ResumeLayout(false);
+			this.enabler_shadowOverride.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1143,7 +1285,7 @@ namespace Patchwork
 		private System.Windows.Forms.Label label14;
 		private System.Windows.Forms.CheckBox softParticles;
 		private System.Windows.Forms.Label label20;
-		private System.Windows.Forms.ComboBox renderingPath;
+		private System.Windows.Forms.ComboBox cam_renderingPath;
 		private System.Windows.Forms.TextBox maxQueuedFrames;
 		private System.Windows.Forms.ComboBox blendWeights;
 		private System.Windows.Forms.LinkLabel linkUnityDoc;
@@ -1158,11 +1300,6 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox noBustNorm;
 		private System.Windows.Forms.CheckBox fixPenis;
 		private System.Windows.Forms.CheckBox fixVagina;
-        private System.Windows.Forms.TextBox customShadowStrengthLimit;
-        private System.Windows.Forms.TextBox customShadowStrengthTarget;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label21;
-		private System.Windows.Forms.CheckBox shadowOverride;
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.CheckBox assetAsync;
 		private System.Windows.Forms.CheckBox assetCache;
@@ -1210,8 +1347,6 @@ namespace Patchwork
 		private System.Windows.Forms.TextBox shaderTick;
 		private System.Windows.Forms.Label label25;
 		private System.Windows.Forms.TextBox visTick;
-		private System.Windows.Forms.Label label34;
-		private System.Windows.Forms.TextBox rimOverride;
 		private System.Windows.Forms.CheckBox skipLogo;
 		private System.Windows.Forms.CheckBox noFade;
 		private System.Windows.Forms.CheckBox hideMoz;
@@ -1223,6 +1358,30 @@ namespace Patchwork
 		private System.Windows.Forms.TextBox ooFemale;
 		private System.Windows.Forms.Label label42;
 		private System.Windows.Forms.TextBox ooMale;
+		private System.Windows.Forms.TabPage tabPage4;
+		private System.Windows.Forms.CheckBox cam_ppOverride;
+		private System.Windows.Forms.GroupBox enabler_cam_ppOverride;
+		private System.Windows.Forms.CheckBox cam_useFog;
+		private System.Windows.Forms.CheckBox cam_useAmplifyColor;
+		private System.Windows.Forms.CheckBox cam_useAmplifyOcclus;
+		private System.Windows.Forms.CheckBox cam_useBloom;
+		private System.Windows.Forms.CheckBox cam_useSunShafts;
+		private System.Windows.Forms.CheckBox cam_useVignette;
+		private System.Windows.Forms.CheckBox cam_useDOF;
+		private System.Windows.Forms.CheckBox cam_useBlur;
+		private System.Windows.Forms.CheckBox cam_useSepia;
+		private System.Windows.Forms.GroupBox enabler_shadowOverride;
+		private System.Windows.Forms.TextBox customShadowStrengthLimit;
+		private System.Windows.Forms.Label label34;
+		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.TextBox rimOverride;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.TextBox customShadowStrengthTarget;
+		private System.Windows.Forms.CheckBox shadowOverride;
+		private System.Windows.Forms.TextBox cam_amplColorExposure;
+		private System.Windows.Forms.Label label45;
+		private System.Windows.Forms.Label label46;
+		private System.Windows.Forms.TextBox cam_aoeRadius;
 	}
 }
 
