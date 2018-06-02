@@ -136,10 +136,5 @@ namespace Patchwork
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
 		}
-
-		private void cam_useAmplifyColor_CheckedChanged(object sender, EventArgs e)
-		{
-
-		}
 	}
 }

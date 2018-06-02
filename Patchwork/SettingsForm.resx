@@ -129,7 +129,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="launchButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>317, 68</value>
+    <value>320, 68</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="launchButton.TabIndex" type="System.Int32, mscorlib">
@@ -247,7 +247,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>628, 267</value>
+    <value>633, 267</value>
   </data>
   <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -340,7 +340,7 @@
     <value>5</value>
   </data>
   <data name="enabler_shadowOverride.Location" type="System.Drawing.Point, System.Drawing">
-    <value>339, 24</value>
+    <value>327, 28</value>
   </data>
   <data name="enabler_shadowOverride.Size" type="System.Drawing.Size, System.Drawing">
     <value>283, 102</value>
@@ -370,7 +370,7 @@
     <value>NoControl</value>
   </data>
   <data name="shadowOverride.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 1</value>
+    <value>330, 5</value>
   </data>
   <data name="shadowOverride.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -400,7 +400,7 @@
     <value>True</value>
   </data>
   <data name="cam_ppOverride.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 4</value>
+    <value>8, 6</value>
   </data>
   <data name="cam_ppOverride.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 17</value>
@@ -423,23 +423,23 @@
   <data name="&gt;&gt;cam_ppOverride.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label46.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label46.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label46.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 66</value>
+    <value>138, 64</value>
   </data>
   <data name="label46.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 13</value>
+    <value>51, 13</value>
   </data>
   <data name="label46.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
   </data>
   <data name="label46.Text" xml:space="preserve">
     <value>Radius</value>
+  </data>
+  <data name="label46.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label46.Name" xml:space="preserve">
     <value>label46</value>
@@ -454,7 +454,7 @@
     <value>0</value>
   </data>
   <data name="cam_aoeRadius.Location" type="System.Drawing.Point, System.Drawing">
-    <value>181, 63</value>
+    <value>194, 61</value>
   </data>
   <data name="cam_aoeRadius.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -484,7 +484,7 @@
     <value>NoControl</value>
   </data>
   <data name="label45.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 44</value>
+    <value>138, 43</value>
   </data>
   <data name="label45.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 13</value>
@@ -494,6 +494,9 @@
   </data>
   <data name="label45.Text" xml:space="preserve">
     <value>Exposure</value>
+  </data>
+  <data name="label45.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label45.Name" xml:space="preserve">
     <value>label45</value>
@@ -508,7 +511,7 @@
     <value>2</value>
   </data>
   <data name="cam_amplColorExposure.Location" type="System.Drawing.Point, System.Drawing">
-    <value>181, 41</value>
+    <value>194, 39</value>
   </data>
   <data name="cam_amplColorExposure.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -531,9 +534,6 @@
   <data name="&gt;&gt;cam_amplColorExposure.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="cam_useSepia.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useSepia.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -541,16 +541,19 @@
     <value>NoControl</value>
   </data>
   <data name="cam_useSepia.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 200</value>
+    <value>67, 200</value>
   </data>
   <data name="cam_useSepia.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 17</value>
+    <value>60, 17</value>
   </data>
   <data name="cam_useSepia.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
   <data name="cam_useSepia.Text" xml:space="preserve">
     <value>Sepia</value>
+  </data>
+  <data name="cam_useSepia.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useSepia.Name" xml:space="preserve">
     <value>cam_useSepia</value>
@@ -564,9 +567,6 @@
   <data name="&gt;&gt;cam_useSepia.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="cam_useBlur.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useBlur.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -574,16 +574,19 @@
     <value>NoControl</value>
   </data>
   <data name="cam_useBlur.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 177</value>
+    <value>79, 177</value>
   </data>
   <data name="cam_useBlur.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 17</value>
+    <value>48, 17</value>
   </data>
   <data name="cam_useBlur.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
   <data name="cam_useBlur.Text" xml:space="preserve">
     <value>Blur</value>
+  </data>
+  <data name="cam_useBlur.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useBlur.Name" xml:space="preserve">
     <value>cam_useBlur</value>
@@ -597,9 +600,6 @@
   <data name="&gt;&gt;cam_useBlur.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="cam_useDOF.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useDOF.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -607,16 +607,19 @@
     <value>NoControl</value>
   </data>
   <data name="cam_useDOF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 154</value>
+    <value>33, 154</value>
   </data>
   <data name="cam_useDOF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 17</value>
+    <value>94, 17</value>
   </data>
   <data name="cam_useDOF.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="cam_useDOF.Text" xml:space="preserve">
     <value>Depth of field</value>
+  </data>
+  <data name="cam_useDOF.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useDOF.Name" xml:space="preserve">
     <value>cam_useDOF</value>
@@ -630,9 +633,6 @@
   <data name="&gt;&gt;cam_useDOF.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="cam_useVignette.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useVignette.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -640,16 +640,19 @@
     <value>NoControl</value>
   </data>
   <data name="cam_useVignette.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 131</value>
+    <value>58, 131</value>
   </data>
   <data name="cam_useVignette.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 17</value>
+    <value>69, 17</value>
   </data>
   <data name="cam_useVignette.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="cam_useVignette.Text" xml:space="preserve">
     <value>Vignette</value>
+  </data>
+  <data name="cam_useVignette.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useVignette.Name" xml:space="preserve">
     <value>cam_useVignette</value>
@@ -663,9 +666,6 @@
   <data name="&gt;&gt;cam_useVignette.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="cam_useSunShafts.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useSunShafts.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -673,16 +673,19 @@
     <value>NoControl</value>
   </data>
   <data name="cam_useSunShafts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 108</value>
+    <value>52, 108</value>
   </data>
   <data name="cam_useSunShafts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 17</value>
+    <value>75, 17</value>
   </data>
   <data name="cam_useSunShafts.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="cam_useSunShafts.Text" xml:space="preserve">
     <value>Sunshafts</value>
+  </data>
+  <data name="cam_useSunShafts.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useSunShafts.Name" xml:space="preserve">
     <value>cam_useSunShafts</value>
@@ -696,9 +699,6 @@
   <data name="&gt;&gt;cam_useSunShafts.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="cam_useBloom.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useBloom.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -706,16 +706,19 @@
     <value>NoControl</value>
   </data>
   <data name="cam_useBloom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>64, 86</value>
+    <value>67, 86</value>
   </data>
   <data name="cam_useBloom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 17</value>
+    <value>60, 17</value>
   </data>
   <data name="cam_useBloom.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="cam_useBloom.Text" xml:space="preserve">
     <value>Bloom</value>
+  </data>
+  <data name="cam_useBloom.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useBloom.Name" xml:space="preserve">
     <value>cam_useBloom</value>
@@ -729,9 +732,6 @@
   <data name="&gt;&gt;cam_useBloom.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="cam_useAmplifyOcclus.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useAmplifyOcclus.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -742,13 +742,16 @@
     <value>7, 66</value>
   </data>
   <data name="cam_useAmplifyOcclus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 17</value>
+    <value>120, 17</value>
   </data>
   <data name="cam_useAmplifyOcclus.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="cam_useAmplifyOcclus.Text" xml:space="preserve">
     <value>Ambient occlusion</value>
+  </data>
+  <data name="cam_useAmplifyOcclus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useAmplifyOcclus.Name" xml:space="preserve">
     <value>cam_useAmplifyOcclus</value>
@@ -762,9 +765,6 @@
   <data name="&gt;&gt;cam_useAmplifyOcclus.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="cam_useAmplifyColor.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useAmplifyColor.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
@@ -772,16 +772,19 @@
     <value>NoControl</value>
   </data>
   <data name="cam_useAmplifyColor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 43</value>
+    <value>33, 43</value>
   </data>
   <data name="cam_useAmplifyColor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 17</value>
+    <value>94, 17</value>
   </data>
   <data name="cam_useAmplifyColor.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="cam_useAmplifyColor.Text" xml:space="preserve">
     <value>Amplify color</value>
+  </data>
+  <data name="cam_useAmplifyColor.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useAmplifyColor.Name" xml:space="preserve">
     <value>cam_useAmplifyColor</value>
@@ -795,23 +798,23 @@
   <data name="&gt;&gt;cam_useAmplifyColor.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="cam_useFog.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="cam_useFog.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
   <data name="cam_useFog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 19</value>
+    <value>79, 19</value>
   </data>
   <data name="cam_useFog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 17</value>
+    <value>48, 17</value>
   </data>
   <data name="cam_useFog.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="cam_useFog.Text" xml:space="preserve">
     <value>Fog</value>
+  </data>
+  <data name="cam_useFog.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;cam_useFog.Name" xml:space="preserve">
     <value>cam_useFog</value>
@@ -826,10 +829,10 @@
     <value>12</value>
   </data>
   <data name="enabler_cam_ppOverride.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 24</value>
+    <value>7, 28</value>
   </data>
   <data name="enabler_cam_ppOverride.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 237</value>
+    <value>309, 233</value>
   </data>
   <data name="enabler_cam_ppOverride.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -856,7 +859,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>628, 267</value>
+    <value>633, 267</value>
   </data>
   <data name="tabPage4.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1150,7 +1153,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>628, 267</value>
+    <value>633, 267</value>
   </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1687,7 +1690,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>628, 267</value>
+    <value>633, 267</value>
   </data>
   <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1717,7 +1720,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>636, 293</value>
+    <value>641, 293</value>
   </data>
   <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1826,6 +1829,9 @@
   </data>
   <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="groupBox3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
   </data>
   <data name="&gt;&gt;maxQueuedFrames.Name" xml:space="preserve">
     <value>maxQueuedFrames</value>
@@ -2020,7 +2026,7 @@
     <value>15</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>431, 38</value>
+    <value>435, 38</value>
   </data>
   <data name="groupBox3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2029,7 +2035,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 220</value>
+    <value>193, 221</value>
   </data>
   <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -2073,17 +2079,14 @@
   <data name="&gt;&gt;maxQueuedFrames.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 75</value>
+    <value>4, 75</value>
   </data>
   <data name="label14.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 13</value>
+    <value>84, 13</value>
   </data>
   <data name="label14.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
@@ -2106,17 +2109,14 @@
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label19.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 193</value>
+    <value>4, 193</value>
   </data>
   <data name="label19.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 13</value>
+    <value>84, 13</value>
   </data>
   <data name="label19.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -2138,9 +2138,6 @@
   </data>
   <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="label18.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 169</value>
@@ -2220,9 +2217,6 @@
   <data name="&gt;&gt;asyncUploadTimeSlice.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="label17.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 144</value>
   </data>
@@ -2277,17 +2271,14 @@
   <data name="&gt;&gt;particleRaycastBudget.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 120</value>
+    <value>4, 120</value>
   </data>
   <data name="label16.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 13</value>
+    <value>84, 13</value>
   </data>
   <data name="label16.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -2334,17 +2325,14 @@
   <data name="&gt;&gt;maximumLODLevel.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 99</value>
+    <value>9, 99</value>
   </data>
   <data name="label15.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 13</value>
+    <value>79, 13</value>
   </data>
   <data name="label15.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -2391,17 +2379,14 @@
   <data name="&gt;&gt;lodBias.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="vsyncText.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="vsyncText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>47, 48</value>
+    <value>9, 48</value>
   </data>
   <data name="vsyncText.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="vsyncText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 13</value>
+    <value>79, 13</value>
   </data>
   <data name="vsyncText.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -2496,17 +2481,14 @@
   <data name="&gt;&gt;blendWeights.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 22</value>
+    <value>6, 22</value>
   </data>
   <data name="label13.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 13</value>
+    <value>82, 13</value>
   </data>
   <data name="label13.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -2528,6 +2510,9 @@
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>15</value>
+  </data>
+  <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
   </data>
   <data name="&gt;&gt;shadowCascade2Split.Name" xml:space="preserve">
     <value>shadowCascade2Split</value>
@@ -2710,7 +2695,7 @@
     <value>14</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 38</value>
+    <value>219, 38</value>
   </data>
   <data name="groupBox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2719,7 +2704,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 220</value>
+    <value>210, 221</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -2763,17 +2748,14 @@
   <data name="&gt;&gt;shadowCascade2Split.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 168</value>
+    <value>10, 169</value>
   </data>
   <data name="label12.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
+    <value>91, 13</value>
   </data>
   <data name="label12.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -2877,20 +2859,20 @@
   <data name="&gt;&gt;shadowDistance.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="realtimeReflectionProbes.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="realtimeReflectionProbes.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="realtimeReflectionProbes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="realtimeReflectionProbes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 193</value>
+    <value>2, 192</value>
   </data>
   <data name="realtimeReflectionProbes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="realtimeReflectionProbes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 17</value>
+    <value>115, 17</value>
   </data>
   <data name="realtimeReflectionProbes.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -2979,17 +2961,14 @@
   <data name="&gt;&gt;shadowResolution.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 144</value>
+    <value>10, 146</value>
   </data>
   <data name="label11.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 13</value>
+    <value>89, 13</value>
   </data>
   <data name="label11.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -3012,17 +2991,14 @@
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 120</value>
+    <value>10, 121</value>
   </data>
   <data name="label10.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
+    <value>89, 13</value>
   </data>
   <data name="label10.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -3045,17 +3021,14 @@
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 96</value>
+    <value>10, 97</value>
   </data>
   <data name="label9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 13</value>
+    <value>89, 13</value>
   </data>
   <data name="label9.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -3078,17 +3051,14 @@
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 72</value>
+    <value>10, 72</value>
   </data>
   <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 13</value>
+    <value>89, 13</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -3111,17 +3081,14 @@
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 47</value>
+    <value>10, 49</value>
   </data>
   <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 13</value>
+    <value>89, 13</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -3177,17 +3144,14 @@
   <data name="&gt;&gt;shadows.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 23</value>
+    <value>4, 22</value>
   </data>
   <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 13</value>
+    <value>96, 13</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -3249,6 +3213,18 @@
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left</value>
   </data>
+  <data name="&gt;&gt;fullscreen.Name" xml:space="preserve">
+    <value>fullscreen</value>
+  </data>
+  <data name="&gt;&gt;fullscreen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fullscreen.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;fullscreen.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;resizable.Name" xml:space="preserve">
     <value>resizable</value>
   </data>
@@ -3259,7 +3235,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;resizable.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;label20.Name" xml:space="preserve">
     <value>label20</value>
@@ -3271,7 +3247,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;cam_renderingPath.Name" xml:space="preserve">
     <value>cam_renderingPath</value>
@@ -3283,7 +3259,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;cam_renderingPath.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;softParticles.Name" xml:space="preserve">
     <value>softParticles</value>
@@ -3295,7 +3271,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;softParticles.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;pixelLightCount.Name" xml:space="preserve">
     <value>pixelLightCount</value>
@@ -3307,18 +3283,6 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;pixelLightCount.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.Name" xml:space="preserve">
-    <value>fullscreen</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
@@ -3459,8 +3423,38 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="resizable.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="fullscreen.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="fullscreen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 47</value>
+  </data>
+  <data name="fullscreen.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="fullscreen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 17</value>
+  </data>
+  <data name="fullscreen.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="fullscreen.Text" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="fullscreen.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;fullscreen.Name" xml:space="preserve">
+    <value>fullscreen</value>
+  </data>
+  <data name="&gt;&gt;fullscreen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fullscreen.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;fullscreen.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="resizable.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -3469,19 +3463,22 @@
     <value>NoControl</value>
   </data>
   <data name="resizable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>117, 46</value>
+    <value>118, 46</value>
   </data>
   <data name="resizable.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="resizable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 17</value>
+    <value>79, 17</value>
   </data>
   <data name="resizable.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
   </data>
   <data name="resizable.Text" xml:space="preserve">
     <value>Resizable</value>
+  </data>
+  <data name="resizable.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;resizable.Name" xml:space="preserve">
     <value>resizable</value>
@@ -3493,25 +3490,25 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;resizable.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label20.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+    <value>1</value>
   </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 24</value>
+    <value>10, 24</value>
   </data>
   <data name="label20.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 13</value>
+    <value>87, 13</value>
   </data>
   <data name="label20.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
   </data>
   <data name="label20.Text" xml:space="preserve">
     <value>Rendering path</value>
+  </data>
+  <data name="label20.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label20.Name" xml:space="preserve">
     <value>label20</value>
@@ -3523,7 +3520,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="cam_renderingPath.Items" xml:space="preserve">
     <value>Vertex lit</value>
@@ -3559,7 +3556,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;cam_renderingPath.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="softParticles.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3568,7 +3565,7 @@
     <value>MiddleRight</value>
   </data>
   <data name="softParticles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 191</value>
+    <value>24, 193</value>
   </data>
   <data name="softParticles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3582,6 +3579,9 @@
   <data name="softParticles.Text" xml:space="preserve">
     <value>Soft particles</value>
   </data>
+  <data name="softParticles.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
   <data name="&gt;&gt;softParticles.Name" xml:space="preserve">
     <value>softParticles</value>
   </data>
@@ -3592,7 +3592,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;softParticles.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="pixelLightCount.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 93</value>
@@ -3616,58 +3616,25 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;pixelLightCount.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="fullscreen.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fullscreen.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="fullscreen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 45</value>
-  </data>
-  <data name="fullscreen.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="fullscreen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 17</value>
-  </data>
-  <data name="fullscreen.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="fullscreen.Text" xml:space="preserve">
-    <value>Fullscreen</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.Name" xml:space="preserve">
-    <value>fullscreen</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;fullscreen.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 121</value>
+    <value>4, 121</value>
   </data>
   <data name="label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
+    <value>92, 13</value>
   </data>
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
     <value>Texture quality</value>
+  </data>
+  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
@@ -3705,23 +3672,23 @@
   <data name="&gt;&gt;resolution.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 96</value>
+    <value>1, 97</value>
   </data>
   <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 13</value>
+    <value>96, 13</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
     <value>Pixel light count</value>
+  </data>
+  <data name="label7.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label7.Name" xml:space="preserve">
     <value>label7</value>
@@ -3735,23 +3702,23 @@
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 71</value>
+    <value>7, 73</value>
   </data>
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 13</value>
+    <value>93, 13</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Screen resolution</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -3798,9 +3765,6 @@
   <data name="&gt;&gt;anisotropicFiltering.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>1, 146</value>
   </data>
@@ -3814,7 +3778,10 @@
     <value>8</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Anisotropic filtering</value>
+    <value>Anisotropic filter</value>
+  </data>
+  <data name="label6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -3906,23 +3873,20 @@
   <data name="&gt;&gt;antiAliasing.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 168</value>
+    <value>10, 169</value>
   </data>
   <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 13</value>
+    <value>85, 13</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>MSAA</value>
+    <value>(MS?)AA</value>
   </data>
   <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -3938,6 +3902,162 @@
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>14</value>
+  </data>
+  <data name="customShadowStrengthLimit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 40</value>
+  </data>
+  <data name="customShadowStrengthLimit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="customShadowStrengthLimit.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthLimit.Name" xml:space="preserve">
+    <value>customShadowStrengthLimit</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthLimit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthLimit.Parent" xml:space="preserve">
+    <value>enabler_shadowOverride</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthLimit.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label34.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label34.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label34.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 68</value>
+  </data>
+  <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 13</value>
+  </data>
+  <data name="label34.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Rim light (-1 for default)</value>
+  </data>
+  <data name="&gt;&gt;label34.Name" xml:space="preserve">
+    <value>label34</value>
+  </data>
+  <data name="&gt;&gt;label34.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label34.Parent" xml:space="preserve">
+    <value>enabler_shadowOverride</value>
+  </data>
+  <data name="&gt;&gt;label34.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label21.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 20</value>
+  </data>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 13</value>
+  </data>
+  <data name="label21.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>Shadow Strength Target</value>
+  </data>
+  <data name="&gt;&gt;label21.Name" xml:space="preserve">
+    <value>label21</value>
+  </data>
+  <data name="&gt;&gt;label21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
+    <value>enabler_shadowOverride</value>
+  </data>
+  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="rimOverride.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 65</value>
+  </data>
+  <data name="rimOverride.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="rimOverride.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="rimOverride.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;rimOverride.Name" xml:space="preserve">
+    <value>rimOverride</value>
+  </data>
+  <data name="&gt;&gt;rimOverride.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rimOverride.Parent" xml:space="preserve">
+    <value>enabler_shadowOverride</value>
+  </data>
+  <data name="&gt;&gt;rimOverride.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label23.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label23.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 45</value>
+  </data>
+  <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 13</value>
+  </data>
+  <data name="label23.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>Shadow Strength Limit</value>
+  </data>
+  <data name="&gt;&gt;label23.Name" xml:space="preserve">
+    <value>label23</value>
+  </data>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
+    <value>enabler_shadowOverride</value>
+  </data>
+  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="customShadowStrengthTarget.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 16</value>
+  </data>
+  <data name="customShadowStrengthTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="customShadowStrengthTarget.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthTarget.Name" xml:space="preserve">
+    <value>customShadowStrengthTarget</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthTarget.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthTarget.Parent" xml:space="preserve">
+    <value>enabler_shadowOverride</value>
+  </data>
+  <data name="&gt;&gt;customShadowStrengthTarget.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="hideMoz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4624,13 +4744,13 @@
     <value>250, 81</value>
   </data>
   <data name="label43.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 13</value>
+    <value>48, 13</value>
   </data>
   <data name="label43.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
   </data>
   <data name="label43.Text" xml:space="preserve">
-    <value>oo_basae</value>
+    <value>oo_base</value>
   </data>
   <data name="&gt;&gt;label43.Name" xml:space="preserve">
     <value>label43</value>
@@ -5755,13 +5875,13 @@
     <value>NoControl</value>
   </data>
   <data name="runChara.Location" type="System.Drawing.Point, System.Drawing">
-    <value>344, 307</value>
+    <value>330, 307</value>
   </data>
   <data name="runChara.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="runChara.Size" type="System.Drawing.Size, System.Drawing">
-    <value>297, 68</value>
+    <value>320, 68</value>
   </data>
   <data name="runChara.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -5780,162 +5900,6 @@
   </data>
   <data name="&gt;&gt;runChara.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="label34.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label34.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label34.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 68</value>
-  </data>
-  <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 13</value>
-  </data>
-  <data name="label34.TabIndex" type="System.Int32, mscorlib">
-    <value>35</value>
-  </data>
-  <data name="label34.Text" xml:space="preserve">
-    <value>Rim light (-1 for default)</value>
-  </data>
-  <data name="&gt;&gt;label34.Name" xml:space="preserve">
-    <value>label34</value>
-  </data>
-  <data name="&gt;&gt;label34.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label34.Parent" xml:space="preserve">
-    <value>enabler_shadowOverride</value>
-  </data>
-  <data name="&gt;&gt;label34.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="rimOverride.Location" type="System.Drawing.Point, System.Drawing">
-    <value>164, 65</value>
-  </data>
-  <data name="rimOverride.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="rimOverride.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="rimOverride.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="&gt;&gt;rimOverride.Name" xml:space="preserve">
-    <value>rimOverride</value>
-  </data>
-  <data name="&gt;&gt;rimOverride.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rimOverride.Parent" xml:space="preserve">
-    <value>enabler_shadowOverride</value>
-  </data>
-  <data name="&gt;&gt;rimOverride.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="customShadowStrengthLimit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>164, 40</value>
-  </data>
-  <data name="customShadowStrengthLimit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="customShadowStrengthLimit.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.Name" xml:space="preserve">
-    <value>customShadowStrengthLimit</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.Parent" xml:space="preserve">
-    <value>enabler_shadowOverride</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthLimit.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="customShadowStrengthTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>164, 16</value>
-  </data>
-  <data name="customShadowStrengthTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="customShadowStrengthTarget.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.Name" xml:space="preserve">
-    <value>customShadowStrengthTarget</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.Parent" xml:space="preserve">
-    <value>enabler_shadowOverride</value>
-  </data>
-  <data name="&gt;&gt;customShadowStrengthTarget.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label23.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label23.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 45</value>
-  </data>
-  <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 13</value>
-  </data>
-  <data name="label23.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="label23.Text" xml:space="preserve">
-    <value>Shadow Strength Limit</value>
-  </data>
-  <data name="&gt;&gt;label23.Name" xml:space="preserve">
-    <value>label23</value>
-  </data>
-  <data name="&gt;&gt;label23.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
-    <value>enabler_shadowOverride</value>
-  </data>
-  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label21.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 20</value>
-  </data>
-  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 13</value>
-  </data>
-  <data name="label21.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="label21.Text" xml:space="preserve">
-    <value>Shadow Strength Target</value>
-  </data>
-  <data name="&gt;&gt;label21.Name" xml:space="preserve">
-    <value>label21</value>
-  </data>
-  <data name="&gt;&gt;label21.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
-    <value>enabler_shadowOverride</value>
-  </data>
-  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

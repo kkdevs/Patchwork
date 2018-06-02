@@ -31,7 +31,9 @@ namespace Patchwork
 				Debug.Log("[CAM] not found...");
 				return;
 			}
-			Debug.Log($"Using camera {cam.name}");
+			cam.renderingPath = (RenderingPath)cam_renderingPath;
+			Game.Instance.nowCamera.renderingPath = (RenderingPath)cam_renderingPath;
+			Trace.Spam($"[CAM] Using camera {cam.name}");
 			/*var e = cam.GetComponent<CameraEffector>();
 			if (e == null)
 			{
@@ -88,7 +90,7 @@ namespace Patchwork
 			foreach (var comp in cam.gameObject.GetComponents<Component>())
 			{
 				var t = comp.GetType();
-				Debug.Log($"[CAM] {t.Name} : {t.BaseType?.Name}");
+				Trace.Spam($"[CAM] {t.Name} : {t.BaseType?.Name}");
 			}
 		}
 
