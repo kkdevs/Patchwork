@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,30 @@ public static class AssetBundleCheck
 		return true;
 	}
 
+	public static string[] GetAllFileName(string assetBundleName, bool _WithExtension = true, string manifestAssetBundleName = null, bool isAllCheck = false)
+	{
+		return GetAllAssetName(assetBundleName, _WithExtension, manifestAssetBundleName);
+	}
+	private static bool CheckRegex(string _value, string _regex, RegexOptions _options)
+	{
+		Match match = Regex.Match(_value, _regex, _options);
+		return match.Success;
+	}
+
+	public static string[] FindAllAssetName(string assetBundleName, string _regex, bool _WithExtension = true, RegexOptions _options = RegexOptions.None)
+	{
+		var ab = LoadedAssetBundle.Load(assetBundleName);
+		if ((ab == null) || (!ab.Ensure())) return null;
+		var assetBundle = ab.m_AssetBundle;
+
+		_regex = _regex.ToLower();
+		string[] result = (!_WithExtension) ? (from v in assetBundle.GetAllAssetNames().Select(Path.GetFileNameWithoutExtension)
+											   where CheckRegex(v, _regex, _options)
+											   select v).ToArray() : (from v in assetBundle.GetAllAssetNames().Select(Path.GetFileName)
+																	  where CheckRegex(v, _regex, _options)
+																	  select v).ToArray();
+		return result;
+	}
 	public static string[] GetAllAssetName(string assetBundleName, bool _WithExtension = true, string manifestAssetBundleName = null, bool isAllCheck = false)
 	{
 		var ab = LoadedAssetBundle.Load(assetBundleName);

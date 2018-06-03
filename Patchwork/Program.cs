@@ -114,6 +114,7 @@ namespace Patchwork
 			form.runChara.Click += (o, e) =>
 			{
 				form.Close();
+				SaveConfig();
 				Environment.SetEnvironmentVariable("KK_RUNSTUDIO", "1");
 				Process.Start(exename);
 				Environment.Exit(0);
@@ -134,6 +135,7 @@ namespace Patchwork
 		{
 			if (initConfig)
 				return;
+			
 			initConfig = true;
 			exename = Environment.GetEnvironmentVariable("PATCHWORK_EXE");
 			if (exename == null)
@@ -170,10 +172,13 @@ namespace Patchwork
 			XmlSerializer x = new XmlSerializer(typeof(Settings));
 			try
 			{
-				using (var f = File.Open(cfgpath, FileMode.Open))
+				using (var f = new StreamReader(File.Open(cfgpath, FileMode.Open), UTF8Encoding.UTF8))
 					s = x.Deserialize(f) as Settings;
 			}
-			catch { };
+			catch (Exception ex)
+			{
+				//MessageBox.Show(ex.ToString(), "Config error", MessageBoxButtons.OK);
+			}
 			return s ?? new Settings();
 		}
 

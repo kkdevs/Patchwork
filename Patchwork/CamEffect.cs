@@ -33,11 +33,13 @@ namespace Patchwork
 				cam = Game.Instance?.nowCamera;
 			if (cam == null)
 			{
-				Debug.Log("[CAM] not found...");
-				return;
+				cam = Camera.main;
 			}
+			if (cam == null)
+				return;
 			cam.renderingPath = (RenderingPath)cam_renderingPath;
-			Game.Instance.nowCamera.renderingPath = (RenderingPath)cam_renderingPath;
+			if (Game.Instance?.nowCamera != null)
+				Game.Instance.nowCamera.renderingPath = (RenderingPath)cam_renderingPath;
 			Trace.Spam($"[CAM] Using camera {cam.name}");
 			/*var e = cam.GetComponent<CameraEffector>();
 			if (e == null)
