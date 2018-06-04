@@ -213,6 +213,10 @@ public partial class GlobalMethod
 	{
 		if (_strLoadFile.IsNullOrEmpty())
 			return null;
+		if (_strLoadFile.StartsWith("dan_kh"))
+		{
+			Trace.Back("HDAN!");
+		}
 		if (Program.settings.fetchAssets)
 		{
 			if (CSV.LoadLst(_assetbundleFolder, _strLoadFile, out gArray))

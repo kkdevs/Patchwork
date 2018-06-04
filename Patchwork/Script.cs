@@ -98,7 +98,11 @@ namespace Patchwork
 			pin = new GameObject("Scripts");
 			DontDestroyOnLoad(pin);
 			pin.AddComponent(typeof(Script));
+			reload();
+		}
 
+		public static void reload()
+		{
 			try
 			{
 				var scripts = Path.Combine(UserData.Path, "scripts");
@@ -110,7 +114,8 @@ namespace Patchwork
 						continue;
 					pin.AddComponent(t);
 				}
-			} catch (Exception ex)
+			}
+			catch (Exception ex)
 			{
 				Trace.Error(ex.ToString());
 			}

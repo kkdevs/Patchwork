@@ -143,5 +143,10 @@ namespace Patchwork
 		{
 
 		}
+
+		private void runChara_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

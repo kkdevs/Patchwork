@@ -1,5 +1,5 @@
 ﻿// These are all no-op wrappers to make rest of the code happy.
-
+#if !USE_OLD_ABM
 using Patchwork;
 using System;
 using System.Collections;
@@ -316,3 +316,4 @@ public class AssetBundleData
 	}
 }
 
+#endif

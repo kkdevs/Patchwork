@@ -23,6 +23,8 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public float HScale = 2.6f;
+		public bool noTelescope = true;
 		public bool cacheSprites = true;
 		public string cardFmt = "Koikatu_{0}_{1}.png";
 		public string ooMale = "chara/oo_base";

@@ -1,5 +1,4 @@
-﻿
-using Patchwork;
+﻿using Patchwork;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+#if !USE_OLD_ABM
 
 /// <summary>
 /// This is a down-to-earth replacement for the original trainwreck of asset bundle handling.
@@ -311,11 +310,15 @@ public class LoadedAssetBundle
 	}
 }
 
+
+#endif
+
 public class SpriteCache<T>
 {
 	public Dictionary<T, Sprite> cache = new Dictionary<T, Sprite>();
 	public bool Get(T key, string bundle, string name, out Sprite ret)
 	{
+#if !USE_OLD_ABM
 		ret = null;
 		if (!Program.settings.cacheSprites || !cache.TryGetValue(key, out ret))
 		{
@@ -340,5 +343,14 @@ public class SpriteCache<T>
 		}
 		//ret = UnityEngine.Object.Instantiate(ret);
 		return true;
+#else
+		Texture2D tex = CommonLib.LoadAsset<Texture2D>(bundle, name, false);
+		ret = null;
+		if (tex != null)
+		{
+			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
+		}
+		return tex != null;
+#endif
 	}
 }
