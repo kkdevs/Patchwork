@@ -119,6 +119,11 @@ namespace Patchwork
 				Process.Start(exename);
 				Environment.Exit(0);
 			};
+			form.FormClosing += (o, e) =>
+			{
+				if (e.CloseReason == CloseReason.ApplicationExitCall)
+					e.Cancel = true;
+			};
 			if (form.ShowDialog() == DialogResult.OK)
 				launched = true;
 			SaveConfig();
@@ -177,7 +182,7 @@ namespace Patchwork
 			}
 			catch (Exception ex)
 			{
-				//MessageBox.Show(ex.ToString(), "Config error", MessageBoxButtons.OK);
+				MessageBox.Show(ex.ToString(), "Config error", MessageBoxButtons.OK);
 			}
 			return s ?? new Settings();
 		}

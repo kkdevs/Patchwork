@@ -106,6 +106,9 @@ public class LoadedAssetBundle
 		res.path = path;
 		res.isWild = (forasset == "*") || (forasset == null);
 		loadedBundles[name] = res;
+		if (deps.TryGetValue(name, out List<string> deplist))
+			foreach (var dep in deplist)
+				Load(dep)?.Ensure();
 		return res;
 	}
 
@@ -171,7 +174,8 @@ public class LoadedAssetBundle
 			var req = m_AssetBundle.LoadAssetAsync(name, t);
 			if (req == null)
 			{
-				Debug.Log($"[ABM] Async load {name} failed");
+				Trace.Error($"[ABM] Async load {path}/{name} failed");
+				Trace.Back("from");
 				cb(null);
 				yield break;
 			}
@@ -205,9 +209,13 @@ public class LoadedAssetBundle
 			if (tex != null && tex.width >= 512)
 			{
 				tex.Apply(updateMipmaps: false, makeNoLongerReadable: true);
-			}*/	
+			}*/
 			if (obj == null)
+			{
+				Trace.Error($"[ABM] Load {path}/{name} failed");
+				Trace.Back("from");
 				return null;
+			}
 			if (nocache)
 				return obj;
 			return MaybeCache(name, obj);
@@ -307,6 +315,30 @@ public class LoadedAssetBundle
 			return false;
 		}
 		return true;
+	}
+
+	public static Dictionary<string, List<string>> deps = new Dictionary<string, List<string>>();
+	public static void Init(string bp)
+	{
+		basePath = bp;
+		if (!Directory.Exists(basePath)) return;
+		foreach (var man in Directory.GetFiles(basePath, "*.*", SearchOption.TopDirectoryOnly))
+		{
+			var fn = Path.GetFileNameWithoutExtension(man);
+			var ab = Load(fn);
+			if (ab == null) continue;
+			var abm = ab.LoadAsset("AssetBundleManifest", typeof(AssetBundleManifest), true) as AssetBundleManifest;
+			if (abm == null) continue;
+			AssetBundleManager.ManifestBundlePack[fn] = new AssetBundleManager.BundlePack() { AssetBundleManifest = abm };
+			foreach (var sab in abm.GetAllAssetBundles())
+			{
+				if (!deps.TryGetValue(sab, out List<string> bdeps))
+					deps[sab] = new List<string>();
+				foreach (var dep in abm.GetAllDependencies(sab))
+					if (!deps[sab].Contains(dep))
+						deps[sab].Add(dep);
+			}
+		}
 	}
 }
 

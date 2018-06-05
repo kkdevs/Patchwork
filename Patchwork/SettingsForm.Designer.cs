@@ -33,6 +33,7 @@ namespace Patchwork
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.showFPS = new System.Windows.Forms.CheckBox();
+			this.runChara = new System.Windows.Forms.Button();
 			this.linkUnityDoc = new System.Windows.Forms.LinkLabel();
 			this.label22 = new System.Windows.Forms.Label();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -110,6 +111,7 @@ namespace Patchwork
 			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.label48 = new System.Windows.Forms.Label();
 			this.label47 = new System.Windows.Forms.Label();
 			this.cardFmt = new System.Windows.Forms.TextBox();
@@ -131,6 +133,21 @@ namespace Patchwork
 			this.watchFolder = new System.Windows.Forms.CheckBox();
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.label24 = new System.Windows.Forms.Label();
+			this.HScale = new System.Windows.Forms.TextBox();
+			this.noTelescope = new System.Windows.Forms.CheckBox();
+			this.label44 = new System.Windows.Forms.Label();
+			this.label43 = new System.Windows.Forms.Label();
+			this.mmFemale = new System.Windows.Forms.TextBox();
+			this.mmMale = new System.Windows.Forms.TextBox();
+			this.label41 = new System.Windows.Forms.Label();
+			this.ooFemale = new System.Windows.Forms.TextBox();
+			this.label42 = new System.Windows.Forms.Label();
+			this.ooMale = new System.Windows.Forms.TextBox();
+			this.hideMoz = new System.Windows.Forms.CheckBox();
+			this.fixPenis = new System.Windows.Forms.CheckBox();
+			this.fixVagina = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.cacheSprites = new System.Windows.Forms.CheckBox();
 			this.label40 = new System.Windows.Forms.Label();
@@ -162,26 +179,9 @@ namespace Patchwork
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.whitePower = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
-			this.runChara = new System.Windows.Forms.Button();
-			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.hideMoz = new System.Windows.Forms.CheckBox();
-			this.fixPenis = new System.Windows.Forms.CheckBox();
-			this.fixVagina = new System.Windows.Forms.CheckBox();
-			this.label44 = new System.Windows.Forms.Label();
-			this.label43 = new System.Windows.Forms.Label();
-			this.mmFemale = new System.Windows.Forms.TextBox();
-			this.mmMale = new System.Windows.Forms.TextBox();
-			this.label41 = new System.Windows.Forms.Label();
-			this.ooFemale = new System.Windows.Forms.TextBox();
-			this.label42 = new System.Windows.Forms.Label();
-			this.ooMale = new System.Windows.Forms.TextBox();
-			this.noBustNorm = new System.Windows.Forms.CheckBox();
-			this.noTelescope = new System.Windows.Forms.CheckBox();
-			this.label24 = new System.Windows.Forms.Label();
-			this.HScale = new System.Windows.Forms.TextBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.replInput = new System.Windows.Forms.TextBox();
+			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -191,8 +191,8 @@ namespace Patchwork
 			this.enabler_shadowOverride.SuspendLayout();
 			this.enabler_cam_ppOverride.SuspendLayout();
 			this.tabPage2.SuspendLayout();
-			this.tabPage3.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			this.tabPage3.SuspendLayout();
 			this.tabPage6.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -208,8 +208,8 @@ namespace Patchwork
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage5);
+			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage6);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -234,6 +234,13 @@ namespace Patchwork
 			resources.ApplyResources(this.showFPS, "showFPS");
 			this.showFPS.Name = "showFPS";
 			this.showFPS.UseVisualStyleBackColor = true;
+			// 
+			// runChara
+			// 
+			resources.ApplyResources(this.runChara, "runChara");
+			this.runChara.Name = "runChara";
+			this.runChara.UseVisualStyleBackColor = true;
+			this.runChara.Click += new System.EventHandler(this.runChara_Click);
 			// 
 			// linkUnityDoc
 			// 
@@ -810,6 +817,12 @@ namespace Patchwork
 			this.tabPage2.UseVisualStyleBackColor = true;
 			this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
 			// 
+			// noBustNorm
+			// 
+			resources.ApplyResources(this.noBustNorm, "noBustNorm");
+			this.noBustNorm.Name = "noBustNorm";
+			this.noBustNorm.UseVisualStyleBackColor = true;
+			// 
 			// label48
 			// 
 			resources.ApplyResources(this.label48, "label48");
@@ -928,6 +941,101 @@ namespace Patchwork
 			resources.ApplyResources(this.unlockH, "unlockH");
 			this.unlockH.Name = "unlockH";
 			this.unlockH.UseVisualStyleBackColor = true;
+			// 
+			// tabPage5
+			// 
+			this.tabPage5.Controls.Add(this.label24);
+			this.tabPage5.Controls.Add(this.HScale);
+			this.tabPage5.Controls.Add(this.noTelescope);
+			this.tabPage5.Controls.Add(this.label44);
+			this.tabPage5.Controls.Add(this.label43);
+			this.tabPage5.Controls.Add(this.mmFemale);
+			this.tabPage5.Controls.Add(this.mmMale);
+			this.tabPage5.Controls.Add(this.label41);
+			this.tabPage5.Controls.Add(this.ooFemale);
+			this.tabPage5.Controls.Add(this.label42);
+			this.tabPage5.Controls.Add(this.ooMale);
+			this.tabPage5.Controls.Add(this.hideMoz);
+			this.tabPage5.Controls.Add(this.fixPenis);
+			this.tabPage5.Controls.Add(this.fixVagina);
+			resources.ApplyResources(this.tabPage5, "tabPage5");
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// label24
+			// 
+			resources.ApplyResources(this.label24, "label24");
+			this.label24.Name = "label24";
+			// 
+			// HScale
+			// 
+			resources.ApplyResources(this.HScale, "HScale");
+			this.HScale.Name = "HScale";
+			// 
+			// noTelescope
+			// 
+			resources.ApplyResources(this.noTelescope, "noTelescope");
+			this.noTelescope.Name = "noTelescope";
+			this.noTelescope.UseVisualStyleBackColor = true;
+			// 
+			// label44
+			// 
+			resources.ApplyResources(this.label44, "label44");
+			this.label44.Name = "label44";
+			// 
+			// label43
+			// 
+			resources.ApplyResources(this.label43, "label43");
+			this.label43.Name = "label43";
+			// 
+			// mmFemale
+			// 
+			resources.ApplyResources(this.mmFemale, "mmFemale");
+			this.mmFemale.Name = "mmFemale";
+			// 
+			// mmMale
+			// 
+			resources.ApplyResources(this.mmMale, "mmMale");
+			this.mmMale.Name = "mmMale";
+			// 
+			// label41
+			// 
+			resources.ApplyResources(this.label41, "label41");
+			this.label41.Name = "label41";
+			// 
+			// ooFemale
+			// 
+			resources.ApplyResources(this.ooFemale, "ooFemale");
+			this.ooFemale.Name = "ooFemale";
+			// 
+			// label42
+			// 
+			resources.ApplyResources(this.label42, "label42");
+			this.label42.Name = "label42";
+			// 
+			// ooMale
+			// 
+			resources.ApplyResources(this.ooMale, "ooMale");
+			this.ooMale.Name = "ooMale";
+			// 
+			// hideMoz
+			// 
+			resources.ApplyResources(this.hideMoz, "hideMoz");
+			this.hideMoz.Name = "hideMoz";
+			this.hideMoz.UseVisualStyleBackColor = true;
+			this.hideMoz.CheckedChanged += new System.EventHandler(this.hideMoz_CheckedChanged);
+			// 
+			// fixPenis
+			// 
+			resources.ApplyResources(this.fixPenis, "fixPenis");
+			this.fixPenis.Name = "fixPenis";
+			this.fixPenis.UseVisualStyleBackColor = true;
+			// 
+			// fixVagina
+			// 
+			resources.ApplyResources(this.fixVagina, "fixVagina");
+			this.fixVagina.Name = "fixVagina";
+			this.fixVagina.UseVisualStyleBackColor = true;
 			// 
 			// tabPage3
 			// 
@@ -1124,113 +1232,6 @@ namespace Patchwork
 			this.assetCache.Name = "assetCache";
 			this.assetCache.UseVisualStyleBackColor = true;
 			// 
-			// runChara
-			// 
-			resources.ApplyResources(this.runChara, "runChara");
-			this.runChara.Name = "runChara";
-			this.runChara.UseVisualStyleBackColor = true;
-			this.runChara.Click += new System.EventHandler(this.runChara_Click);
-			// 
-			// tabPage5
-			// 
-			this.tabPage5.Controls.Add(this.label24);
-			this.tabPage5.Controls.Add(this.HScale);
-			this.tabPage5.Controls.Add(this.noTelescope);
-			this.tabPage5.Controls.Add(this.label44);
-			this.tabPage5.Controls.Add(this.label43);
-			this.tabPage5.Controls.Add(this.mmFemale);
-			this.tabPage5.Controls.Add(this.mmMale);
-			this.tabPage5.Controls.Add(this.label41);
-			this.tabPage5.Controls.Add(this.ooFemale);
-			this.tabPage5.Controls.Add(this.label42);
-			this.tabPage5.Controls.Add(this.ooMale);
-			this.tabPage5.Controls.Add(this.hideMoz);
-			this.tabPage5.Controls.Add(this.fixPenis);
-			this.tabPage5.Controls.Add(this.fixVagina);
-			resources.ApplyResources(this.tabPage5, "tabPage5");
-			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.UseVisualStyleBackColor = true;
-			// 
-			// hideMoz
-			// 
-			resources.ApplyResources(this.hideMoz, "hideMoz");
-			this.hideMoz.Name = "hideMoz";
-			this.hideMoz.UseVisualStyleBackColor = true;
-			// 
-			// fixPenis
-			// 
-			resources.ApplyResources(this.fixPenis, "fixPenis");
-			this.fixPenis.Name = "fixPenis";
-			this.fixPenis.UseVisualStyleBackColor = true;
-			// 
-			// fixVagina
-			// 
-			resources.ApplyResources(this.fixVagina, "fixVagina");
-			this.fixVagina.Name = "fixVagina";
-			this.fixVagina.UseVisualStyleBackColor = true;
-			// 
-			// label44
-			// 
-			resources.ApplyResources(this.label44, "label44");
-			this.label44.Name = "label44";
-			// 
-			// label43
-			// 
-			resources.ApplyResources(this.label43, "label43");
-			this.label43.Name = "label43";
-			// 
-			// mmFemale
-			// 
-			resources.ApplyResources(this.mmFemale, "mmFemale");
-			this.mmFemale.Name = "mmFemale";
-			// 
-			// mmMale
-			// 
-			resources.ApplyResources(this.mmMale, "mmMale");
-			this.mmMale.Name = "mmMale";
-			// 
-			// label41
-			// 
-			resources.ApplyResources(this.label41, "label41");
-			this.label41.Name = "label41";
-			// 
-			// ooFemale
-			// 
-			resources.ApplyResources(this.ooFemale, "ooFemale");
-			this.ooFemale.Name = "ooFemale";
-			// 
-			// label42
-			// 
-			resources.ApplyResources(this.label42, "label42");
-			this.label42.Name = "label42";
-			// 
-			// ooMale
-			// 
-			resources.ApplyResources(this.ooMale, "ooMale");
-			this.ooMale.Name = "ooMale";
-			// 
-			// noBustNorm
-			// 
-			resources.ApplyResources(this.noBustNorm, "noBustNorm");
-			this.noBustNorm.Name = "noBustNorm";
-			this.noBustNorm.UseVisualStyleBackColor = true;
-			// 
-			// noTelescope
-			// 
-			resources.ApplyResources(this.noTelescope, "noTelescope");
-			this.noTelescope.Name = "noTelescope";
-			this.noTelescope.UseVisualStyleBackColor = true;
-			// 
-			// label24
-			// 
-			resources.ApplyResources(this.label24, "label24");
-			this.label24.Name = "label24";
-			// 
-			// HScale
-			// 
-			resources.ApplyResources(this.HScale, "HScale");
-			this.HScale.Name = "HScale";
-			// 
 			// tabPage6
 			// 
 			this.tabPage6.Controls.Add(this.replInput);
@@ -1239,15 +1240,15 @@ namespace Patchwork
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// richTextBox1
-			// 
-			resources.ApplyResources(this.richTextBox1, "richTextBox1");
-			this.richTextBox1.Name = "richTextBox1";
-			// 
 			// replInput
 			// 
 			resources.ApplyResources(this.replInput, "replInput");
 			this.replInput.Name = "replInput";
+			// 
+			// richTextBox1
+			// 
+			resources.ApplyResources(this.richTextBox1, "richTextBox1");
+			this.richTextBox1.Name = "richTextBox1";
 			// 
 			// SettingsForm
 			// 
@@ -1274,10 +1275,10 @@ namespace Patchwork
 			this.enabler_cam_ppOverride.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
-			this.tabPage3.ResumeLayout(false);
-			this.tabPage3.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
 			this.tabPage6.PerformLayout();
 			this.ResumeLayout(false);
@@ -1420,7 +1421,6 @@ namespace Patchwork
 		private System.Windows.Forms.Label label48;
 		private System.Windows.Forms.CheckBox cacheSprites;
 		private System.Windows.Forms.CheckBox noBustNorm;
-		private System.Windows.Forms.TabPage tabPage5;
 		private System.Windows.Forms.CheckBox noTelescope;
 		private System.Windows.Forms.Label label44;
 		private System.Windows.Forms.Label label43;
@@ -1438,6 +1438,7 @@ namespace Patchwork
 		private System.Windows.Forms.TabPage tabPage6;
 		private System.Windows.Forms.TextBox replInput;
 		private System.Windows.Forms.RichTextBox richTextBox1;
+		private System.Windows.Forms.TabPage tabPage5;
 	}
 }
 

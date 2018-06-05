@@ -70,16 +70,21 @@ public class AssetBundleManifestData : AssetBundleData
 
 public class AssetBundleManager : Singleton<AssetBundleManager>
 {
+	public class BundlePack
+	{
+		public AssetBundleManifest AssetBundleManifest;
+	};
+	public static Dictionary<string, BundlePack> ManifestBundlePack = new Dictionary<string, BundlePack>();
 	public static bool isInitialized = false;
 	public static string BaseDownloadingURL { get; set; }
 	public static void Initialize(string basePath)
 	{
 		if (!isInitialized)
 		{
-			BaseDownloadingURL = basePath;
-			LoadedAssetBundle.basePath = basePath;
 			GameObject gameObject = new GameObject("AssetBundleManager", typeof(AssetBundleManager));
 			UnityEngine.Object.DontDestroyOnLoad(gameObject);
+			LoadedAssetBundle.Init(basePath);
+			BaseDownloadingURL = basePath;
 			isInitialized = true;
 			InitAddComponent.AddComponents(gameObject);
 		}
@@ -141,7 +146,7 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 
 	public static AssetBundleLoadOperation LoadLevel(string assetBundleName, string levelName, bool isAdditive, string manifestAssetBundleName = null)
 	{
-		var b = LoadAssetBundle(assetBundleName, false, null, levelName);
+		LoadAssetBundle(assetBundleName, false, null, levelName);
 		SceneManager.LoadScene(levelName, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
 		return new AssetBundleLoadLevelSimulationOperation();
 	}
@@ -149,7 +154,9 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 	public static AssetBundleLoadOperation LoadLevelAsync(string assetBundleName, string levelName, bool isAdditive, string manifestAssetBundleName = null)
 	{
 		LoadAssetBundle(assetBundleName, false, null, levelName);
-		return new AssetBundleLoadLevelOperation(assetBundleName, levelName, isAdditive, manifestAssetBundleName);
+		var ll = new AssetBundleLoadLevelOperation(assetBundleName, levelName, isAdditive, manifestAssetBundleName);
+		ll.Update();
+		return ll;
 	}
 
 	public static float Progress

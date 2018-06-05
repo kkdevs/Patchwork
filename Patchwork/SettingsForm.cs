@@ -23,6 +23,15 @@ namespace Patchwork
 		{
 			InitializeComponent();
 			CenterToScreen();
+
+			// TEMP DISABLE
+
+#if !GAME_DEBUG
+			tabControl1.Controls.Remove(tabPage6);
+			tabPage5.Controls.Remove(noTelescope);
+			tabPage5.Controls.Remove(label24);
+			tabPage5.Controls.Remove(HScale);
+#endif
 			s = _s;
 
 			// Generate automatic data binding for class Settings
@@ -92,6 +101,10 @@ namespace Patchwork
 				ProcessStartInfo sInfo = new ProcessStartInfo(linkUnityDoc.Text);
 				Process.Start(sInfo);
 			};
+			tabPage1.Enter += (o, e) =>
+			{
+				launchButton.Focus();
+			};
 		}
 
 		public void UpdateForm()
@@ -145,6 +158,11 @@ namespace Patchwork
 		}
 
 		private void runChara_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void hideMoz_CheckedChanged(object sender, EventArgs e)
 		{
 
 		}
