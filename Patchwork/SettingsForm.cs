@@ -105,6 +105,14 @@ namespace Patchwork
 			{
 				launchButton.Focus();
 			};
+			/*tabPage6.Enter += (o, e) =>
+			{
+				replInput.Focus();
+			};*/
+			tabControl1.SelectedIndexChanged += (o,e) => {
+				if (tabControl1.SelectedTab == tabPage6)
+					replInput.Focus();
+			};
 		}
 
 		public void UpdateForm()
@@ -165,6 +173,95 @@ namespace Patchwork
 		private void hideMoz_CheckedChanged(object sender, EventArgs e)
 		{
 
+		}
+
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		public void ConnectRepl()
+		{
+			LinkedList<string> history = new LinkedList<string>();
+			string histCurrent = null;
+			bool tabMode = false;
+			string currentLine = null;
+
+			replInput.KeyDown += (o, e) => {
+				if (!tabMode && e.KeyCode == Keys.Enter)
+				{
+					var t = replInput.Text;
+					try
+					{
+						var ret = Script.eval(replInput.Text);
+						if (ret != typeof(Script.Sentinel))
+							Script.pp(ret);
+					}
+					catch (Exception ex) { Script.print(ex); };
+					history.Remove(t);
+					history.AddLast(t);
+					replInput.Text = "";
+					histCurrent = null;
+				}
+				else if (!tabMode && e.KeyCode == Keys.Up)
+				{
+					if (histCurrent == null)
+						histCurrent = history.Last();
+					else
+						histCurrent = history.Find(histCurrent).Previous?.Value ?? histCurrent;
+					if (histCurrent != null)
+					{
+						replInput.Text = histCurrent;
+						replInput.SelectionStart = histCurrent.Length;
+					}
+				}
+				else if (!tabMode && e.KeyCode == Keys.Down)
+				{
+					if (histCurrent != null)
+					{
+						histCurrent = history.Find(histCurrent).Previous?.Value ?? "";
+						replInput.Text = histCurrent;
+						replInput.SelectionStart = histCurrent.Length;
+					}
+				}
+				else if (e.KeyCode == Keys.Tab)
+				{
+					tabMode = !tabMode;
+					if (!tabMode)
+					{
+						replInput.Items.Clear();
+						replInput.DroppedDown = false;
+					}
+					else if (LoadSuggestions(replInput.Text))
+					{
+						replInput.DroppedDown = true;
+					}
+					else tabMode = false;
+					e.Handled = true;
+				}
+			};
+			replInput.PreviewKeyDown += (o, e) =>
+			{
+				if (e.KeyCode == Keys.Tab)
+					e.IsInputKey = true;
+			};
+			replInput.TextChanged += (o, e) =>
+			{
+				if (tabMode)
+					replInput.Text = "x";
+			};
+		}
+
+		public bool LoadSuggestions(string t)
+		{
+			string pfx;
+			var cmps = Script.Evaluator.GetCompletions(t, out pfx);
+			if (cmps != null)
+			{
+				foreach (var v in cmps)
+					replInput.Items.Add(pfx + v);
+			}
+			return cmps != null;
 		}
 	}
 }

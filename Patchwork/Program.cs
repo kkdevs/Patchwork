@@ -255,8 +255,16 @@ namespace Patchwork
 			};
 
 			// Fire up scripts
-			Script.Init();
-
+			Script.Reporter.print = (s) =>
+			{
+				form.replOutput.AppendText(s);
+				Trace.Log(s);
+			};	
+			Script.reload();
+			form.ConnectRepl();
+			//Script.instance.InitCompiler();
+			//Script.instance.SetupRepl(form.replInput, form.replOutput);
+			//Script.instance.reload();
 
 			// Fix up window
 			var proc = Process.GetCurrentProcess();

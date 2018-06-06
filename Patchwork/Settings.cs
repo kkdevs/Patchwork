@@ -23,6 +23,10 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool geass = false;
+		public bool unlockH = false;
+		public bool unlockComm = false;
+		public bool benderClothes = true;
 		public float HScale = 2.6f;
 		public bool noTelescope = true;
 		public bool cacheSprites = true;
@@ -121,7 +125,7 @@ namespace Patchwork
 
 		public byte cam_renderingPath = 1;
 
-		public bool unlockH = false;
+
 
 		// bumped each time something changes the config
 		public int version;

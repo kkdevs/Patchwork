@@ -180,8 +180,12 @@ namespace Patchwork
 			this.whitePower = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new System.Windows.Forms.TextBox();
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.geass = new System.Windows.Forms.CheckBox();
+			this.unlockComm = new System.Windows.Forms.CheckBox();
+			this.benderClothes = new System.Windows.Forms.CheckBox();
+			this.enabler_tumblr = new System.Windows.Forms.GroupBox();
+			this.replInput = new System.Windows.Forms.ComboBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -194,6 +198,7 @@ namespace Patchwork
 			this.tabPage5.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage6.SuspendLayout();
+			this.enabler_tumblr.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -213,6 +218,7 @@ namespace Patchwork
 			this.tabControl1.Controls.Add(this.tabPage6);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.TabStop = false;
 			// 
 			// tabPage1
 			// 
@@ -790,6 +796,9 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.enabler_tumblr);
+			this.tabPage2.Controls.Add(this.unlockComm);
+			this.tabPage2.Controls.Add(this.geass);
 			this.tabPage2.Controls.Add(this.noBustNorm);
 			this.tabPage2.Controls.Add(this.label48);
 			this.tabPage2.Controls.Add(this.label47);
@@ -799,18 +808,14 @@ namespace Patchwork
 			this.tabPage2.Controls.Add(this.label35);
 			this.tabPage2.Controls.Add(this.chardb);
 			this.tabPage2.Controls.Add(this.tumblr);
-			this.tabPage2.Controls.Add(this.bothMC);
 			this.tabPage2.Controls.Add(this.useLR);
 			this.tabPage2.Controls.Add(this.sliderMax);
 			this.tabPage2.Controls.Add(this.label33);
 			this.tabPage2.Controls.Add(this.label32);
 			this.tabPage2.Controls.Add(this.sliderMin);
 			this.tabPage2.Controls.Add(this.equality);
-			this.tabPage2.Controls.Add(this.bothClass);
-			this.tabPage2.Controls.Add(this.bothEdit);
 			this.tabPage2.Controls.Add(this.bgmAsync);
 			this.tabPage2.Controls.Add(this.watchFolder);
-			this.tabPage2.Controls.Add(this.bothFreeH);
 			this.tabPage2.Controls.Add(this.unlockH);
 			resources.ApplyResources(this.tabPage2, "tabPage2");
 			this.tabPage2.Name = "tabPage2";
@@ -1235,20 +1240,51 @@ namespace Patchwork
 			// tabPage6
 			// 
 			this.tabPage6.Controls.Add(this.replInput);
-			this.tabPage6.Controls.Add(this.richTextBox1);
+			this.tabPage6.Controls.Add(this.replOutput);
 			resources.ApplyResources(this.tabPage6, "tabPage6");
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replOutput
+			// 
+			resources.ApplyResources(this.replOutput, "replOutput");
+			this.replOutput.Name = "replOutput";
+			// 
+			// geass
+			// 
+			resources.ApplyResources(this.geass, "geass");
+			this.geass.Name = "geass";
+			this.geass.UseVisualStyleBackColor = true;
+			// 
+			// unlockComm
+			// 
+			resources.ApplyResources(this.unlockComm, "unlockComm");
+			this.unlockComm.Name = "unlockComm";
+			this.unlockComm.UseVisualStyleBackColor = true;
+			// 
+			// benderClothes
+			// 
+			resources.ApplyResources(this.benderClothes, "benderClothes");
+			this.benderClothes.Name = "benderClothes";
+			this.benderClothes.UseVisualStyleBackColor = true;
+			this.benderClothes.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			// 
+			// enabler_tumblr
+			// 
+			this.enabler_tumblr.Controls.Add(this.bothFreeH);
+			this.enabler_tumblr.Controls.Add(this.benderClothes);
+			this.enabler_tumblr.Controls.Add(this.bothEdit);
+			this.enabler_tumblr.Controls.Add(this.bothClass);
+			this.enabler_tumblr.Controls.Add(this.bothMC);
+			resources.ApplyResources(this.enabler_tumblr, "enabler_tumblr");
+			this.enabler_tumblr.Name = "enabler_tumblr";
+			this.enabler_tumblr.TabStop = false;
+			// 
 			// replInput
 			// 
 			resources.ApplyResources(this.replInput, "replInput");
+			this.replInput.FormattingEnabled = true;
 			this.replInput.Name = "replInput";
-			// 
-			// richTextBox1
-			// 
-			resources.ApplyResources(this.richTextBox1, "richTextBox1");
-			this.richTextBox1.Name = "richTextBox1";
 			// 
 			// SettingsForm
 			// 
@@ -1280,7 +1316,8 @@ namespace Patchwork
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
-			this.tabPage6.PerformLayout();
+			this.enabler_tumblr.ResumeLayout(false);
+			this.enabler_tumblr.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1436,9 +1473,13 @@ namespace Patchwork
 		private System.Windows.Forms.Label label24;
 		private System.Windows.Forms.TextBox HScale;
 		private System.Windows.Forms.TabPage tabPage6;
-		private System.Windows.Forms.TextBox replInput;
-		private System.Windows.Forms.RichTextBox richTextBox1;
+		public System.Windows.Forms.RichTextBox replOutput;
 		private System.Windows.Forms.TabPage tabPage5;
+		private System.Windows.Forms.CheckBox unlockComm;
+		private System.Windows.Forms.CheckBox geass;
+		private System.Windows.Forms.CheckBox benderClothes;
+		private System.Windows.Forms.GroupBox enabler_tumblr;
+		public System.Windows.Forms.ComboBox replInput;
 	}
 }
 
