@@ -9,8 +9,11 @@ void *(*mono_get_string_class)();
 void *(*mono_jit_init_version)(void *, void *);
 void *(*mono_domain_set_config)(void *, char *, char *);
 void *(*mono_assembly_load_from)(void *, char *, int *);
-void *(*mono_debug_init)(int v);
 void *(*mono_image_open_from_data)(char *, int, BOOL, int *);
+#if _DEBUG
+void *(*mono_debug_init)(int v);
+void *(*mono_image_open_from_data_with_name)(char *, ULONG, BOOL, ULONG *, BOOL, char*);
+#endif
 
 
 static int bad_dir(const char *top) {
@@ -22,6 +25,9 @@ static int bad_dir(const char *top) {
 static HMODULE hInst;
 
 void *hook(void *fname, void *ver) {
+#ifdef _DEBUG
+	mono_debug_init(1);
+#endif
 	void *domain = mono_jit_init_version(fname, ver);
 	HRSRC hres;
 	int i;
@@ -31,10 +37,21 @@ void *hook(void *fname, void *ver) {
 		HGLOBAL hglob = LoadResource(hInst, hres);
 		void *res_data = (char*)LockResource(hglob);
 		int res_len = SizeofResource(hInst, hres);
+#ifdef _DEBUG
+		ULONG stat = 0;
+		images[i] = mono_image_open_from_data_with_name(
+			res_data,
+			res_len,
+			FALSE, // copy
+			&stat, //status
+			FALSE, // refonly
+			i==0?"Assembly-CSharp.dll":NULL);
+#else
 		images[i] = mono_image_open_from_data(res_data, res_len, FALSE, NULL);
+#endif
 	}
 	for (int j = 0; j < i; j++)
-		asms[j] = mono_assembly_load_from(images[j], "patchwork.exe", NULL);
+		asms[j] = mono_assembly_load_from(images[j], "Assembly-CSharp", NULL);
 
 	void *desc = mono_method_desc_new("*:Main", FALSE);
 	void *meth = mono_method_desc_search_in_image(desc, images[0]);
@@ -93,6 +110,11 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmd
 	LOAD(mono_jit_init_version);
 	LOAD(mono_image_open_from_data);
 	LOAD(mono_assembly_load_from);
+
+#ifdef _DEBUG
+	LOAD(mono_image_open_from_data_with_name);
+	LOAD(mono_debug_init);
+#endif
 
 
 	// alright, now do the horrible thing and run the exe via loadlibrary.

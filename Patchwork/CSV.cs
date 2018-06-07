@@ -11,12 +11,18 @@ namespace Patchwork
 	{
 		// Special case - lst from CSV - a slightly odd dance by making it exceldata first
 		// It is saved back to csv, and used as a csv from then on.
+		
 		public static bool LoadLst(string bundle, string asset, out string[,] data, int fixcol = 0)
 		{
 			data = null;
 			var ex = Cache.Load(bundle, asset, typeof(ExcelData)) as ExcelData;
 			if (ex == null)
 				return false;
+			return LoadLst(ex, out data, fixcol);
+		}
+		public static bool LoadLst(ExcelData ex, out string[,] data, int fixcol = 0)
+		{
+			data = null;
 			if (fixcol == 0) {
 				foreach (var line in ex.list)
 					if (line.list.Count > fixcol)

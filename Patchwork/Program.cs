@@ -259,24 +259,30 @@ namespace Patchwork
 			{
 				form.replOutput.AppendText(s);
 				Trace.Log(s);
-			};	
-			Script.reload();
-			form.replInput.Print = Script.pp;
-			form.replInput.Eval = (s) => {
-				Script.print("csharp> " + s);
-				return Script.eval(s);
 			};
-			form.replInput.Sentinel = typeof(Script.Sentinel);
-			form.replInput.GetCompletions = (s) =>
+			if (Script.reload())
 			{
-				string prefix;
-				var ret = new List<string>();
-				var arr = Script.Evaluator.GetCompletions(s, out prefix);
-				if (arr != null)
-					foreach (var sug in arr)
-						ret.Add(s + sug);
-				return ret;
-			};
+				form.replInput.Print = Script.pp;
+				form.replInput.Eval = (s) =>
+				{
+					Script.print("csharp> " + s);
+					return Script.eval(s);
+				};
+				form.replInput.Sentinel = typeof(Script.Sentinel);
+				form.replInput.GetCompletions = (s) =>
+				{
+					string prefix;
+					var ret = new List<string>();
+					var arr = Script.Evaluator.GetCompletions(s, out prefix);
+					if (arr != null)
+						foreach (var sug in arr)
+							ret.Add(s + sug);
+					return ret;
+				};
+			} else
+			{
+				Trace.Error("[SCRIPT] Failed to initialize script state.");
+			}
 			//Script.instance.InitCompiler();
 			//Script.instance.SetupRepl(form.replInput, form.replOutput);
 			//Script.instance.reload();
@@ -313,6 +319,8 @@ namespace Patchwork
 		{
 			Trace.Spam($"[GC] Asset GC requested by {caller.GetType().Name}");
 		}
+
+		public static bool geass => settings.geass && Input.GetMouseButtonDown(1);
 
 	}
 }

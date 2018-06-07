@@ -18,6 +18,15 @@ using System.Collections;
 
 namespace Patchwork
 {
+	public partial class Script
+	{
+	}
+}
+
+
+#if false
+namespace Patchwork
+{
 	public class Blah : Singleton<AssetBundleManager>
 	{
 		void Update()
@@ -49,102 +58,133 @@ namespace Patchwork
 		public static Reporter report;
 		static void asmLoaded(object sender, AssemblyLoadEventArgs e)
 		{
+			Debug.Log($"Evaluator loaded new assembly {e.LoadedAssembly}");
 			try
 			{
 				Evaluator.ReferenceAssembly(e.LoadedAssembly);
 			}
 			catch (Exception ex) { Debug.Log(ex); };
 		}
-		public static CompiledMethod compile(string str, IEnumerable<string> sources = null)
+		public static List<string> scriptFiles;
+
+		public static Evaluator Init(/*string str, */IEnumerable<string> sources, out Assembly asm)
 		{
+			asm = null;
+			Evaluator Evaluator;
 			if (report == null)
 			{
 				report = new Reporter();
 				Output = report;
 				Error = report;
 			}
-			// need to reload scripts?
-			if (Evaluator == null || sources != null)
+			scriptFiles = sources.ToList();
+			var settings = new CompilerSettings()
 			{
-				var settings = new CompilerSettings()
-				{
-					Unsafe = true,
-					//ShowFullPaths = true,
-					Target = Target.Library,
-				};
+				Unsafe = true,
+				//ShowFullPaths = true,
+				Target = Target.Library,
+			};
 
-				int i = 0;
-				foreach (var f in sources)
+			int i = 0;
+			foreach (var f in scriptFiles)
+			{
+				if (!f.EndsWith(".cs"))
+					continue;
+				i++;
+				var sf = new SourceFile(f, f, i);
+				settings.SourceFiles.Add(sf);
+			}
+			var printer = new StreamReportPrinter(report);
+			var ctx = new CompilerContext(settings, printer);
+			Evaluator = new Evaluator(ctx);
+			Evaluator.InteractiveBaseClass = typeof(Script);
+			Evaluator.DescribeTypeExpressions = true;
+			foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				if (a.GetName().Name == "mscorlib" || a.GetName().Name == "System.Core" || a.GetName().Name == "System")
+					continue;
+				try
 				{
-					if (!f.EndsWith(".cs"))
-						continue;
-					i++;
-					var sf = new SourceFile(f, f, i);
-					settings.SourceFiles.Add(sf);
+					Evaluator.ReferenceAssembly(a);
 				}
-				var printer = new StreamReportPrinter(report);
-				if (Evaluator != null)
-					AppDomain.CurrentDomain.AssemblyLoad -= asmLoaded;
-				var ctx = new CompilerContext(settings, printer);
-				Evaluator = new Evaluator(ctx);
+				catch (Exception ex) { Debug.Log(ex); };
+			}
+			foreach (var dll in scriptFiles)
+				if (dll.EndsWith(".dll"))
+					LoadAssembly(dll);
+			object dummy = null;
+			bool b;
+			//Evaluator.Evaluate(usings, out dummy, out b);
+			CompiledMethod cmp;
+			if (Script.Evaluator == null)
 				AppDomain.CurrentDomain.AssemblyLoad += asmLoaded;
-				Evaluator.InteractiveBaseClass = typeof(Script);
-				Evaluator.DescribeTypeExpressions = true;
-				foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
-				{
-					if (a.GetName().Name == "mscorlib" || a.GetName().Name == "System.Core" || a.GetName().Name == "System")
-						continue;
-					try
-					{
-						Evaluator.ReferenceAssembly(a);
-					} catch (Exception ex) { Debug.Log(ex); };
-				}
-			}
-			if (sources != null)
-			{
-				foreach (var dll in sources)
-					if (dll.EndsWith(".dll"))
-						LoadAssembly(dll);
-			}
+			Evaluator.Compile(usings, out cmp);
+			if (cmp == null)
+				return null;
+			cmp.Invoke(ref dummy);
+			asm = cmp.Method.DeclaringType.Assembly;
+			return Evaluator;
+			/*
 			CompiledMethod compiled = null;
-
-
-			//print("compiling");
-			if (Evaluator.GetUsingList().Count == 0)
+			Evaluator.Compile(str, out compiled);
+			if (compiled != null)
 			{
-				object dummy;
-				bool b;
-				
-				Evaluator.Evaluate(usings, out dummy, out b);
+				object rv = null;
+				asm = compiled.Method.DeclaringType.Assembly;
+				compiled(ref rv);
+				return Evaluator;
 			}
+			return null;*/
+		}
+
+		public static CompiledMethod compile(string str)
+		{
+			CompiledMethod compiled = null;
 			Evaluator.Compile(str, out compiled);
 			//print("done?");
 			return compiled;
 		}
 
 		public static class Sentinel { }
-		public static void reload()
+		public static bool reload(Action destroyer = null)
 		{
 			//var initstr = "1+1;";
 			var scripts = Path.Combine(UserData.Path, "scripts");
 			try { Directory.CreateDirectory(scripts); } catch { };
-			var compiled = compile("\"Reload ok\"", Directory.GetFiles(scripts, "*.cs"));
-			object retval = typeof(Sentinel);
-			if (compiled == null)
+			Assembly newasm;
+			var neweva = Init(Directory.GetFiles(scripts), out newasm);
+			if (neweva == null)
+				return false;
+			foreach (var t in newasm.GetTypes())
 			{
-				report.WriteLine("Failed to reload scripts.");
-				return;
+				if (t.BaseType == typeof(Script))
+				{
+					// Point of no return switchover
+					var init = t.GetMethod("EnvInit");
+					if (init == null)
+					{
+						Trace.Error($"Type {t.Name} derives from Script => should have EnvInit");
+						foreach (var v in AppDomain.CurrentDomain.GetAssemblies())
+							Trace.Error(v.FullName);
+						continue;
+					}
+
+					Evaluator = neweva;
+					Evaluator.InteractiveBaseClass = t;
+					destroyer?.Invoke();
+
+					var pars = init.GetParameters();
+					var newCtx = init.Invoke(null, new object[] { });
+					return true;
+				}
 			}
-			compiled(ref retval);
-			print(retval);
-			//eval("print(\"Compiled ok\");");
-			//compiled.Method.DeclaringType.Assembly
+			return false;
 		}
 
 		public static object eval(string str)
 		{
 			object ret = typeof(Sentinel);
-			compile(str, null)?.Invoke(ref ret);
+			compile(str)?.Invoke(ref ret);
 			return ret;
 		}
 
@@ -356,7 +396,6 @@ namespace Patchwork
 	}
 }
 
-#if false
 namespace Patchwork
 {
 	public class Script : MonoBehaviour

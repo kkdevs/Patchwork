@@ -3491,13 +3491,13 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="noTelescope.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 17</value>
+    <value>179, 17</value>
   </data>
   <data name="noTelescope.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
   </data>
   <data name="noTelescope.Text" xml:space="preserve">
-    <value>Reduce dick telescoping</value>
+    <value>No-scope (certain positions only)</value>
   </data>
   <data name="&gt;&gt;noTelescope.Name" xml:space="preserve">
     <value>noTelescope</value>
@@ -4820,7 +4820,7 @@
     <value>replInput</value>
   </data>
   <data name="&gt;&gt;replInput.Type" xml:space="preserve">
-    <value>EditLine, Assembly-CSharp, Version=6.4.6732.3465, Culture=neutral, PublicKeyToken=null</value>
+    <value>EditLine, Assembly-CSharp, Version=7.0.6732.19035, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;replInput.Parent" xml:space="preserve">
     <value>tabPage6</value>
@@ -4923,9 +4923,6 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>655, 385</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Illusion.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,7 +75,8 @@ namespace Patchwork
 			if (typeof(ScriptableObject).IsAssignableFrom(t))
 			{
 				return ScriptableObject.CreateInstance(t);
-			} else
+			}
+			else
 			{
 				return Activator.CreateInstance(t);
 			}
@@ -93,7 +95,8 @@ namespace Patchwork
 				if (str[0] == '\uFEFF')
 					str = str.Substring(1); // skip BOM
 				return str;
-			} catch
+			}
+			catch
 			{
 				return null;
 			}
@@ -109,7 +112,8 @@ namespace Patchwork
 					buf = "\uFEFF" + buf;
 				File.WriteAllBytes(file, System.Text.Encoding.UTF8.GetBytes(buf));
 				return true; // XXX
-			} catch
+			}
+			catch
 			{
 				return false;
 			}
@@ -195,14 +199,40 @@ namespace Patchwork
 			if (typ == "oo")
 			{
 				return (who.sex == 0 ? Program.settings.ooMale : Program.settings.ooFemale) + ".unity3d";
-			} else
+			}
+			else
 			{
 				return (who.sex == 0 ? Program.settings.mmMale : Program.settings.mmFemale) + ".unity3d";
 			}
 			return null;
 		}
-	}
 
+
+		public static List<string[,]> LoadMultiLst(string bundledir, string asset)
+		{
+			var res = new List<string[,]>();
+			asset = asset.ToLower();
+			List<string> bundles = CommonLib.GetAssetBundleNameListFromPath(bundledir, false);
+			foreach (var bn in bundles)
+			{
+				string[,] entry = null;
+				if (Program.settings.fetchAssets)
+					if (CSV.LoadLst(bn, asset, out entry)) {
+						res.Add(entry);
+						continue;
+					}
+				var ta = LoadedAssetBundle.Load(bn)?.LoadAsset(asset, typeof(TextAsset)) as TextAsset;
+				if (ta == null)
+					continue;
+				var ex = ScriptableObject.CreateInstance<ExcelData>();
+				ex.Import(CSV.ParseTSV(ta.text));
+				Save(ex, bn, asset);
+				CSV.LoadLst(ex, out entry);
+				res.Add(entry);
+			}
+			return res;
+		}
+	}
 }
 
 public partial class GlobalMethod
@@ -234,6 +264,4 @@ public partial class GlobalMethod
 		Cache.Save(ex, _assetbundleFolder, _strLoadFile);
 		return res;
 	}
-
-
 }
