@@ -7,12 +7,11 @@ using System.Reflection.Emit;
 using System.IO;
 using System.Reflection;
 
-
 public class MonoScript : Evaluator
 {
-	ReportPrinter reporter;
-	TextWriter tw;
-	Type initialBase;
+	public ReportPrinter reporter;
+	public TextWriter tw;
+	public Type initialBase;
 	public MonoScript(CompilerContext ctx) : base(ctx) { }
 	public static MonoScript New(TextWriter rw, Type ib)
 	{
@@ -43,7 +42,9 @@ public class MonoScript : Evaluator
 	{
 		var settings = new CompilerSettings()
 		{
-			Unsafe = true,
+			GenerateDebugInfo = true,
+			//StdLib = false,
+			//Unsafe = true,
 			Target = Target.Library,
 		};
 		return new CompilerContext(settings, rp);
@@ -53,19 +54,25 @@ public class MonoScript : Evaluator
 	{
 		foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
 		{
-			if (IsBadLib(a.GetName().Name))
+			// Don't import our past versions, it would end in tears.
+			if (a is AssemblyBuilder)
+				continue;
+			var an = a.GetName().Name;
+			if (IsBadLib(an))
 				continue;
 			try
 			{
 				into(a);
 			}
-			catch (Exception ex) { tw.WriteLine(ex); };
+			catch (Exception ex) {
+				tw.WriteLine("Failed to import " + an + " => " + ex.Message);
+			};
 		}
 	}
 
 	public static bool IsBadLib(string name)
 	{
-		return name == "mscorlib" || name == "System.Core" || name == "System";
+		return name == "Assembly-CSharp-firstpass" || name == "mscorlib" || name == "System.Core" || name == "System";
 	}
 
 	public AssemblyBuilder LoadScripts(IEnumerable<string> scripts)
@@ -74,6 +81,8 @@ public class MonoScript : Evaluator
 		int i = 0;
 		foreach (var f in scripts)
 		{
+			if (!f.EndsWith(".cs"))
+				continue;
 			i++;
 			ctx.Settings.SourceFiles.Add(new SourceFile(Path.GetFileName(f), f, i));
 		}
@@ -88,12 +97,15 @@ public class MonoScript : Evaluator
 		mod.EnableRedefinition();
 		foreach (var finfo in ctx.Settings.SourceFiles)
 		{
-			var fs = new SeekableStreamReader(File.OpenRead(finfo.FullPathName), Encoding.UTF8);
-			var csrc = new CompilationSourceFile(mod, finfo);
-			csrc.EnableRedefinition();
-			mod.AddTypeContainer(csrc);
-			var parser = new CSharpParser(fs, csrc, session);
-			parser.parse();
+			using (var fd = File.OpenRead(finfo.FullPathName))
+			{
+				var fs = new SeekableStreamReader(fd, Encoding.UTF8);
+				var csrc = new CompilationSourceFile(mod, finfo);
+				csrc.EnableRedefinition();
+				mod.AddTypeContainer(csrc);
+				var parser = new CSharpParser(fs, csrc, session);
+				parser.parse();
+			}
 		}
 		var asmname = "dynamic_scripts_" + counter++;
 		var ass = new AssemblyDefinitionDynamic(mod, asmname, asmname + ".dll");
@@ -102,6 +114,10 @@ public class MonoScript : Evaluator
 		ass.Importer = importer;
 		var loader = new DynamicLoader(importer, ctx);
 		ImportAssemblies((a) => importer.ImportAssembly(a, mod.GlobalRootNamespace));
+		loader.LoadReferences(mod);
+		ass.Create(AppDomain.CurrentDomain, AssemblyBuilderAccess.RunAndSave);
+		mod.CreateContainer();
+		loader.LoadModules(ass, mod.GlobalRootNamespace);
 		mod.InitializePredefinedTypes();
 		mod.Define();
 		if (ctx.Report.Errors > 0)
@@ -109,13 +125,19 @@ public class MonoScript : Evaluator
 			tw.WriteLine($"{ctx.Report.Errors} errors, aborting.");
 			return null;
 		}
-		ass.Resolve();
-		ass.Emit();
-		mod.CloseContainer();
+		try
+		{
+			ass.Resolve();
+			ass.Emit();
+			mod.CloseContainer();
+		} catch (Exception ex) { tw.WriteLine($"Link error: " + ex.ToString());
+			return null;
+		}
 		var newasm = ass.Builder;
 		// Find new base for repl if there is any
 		foreach (var t in newasm.GetTypes())
 		{
+			Debug.Log(t.Name);
 			if (t.BaseType != initialBase)
 				continue;
 			InteractiveBaseClass = t;
@@ -124,5 +146,4 @@ public class MonoScript : Evaluator
 		return newasm;
 	}
 	public static int counter;
-
 }

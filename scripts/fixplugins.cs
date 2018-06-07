@@ -1,4 +1,4 @@
-﻿// Compatibility for Plugins, disregard any complaints
+﻿// Compatibility for plugins with sheer brute force. No regrets.
 using System;
 using System.IO;
 using System.Reflection;
@@ -13,12 +13,15 @@ public class fixplugins : MonoBehaviour
 				return true;
 		return false;
 	}
-	public fixplugins()
+	public void Awake()
 	{
 		// its already in appdomain, it probably loaded correctly
 		if (hasBepin())
+		{
+			print("BepinEx already loaded and (probably) running ok.");
 			return;
-		Patchwork.Trace.Log("Trying to fix plugins");
+		}
+		print("Trying to fix plugins");
 		// it broke, so load all plugins "manually"
 		string path = Path.GetFullPath(Application.dataPath + "/../bepinex");
 		try
@@ -52,13 +55,13 @@ public class fixplugins : MonoBehaviour
 				{
 					if (t.BaseType?.Name == "BaseUnityPlugin")
 					{
-						var obj = gameObject.AddComponent(t);
+						gameObject.AddComponent(t);
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				Debug.Log(ex);
+				print(ex);
 			};
 		}
 	}

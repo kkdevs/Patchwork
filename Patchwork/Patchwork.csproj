@@ -34,7 +34,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\Managed\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;GAME_DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
     <LangVersion>default</LangVersion>
@@ -112,7 +112,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ext.cs" />
-    <Compile Include="ScriptCommands.cs" />
+    <Compile Include="MonoScript.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Properties\LocalAssemblyInfo.cs" />
     <Compile Include="Script.cs" />

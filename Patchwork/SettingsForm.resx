@@ -3424,60 +3424,6 @@
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label24.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 104</value>
-  </data>
-  <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 13</value>
-  </data>
-  <data name="label24.TabIndex" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="label24.Text" xml:space="preserve">
-    <value>H thrust scaling</value>
-  </data>
-  <data name="&gt;&gt;label24.Name" xml:space="preserve">
-    <value>label24</value>
-  </data>
-  <data name="&gt;&gt;label24.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
-    <value>tabPage5</value>
-  </data>
-  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="HScale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 101</value>
-  </data>
-  <data name="HScale.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="HScale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 20</value>
-  </data>
-  <data name="HScale.TabIndex" type="System.Int32, mscorlib">
-    <value>59</value>
-  </data>
-  <data name="&gt;&gt;HScale.Name" xml:space="preserve">
-    <value>HScale</value>
-  </data>
-  <data name="&gt;&gt;HScale.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HScale.Parent" xml:space="preserve">
-    <value>tabPage5</value>
-  </data>
-  <data name="&gt;&gt;HScale.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="noTelescope.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3509,7 +3455,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;noTelescope.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="label44.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3539,7 +3485,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;label44.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="label43.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3569,7 +3515,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;label43.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="mmFemale.Location" type="System.Drawing.Point, System.Drawing">
     <value>528, 80</value>
@@ -3593,7 +3539,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;mmFemale.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="mmMale.Location" type="System.Drawing.Point, System.Drawing">
     <value>528, 54</value>
@@ -3617,7 +3563,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;mmMale.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="label41.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3647,7 +3593,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;label41.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="ooFemale.Location" type="System.Drawing.Point, System.Drawing">
     <value>419, 80</value>
@@ -3671,7 +3617,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;ooFemale.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="label42.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3701,7 +3647,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;label42.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="ooMale.Location" type="System.Drawing.Point, System.Drawing">
     <value>419, 54</value>
@@ -3725,7 +3671,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;ooMale.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="hideMoz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3758,7 +3704,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;hideMoz.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="fixPenis.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3791,7 +3737,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;fixPenis.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="fixVagina.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3824,7 +3770,7 @@
     <value>tabPage5</value>
   </data>
   <data name="&gt;&gt;fixVagina.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="tabPage5.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -4820,7 +4766,7 @@
     <value>replInput</value>
   </data>
   <data name="&gt;&gt;replInput.Type" xml:space="preserve">
-    <value>EditLine, Assembly-CSharp, Version=7.0.6732.19035, Culture=neutral, PublicKeyToken=null</value>
+    <value>EditLine, Assembly-CSharp, Version=7.0.6732.42792, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;replInput.Parent" xml:space="preserve">
     <value>tabPage6</value>
@@ -4923,6 +4869,9 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>655, 385</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>

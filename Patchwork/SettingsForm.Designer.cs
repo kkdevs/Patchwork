@@ -138,8 +138,6 @@ namespace Patchwork
 			this.watchFolder = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.label24 = new System.Windows.Forms.Label();
-			this.HScale = new System.Windows.Forms.TextBox();
 			this.noTelescope = new System.Windows.Forms.CheckBox();
 			this.label44 = new System.Windows.Forms.Label();
 			this.label43 = new System.Windows.Forms.Label();
@@ -185,8 +183,8 @@ namespace Patchwork
 			this.whitePower = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -980,8 +978,6 @@ namespace Patchwork
 			// 
 			// tabPage5
 			// 
-			this.tabPage5.Controls.Add(this.label24);
-			this.tabPage5.Controls.Add(this.HScale);
 			this.tabPage5.Controls.Add(this.noTelescope);
 			this.tabPage5.Controls.Add(this.label44);
 			this.tabPage5.Controls.Add(this.label43);
@@ -997,16 +993,6 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage5, "tabPage5");
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.UseVisualStyleBackColor = true;
-			// 
-			// label24
-			// 
-			resources.ApplyResources(this.label24, "label24");
-			this.label24.Name = "label24";
-			// 
-			// HScale
-			// 
-			resources.ApplyResources(this.HScale, "HScale");
-			this.HScale.Name = "HScale";
 			// 
 			// noTelescope
 			// 
@@ -1283,13 +1269,6 @@ namespace Patchwork
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			resources.ApplyResources(this.replInput, "replInput");
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Name = "replInput";
-			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
-			// 
 			// replOutput
 			// 
 			resources.ApplyResources(this.replOutput, "replOutput");
@@ -1298,6 +1277,13 @@ namespace Patchwork
 			this.replOutput.Name = "replOutput";
 			this.replOutput.ReadOnly = true;
 			this.replOutput.TabStop = false;
+			// 
+			// replInput
+			// 
+			resources.ApplyResources(this.replInput, "replInput");
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Name = "replInput";
+			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
 			// 
 			// SettingsForm
 			// 
@@ -1483,8 +1469,6 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox hideMoz;
 		private System.Windows.Forms.CheckBox fixPenis;
 		private System.Windows.Forms.CheckBox fixVagina;
-		private System.Windows.Forms.Label label24;
-		private System.Windows.Forms.TextBox HScale;
 		private System.Windows.Forms.TabPage tabPage6;
 		public System.Windows.Forms.RichTextBox replOutput;
 		private System.Windows.Forms.TabPage tabPage5;

@@ -18,8 +18,101 @@ using System.Collections;
 
 namespace Patchwork
 {
-	public partial class Script
+	public partial class Script : InteractiveBase
 	{
+		public class Reporter : TextWriter
+		{
+			public static Action<string> write;
+			public override Encoding Encoding => Encoding.UTF8;
+			public override void Write(char c)
+			{
+				write("" + c);
+			}
+			public override void Write(string s)
+			{
+				write(s);
+			}
+			public override void WriteLine(string s)
+			{
+				write(s);
+				write("\n");
+			}
+		}
+		public static new void print(object o)
+		{
+			write(o.ToString() + "\n");
+		}
+		public static void write(string s)
+		{
+			Reporter.write(s);
+		}
+
+		public static void pp(object o)
+		{
+			print(o);
+		}
+
+		public static object Invoke(string m, params object[] args)
+		{
+			var types = new Type[args.Length];
+			for (int i = 0; i < args.Length; i++)
+				types[i] = args[i].GetType();
+			var me = Evaluator.InteractiveBaseClass.GetMethod(m, BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Static, null, types, null);
+			if (me == null)
+			{
+				print($"Failed to locate '{m}' in Script environment");
+				return null;
+			}
+			return me.Invoke(null, args);
+		}
+
+		public static new MonoScript Evaluator;
+		public static List<string> scriptFiles = new List<string>();
+		public static bool reload(Action destroyer = null)
+		{
+			print("Trying to (re)load script env.");
+			Output = Evaluator.tw;
+			Error = Evaluator.tw;
+			var scripts = Path.Combine(UserData.Path, "scripts");
+			try { Directory.CreateDirectory(scripts); } catch { };
+			scriptFiles.Clear();
+			foreach (var f in Directory.GetFiles(scripts, "*.*"))
+				if (f.EndsWith(".cs") || f.EndsWith(".dll"))
+					scriptFiles.Add(f);
+
+			var newasm = Evaluator.LoadScripts(scriptFiles);
+			if (newasm == null)
+			{
+				print("Scripts reload failed.");
+				return false;
+			}
+			var init = Evaluator.InteractiveBaseClass.GetMethod("EnvInit");
+			if (init == null)
+			{
+				print($"WARNING: Script environment init missing in ${Evaluator.InteractiveBaseClass.Name}, typeof(Script)={Evaluator.InteractiveBaseClass==typeof(Script)}");
+				print("Will retain previous env.");
+			} else
+			{
+				destroyer?.Invoke();
+				init.Invoke(null, new object[] { });
+			}
+			return true;
+		}
+
+		public static class Sentinel { }
+		public static object eval(string str)
+		{
+			object ret = typeof(Sentinel);
+			compile(str)?.Invoke(ref ret);
+			return ret;
+		}
+
+		public static CompiledMethod compile(string str)
+		{
+			CompiledMethod compiled = null;
+			Evaluator.Compile(str, out compiled);
+			return compiled;
+		}
 	}
 }
 

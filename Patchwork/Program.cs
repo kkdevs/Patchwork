@@ -255,18 +255,21 @@ namespace Patchwork
 			};
 
 			// Fire up scripts
-			Script.Reporter.print = (s) =>
+			Script.Reporter.write = (s) =>
 			{
 				form.replOutput.AppendText(s);
-				Trace.Log(s);
+				if (s.Trim() != "")
+					Trace.Log(s.Trim());
+				System.Windows.Forms.Application.DoEvents();
 			};
+			Script.Evaluator = MonoScript.New(new Script.Reporter(), typeof(Script));
 			if (Script.reload())
 			{
-				form.replInput.Print = Script.pp;
+				form.replInput.Print = (s) => Script.Invoke("pp", s);
 				form.replInput.Eval = (s) =>
 				{
-					Script.print("csharp> " + s);
-					return Script.eval(s);
+					Script.Invoke("print", "csharp> " + s);
+					return Script.Invoke("eval", s);
 				};
 				form.replInput.Sentinel = typeof(Script.Sentinel);
 				form.replInput.GetCompletions = (s) =>
