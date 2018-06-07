@@ -27,13 +27,14 @@ namespace Patchwork
 	}
 	public partial class Script : InteractiveBase
 	{
+		const string usings = "using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine; using UnityEngine.SceneManagement;";
 		public class Reporter : TextWriter
 		{
 			public static Action<string> print;
 			public override Encoding Encoding => Encoding.UTF8;
 			public override void Write(char c)
 			{
-				print(c.ToString());
+				print(""+c);
 			}
 			public override void Write(string s)
 			{
@@ -42,7 +43,7 @@ namespace Patchwork
 			public override void WriteLine(string s)
 			{
 				print(s);
-				print("\r\n");
+				print("\n");
 			}
 		}
 		public static Reporter report;
@@ -113,7 +114,7 @@ namespace Patchwork
 			{
 				object dummy;
 				bool b;
-				var usings = "using System; using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine;";
+				
 				Evaluator.Evaluate(usings, out dummy, out b);
 			}
 			Evaluator.Compile(str, out compiled);
@@ -152,10 +153,15 @@ namespace Patchwork
 			output.Write(s);
 		}
 
+		public static void print(string s = "")
+		{
+			report.WriteLine(s);
+		}
+
 		public static void pp(object o)
 		{
 			PrettyPrint(report, o);
-			print("\r\n");
+			print("");
 		}
 
 		public static void PrettyPrint(TextWriter output, object result)

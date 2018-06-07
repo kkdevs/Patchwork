@@ -111,6 +111,14 @@ namespace Patchwork
 			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.enabler_tumblr = new System.Windows.Forms.GroupBox();
+			this.bothFreeH = new System.Windows.Forms.CheckBox();
+			this.benderClothes = new System.Windows.Forms.CheckBox();
+			this.bothEdit = new System.Windows.Forms.CheckBox();
+			this.bothClass = new System.Windows.Forms.CheckBox();
+			this.bothMC = new System.Windows.Forms.CheckBox();
+			this.unlockComm = new System.Windows.Forms.CheckBox();
+			this.geass = new System.Windows.Forms.CheckBox();
 			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.label48 = new System.Windows.Forms.Label();
 			this.label47 = new System.Windows.Forms.Label();
@@ -120,18 +128,14 @@ namespace Patchwork
 			this.label35 = new System.Windows.Forms.Label();
 			this.chardb = new System.Windows.Forms.ComboBox();
 			this.tumblr = new System.Windows.Forms.CheckBox();
-			this.bothMC = new System.Windows.Forms.CheckBox();
 			this.useLR = new System.Windows.Forms.CheckBox();
 			this.sliderMax = new System.Windows.Forms.TextBox();
 			this.label33 = new System.Windows.Forms.Label();
 			this.label32 = new System.Windows.Forms.Label();
 			this.sliderMin = new System.Windows.Forms.TextBox();
 			this.equality = new System.Windows.Forms.CheckBox();
-			this.bothClass = new System.Windows.Forms.CheckBox();
-			this.bothEdit = new System.Windows.Forms.CheckBox();
 			this.bgmAsync = new System.Windows.Forms.CheckBox();
 			this.watchFolder = new System.Windows.Forms.CheckBox();
-			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.label24 = new System.Windows.Forms.Label();
@@ -181,11 +185,8 @@ namespace Patchwork
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.geass = new System.Windows.Forms.CheckBox();
-			this.unlockComm = new System.Windows.Forms.CheckBox();
-			this.benderClothes = new System.Windows.Forms.CheckBox();
-			this.enabler_tumblr = new System.Windows.Forms.GroupBox();
-			this.replInput = new System.Windows.Forms.ComboBox();
+			this.onTop = new System.Windows.Forms.CheckBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -195,10 +196,10 @@ namespace Patchwork
 			this.enabler_shadowOverride.SuspendLayout();
 			this.enabler_cam_ppOverride.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.enabler_tumblr.SuspendLayout();
 			this.tabPage5.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage6.SuspendLayout();
-			this.enabler_tumblr.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -822,6 +823,60 @@ namespace Patchwork
 			this.tabPage2.UseVisualStyleBackColor = true;
 			this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
 			// 
+			// enabler_tumblr
+			// 
+			this.enabler_tumblr.Controls.Add(this.bothFreeH);
+			this.enabler_tumblr.Controls.Add(this.benderClothes);
+			this.enabler_tumblr.Controls.Add(this.bothEdit);
+			this.enabler_tumblr.Controls.Add(this.bothClass);
+			this.enabler_tumblr.Controls.Add(this.bothMC);
+			resources.ApplyResources(this.enabler_tumblr, "enabler_tumblr");
+			this.enabler_tumblr.Name = "enabler_tumblr";
+			this.enabler_tumblr.TabStop = false;
+			// 
+			// bothFreeH
+			// 
+			resources.ApplyResources(this.bothFreeH, "bothFreeH");
+			this.bothFreeH.Name = "bothFreeH";
+			this.bothFreeH.UseVisualStyleBackColor = true;
+			// 
+			// benderClothes
+			// 
+			resources.ApplyResources(this.benderClothes, "benderClothes");
+			this.benderClothes.Name = "benderClothes";
+			this.benderClothes.UseVisualStyleBackColor = true;
+			this.benderClothes.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			// 
+			// bothEdit
+			// 
+			resources.ApplyResources(this.bothEdit, "bothEdit");
+			this.bothEdit.Name = "bothEdit";
+			this.bothEdit.UseVisualStyleBackColor = true;
+			// 
+			// bothClass
+			// 
+			resources.ApplyResources(this.bothClass, "bothClass");
+			this.bothClass.Name = "bothClass";
+			this.bothClass.UseVisualStyleBackColor = true;
+			// 
+			// bothMC
+			// 
+			resources.ApplyResources(this.bothMC, "bothMC");
+			this.bothMC.Name = "bothMC";
+			this.bothMC.UseVisualStyleBackColor = true;
+			// 
+			// unlockComm
+			// 
+			resources.ApplyResources(this.unlockComm, "unlockComm");
+			this.unlockComm.Name = "unlockComm";
+			this.unlockComm.UseVisualStyleBackColor = true;
+			// 
+			// geass
+			// 
+			resources.ApplyResources(this.geass, "geass");
+			this.geass.Name = "geass";
+			this.geass.UseVisualStyleBackColor = true;
+			// 
 			// noBustNorm
 			// 
 			resources.ApplyResources(this.noBustNorm, "noBustNorm");
@@ -873,12 +928,6 @@ namespace Patchwork
 			this.tumblr.Name = "tumblr";
 			this.tumblr.UseVisualStyleBackColor = true;
 			// 
-			// bothMC
-			// 
-			resources.ApplyResources(this.bothMC, "bothMC");
-			this.bothMC.Name = "bothMC";
-			this.bothMC.UseVisualStyleBackColor = true;
-			// 
 			// useLR
 			// 
 			resources.ApplyResources(this.useLR, "useLR");
@@ -911,18 +960,6 @@ namespace Patchwork
 			this.equality.Name = "equality";
 			this.equality.UseVisualStyleBackColor = true;
 			// 
-			// bothClass
-			// 
-			resources.ApplyResources(this.bothClass, "bothClass");
-			this.bothClass.Name = "bothClass";
-			this.bothClass.UseVisualStyleBackColor = true;
-			// 
-			// bothEdit
-			// 
-			resources.ApplyResources(this.bothEdit, "bothEdit");
-			this.bothEdit.Name = "bothEdit";
-			this.bothEdit.UseVisualStyleBackColor = true;
-			// 
 			// bgmAsync
 			// 
 			resources.ApplyResources(this.bgmAsync, "bgmAsync");
@@ -934,12 +971,6 @@ namespace Patchwork
 			resources.ApplyResources(this.watchFolder, "watchFolder");
 			this.watchFolder.Name = "watchFolder";
 			this.watchFolder.UseVisualStyleBackColor = true;
-			// 
-			// bothFreeH
-			// 
-			resources.ApplyResources(this.bothFreeH, "bothFreeH");
-			this.bothFreeH.Name = "bothFreeH";
-			this.bothFreeH.UseVisualStyleBackColor = true;
 			// 
 			// unlockH
 			// 
@@ -1044,6 +1075,7 @@ namespace Patchwork
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.onTop);
 			this.tabPage3.Controls.Add(this.cacheSprites);
 			this.tabPage3.Controls.Add(this.label40);
 			this.tabPage3.Controls.Add(this.label39);
@@ -1248,43 +1280,24 @@ namespace Patchwork
 			// replOutput
 			// 
 			resources.ApplyResources(this.replOutput, "replOutput");
+			this.replOutput.DetectUrls = false;
+			this.replOutput.HideSelection = false;
 			this.replOutput.Name = "replOutput";
+			this.replOutput.ReadOnly = true;
+			this.replOutput.TabStop = false;
 			// 
-			// geass
+			// onTop
 			// 
-			resources.ApplyResources(this.geass, "geass");
-			this.geass.Name = "geass";
-			this.geass.UseVisualStyleBackColor = true;
-			// 
-			// unlockComm
-			// 
-			resources.ApplyResources(this.unlockComm, "unlockComm");
-			this.unlockComm.Name = "unlockComm";
-			this.unlockComm.UseVisualStyleBackColor = true;
-			// 
-			// benderClothes
-			// 
-			resources.ApplyResources(this.benderClothes, "benderClothes");
-			this.benderClothes.Name = "benderClothes";
-			this.benderClothes.UseVisualStyleBackColor = true;
-			this.benderClothes.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-			// 
-			// enabler_tumblr
-			// 
-			this.enabler_tumblr.Controls.Add(this.bothFreeH);
-			this.enabler_tumblr.Controls.Add(this.benderClothes);
-			this.enabler_tumblr.Controls.Add(this.bothEdit);
-			this.enabler_tumblr.Controls.Add(this.bothClass);
-			this.enabler_tumblr.Controls.Add(this.bothMC);
-			resources.ApplyResources(this.enabler_tumblr, "enabler_tumblr");
-			this.enabler_tumblr.Name = "enabler_tumblr";
-			this.enabler_tumblr.TabStop = false;
+			resources.ApplyResources(this.onTop, "onTop");
+			this.onTop.Name = "onTop";
+			this.onTop.UseVisualStyleBackColor = true;
 			// 
 			// replInput
 			// 
 			resources.ApplyResources(this.replInput, "replInput");
 			this.replInput.FormattingEnabled = true;
 			this.replInput.Name = "replInput";
+			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
 			// 
 			// SettingsForm
 			// 
@@ -1311,13 +1324,13 @@ namespace Patchwork
 			this.enabler_cam_ppOverride.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			this.enabler_tumblr.ResumeLayout(false);
+			this.enabler_tumblr.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
-			this.enabler_tumblr.ResumeLayout(false);
-			this.enabler_tumblr.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1479,7 +1492,8 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox geass;
 		private System.Windows.Forms.CheckBox benderClothes;
 		private System.Windows.Forms.GroupBox enabler_tumblr;
-		public System.Windows.Forms.ComboBox replInput;
+		public EditLine replInput;
+		private System.Windows.Forms.CheckBox onTop;
 	}
 }
 

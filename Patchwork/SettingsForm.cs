@@ -109,7 +109,7 @@ namespace Patchwork
 			{
 				replInput.Focus();
 			};*/
-			tabControl1.SelectedIndexChanged += (o,e) => {
+			tabControl1.SelectedIndexChanged += (o, e) => {
 				if (tabControl1.SelectedTab == tabPage6)
 					replInput.Focus();
 			};
@@ -262,6 +262,11 @@ namespace Patchwork
 					replInput.Items.Add(pfx + v);
 			}
 			return cmps != null;
+		}
+
+		private void replInput_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

@@ -23,6 +23,7 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool onTop = false;
 		public bool geass = false;
 		public bool unlockH = false;
 		public bool unlockComm = false;
@@ -229,6 +230,9 @@ namespace Patchwork
 		{
 			switch (name)
 			{
+				case "onTop":
+					Program.form.TopMost = onTop;
+					break;
 				case "showFPS":
 					try
 					{

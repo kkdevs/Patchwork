@@ -261,7 +261,22 @@ namespace Patchwork
 				Trace.Log(s);
 			};	
 			Script.reload();
-			form.ConnectRepl();
+			form.replInput.Print = Script.pp;
+			form.replInput.Eval = (s) => {
+				Script.print("csharp> " + s);
+				return Script.eval(s);
+			};
+			form.replInput.Sentinel = typeof(Script.Sentinel);
+			form.replInput.GetCompletions = (s) =>
+			{
+				string prefix;
+				var ret = new List<string>();
+				var arr = Script.Evaluator.GetCompletions(s, out prefix);
+				if (arr != null)
+					foreach (var sug in arr)
+						ret.Add(s + sug);
+				return ret;
+			};
 			//Script.instance.InitCompiler();
 			//Script.instance.SetupRepl(form.replInput, form.replOutput);
 			//Script.instance.reload();
