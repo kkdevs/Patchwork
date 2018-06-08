@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Diagnostics;
 
 
-public class Reloader : MonoBehaviour
+public class Reloader : Script.AutoRun
 {
 	int ticks;
 	bool stop;
@@ -70,9 +70,28 @@ public partial class ScriptEnv : Script
 		Object.DontDestroyOnLoad(G);
 		var nadd = 0;
 		foreach (var t in Assembly.GetExecutingAssembly().GetTypes()) {
-			if (t.BaseType == typeof(MonoBehaviour)) {
+			if (t.BaseType == typeof(AutoRun))
+			{
 				G.AddComponent(t);
 				nadd++;
+			}
+			else
+			// A dynamic component.
+			if (typeof(Component).IsAssignableFrom(t) && t.BaseType.Assembly.GetName().Name == "Assembly-CSharp")
+			{
+				System.Type ot = null;
+				try
+				{
+					if (Components.TryGetValue(t.BaseType.Name, out ot))
+						foreach (var v in Object.FindObjectsOfType(ot))
+							if (v.GetType() == ot)
+								Object.DestroyImmediate(v);
+				}
+				catch (System.Exception ex) { print(ex.ToString()); }
+				if (ot != null && ot.Name != t.Name)
+					print($"WARNING: {ot.Name} overriden by {t.Name}.");
+				Components[t.BaseType.Name] = t;
+				print($"Registered component {t.Name} => {t.BaseType.Name}");
 			}
 		}
 		eval("using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine; using UnityEngine.SceneManagement;");

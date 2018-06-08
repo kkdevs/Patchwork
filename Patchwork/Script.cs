@@ -20,6 +20,8 @@ namespace Patchwork
 {
 	public partial class Script : InteractiveBase
 	{
+		public class AutoRun : MonoBehaviour { };
+		public static Dictionary<string, Type> Components = new Dictionary<string, Type>();
 		public class Reporter : TextWriter
 		{
 			public static Action<string> write;
@@ -97,6 +99,7 @@ namespace Patchwork
 				print("Scripts reload failed.");
 				return false;
 			}
+			Evaluator.ReferenceAssembly(newasm);
 			var init = Evaluator.InteractiveBaseClass.GetMethod("EnvInit");
 			if (init == null)
 			{
@@ -108,12 +111,15 @@ namespace Patchwork
 					destroyer.Invoke();
 				else
 				{
-					print("WARNING: Reload called without environment destroyer, attempting to clean up on our own.");
-					try
+					if (prevInit != Evaluator.initialBase)
 					{
-						Object.DestroyImmediate(prevInit.GetField("G").GetValue(null) as GameObject);
+						print("WARNING: Reload called without environment destroyer, attempting to clean up on our own.");
+						try
+						{
+							Object.DestroyImmediate(prevInit.GetField("G").GetValue(null) as GameObject);
+						}
+						catch (Exception ex) { print(ex.Message); };
 					}
-					catch (Exception ex) { print(ex.Message); };
 				}
 				init.Invoke(null, new object[] { });
 			}

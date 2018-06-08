@@ -3,8 +3,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using Patchwork;
 
-public class fixplugins : MonoBehaviour
+public class fixplugins : Script.AutoRun
 {
 	public bool hasBepin()
 	{

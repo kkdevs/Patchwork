@@ -23,6 +23,7 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool com_Lookat_dan = true;
 		public bool onTop = false;
 		public bool geass = false;
 		public bool unlockH = false;
@@ -165,6 +166,14 @@ namespace Patchwork
 			{ "blendWeights", new [] {1,2,4 } },
 		};
 
+		public bool CheckComponent(string name)
+		{
+			var f = typeof(Settings).GetField("com_" + name);
+			// not gated
+			if (f == null)
+				return true;
+			return (bool)f.GetValue(this);
+		}
 
 		// Apply a singular setting
 		public void Update(string name, object val)

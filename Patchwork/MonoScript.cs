@@ -26,6 +26,7 @@ public class MonoScript : Evaluator
 	}
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
+		//tw.WriteLine("Registering assembly " + e.LoadedAssembly.FullName);
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);

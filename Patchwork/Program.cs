@@ -207,6 +207,12 @@ namespace Patchwork
 		{
 			try
 			{
+				timer.Stop();
+				timer.Dispose();
+			}
+			catch { };
+			try
+			{
 				Program.form.Close();
 			}
 			catch { };
@@ -231,7 +237,7 @@ namespace Patchwork
 		public static void InitBeforeBaseLoader()
 		{
 		}
-
+		public static System.Timers.Timer timer;
 		public static void PostInit()
 		{
 			initdone = true;
@@ -241,6 +247,14 @@ namespace Patchwork
 				InitConfig(); // If we're running standalone
 				ConfigDialog();
 			}
+			timer = new System.Timers.Timer(100);
+			timer.AutoReset = true;
+			timer.Elapsed += (o, e) =>
+			{
+				FixWindow();
+			};
+			timer.Start();
+
 			settings.Apply(true);
 			settings.UpdateCamera(null);
 			SaveConfig();

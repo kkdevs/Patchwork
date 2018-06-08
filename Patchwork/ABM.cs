@@ -90,8 +90,11 @@ public class LoadedAssetBundle
 	/// <param name="name"></param>
 	/// <param name="forasset"></param>
 	/// <returns></returns>
+
+	public static event Action<string, string> beforeBundleLoad;
 	public static LoadedAssetBundle Load(string name, string forasset = null)
 	{
+		beforeBundleLoad?.Invoke(name, forasset);
 		LoadedAssetBundle res = Get(name);
 		if (res != null)
 			return res;
@@ -161,8 +164,10 @@ public class LoadedAssetBundle
 		return UnityEngine.Object.Instantiate(obj);
 	}
 
+	public static event Action<LoadedAssetBundle, string> beforeLoad;
 	public IEnumerator LoadAssetAsync(string name, Type t, Action<UnityEngine.Object> cb)
 	{
+		beforeLoad?.Invoke(this, name);
 		if (!caching || !cache.TryGetValue(name, out UnityEngine.Object obj))
 		{
 			Debug.Log($"[ABM] Cache miss {path}/{name}");
@@ -196,6 +201,7 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public UnityEngine.Object LoadAsset(string name, Type typ, bool nocache=false)
 	{
+		beforeLoad?.Invoke(this, name);
 		//Debug.Log($"[ABM] Loading {path}/{name}");
 		if (nocache || !caching || !cache.TryGetValue(name, out UnityEngine.Object obj))
 		{

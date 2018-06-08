@@ -14,6 +14,7 @@ public class Symbol
 
 public partial class ScriptEnv : Script
 {
+	public static List<string> ignore = new List<string>() { "ChaControl" };
 	public static Dictionary<Symbol, object> obj2dict(object o, string pfx)
 	{
 		if (o == null)
@@ -23,11 +24,14 @@ public partial class ScriptEnv : Script
 		if (t == null)
 			return null;
 		foreach (var f in t.GetFields())
-			dict[new Symbol() { s = f.Name } ] = f.GetValue(o);
+//			if (!ignore.Contains(f.FieldType.Name))
+				dict[new Symbol() { s = f.Name } ] = f.GetValue(o);
 		var props = t.GetProperties();
 		if (t != null && pfx.Length < maxDepth)
 			foreach (var p in props)
 			{
+//				if (ignore.Contains(p.PropertyType.Name))
+//					continue;
 				object val = null;
 				try
 				{
@@ -73,6 +77,7 @@ public partial class ScriptEnv : Script
 		sb.Append(pfx + "}");
 		return sb.ToString();
 	}
+	public static bool showChildren = false;
 	public static string PrettyPrint(object o, string prefix = "")
 	{
 		if (o == null)
@@ -84,10 +89,14 @@ public partial class ScriptEnv : Script
 		if (o is char)
 			return $"'{o}'";
 		var t = o.GetType();
+		if (ignore.Contains(t.Name))
+			return "<ignore>";
 		if (t.IsPrimitive || t.IsEnum)
 			return o.ToString();
 		if (cycleRefs.Contains(o))
 			return "<cycle>";
+		if (prefix.Length > maxDepth)
+			return "...";
 		cycleRefs.Add(o);
 		if (o is IDictionary)
 			return PrettyPrint(o as IDictionary, prefix);
@@ -95,13 +104,18 @@ public partial class ScriptEnv : Script
 		if (o is Component)
 		{
 			tmp = getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
-			if (!(tmp is IEnumerable))
+			if (!(o is IEnumerable))
 				return tmp;
-			tmp += ",\n"+prefix+"^Children = ";
+			tmp += ",\n"+prefix;
 		}
-
 		if (o is IEnumerable)
 		{
+			if (tmp != "")
+			{ // todo: maybe detect count first?
+				if (!showChildren)
+					return tmp;
+				tmp += "^Children = ";
+			}
 			var prim = false;
 			var et = t.GetElementType();
 			var ga = t.GetGenericArguments();
@@ -111,12 +125,17 @@ public partial class ScriptEnv : Script
 				prim = true;
 			return tmp + PrettyPrint(o as IEnumerable, prefix, prim);
 		}
+		if (tmp != "")
+			return tmp;
 		if (o is GameObject)
 			return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
-		if (t.DeclaringType == typeof(GameObject))
-			return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
-		if (t.DeclaringType == typeof(Component))
-			return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
+		if (t.IsNested)
+		{
+			if (typeof(GameObject).IsAssignableFrom(t.DeclaringType))
+				return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
+			if (typeof(Component).IsAssignableFrom(t.DeclaringType))
+				return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
+		}
 
 
 		// Has a native (not a base object) tostring()?
@@ -132,7 +151,7 @@ public partial class ScriptEnv : Script
 		return t.FullName;
 	}
 
-	private static string getname(object o)
+	public static string getname(object o)
 	{
 		if (o == null)
 			return "null";

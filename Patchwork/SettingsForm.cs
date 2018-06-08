@@ -24,14 +24,6 @@ namespace Patchwork
 			InitializeComponent();
 			CenterToScreen();
 
-			// TEMP DISABLE
-
-			//tabPage5.Controls.Remove(noTelescope);
-#if !GAME_DEBUG
-			tabControl1.Controls.Remove(tabPage6);
-			tabPage5.Controls.Remove(label24);
-			tabPage5.Controls.Remove(HScale);
-#endif
 			s = _s;
 
 			// Generate automatic data binding for class Settings

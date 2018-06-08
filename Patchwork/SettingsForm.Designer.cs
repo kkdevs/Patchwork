@@ -183,8 +183,8 @@ namespace Patchwork
 			this.whitePower = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.replInput = new EditLine();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1269,6 +1269,13 @@ namespace Patchwork
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			resources.ApplyResources(this.replInput, "replInput");
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Name = "replInput";
+			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
+			// 
 			// replOutput
 			// 
 			resources.ApplyResources(this.replOutput, "replOutput");
@@ -1277,13 +1284,6 @@ namespace Patchwork
 			this.replOutput.Name = "replOutput";
 			this.replOutput.ReadOnly = true;
 			this.replOutput.TabStop = false;
-			// 
-			// replInput
-			// 
-			resources.ApplyResources(this.replInput, "replInput");
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Name = "replInput";
-			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
 			// 
 			// SettingsForm
 			// 
