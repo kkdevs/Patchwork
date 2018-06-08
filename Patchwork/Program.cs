@@ -323,7 +323,7 @@ namespace Patchwork
 			Trace.Spam($"[GC] Asset GC requested by {caller.GetType().Name}");
 		}
 
-		public static bool geass => settings.geass && Input.GetMouseButtonDown(1);
+		public static bool geass => settings.geass && Input.GetMouseButton(1);
 
 	}
 }

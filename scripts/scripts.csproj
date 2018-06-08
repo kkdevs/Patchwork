@@ -33,6 +33,9 @@
     <Reference Include="mcs">
       <HintPath>..\..\source\repos\WindowsFormsApp3\Managed\mcs.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +55,7 @@
   <ItemGroup>
     <Compile Include="env.cs" />
     <Compile Include="fixplugins.cs" />
+    <Compile Include="prettyprint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

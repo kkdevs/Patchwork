@@ -355,11 +355,8 @@ public class SpriteCache<T>
 		if (!Program.settings.cacheSprites || !cache.TryGetValue(key, out ret))
 		{
 			Debug.Log($"[SPRITE] Miss {bundle}/{name} @ {key}");
-			var ab = LoadedAssetBundle.Load(bundle);
-			if (ab == null)
-				return false;
 			// dont cache the sprite texture when the sprite is cached as such
-			var tex = ab.LoadAsset(name, typeof(Texture2D), true) as Texture2D;
+			var tex = CommonLib.LoadAsset<Texture2D>(bundle, name);
 			if (tex == null)
 				return false;
 			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));

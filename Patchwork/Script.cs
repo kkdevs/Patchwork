@@ -77,8 +77,19 @@ namespace Patchwork
 			try { Directory.CreateDirectory(scripts); } catch { };
 			scriptFiles.Clear();
 			foreach (var f in Directory.GetFiles(scripts, "*.*"))
-				if (f.EndsWith(".cs") || f.EndsWith(".dll"))
+				if (f.EndsWith(".cs"))
 					scriptFiles.Add(f);
+				else if (f.EndsWith(".dll"))
+				{
+					try
+					{
+						Assembly.Load(AssemblyName.GetAssemblyName(f));
+						scriptFiles.Add(f);
+					} catch (Exception ex)
+					{
+						print($"WARNING: Failed to load {f} => {ex.Message}");
+					}
+				}
 
 			var newasm = Evaluator.LoadScripts(scriptFiles);
 			if (newasm == null)

@@ -77,6 +77,7 @@ public class MonoScript : Evaluator
 
 	public AssemblyBuilder LoadScripts(IEnumerable<string> scripts)
 	{
+		reporter.Reset();
 		var ctx = BuildContext(reporter);
 		int i = 0;
 		foreach (var f in scripts)
