@@ -57,6 +57,7 @@ namespace Patchwork
 
 		// Don't touch unity in weird places if local
 		public static string cfgpath { get { return BasePath + "UserData/patchwork.xml"; } }
+		public static string historypath { get { return BasePath + "UserData/history.xml"; } }
 		public static SettingsForm form;
 		public static Settings _settings;
 		public static Settings settings
@@ -69,7 +70,7 @@ namespace Patchwork
 			}
 		}
 		public static fsSerializer _fsjson;
-		public static fsSerializer fsjson {
+		public static fsSerializer fsjson {		
 			get {
 				if (_fsjson == null)
 				{
@@ -182,7 +183,9 @@ namespace Patchwork
 			}
 			catch (Exception ex)
 			{
+#if GAME_DEBUG
 				MessageBox.Show(ex.ToString(), "Config error", MessageBoxButtons.OK);
+#endif
 			}
 			return s ?? new Settings();
 		}
@@ -254,6 +257,20 @@ namespace Patchwork
 				return null;
 			};
 
+			List<string> hist = null;
+			XmlSerializer x = new XmlSerializer(typeof(List<string>));
+			try
+			{
+				using (var f = new StreamReader(File.Open(historypath, FileMode.Open), UTF8Encoding.UTF8))
+					if ((hist = (x.Deserialize(f)) as List<string>) != null)
+						foreach (var line in hist)
+							form.replInput.history.AddLast(line);
+			}
+			catch (Exception ex)
+			{
+				Debug.Log(ex);
+			}
+
 			// Fire up scripts
 			Script.Reporter.write = (s) =>
 			{
@@ -268,6 +285,8 @@ namespace Patchwork
 				form.replInput.Print = (s) => Script.Invoke("pp", s);
 				form.replInput.Eval = (s) =>
 				{
+					using (var f = File.Open(historypath, FileMode.Create))
+						x.Serialize(f, form.replInput.history.ToList());
 					Script.Invoke("print", "csharp> " + s);
 					return Script.Invoke("eval", s);
 				};

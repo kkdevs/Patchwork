@@ -90,7 +90,7 @@ namespace Patchwork
 						print($"WARNING: Failed to load {f} => {ex.Message}");
 					}
 				}
-
+			var prevInit = Evaluator.InteractiveBaseClass;
 			var newasm = Evaluator.LoadScripts(scriptFiles);
 			if (newasm == null)
 			{
@@ -104,7 +104,17 @@ namespace Patchwork
 				print("Will retain previous env.");
 			} else
 			{
-				destroyer?.Invoke();
+				if (destroyer != null)
+					destroyer.Invoke();
+				else
+				{
+					print("WARNING: Reload called without environment destroyer, attempting to clean up on our own.");
+					try
+					{
+						Object.DestroyImmediate(prevInit.GetField("G").GetValue(null) as GameObject);
+					}
+					catch (Exception ex) { print(ex.Message); };
+				}
 				init.Invoke(null, new object[] { });
 			}
 			return true;

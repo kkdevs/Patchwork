@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="env.cs" />
     <Compile Include="fixplugins.cs" />
+    <Compile Include="macros.cs" />
     <Compile Include="prettyprint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -23,6 +23,8 @@ public class EditLine : ComboBox
 			if (e.KeyCode == Keys.Enter)
 			{
 				var t = Text;
+				history.Remove(t);
+				history.AddLast(t);
 				try
 				{
 					var ret = Eval(Text);
@@ -30,8 +32,6 @@ public class EditLine : ComboBox
 						Print(ret);
 				}
 				catch (Exception ex) { Print(ex); };
-				history.Remove(t);
-				history.AddLast(t);
 				Text = "";
 				histCurrent = null;
 				e.Handled = true;
