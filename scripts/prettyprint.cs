@@ -3,7 +3,11 @@ using Newtonsoft.Json;
 
 public static partial class Extensions {
 	public static string ToJSON(this object o) {
-		return JsonConvert.SerializeObject(o, Formatting.Indented);
+		var settings = new JsonSerializerSettings()
+		{
+			ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+		};
+		return JsonConvert.SerializeObject(o, Formatting.Indented, settings);
 	}
 }
 

@@ -43,17 +43,21 @@ public class Reloader : MonoBehaviour
 		if (++ticks < 60) return;
 		ticks = 0;
 		if (stop) return;
+		bool fail = false;
 		foreach (var src in Script.scriptFiles)
 		{
-			if (tss[src] != File.GetLastWriteTime(src))
+			var cts = File.GetLastWriteTime(src);
+			if (!fail && (tss[src] != cts))
 			{
-				Script.reload(() =>
+				fail = fail || !Script.reload(() =>
 				{
+					stop = true;
 					Object.DestroyImmediate(ScriptEnv.G);
 				});
-				stop = true;
-				break;
+				if (stop)
+					break;
 			}
+			tss[src] = cts;
 		}
 	}
 }
