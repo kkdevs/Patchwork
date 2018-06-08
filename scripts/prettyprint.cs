@@ -14,16 +14,44 @@ public class Symbol
 
 public partial class ScriptEnv : Script
 {
-	public static Dictionary<Symbol, object> obj2dict(object o)
+	public static Dictionary<Symbol, object> obj2dict(object o, string pfx)
 	{
+		if (o == null)
+			return null;
 		var dict = new Dictionary<Symbol, object>();
 		var t = o.GetType();
+		if (t == null)
+			return null;
 		foreach (var f in t.GetFields())
 			dict[new Symbol() { s = f.Name } ] = f.GetValue(o);
+		var props = t.GetProperties();
+		if (t != null && pfx.Length < maxDepth)
+			foreach (var p in props)
+			{
+				object val = null;
+				try
+				{
+					if (p.CanRead)
+						val = p.GetValue(o, null);
+				} catch (System.Exception ex)
+				{
+					val = (object)ex.Message;
+				}
+				var ds = new Symbol() { s = p.Name };
+				dict[ds] = val;
+			}	
 		return dict;
+	}
+	public static int maxDepth = 5;
+	public static bool dangerousType(object o, string pfx)
+	{
+		//if (o is Object)
+		//	return true;
+		return false;
 	}
 	public static string PrettyPrint(IEnumerable o, string pfx, bool isprim = false)
 	{
+		HideFlags x;
 		string postfix = isprim ? "" : "\n";
 		var sb = new StringBuilder();
 		sb.Append("{ " + postfix);
@@ -56,10 +84,22 @@ public partial class ScriptEnv : Script
 		if (o is char)
 			return $"'{o}'";
 		var t = o.GetType();
-		if (t.IsPrimitive)
+		if (t.IsPrimitive || t.IsEnum)
 			return o.ToString();
+		if (cycleRefs.Contains(o))
+			return "<cycle>";
+		cycleRefs.Add(o);
 		if (o is IDictionary)
 			return PrettyPrint(o as IDictionary, prefix);
+		var tmp = "";
+		if (o is Component)
+		{
+			tmp = getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
+			if (!(tmp is IEnumerable))
+				return tmp;
+			tmp += ",\n"+prefix+"^Children = ";
+		}
+
 		if (o is IEnumerable)
 		{
 			var prim = false;
@@ -69,17 +109,21 @@ public partial class ScriptEnv : Script
 				prim = true;
 			if (ga != null && ga.Length > 0 && ga[0].IsPrimitive)
 				prim = true;
-			return prefix + PrettyPrint(o as IEnumerable, prefix, prim);
+			return tmp + PrettyPrint(o as IEnumerable, prefix, prim);
 		}
-		if (o is Transform)
-			return PrettyPrint(obj2dict(o) as IDictionary, prefix);
-		if (o is Component)
-			return PrettyPrint(obj2dict(o) as IDictionary, prefix);
+		if (o is GameObject)
+			return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
+		if (t.DeclaringType == typeof(GameObject))
+			return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
+		if (t.DeclaringType == typeof(Component))
+			return getname(o) + " " + PrettyPrint(obj2dict(o, prefix) as IDictionary, prefix);
+
 
 		// Has a native (not a base object) tostring()?
 		MethodInfo tos = null;
 		try
 		{
+			// can be ambig
 			tos = t.GetMethod("ToString", new System.Type[] { });
 		}
 		catch { };
@@ -88,8 +132,38 @@ public partial class ScriptEnv : Script
 		return t.FullName;
 	}
 
+	private static string getname(object o)
+	{
+		if (o == null)
+			return "null";
+		var ot = o.GetType();
+		var nf = ot.GetField("name") ?? ot.GetField("Name");
+		string name = null;
+		if (nf != null)
+		{
+			try
+			{
+				name = nf.GetValue(o) as string;
+			}
+			catch { };
+		} else
+		{
+			var np = ot.GetProperty("name") ?? ot.GetProperty("Name");
+			try
+			{
+				name = np.GetValue(o, null) as string;
+			}
+			catch { };
+		}
+		if (name.IsNullOrEmpty())
+			return ot.Name;
+		return ot.Name + "#" + name;
+	}
+
+	public static HashSet<object> cycleRefs = new HashSet<object>();
 	public static new void pp(object o)
 	{
+		cycleRefs.Clear();
 		print(PrettyPrint(o));
 	}
 }

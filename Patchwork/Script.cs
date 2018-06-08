@@ -56,7 +56,7 @@ namespace Patchwork
 		{
 			var types = new Type[args.Length];
 			for (int i = 0; i < args.Length; i++)
-				types[i] = args[i].GetType();
+				types[i] = args[i]?.GetType() ?? typeof(object);
 			var me = Evaluator.InteractiveBaseClass.GetMethod(m, BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Static, null, types, null);
 			if (me == null)
 			{

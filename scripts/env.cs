@@ -17,7 +17,6 @@ public class Reloader : MonoBehaviour
 			tss[src] = File.GetLastWriteTime(src);
 		Application.logMessageReceived += forward;
 	}
-
 	void forward(string logString, string stackTrace, LogType type)
 	{
 		var frames = (new StackTrace()).GetFrames();
@@ -44,7 +43,7 @@ public class Reloader : MonoBehaviour
 		ticks = 0;
 		if (stop) return;
 		bool fail = false;
-		foreach (var src in Script.scriptFiles)
+		foreach (var src in Script.scriptFiles.ToArray())
 		{
 			var cts = File.GetLastWriteTime(src);
 			if (!fail && (tss[src] != cts))
@@ -79,4 +78,13 @@ public partial class ScriptEnv : Script
 		eval("using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine; using UnityEngine.SceneManagement;");
 		print($"Script environment initialized, {nadd} MonoBs running.");
 	}
+	public static object clear
+	{
+		get
+		{
+			Program.form.replOutput.Text = "";
+			return typeof(Sentinel);
+		}
+	}
+
 }
