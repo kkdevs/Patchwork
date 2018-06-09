@@ -113,7 +113,7 @@ namespace Patchwork
 		// Dropdowns
 		public byte shadows = 2;
 		public byte shadowResolution = 3;
-		public byte shadowProjection = 1;
+		public byte shadowProjection = 0;
 		public byte shadowCascades = 2;
 		public byte blendWeights = 2;
 		public byte vSyncCount = 0;
@@ -121,7 +121,7 @@ namespace Patchwork
 		public byte anisotropicFiltering = 1;
 		public byte antiAliasing = 3;
 
-		public bool softParticles = false;
+		public bool softParticles = true;
 		public bool realtimeReflectionProbes = false;
 		public bool fullscreen = false;
 
