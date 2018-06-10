@@ -260,5 +260,20 @@ namespace Patchwork
 		{
 
 		}
+
+		private void label24_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void noscopeAlphaMode_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void enabler_noTelescope_Enter(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

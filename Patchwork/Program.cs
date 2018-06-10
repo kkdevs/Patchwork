@@ -70,7 +70,7 @@ namespace Patchwork
 			}
 		}
 		public static fsSerializer _fsjson;
-		public static fsSerializer fsjson {		
+		public static fsSerializer fsjson {
 			get {
 				if (_fsjson == null)
 				{
@@ -141,7 +141,7 @@ namespace Patchwork
 		{
 			if (initConfig)
 				return;
-			
+
 			initConfig = true;
 			exename = Environment.GetEnvironmentVariable("PATCHWORK_EXE");
 			if (exename == null)
@@ -188,6 +188,18 @@ namespace Patchwork
 #endif
 			}
 			return s ?? new Settings();
+		}
+
+		public static void SaveBytes<T>(string path, T data) {
+			var fn = BasePath + "/UserData/" + path;
+			File.WriteAllBytes(fn, LZ4MessagePackSerializer.Serialize<T>(data));
+			File.WriteAllBytes(fn + ".json", System.Text.Encoding.UTF8.GetBytes(MessagePackSerializer.ToJson(data)));
+		}
+
+		public static T LoadBytes<T>(string path) where T : class
+		{
+			var fn = BasePath + "/UserData/" + path;
+			return LZ4MessagePackSerializer.Deserialize<T>(File.ReadAllBytes(fn));
 		}
 
 		public static void SaveConfig()

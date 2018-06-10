@@ -20,6 +20,7 @@ namespace Patchwork
 {
 	public partial class Script : InteractiveBase
 	{
+		public static Dictionary<string, object> registry = new Dictionary<string, object>();
 		public class AutoRun : MonoBehaviour { };
 		public static Dictionary<string, Type> Components = new Dictionary<string, Type>();
 		public class Reporter : TextWriter

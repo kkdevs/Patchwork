@@ -117,7 +117,6 @@ namespace Patchwork
 			this.bothEdit = new System.Windows.Forms.CheckBox();
 			this.bothClass = new System.Windows.Forms.CheckBox();
 			this.bothMC = new System.Windows.Forms.CheckBox();
-			this.unlockComm = new System.Windows.Forms.CheckBox();
 			this.geass = new System.Windows.Forms.CheckBox();
 			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.label48 = new System.Windows.Forms.Label();
@@ -183,8 +182,26 @@ namespace Patchwork
 			this.whitePower = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.noscopeAlphaX = new System.Windows.Forms.TextBox();
+			this.noscopeAlphaY = new System.Windows.Forms.TextBox();
+			this.enabler_noscopeClipMask = new System.Windows.Forms.GroupBox();
+			this.replInput = new EditLine();
+			this.noscopeScale = new System.Windows.Forms.TextBox();
+			this.label49 = new System.Windows.Forms.Label();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label50 = new System.Windows.Forms.Label();
+			this.noscopeAlphaXEnd = new System.Windows.Forms.TextBox();
+			this.noscopeAlphaYEnd = new System.Windows.Forms.TextBox();
+			this.label25 = new System.Windows.Forms.Label();
+			this.label51 = new System.Windows.Forms.Label();
+			this.noscopeSim = new System.Windows.Forms.CheckBox();
+			this.label52 = new System.Windows.Forms.Label();
+			this.noscopeAlphaClampEnd = new System.Windows.Forms.TextBox();
+			this.label53 = new System.Windows.Forms.Label();
+			this.noscopeAlphaClamp = new System.Windows.Forms.TextBox();
+			this.noscopeClipMask = new System.Windows.Forms.CheckBox();
+			this.noscopeHead = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -198,6 +215,7 @@ namespace Patchwork
 			this.tabPage5.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage6.SuspendLayout();
+			this.enabler_noscopeClipMask.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -796,7 +814,6 @@ namespace Patchwork
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.enabler_tumblr);
-			this.tabPage2.Controls.Add(this.unlockComm);
 			this.tabPage2.Controls.Add(this.geass);
 			this.tabPage2.Controls.Add(this.noBustNorm);
 			this.tabPage2.Controls.Add(this.label48);
@@ -862,12 +879,6 @@ namespace Patchwork
 			resources.ApplyResources(this.bothMC, "bothMC");
 			this.bothMC.Name = "bothMC";
 			this.bothMC.UseVisualStyleBackColor = true;
-			// 
-			// unlockComm
-			// 
-			resources.ApplyResources(this.unlockComm, "unlockComm");
-			this.unlockComm.Name = "unlockComm";
-			this.unlockComm.UseVisualStyleBackColor = true;
 			// 
 			// geass
 			// 
@@ -978,6 +989,8 @@ namespace Patchwork
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.noscopeClipMask);
+			this.tabPage5.Controls.Add(this.enabler_noscopeClipMask);
 			this.tabPage5.Controls.Add(this.noTelescope);
 			this.tabPage5.Controls.Add(this.label44);
 			this.tabPage5.Controls.Add(this.label43);
@@ -1269,13 +1282,6 @@ namespace Patchwork
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			resources.ApplyResources(this.replInput, "replInput");
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Name = "replInput";
-			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
-			// 
 			// replOutput
 			// 
 			resources.ApplyResources(this.replOutput, "replOutput");
@@ -1284,6 +1290,124 @@ namespace Patchwork
 			this.replOutput.Name = "replOutput";
 			this.replOutput.ReadOnly = true;
 			this.replOutput.TabStop = false;
+			// 
+			// noscopeAlphaX
+			// 
+			resources.ApplyResources(this.noscopeAlphaX, "noscopeAlphaX");
+			this.noscopeAlphaX.Name = "noscopeAlphaX";
+			// 
+			// noscopeAlphaY
+			// 
+			resources.ApplyResources(this.noscopeAlphaY, "noscopeAlphaY");
+			this.noscopeAlphaY.Name = "noscopeAlphaY";
+			// 
+			// enabler_noscopeClipMask
+			// 
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeHead);
+			this.enabler_noscopeClipMask.Controls.Add(this.label52);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaClampEnd);
+			this.enabler_noscopeClipMask.Controls.Add(this.label53);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaClamp);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeSim);
+			this.enabler_noscopeClipMask.Controls.Add(this.label51);
+			this.enabler_noscopeClipMask.Controls.Add(this.label25);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaYEnd);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaXEnd);
+			this.enabler_noscopeClipMask.Controls.Add(this.label50);
+			this.enabler_noscopeClipMask.Controls.Add(this.label24);
+			this.enabler_noscopeClipMask.Controls.Add(this.label49);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeScale);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaX);
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaY);
+			resources.ApplyResources(this.enabler_noscopeClipMask, "enabler_noscopeClipMask");
+			this.enabler_noscopeClipMask.Name = "enabler_noscopeClipMask";
+			this.enabler_noscopeClipMask.TabStop = false;
+			this.enabler_noscopeClipMask.Enter += new System.EventHandler(this.enabler_noTelescope_Enter);
+			// 
+			// replInput
+			// 
+			resources.ApplyResources(this.replInput, "replInput");
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Name = "replInput";
+			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
+			// 
+			// noscopeScale
+			// 
+			resources.ApplyResources(this.noscopeScale, "noscopeScale");
+			this.noscopeScale.Name = "noscopeScale";
+			// 
+			// label49
+			// 
+			resources.ApplyResources(this.label49, "label49");
+			this.label49.Name = "label49";
+			// 
+			// label24
+			// 
+			resources.ApplyResources(this.label24, "label24");
+			this.label24.Name = "label24";
+			// 
+			// label50
+			// 
+			resources.ApplyResources(this.label50, "label50");
+			this.label50.Name = "label50";
+			// 
+			// noscopeAlphaXEnd
+			// 
+			resources.ApplyResources(this.noscopeAlphaXEnd, "noscopeAlphaXEnd");
+			this.noscopeAlphaXEnd.Name = "noscopeAlphaXEnd";
+			// 
+			// noscopeAlphaYEnd
+			// 
+			resources.ApplyResources(this.noscopeAlphaYEnd, "noscopeAlphaYEnd");
+			this.noscopeAlphaYEnd.Name = "noscopeAlphaYEnd";
+			// 
+			// label25
+			// 
+			resources.ApplyResources(this.label25, "label25");
+			this.label25.Name = "label25";
+			// 
+			// label51
+			// 
+			resources.ApplyResources(this.label51, "label51");
+			this.label51.Name = "label51";
+			// 
+			// noscopeSim
+			// 
+			resources.ApplyResources(this.noscopeSim, "noscopeSim");
+			this.noscopeSim.Name = "noscopeSim";
+			this.noscopeSim.UseVisualStyleBackColor = true;
+			// 
+			// label52
+			// 
+			resources.ApplyResources(this.label52, "label52");
+			this.label52.Name = "label52";
+			// 
+			// noscopeAlphaClampEnd
+			// 
+			resources.ApplyResources(this.noscopeAlphaClampEnd, "noscopeAlphaClampEnd");
+			this.noscopeAlphaClampEnd.Name = "noscopeAlphaClampEnd";
+			// 
+			// label53
+			// 
+			resources.ApplyResources(this.label53, "label53");
+			this.label53.Name = "label53";
+			// 
+			// noscopeAlphaClamp
+			// 
+			resources.ApplyResources(this.noscopeAlphaClamp, "noscopeAlphaClamp");
+			this.noscopeAlphaClamp.Name = "noscopeAlphaClamp";
+			// 
+			// noscopeClipMask
+			// 
+			resources.ApplyResources(this.noscopeClipMask, "noscopeClipMask");
+			this.noscopeClipMask.Name = "noscopeClipMask";
+			this.noscopeClipMask.UseVisualStyleBackColor = true;
+			// 
+			// noscopeHead
+			// 
+			resources.ApplyResources(this.noscopeHead, "noscopeHead");
+			this.noscopeHead.Name = "noscopeHead";
+			this.noscopeHead.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -1317,6 +1441,8 @@ namespace Patchwork
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
+			this.enabler_noscopeClipMask.ResumeLayout(false);
+			this.enabler_noscopeClipMask.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1472,12 +1598,29 @@ namespace Patchwork
 		private System.Windows.Forms.TabPage tabPage6;
 		public System.Windows.Forms.RichTextBox replOutput;
 		private System.Windows.Forms.TabPage tabPage5;
-		private System.Windows.Forms.CheckBox unlockComm;
 		private System.Windows.Forms.CheckBox geass;
 		private System.Windows.Forms.CheckBox benderClothes;
 		private System.Windows.Forms.GroupBox enabler_tumblr;
 		public EditLine replInput;
 		private System.Windows.Forms.CheckBox onTop;
+		private System.Windows.Forms.TextBox noscopeAlphaY;
+		private System.Windows.Forms.TextBox noscopeAlphaX;
+		private System.Windows.Forms.GroupBox enabler_noscopeClipMask;
+		private System.Windows.Forms.Label label49;
+		private System.Windows.Forms.TextBox noscopeScale;
+		private System.Windows.Forms.Label label50;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.Label label52;
+		private System.Windows.Forms.TextBox noscopeAlphaClampEnd;
+		private System.Windows.Forms.Label label53;
+		private System.Windows.Forms.TextBox noscopeAlphaClamp;
+		private System.Windows.Forms.CheckBox noscopeSim;
+		private System.Windows.Forms.Label label51;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.TextBox noscopeAlphaYEnd;
+		private System.Windows.Forms.TextBox noscopeAlphaXEnd;
+		private System.Windows.Forms.CheckBox noscopeClipMask;
+		private System.Windows.Forms.CheckBox noscopeHead;
 	}
 }
 

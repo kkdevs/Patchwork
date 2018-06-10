@@ -23,14 +23,24 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
-		public bool com_Lookat_dan = true;
+		public bool noscopeHead = false;
+		public bool noscopeClipMask = false;
+		public float noscopeScale = 1;
+		public float noscopeAlphaX = 0.3f;
+		public float noscopeAlphaXEnd = 0.3f;
+		public float noscopeAlphaY = -0.1f;
+		public float noscopeAlphaYEnd = 0.3f;
+		public float noscopeAlphaClamp = 0;
+		public float noscopeAlphaClampEnd = 0.8f;
+		public bool noscopeSim = false;
+		public byte noscopeAlphaMode;
 		public bool onTop = false;
 		public bool geass = false;
 		public bool unlockH = false;
 		public bool unlockComm = false;
 		public bool benderClothes = true;
 		public float HScale = 2.6f;
-		public bool noTelescope = true;
+		public bool noTelescope = false;
 		public bool cacheSprites = true;
 		public string cardFmt = "Koikatu_{0}_{1}.png";
 		public string ooMale = "chara/oo_base";
@@ -67,7 +77,7 @@ namespace Patchwork
 
 		// Second tab
 		public bool hideMoz = true;
-		public bool fixPenis = true;
+		public bool fixPenis = false;
 		public bool fixVagina = false;
 
 		public bool bothMC = false;
@@ -188,6 +198,7 @@ namespace Patchwork
 				// everything else already converted by caller
 				f.SetValue(this, val);
 				Apply(name, true);
+				version++;
 				Program.SaveConfig();
 			} catch (Exception ex)
 			{

@@ -35,13 +35,11 @@ public static class AssetBundleCheck
 	public static string[] FindAllAssetName(string assetBundleName, string _regex, bool _WithExtension = true, RegexOptions _options = RegexOptions.None)
 	{
 		var ab = LoadedAssetBundle.Load(assetBundleName);
-		if ((ab == null) || (!ab.Ensure())) return null;
-		var assetBundle = ab.m_AssetBundle;
-
+		if (ab == null) return null;
 		_regex = _regex.ToLower();
-		string[] result = (!_WithExtension) ? (from v in assetBundle.GetAllAssetNames().Select(Path.GetFileNameWithoutExtension)
+		string[] result = (!_WithExtension) ? (from v in ab.GetAllAssetNames().Select(Path.GetFileNameWithoutExtension)
 											   where CheckRegex(v, _regex, _options)
-											   select v).ToArray() : (from v in assetBundle.GetAllAssetNames().Select(Path.GetFileName)
+											   select v).ToArray() : (from v in ab.GetAllAssetNames().Select(Path.GetFileName)
 																	  where CheckRegex(v, _regex, _options)
 																	  select v).ToArray();
 		return result;
@@ -49,9 +47,8 @@ public static class AssetBundleCheck
 	public static string[] GetAllAssetName(string assetBundleName, bool _WithExtension = true, string manifestAssetBundleName = null, bool isAllCheck = false)
 	{
 		var ab = LoadedAssetBundle.Load(assetBundleName);
-		if ((ab == null) || (!ab.Ensure())) return null;
-		var assetBundle = ab.m_AssetBundle;
-		return (!_WithExtension) ? assetBundle.GetAllAssetNames().Select(Path.GetFileNameWithoutExtension).ToArray() : assetBundle.GetAllAssetNames().Select(Path.GetFileName).ToArray();
+		if (ab == null) return null;
+		return (!_WithExtension) ? ab.GetAllAssetNames().Select(Path.GetFileNameWithoutExtension).ToArray() : ab.GetAllAssetNames().Select(Path.GetFileName).ToArray();
 	}
 }
 
@@ -146,14 +143,14 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 
 	public static AssetBundleLoadOperation LoadLevel(string assetBundleName, string levelName, bool isAdditive, string manifestAssetBundleName = null)
 	{
-		LoadAssetBundle(assetBundleName, false, null, levelName);
+		LoadAssetBundle(assetBundleName, false, null, levelName)?.Ensure();
 		SceneManager.LoadScene(levelName, isAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
 		return new AssetBundleLoadLevelSimulationOperation();
 	}
 
 	public static AssetBundleLoadOperation LoadLevelAsync(string assetBundleName, string levelName, bool isAdditive, string manifestAssetBundleName = null)
 	{
-		LoadAssetBundle(assetBundleName, false, null, levelName);
+		LoadAssetBundle(assetBundleName, false, null, levelName)?.Ensure();
 		var ll = new AssetBundleLoadLevelOperation(assetBundleName, levelName, isAdditive, manifestAssetBundleName);
 		ll.Update();
 		return ll;

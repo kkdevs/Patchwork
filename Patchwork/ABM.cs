@@ -24,53 +24,53 @@ public class LoadedAssetBundle
 			return Program.settings.assetCache;
 		}
 	}
+	public static int version;
+	public static int level;
+	public int locked;
 	public static string basePath;
 	public AssetBundle m_AssetBundle;
-	public string[] _assetNames;
-	public bool isWild;
+	private string[] assetNames;
+	public string name;
 	public string path;
 	public Dictionary<string, UnityEngine.Object> cache = new Dictionary<string, UnityEngine.Object>();
 	public UnityEngine.Object[] allCache;
 	public static Dictionary<string, LoadedAssetBundle> loadedBundles = new Dictionary<string, LoadedAssetBundle>();
 
-	public string[] assetNames
+	public LoadedAssetBundle(string name)
 	{
-		get
-		{
-			if (_assetNames == null)
-			{
-				var t = m_AssetBundle.GetAllAssetNames();
-				_assetNames = new string[t.Length];
-				for (var i = 0; i < t.Length; i++)
-					_assetNames[i] = Path.GetFileNameWithoutExtension(t[i]).ToLower();
-			}
-			return _assetNames;
+		Debug.Log("[ABM] Registering " + name);
+		this.name = name;
+		this.path = basePath + name;
+	}
+
+	public string[] GetAllAssetNames()
+	{
+		if (assetNames == null) {
+			if (!Ensure())
+				return null;
+			assetNames = m_AssetBundle.GetAllAssetNames();
 		}
+		return assetNames;
 	}
 
 	public static void FlushAllCaches()
 	{
-		foreach (var pair in loadedBundles)
-		{
-			foreach (var obj in pair.Value.cache)
-			{
-				Resources.UnloadAsset(obj.Value);
-				UnityEngine.Object.DestroyImmediate(obj.Value);
-			}
-			if (pair.Value.m_AssetBundle!=null)
-				pair.Value.m_AssetBundle.Unload(false);
-		}
-		loadedBundles.Clear();
 		ChaCustom.CustomSelectListCtrl.cache.cache.Clear();
 		ChaCustom.CustomPushListCtrl.cache.cache.Clear();
 		System.GC.Collect();
 		System.GC.Collect();
+		GCBundles();
+		foreach (var ab in loadedBundles)
+			ab.Value.cache.Clear();
 	}
 
-	public LoadedAssetBundle(AssetBundle assetBundle)
+	public static void GCBundles()
 	{
-		m_AssetBundle = assetBundle;
+		foreach (var b in loadedBundles.Values)
+			if (b.locked < version)
+				b.Unload();
 	}
+
 
 	/// <summary>
 	/// Get bundle reference if it is currently loaded.
@@ -85,34 +85,54 @@ public class LoadedAssetBundle
 	}
 
 	/// <summary>
-	/// Attempt to load a bundle, returns either cached or new instance.
+	/// Attempt to load a bundle and its dependenciess.
 	/// </summary>
 	/// <param name="name"></param>
 	/// <param name="forasset"></param>
 	/// <returns></returns>
-
 	public static event Action<string, string> beforeBundleLoad;
 	public static LoadedAssetBundle Load(string name, string forasset = null)
 	{
-		beforeBundleLoad?.Invoke(name, forasset);
-		LoadedAssetBundle res = Get(name);
-		if (res != null)
-			return res;
-		var path = basePath + name;
-		if (!File.Exists(path))
-		{
-			Trace.Error($"[ABM] Path does not exist: {path}");
+		if (level == 0)
+			beforeBundleLoad?.Invoke(name, forasset);
+		var ab = Get(name);
+		if (ab == null)
+			ab = new LoadedAssetBundle(name);
+		if (!File.Exists(ab.path))
 			return null;
-		}
-		Debug.Log($"[ABM] Registering new AB {name}");
-		res = new LoadedAssetBundle(AssetBundle.LoadFromFile(path));
-		res.path = path;
-		res.isWild = (forasset == "*") || (forasset == null);
-		loadedBundles[name] = res;
+		loadedBundles[name] = ab;
+		//if (ab.Ensure())
+		//	return ab;
+		return ab;
+	}
+
+	/// <summary>
+	/// Ensures that the bundle is actually loaded, kicking out any conflicting bundles in the process if needed.
+	/// </summary>
+	/// <param name="forname"></param>
+	/// <returns>Whether the bundle is now loaded or not.</returns>
+	public bool Ensure(string forname = null)
+	{
+		level++;
+		locked = version;
 		if (deps.TryGetValue(name, out List<string> deplist))
 			foreach (var dep in deplist)
 				Load(dep)?.Ensure();
-		return res;
+		if (m_AssetBundle == null)
+		{
+			m_AssetBundle = AssetBundle.LoadFromFile(path);
+			if (m_AssetBundle == null)
+			{
+				GCBundles();
+				m_AssetBundle = AssetBundle.LoadFromFile(path);
+			}
+		}
+		level--;
+		if (level == 0)
+			version++;
+		if (m_AssetBundle == null)
+			Debug.Log($"[ABM] Failed to load {path} for {forname}");
+		return m_AssetBundle != null;
 	}
 
 	static HashSet<Type> cacheables = new HashSet<Type>()
@@ -153,6 +173,8 @@ public class LoadedAssetBundle
 
 	public static UnityEngine.Object Clone(UnityEngine.Object obj)
 	{
+		if (obj == null)
+			return null;
 		if (obj is ScriptableObject)
 			return obj;
 		if (obj is Texture2D)
@@ -173,6 +195,8 @@ public class LoadedAssetBundle
 			Debug.Log($"[ABM] Cache miss {path}/{name}");
 			if (!Ensure(name))
 			{
+				if (caching)
+					cache[name] = null; // nxcache
 				cb(null);
 				yield break;
 			}
@@ -218,6 +242,8 @@ public class LoadedAssetBundle
 			}*/
 			if (obj == null)
 			{
+				if (caching)
+					cache[name] = null; // nxcache
 				Trace.Error($"[ABM] Load {path}/{name} failed");
 				Trace.Back("from");
 				return null;
@@ -286,42 +312,6 @@ public class LoadedAssetBundle
 		return ret;
 	}
 
-	/// <summary>
-	/// Ensures that the bundle is actually loaded, kicking out any conflicting bundles in the process if needed.
-	/// </summary>
-	/// <param name="forname"></param>
-	/// <returns>Whether the bundle is now loaded or not.</returns>
-	public bool Ensure(string forname = null)
-	{
-		if (m_AssetBundle != null)
-			return true;
-		Debug.Log($"[ABM] There seems to be conflict for {path}/{forname}, trying to GC suspect bundles.");
-		var low_forname = forname == null ? null : Path.GetFileNameWithoutExtension(forname.ToLower());
-		foreach (var key in loadedBundles.Keys)
-		{
-			var lab = loadedBundles[key];
-			if (lab.m_AssetBundle == null) // harmless
-				continue;
-			if ((lab.isWild && forname == null) || ((forname != null) && lab.assetNames.Contains(low_forname)))
-			{
-				Debug.Log($"[ABM] Unloading {lab.path}");
-				lab.m_AssetBundle.Unload(false);
-				lab.m_AssetBundle = null;
-			}
-		}
-		m_AssetBundle = AssetBundle.LoadFromFile(path);
-		if (m_AssetBundle == null)
-		{
-			Trace.Error($"[ABM] The load for {forname} failed due to unresolvable conflict. Currently loaded bundles (enable SPAM):");
-			foreach (var item in loadedBundles)
-			{
-				if (item.Value.m_AssetBundle == null) continue;
-				Trace.Log($"{item.Key}, assets={String.Join(",", item.Value.assetNames)}");
-			}
-			return false;
-		}
-		return true;
-	}
 
 	public static Dictionary<string, List<string>> deps = new Dictionary<string, List<string>>();
 	public static void Init(string bp)
@@ -331,10 +321,12 @@ public class LoadedAssetBundle
 		foreach (var man in Directory.GetFiles(basePath, "*.*", SearchOption.TopDirectoryOnly))
 		{
 			var fn = Path.GetFileNameWithoutExtension(man);
-			var ab = Load(fn);
+			var ab = AssetBundle.LoadFromFile(man);
+			Debug.Log($"[ABM] Manifest load {man}");
 			if (ab == null) continue;
-			var abm = ab.LoadAsset("AssetBundleManifest", typeof(AssetBundleManifest), true) as AssetBundleManifest;
+			var abm = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
 			if (abm == null) continue;
+			ab.Unload(false);
 			AssetBundleManager.ManifestBundlePack[fn] = new AssetBundleManager.BundlePack() { AssetBundleManifest = abm };
 			foreach (var sab in abm.GetAllAssetBundles())
 			{
@@ -345,6 +337,15 @@ public class LoadedAssetBundle
 						deps[sab].Add(dep);
 			}
 		}
+	}
+	public void Unload(bool wipe = false)
+	{
+		if (m_AssetBundle != null)
+		{
+			m_AssetBundle.Unload(false);
+			Debug.Log("[ABM] Unloading " + name);
+		}
+		m_AssetBundle = null;
 	}
 }
 

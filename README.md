@@ -1,11 +1,10 @@
-This is a fork of the KK engine codebase adding some more features to it
+This is a fork of the KK engine adding some more features to it
 
 * A bit of performance improvements
-* Configurable edit/gameplay (gender, scenario and location restrictions)
-* Configurable main graphics (AA etc) and rendering (texture sizes, physics..)
-* Configurable sliders instead of hardcoded ones
-* Configurable shaders for hair, rim effect, per character
-* Configurable game metadata, on the spot, as CSV files
+* Exposing (almost) all game serialized metadata as CSV files
+* Various engine internals made configurabl
+* Removal of some arbitrary restrictions
+* a lot of small ad-hoc improvements/bugs introduced to the engine
 
 ## Card and class save compatibility
 
@@ -15,9 +14,36 @@ doesnt have it both sides will use the value for left. Same with other
 settings - whatever new is saved is simply not used by vanilla and
 ignored, or filled with approximate default if possible.
 
-## Binary plugins compatibility
+Newly introduced fields are serialized the same way as vanilla data since most
+of those are properties added to existing classes. Vanilla game can deal with
+such extensions gracefuly, as the serialization mechanism (msgpack in string
+key mode) was designed to ignore all unknown fields from the get go for
+extensibility in the first place.
 
-Is preserved for public apis (ie just straight harmony hooks are fine), but
-IL recompiling plugins will sometimes break when expected opcodes are not found.
-If there is such a conflict, it can be typically worked around by fixig up the
-engine with a compat layer for that particular plugin - open an issue for it.
+## Binary-only plugins compatibility
+
+Is preserved for public apis used by existing plugins most of the time - ie
+the most common stuff will continue to work.
+
+This leeway doesn't go far overall, however.
+
+Non-hooked classes, field and method access can be assumed compatible only on
+source level as those are frequently refactored into different types:
+
+Fields can be turned into properties, methods into a delegate or extension,
+array types may become different iterator type altogether only with generic arg
+kept etc.
+
+In the worst case, the plugin needs to be decompiled and rebuilt again
+to reference correct types.
+
+## Stability, end user support, contact
+
+Patchwork is very far from being ready for end user use, it's move fast and
+break things at the moment. It's meant mainly for advanced users somewhat
+familiar with modding, unity or the predecessors of this engine (PH, HS).
+
+Public support is exclusively via github tickets. There are better venues to
+get in touch hidden as easter eggs.
+
+

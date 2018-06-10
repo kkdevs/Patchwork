@@ -19,6 +19,8 @@ public class Reloader : Script.AutoRun
 	}
 	void forward(string logString, string stackTrace, LogType type)
 	{
+		if (logString.Contains("AssetBundle with the same files is already loaded."))
+			return;
 		var frames = (new StackTrace()).GetFrames();
 		string caller = $"{type.ToString()}";
 		for (int i = 0; i < frames.Length; i++)

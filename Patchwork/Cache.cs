@@ -211,7 +211,7 @@ namespace Patchwork
 		public static List<string[,]> LoadMultiLst(string bundledir, string asset)
 		{
 			var res = new List<string[,]>();
-			asset = asset.ToLower();
+			//asset = asset.ToLower();
 			List<string> bundles = CommonLib.GetAssetBundleNameListFromPath(bundledir, false);
 			foreach (var bn in bundles)
 			{
@@ -230,6 +230,7 @@ namespace Patchwork
 				CSV.LoadLst(ex, out entry);
 				res.Add(entry);
 			}
+			Script.registry[asset] = res;
 			return res;
 		}
 	}
