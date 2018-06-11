@@ -15,6 +15,8 @@ using System;
 
 namespace Patchwork
 {
+	// Higher level vfs - handles unioning, dumping and serialization interface.
+	// caches file access to avoid hitting icall
 	public class Cache
 	{
 		public static SaveFrameAssist saveFrameAssist;
@@ -164,6 +166,7 @@ namespace Patchwork
 		public static bool Asset(string bundle, string asset, System.Type type, string manifest, out AssetBundleLoadAssetOperation res)
 		{
 			res = null;
+			Debug.Log($"[CACHE] Loading translated asset {bundle} {asset} {type.Name}");
 			if (asset == null)
 				return false;
 			var fakepath = LoadedAssetBundle.basePath + bundle.Substring(0, bundle.Length - 8) + "/" + asset;
@@ -399,7 +402,10 @@ public class SpriteCache<T>
 			// dont cache the sprite texture when the sprite is cached as such
 			var tex = CommonLib.LoadAsset<Texture2D>(bundle, name);
 			if (tex == null)
+			{
+				Debug.Log("Failed to load sprite");
 				return false;
+			}
 			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
 			if (Program.settings.cacheSprites)
 			{

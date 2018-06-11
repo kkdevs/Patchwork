@@ -92,13 +92,14 @@ public class LoadedAssetBundle
 	public static event Action<string, string> beforeBundleLoad;
 	public static LoadedAssetBundle Load(string name, string forasset = null)
 	{
+		Debug.Log($"[ABM] Loading {name}");
 		if (level == 0)
 			beforeBundleLoad?.Invoke(name, forasset);
 		var ab = Get(name);
 		if (ab == null)
 			ab = new LoadedAssetBundle(name);
 		ab.path = Cache.GetPath(basePath + name);
-		Debug.Log($"[ABM] Loading {name} @ {ab.path}");
+		Debug.Log($"[ABM] Path {ab.path}");
 		if (ab.path == null)
 			return null;
 		if (!File.Exists(ab.path))
