@@ -28,10 +28,10 @@ namespace Patchwork
 		public float noscopeScale = 1;
 		public float noscopeAlphaX = 0.3f;
 		public float noscopeAlphaXEnd = 0.3f;
-		public float noscopeAlphaY = -0.1f;
+		public float noscopeAlphaY = -0.15f;
 		public float noscopeAlphaYEnd = 0.3f;
 		public float noscopeAlphaClamp = 0;
-		public float noscopeAlphaClampEnd = 0.8f;
+		public float noscopeAlphaClampEnd = 1f;
 		public bool noscopeSim = false;
 		public byte noscopeAlphaMode;
 		public bool onTop = false;
@@ -70,7 +70,7 @@ namespace Patchwork
 
 
 		public bool enableStack = true;
-		public bool enableSpam = false;
+		public bool enableSpam = true;
 		public bool enableTrace = true;
 		public bool enableInfo = true;
 		public bool enableError = true;

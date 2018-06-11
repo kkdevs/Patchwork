@@ -1,4 +1,6 @@
-﻿using IllusionUtility.GetUtility;
+﻿// this is just dumping grounds for random in-game hacking
+
+using IllusionUtility.GetUtility;
 using Patchwork;
 using UnityEngine;
 using UnityEngine.SceneManagement;

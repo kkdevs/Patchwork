@@ -28,6 +28,7 @@ public class LoadedAssetBundle
 	public static int level;
 	public int locked;
 	public static string basePath;
+	public static string basePathCanon;
 	public AssetBundle m_AssetBundle;
 	private string[] assetNames;
 	public string name;
@@ -38,9 +39,7 @@ public class LoadedAssetBundle
 
 	public LoadedAssetBundle(string name)
 	{
-		Debug.Log("[ABM] Registering " + name);
 		this.name = name;
-		this.path = basePath + name;
 	}
 
 	public string[] GetAllAssetNames()
@@ -98,6 +97,10 @@ public class LoadedAssetBundle
 		var ab = Get(name);
 		if (ab == null)
 			ab = new LoadedAssetBundle(name);
+		ab.path = Cache.GetPath(basePath + name);
+		Debug.Log($"[ABM] Loading {name} @ {ab.path}");
+		if (ab.path == null)
+			return null;
 		if (!File.Exists(ab.path))
 			return null;
 		loadedBundles[name] = ab;
@@ -317,7 +320,10 @@ public class LoadedAssetBundle
 	public static void Init(string bp)
 	{
 		basePath = bp;
+		basePathCanon = Path.GetFullPath(bp).ToLower();
 		if (!Directory.Exists(basePath)) return;
+		if (!Directory.Exists(basePathCanon)) return;
+		Trace.Log($"[ABM] Init {bp} {basePathCanon}");
 		foreach (var man in Directory.GetFiles(basePath, "*.*", SearchOption.TopDirectoryOnly))
 		{
 			var fn = Path.GetFileNameWithoutExtension(man);
@@ -352,41 +358,3 @@ public class LoadedAssetBundle
 
 #endif
 
-public class SpriteCache<T>
-{
-	public Dictionary<T, Sprite> cache = new Dictionary<T, Sprite>();
-	public bool Get(T key, string bundle, string name, out Sprite ret)
-	{
-#if !USE_OLD_ABM
-		ret = null;
-		if (!Program.settings.cacheSprites || !cache.TryGetValue(key, out ret))
-		{
-			Debug.Log($"[SPRITE] Miss {bundle}/{name} @ {key}");
-			// dont cache the sprite texture when the sprite is cached as such
-			var tex = CommonLib.LoadAsset<Texture2D>(bundle, name);
-			if (tex == null)
-				return false;
-			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
-			if (Program.settings.cacheSprites)
-			{
-				cache[key] = ret;
-				UnityEngine.Object.DontDestroyOnLoad(ret);
-			}
-		}
-		else
-		{
-			Debug.Log($"[SPRITE] Hit {bundle}/{name} @ {key}");
-		}
-		//ret = UnityEngine.Object.Instantiate(ret);
-		return true;
-#else
-		Texture2D tex = CommonLib.LoadAsset<Texture2D>(bundle, name, false);
-		ret = null;
-		if (tex != null)
-		{
-			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
-		}
-		return tex != null;
-#endif
-	}
-}

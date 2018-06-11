@@ -30,11 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="mcs">
       <HintPath>..\..\source\repos\WindowsFormsApp3\Managed\mcs.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>.\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,6 +59,7 @@
     <Compile Include="macros.cs" />
     <Compile Include="prettyprint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="unzip.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Patchwork\Patchwork.csproj">

@@ -19,6 +19,7 @@ namespace Patchwork
 	{
 		public static SaveFrameAssist saveFrameAssist;
 		public static string dumpdir => UserData.Path + "/csv/";
+		public static string dumpdirCanon => Path.GetFullPath(dumpdir).ToLower();
 
 		// Resolve cache folder from bundle name
 		public static string BundleDir(string bundle, bool create = false)
@@ -91,10 +92,7 @@ namespace Patchwork
 		{
 			try
 			{
-				var str = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(path));
-				if (str[0] == '\uFEFF')
-					str = str.Substring(1); // skip BOM
-				return str;
+				return System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(path)).StripBOM();
 			}
 			catch
 			{
@@ -108,9 +106,7 @@ namespace Patchwork
 			try
 			{
 				var file = ABPath(bundle, asset, suffix, true); // makes the folder too
-				if (Program.settings.useBOM)
-					buf = "\uFEFF" + buf;
-				File.WriteAllBytes(file, System.Text.Encoding.UTF8.GetBytes(buf));
+				File.WriteAllBytes(file, buf.AddBOM().ToBytes());
 				return true; // XXX
 			}
 			catch
@@ -119,17 +115,19 @@ namespace Patchwork
 			}
 		}
 
-		public static T Load<T>(string bundle, string asset, string ext = "csv") where T : class, IDumpable, new()
+		/*public static T Load<T>(string bundle, string asset, string ext = "csv") where T : class, IDumpable, new()
 		{
 			return Load(bundle, asset, typeof(T), ext) as T;
-		}
+		}*/
+
 		public static T Load<T>(string path, string ext = "csv") where T : class, IDumpable, new()
 		{
-			return Load(path, typeof(T), ext) as T;
+			return Load(GetPath(path), typeof(T), ext) as T;
 		}
+
 		public static object Load(string bundle, string asset, Type typ, string ext = "csv")
 		{
-			return Load(ABPath(bundle, asset, ext), typ, ext);
+			return Load(GetPath(ABPath(bundle, asset, ext)), typ, ext);
 		}
 		// Load marhsalled type from csv
 		public static object Load(string path, Type typ, string ext = null)
@@ -168,7 +166,29 @@ namespace Patchwork
 			res = null;
 			if (asset == null)
 				return false;
-
+			var fakepath = LoadedAssetBundle.basePath + bundle.Substring(0, bundle.Length - 8) + "/" + asset;
+			if (type == typeof(Texture2D))
+			{
+				var pngpath = GetPath(fakepath + ".png");			
+				Texture2D tex = null;
+				if (pngpath != null)
+					(tex = new Texture2D(2, 2)).LoadImage(File.ReadAllBytes(pngpath));
+				else
+				{
+					var jpgpath = GetPath(fakepath + ".jpg");
+					if (jpgpath != null)
+						(tex = new Texture2D(2, 2)).LoadImage(File.ReadAllBytes(jpgpath));
+				}
+				if (tex != null)
+				{
+					if (fakepath.Contains("clamp"))
+						tex.wrapMode = TextureWrapMode.Clamp;
+					else if (fakepath.Contains("repeat"))
+						tex.wrapMode = TextureWrapMode.Repeat;
+					res = new AssetBundleLoadAssetOperationSimulation(tex);
+					return true;
+				}
+			}
 			if (!typeof(IDumpable).IsAssignableFrom(type))
 				return false;
 			if (Program.settings.fetchAssets)
@@ -181,15 +201,16 @@ namespace Patchwork
 					return true;
 				}
 			}
-			if (!Program.settings.dumpAssets)
-				return false;
 
 			res = AssetBundleManager._LoadAsset(bundle, asset, type, manifest);
 
-			if (!res.IsEmpty() && !File.Exists(ABPath(bundle, asset, "csv")))
+			if (Program.settings.dumpAssets)
 			{
-				Debug.Log($"[CACHE] Saving CSV {bundle}/{asset}");
-				Save(res.GetAsset<UnityEngine.Object>(), bundle, asset);
+				if (!res.IsEmpty() && !File.Exists(ABPath(bundle, asset, "csv")))
+				{
+					Debug.Log($"[CACHE] Saving CSV {bundle}/{asset}");
+					Save(res.GetAsset<UnityEngine.Object>(), bundle, asset);
+				}
 			}
 			return true;
 		}
@@ -233,6 +254,104 @@ namespace Patchwork
 			Script.registry[asset] = res;
 			return res;
 		}
+
+		public static List<string> GetFiles(string path, string mask = "*.*", bool nobase = false)
+		{
+			return GetFilesOrDirs(path, mask, false, nobase);
+		}
+		public static List<string> GetDirectories(string path, string mask = "*.*", bool nobase = false)
+		{
+			return GetFilesOrDirs(path, mask, true, nobase);
+		}
+
+		// Expects canonical path!
+		public static string ExtractABPath(string path, out string addy)
+		{
+			var pathl = path.ToLower();
+			addy = null;
+			if (!pathl.StartsWith(LoadedAssetBundle.basePathCanon))
+			{
+				// eventually there's going to be more than /csv
+				if (pathl.StartsWith(dumpdirCanon))
+				{
+					var sb = path.Substring(dumpdirCanon.Length);
+					addy = dumpdirCanon + sb;
+					return sb;
+				}
+				return null;
+			}
+			return path.Substring(LoadedAssetBundle.basePathCanon.Length);
+		}
+
+		// Expects canonical path!
+		public static Dictionary<string, List<string>> dirCache = new Dictionary<string, List<string>>();
+		// List union of files or directories
+		public static List<string> GetFilesOrDirs(string path, string mask, bool isdirs = false, bool nobase = false)
+		{
+			//Debug.Log($"[CACHE] GetFilesOrDirs {path} {mask} {isdirs} {nobase}");
+			//Debug.Log(dumpdirCanon);
+			//Debug.Log(LoadedAssetBundle.basePathCanon);
+			var key = nobase.ToString() + path;
+			if (dirCache.TryGetValue(key, out List<string> cached))
+				return cached;
+
+			var res = new List<string>();
+			var subpath = ExtractABPath(path, out string addy);
+			// actually not abdata
+			if (subpath == null)
+			{
+				if (isdirs)
+					return Directory.GetDirectories(path, mask).ToList();
+				else
+					return Directory.GetFiles(path, mask).ToList();
+			}
+			var dupes = new HashSet<string>();
+			foreach (var vmod in Directory.GetDirectories(Program.modbase).PlusOne(addy).PlusOne(LoadedAssetBundle.basePathCanon))
+			{
+				var mod = vmod + "/" + subpath;
+				//Debug.Log($"[ABM] scan {mod}");
+				if (!Directory.Exists(mod))
+					continue;
+				foreach (var f in isdirs?Directory.GetDirectories(mod, mask):Directory.GetFiles(mod, mask))
+				{
+					// build the new virtual path
+					var np = f.Substring(vmod.Length + 1);
+					if (!nobase)
+						np = LoadedAssetBundle.basePathCanon + np;
+					var npl = np.ToLower();
+					if (dupes.Contains(npl)) continue;
+					dupes.Add(npl);
+					Debug.Log($"[CACHE] Found {np} ({npl}) isdir={isdirs}");
+					res.Add(np);
+				}
+			}
+			return dirCache[key] = res;
+		}
+
+		// Canonizes path
+		public static Dictionary<string, string> pathCache = new Dictionary<string, string>();
+		public static string GetPath(string opath)
+		{
+			if (pathCache.TryGetValue(opath, out string cached))
+				return cached;
+			var path = Path.GetFullPath(opath);
+			var subpath = ExtractABPath(path, out string addy);
+			if (subpath == null)
+				return path;
+			var vpath = path;
+			foreach (var mod in Directory.GetDirectories(Program.modbase).PlusOne(addy))
+			{
+				var nvpath = Path.Combine(mod, subpath);
+				if (File.Exists(nvpath))
+				{
+					vpath = nvpath;
+					break;
+				}
+			}
+			if (!File.Exists(vpath) && !Directory.Exists(vpath))
+				vpath = null;
+			return pathCache[opath] = vpath;
+		}
 	}
 }
 
@@ -264,5 +383,44 @@ public partial class GlobalMethod
 		ex.Import(CSV.ParseTSV(res));
 		Cache.Save(ex, _assetbundleFolder, _strLoadFile);
 		return res;
+	}
+}
+
+public class SpriteCache<T>
+{
+	public Dictionary<T, Sprite> cache = new Dictionary<T, Sprite>();
+	public bool Get(T key, string bundle, string name, out Sprite ret)
+	{
+#if !USE_OLD_ABM
+		ret = null;
+		if (!Program.settings.cacheSprites || !cache.TryGetValue(key, out ret))
+		{
+			Debug.Log($"[SPRITE] Miss {bundle}/{name} @ {key}");
+			// dont cache the sprite texture when the sprite is cached as such
+			var tex = CommonLib.LoadAsset<Texture2D>(bundle, name);
+			if (tex == null)
+				return false;
+			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
+			if (Program.settings.cacheSprites)
+			{
+				cache[key] = ret;
+				UnityEngine.Object.DontDestroyOnLoad(ret);
+			}
+		}
+		else
+		{
+			Debug.Log($"[SPRITE] Hit {bundle}/{name} @ {key}");
+		}
+		//ret = UnityEngine.Object.Instantiate(ret);
+		return true;
+#else
+		Texture2D tex = CommonLib.LoadAsset<Texture2D>(bundle, name, false);
+		ret = null;
+		if (tex != null)
+		{
+			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
+		}
+		return tex != null;
+#endif
 	}
 }

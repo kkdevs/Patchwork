@@ -26,7 +26,7 @@ public class MonoScript : Evaluator
 	}
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
-		//tw.WriteLine("Registering assembly " + e.LoadedAssembly.FullName);
+		tw.WriteLine("Registering assembly " + e.LoadedAssembly.FullName);
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);
@@ -71,9 +71,10 @@ public class MonoScript : Evaluator
 		}
 	}
 
-	public static bool IsBadLib(string name)
+	public bool IsBadLib(string name)
 	{
-		return name == "Assembly-CSharp-firstpass" || name == "mscorlib" || name == "System.Core" || name == "System";
+		tw.WriteLine("Importing " + name);
+		return name == "Assembly-CSharp-firstpass" || name == "mscorlib" || name == "System.Core" || name == "System" || name == "System.Xml";
 	}
 
 	public AssemblyBuilder LoadScripts(IEnumerable<string> scripts)

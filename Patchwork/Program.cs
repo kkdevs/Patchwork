@@ -58,6 +58,7 @@ namespace Patchwork
 		// Don't touch unity in weird places if local
 		public static string cfgpath { get { return BasePath + "UserData/patchwork.xml"; } }
 		public static string historypath { get { return BasePath + "UserData/history.xml"; } }
+		public static string modbase { get { return Path.GetFullPath(BasePath + "UserData/mod/"); } }
 		public static SettingsForm form;
 		public static Settings _settings;
 		public static Settings settings
