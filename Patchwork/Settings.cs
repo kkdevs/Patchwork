@@ -70,7 +70,7 @@ namespace Patchwork
 
 
 		public bool enableStack = true;
-		public bool enableSpam = true;
+		public bool enableSpam = false;
 		public bool enableTrace = true;
 		public bool enableInfo = true;
 		public bool enableError = true;

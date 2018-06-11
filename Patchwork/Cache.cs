@@ -261,20 +261,24 @@ namespace Patchwork
 			return res;
 		}
 
-		public static List<string> GetFiles(string path, string mask = "*.*", bool nobase = false)
+		public static List<string> GetFiles(string path, string mask = "*.*", bool nobase = false, bool recurse = false)
 		{
 #if USE_OLD_ABM
-			return Directory.GetFiles(path, mask).ToList();
+			if (!Directory.Exists(path))
+				return new List<string>();
+			return Directory.GetFiles(path, mask, recurse?SearchOption.AllDirectories: SearchOption.TopDirectoryOnly).ToList();
 #else
-			return GetFilesOrDirs(path, mask, false, nobase);
+			return GetFilesOrDirs(path, mask, false, nobase, recurse);
 #endif
 		}
-		public static List<string> GetDirectories(string path, string mask = "*.*", bool nobase = false)
+		public static List<string> GetDirectories(string path, string mask = "*.*", bool nobase = false, bool recurse = false)
 		{
 #if USE_OLD_ABM
-			return Directory.GetDirectories(path, mask).ToList();
+			if (!Directory.Exists(path))
+				return new List<string>();
+			return Directory.GetDirectories(path, mask, recurse?SearchOption.AllDirectories: SearchOption.TopDirectoryOnly).ToList();
 #else
-			return GetFilesOrDirs(path, mask, true, nobase);
+			return GetFilesOrDirs(path, mask, true, nobase, recurse);
 #endif
 		}
 
@@ -301,12 +305,13 @@ namespace Patchwork
 		// Expects canonical path!
 		public static Dictionary<string, List<string>> dirCache = new Dictionary<string, List<string>>();
 		// List union of files or directories
-		public static List<string> GetFilesOrDirs(string path, string mask, bool isdirs = false, bool nobase = false)
+		public static List<string> GetFilesOrDirs(string path, string mask, bool isdirs = false, bool nobase = false, bool recurse = false)
 		{
 			//Debug.Log($"[CACHE] GetFilesOrDirs {path} {mask} {isdirs} {nobase}");
 			//Debug.Log(dumpdirCanon);
 			//Debug.Log(LoadedAssetBundle.basePathCanon);
-			var key = nobase.ToString() + path;
+			var key = recurse.ToString() + nobase.ToString() + path;
+			var rflag = recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
 			if (dirCache.TryGetValue(key, out List<string> cached))
 				return cached;
 
@@ -316,9 +321,9 @@ namespace Patchwork
 			if (subpath == null)
 			{
 				if (isdirs)
-					return Directory.GetDirectories(path, mask).ToList();
+					return dirCache[key] = Directory.GetDirectories(path, mask, rflag).ToList();
 				else
-					return Directory.GetFiles(path, mask).ToList();
+					return dirCache[key] = Directory.GetFiles(path, mask, rflag).ToList();
 			}
 			var dupes = new HashSet<string>();
 			foreach (var vmod in Directory.GetDirectories(Program.modbase).PlusOne(addy).PlusOne(LoadedAssetBundle.basePathCanon))
@@ -327,7 +332,7 @@ namespace Patchwork
 				//Debug.Log($"[ABM] scan {mod}");
 				if (!Directory.Exists(mod))
 					continue;
-				foreach (var f in isdirs?Directory.GetDirectories(mod, mask):Directory.GetFiles(mod, mask))
+				foreach (var f in isdirs?Directory.GetDirectories(mod, mask, rflag):Directory.GetFiles(mod, mask, rflag))
 				{
 					// build the new virtual path
 					var np = f.Substring(vmod.Length + 1);

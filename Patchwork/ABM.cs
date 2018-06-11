@@ -33,7 +33,7 @@ public class LoadedAssetBundle
 	private string[] assetNames;
 	public string name;
 	public string path;
-	public Dictionary<string, UnityEngine.Object> cache = new Dictionary<string, UnityEngine.Object>();
+	public Dictionary<Type, Dictionary<string,UnityEngine.Object>> cache = new Dictionary<Type, Dictionary<string,UnityEngine.Object>>();
 	public UnityEngine.Object[] allCache;
 	public static Dictionary<string, LoadedAssetBundle> loadedBundles = new Dictionary<string, LoadedAssetBundle>();
 
@@ -190,17 +190,30 @@ public class LoadedAssetBundle
 		return UnityEngine.Object.Instantiate(obj);
 	}
 
+	public bool LoadAssetCache(string name, Type t, out UnityEngine.Object obj)
+	{
+		obj = null;
+		if (!caching)
+			return false;
+		if (cache.TryGetValue(t, out Dictionary<string, UnityEngine.Object> objcache))
+		{
+			if (objcache.TryGetValue(name, out obj))
+				return true;
+		} else cache[t] = new Dictionary<string, UnityEngine.Object>();
+		return false;
+	}
+
 	public static event Action<LoadedAssetBundle, string> beforeLoad;
 	public IEnumerator LoadAssetAsync(string name, Type t, Action<UnityEngine.Object> cb)
 	{
 		beforeLoad?.Invoke(this, name);
-		if (!caching || !cache.TryGetValue(name, out UnityEngine.Object obj))
+		if (!LoadAssetCache(name, t, out UnityEngine.Object obj))
 		{
 			Debug.Log($"[ABM] Cache miss {path}/{name}");
 			if (!Ensure(name))
 			{
 				if (caching)
-					cache[name] = null; // nxcache
+					cache[t][name] = null; // nxcache
 				cb(null);
 				yield break;
 			}
@@ -209,15 +222,28 @@ public class LoadedAssetBundle
 			{
 				Trace.Error($"[ABM] Async load {path}/{name} failed");
 				Trace.Back("from");
+				if (caching)
+					cache[t][name] = null; // nxcache
 				cb(null);
 				yield break;
 			}
 			yield return req;
 			if (req.asset != null)
-				cb(MaybeCache(name, req.asset));
+			{
+				cb(MaybeCache(name, t, req.asset));
+			}
+			else
+			{
+				if (caching)
+					cache[t][name] = null; // nxcache
+				Trace.Error($"[ABM] Async load {path}/{name} failed");
+				Trace.Back("from");
+			}
 			yield break;
 		}
 		Debug.Log($"[ABM] Cache hit {path}/{name}");
+		//if (obj != null && obj.GetType() != t)
+		//	Trace.Error($"[ABM] Wrong entry type cached! {obj.GetType().Name} != {t}");
 		cb(obj);
 	}
 
@@ -231,7 +257,7 @@ public class LoadedAssetBundle
 	{
 		beforeLoad?.Invoke(this, name);
 		//Debug.Log($"[ABM] Loading {path}/{name}");
-		if (nocache || !caching || !cache.TryGetValue(name, out UnityEngine.Object obj))
+		if (nocache || !LoadAssetCache(name, typ, out UnityEngine.Object obj))
 		{
 			Debug.Log($"[ABM] Cache miss {path}/{name}");
 			if (!Ensure(name))
@@ -247,28 +273,30 @@ public class LoadedAssetBundle
 			if (obj == null)
 			{
 				if (caching)
-					cache[name] = null; // nxcache
+					cache[typ][name] = null; // nxcache
 				Trace.Error($"[ABM] Load {path}/{name} failed");
 				Trace.Back("from");
 				return null;
 			}
 			if (nocache)
 				return obj;
-			return MaybeCache(name, obj);
+			return MaybeCache(name, typ, obj);
 		}
-		Debug.Log($"[ABM] Cache hit {path}/{name}.");
+		Debug.Log($"[ABM] Cache hit {path}/{name}");
+		//if (obj != null && obj.GetType() != typ)
+		//	Trace.Error($"[ABM] Wrong entry type cached! {obj.GetType().Name} != {typ}");
 		return Clone(obj);
 	}
 
-	public UnityEngine.Object MaybeCache(string name, UnityEngine.Object obj)
+	public UnityEngine.Object MaybeCache(string name, Type t, UnityEngine.Object obj)
 	{
 		if (obj == null)
 			return null;
 		if (IsCacheable(obj))
 		{
 			UnityEngine.Object.DontDestroyOnLoad(obj);
-			Debug.Log($"[ABG] Caching {path}/{name}");
-			cache[name] = obj;
+			Debug.Log($"[ABM] Caching {path}/{name}");
+			cache[t][name] = obj;
 		}
 		else
 		{
