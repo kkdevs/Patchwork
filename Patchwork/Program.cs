@@ -153,6 +153,7 @@ namespace Patchwork
 			}
 			BasePath = Path.GetDirectoryName(exename) + "/";
 			LoadConfig();
+			Directory.CreateDirectory(modbase);
 			Trace.Info("Basepath=" + BasePath);
 		}
 
