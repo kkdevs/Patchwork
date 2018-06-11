@@ -169,6 +169,7 @@ namespace Patchwork
 			Debug.Log($"[CACHE] Loading translated asset {bundle} {asset} {type.Name}");
 			if (asset == null)
 				return false;
+#if !USE_OLD_ABM
 			var fakepath = LoadedAssetBundle.basePath + bundle.Substring(0, bundle.Length - 8) + "/" + asset;
 			if (type == typeof(Texture2D))
 			{
@@ -192,6 +193,7 @@ namespace Patchwork
 					return true;
 				}
 			}
+#endif
 			if (!typeof(IDumpable).IsAssignableFrom(type))
 				return false;
 			if (Program.settings.fetchAssets)
@@ -245,7 +247,8 @@ namespace Patchwork
 						res.Add(entry);
 						continue;
 					}
-				var ta = LoadedAssetBundle.Load(bn)?.LoadAsset(asset, typeof(TextAsset)) as TextAsset;
+				//var ta = LoadedAssetBundle.Load(bn)?.LoadAsset(asset, typeof(TextAsset)) as TextAsset;
+				var ta = CommonLib.LoadAsset<TextAsset>(bn, asset);
 				if (ta == null)
 					continue;
 				var ex = ScriptableObject.CreateInstance<ExcelData>();
@@ -260,13 +263,22 @@ namespace Patchwork
 
 		public static List<string> GetFiles(string path, string mask = "*.*", bool nobase = false)
 		{
+#if USE_OLD_ABM
+			return Directory.GetFiles(path, mask).ToList();
+#else
 			return GetFilesOrDirs(path, mask, false, nobase);
+#endif
 		}
 		public static List<string> GetDirectories(string path, string mask = "*.*", bool nobase = false)
 		{
+#if USE_OLD_ABM
+			return Directory.GetDirectories(path, mask).ToList();
+#else
 			return GetFilesOrDirs(path, mask, true, nobase);
+#endif
 		}
 
+#if !USE_OLD_ABM
 		// Expects canonical path!
 		public static string ExtractABPath(string path, out string addy)
 		{
@@ -330,11 +342,16 @@ namespace Patchwork
 			}
 			return dirCache[key] = res;
 		}
+#endif
+
 
 		// Canonizes path
 		public static Dictionary<string, string> pathCache = new Dictionary<string, string>();
 		public static string GetPath(string opath)
 		{
+#if USE_OLD_ABM
+			return opath;
+#else
 			if (pathCache.TryGetValue(opath, out string cached))
 				return cached;
 			var path = Path.GetFullPath(opath);
@@ -354,6 +371,7 @@ namespace Patchwork
 			if (!File.Exists(vpath) && !Directory.Exists(vpath))
 				vpath = null;
 			return pathCache[opath] = vpath;
+#endif
 		}
 	}
 }
