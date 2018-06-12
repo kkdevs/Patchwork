@@ -23,6 +23,7 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool hiPoly = false;
 		public bool noscopeHead = false;
 		public bool noscopeClipMask = false;
 		public float noscopeScale = 1;

@@ -10,6 +10,8 @@ public partial class ScriptEnv
 	public static Lookat_dan lookatdan => Object.FindObjectOfType<Lookat_dan>();
 	//public static GameObject female => GameObject.Find("chaF_001");
 	public static GameObject female => SceneManager.GetSceneAt(0).GetRootGameObjects()[0].transform.FindLoop("chaF_001");
+	public static ChaFileStatus fstat => GameObject.Find("chaF_001").GetComponent<ChaControl>().fileStatus;
+	public static bool ftog => fstat.visibleBodyAlways = !fstat.visibleBodyAlways;
 	//public static GameObject male => GameObject.Find("chaM_001");
 	public static GameObject male => SceneManager.GetSceneAt(0).GetRootGameObjects()[0].transform.FindLoop("chaM_001");
 	public static ChaControl control => Object.FindObjectOfType(typeof(ChaControl)) as ChaControl;
