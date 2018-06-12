@@ -2,7 +2,7 @@ This is a fork of the KK engine adding some more features to it
 
 * A bit of performance improvements
 * Exposing (almost) all game serialized metadata as CSV files
-* Various engine internals made configurabl
+* Various engine internals made configurable
 * Removal of some arbitrary restrictions
 * a lot of small ad-hoc improvements/bugs introduced to the engine
 
@@ -36,6 +36,21 @@ kept etc.
 
 In the worst case, the plugin needs to be decompiled and rebuilt again
 to reference correct types.
+
+## Versioning scheme
+
+Major changes (typically heavier modification of the engine) are designated as
+new "mark", as in iteration of prototypes.
+
+A new mark almost always introduces slew of new bugs, and may or may not
+necessarily bring user-visible features as the changes can be infrastructural
+rather than user-facing. 
+
+Each mark has actual versions - these are always fixes for bugs introduced by
+the new bark, or trivial toggles added under default-off checkbox.
+
+Marks with high versions tend to be most stable, whereas latest mark is bleeding
+edge and almost inevitably buggy.
 
 ## Stability, end user support, contact
 

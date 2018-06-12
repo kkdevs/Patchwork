@@ -45,7 +45,7 @@ namespace Patchwork
 		{
 			var lines = source.Replace("\r", "").Split('\n');
 			var len = lines.Length;
-			if (len > 0 && lines[len-1].Trim() == String.Empty)
+			while (len > 0 && lines[len-1].Trim() == String.Empty)
 				len--;
 			for (int i = 0; i < len; i++)
 			{

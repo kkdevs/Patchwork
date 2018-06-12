@@ -110,8 +110,8 @@ namespace Patchwork
 			}
 			form.launchButton.Click += (o, e) =>
 			{
-				launched = true;
 				form.Close();
+				launched = true;
 			};
 			form.runChara.Click += (o, e) =>
 			{
@@ -123,7 +123,8 @@ namespace Patchwork
 			};
 			form.FormClosing += (o, e) =>
 			{
-				if (e.CloseReason == CloseReason.ApplicationExitCall)
+				//if (e.CloseReason == CloseReason.ApplicationExitCall)
+				if (launched)
 					e.Cancel = true;
 			};
 			if (form.ShowDialog() == DialogResult.OK)
@@ -227,6 +228,7 @@ namespace Patchwork
 			catch { };
 			try
 			{
+				launched = false;
 				Program.form.Close();
 			}
 			catch { };
@@ -353,21 +355,34 @@ namespace Patchwork
 			};
 		}
 
-		public static void GC(string who, bool wants, object o)
+		public static void GC(string who, bool asset, bool heap, object o)
 		{
-			/*Trace.Spam("[GC]" + who);
-			if (!settings.lazyGC && wants)
-			{
+			if (!Singleton<Character>.Instance.enableCharaLoadGCClear)
+				return;
+			Trace.Spam("[GC] Requested by " + who);
+			if (asset && !settings.lazyAssetGC) {
+				LoadedAssetBundle.Flush(true);
 				Resources.UnloadUnusedAssets();
 			}
-			if (settings.lazyBundles)
-				AssetBundleManager.GC();*/
-			System.GC.Collect();
+			if (heap && !settings.lazyGC)
+				System.GC.Collect();
+		}
+
+		public static void GCHeap(object caller)
+		{
+			GC(caller.GetType().Name, false, true, caller);
+		}
+
+		public static void GCAll(object caller, bool weak = false)
+		{
+			if (weak)
+				return;
+			GC(caller.GetType().Name, true, true, caller);
 		}
 
 		public static void GCAssets(object caller)
 		{
-			Trace.Spam($"[GC] Asset GC requested by {caller.GetType().Name}");
+			GC(caller.GetType().Name, true, false, caller);
 		}
 
 		public static bool geass => settings.geass && Input.GetMouseButton(1);

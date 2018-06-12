@@ -56,11 +56,17 @@ public class LoadedAssetBundle
 	{
 		ChaCustom.CustomSelectListCtrl.cache.cache.Clear();
 		ChaCustom.CustomPushListCtrl.cache.cache.Clear();
+		Cache.dirCache.Clear();
 		System.GC.Collect();
 		System.GC.Collect();
+		//GCBundles();
+		Flush();
+	}
+
+	public static void Flush(bool weak = false)
+	{
+		// TODO: flush only least used ones when weak
 		GCBundles();
-		foreach (var ab in loadedBundles)
-			ab.Value.cache.Clear();
 	}
 
 	public static void GCBundles()
@@ -157,12 +163,12 @@ public class LoadedAssetBundle
 			return false;
 		if (obj is Transform)
 			return true;
-		if (obj is Texture2D)
-			return true;
+		if ((obj is Texture) || (obj is Texture2D))
+			return true;// Program.settings.lazyAssetGC; // TODO
 		if (obj is Mesh)
 			return true;
 		if (obj is Material)
-			return true;
+			return true;// Program.settings.lazyAssetGC; // TODO
 		if (obj is ScriptableObject)
 			return true;
 		var go = obj as GameObject;
@@ -181,7 +187,7 @@ public class LoadedAssetBundle
 			return null;
 		if (obj is ScriptableObject)
 			return obj;
-		if (obj is Texture2D)
+		if ((obj is Texture) || (obj is Texture2D))
 			return obj;
 		if (obj is Material)
 			return obj;
@@ -300,7 +306,7 @@ public class LoadedAssetBundle
 		}
 		else
 		{
-			if (obj is GameObject)
+			if (caching && (obj is GameObject))
 			{
 				try
 				{
@@ -310,7 +316,9 @@ public class LoadedAssetBundle
 						Debug.Log($"[ABM] Uncached GO Component: {n.GetType().Name}");
 					}
 				}
-				catch { };
+				catch {
+					Debug.Log($"Failed to cache {obj.GetType().Name}");
+				};
 			}
 		}
 		return obj;
