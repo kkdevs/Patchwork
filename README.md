@@ -47,7 +47,7 @@ necessarily bring user-visible features as the changes can be infrastructural
 rather than user-facing. 
 
 Each mark has actual versions - these are always fixes for bugs introduced by
-the new bark, or trivial toggles added under default-off checkbox.
+the new mark, or trivial toggles added under default-off checkbox.
 
 Marks with high versions tend to be most stable, whereas latest mark is bleeding
 edge and almost inevitably buggy.
