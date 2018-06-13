@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class UIhide : MonoBehaviour {
-	public static bool state;
+	public static bool state = true;
 	public void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Space))

@@ -137,6 +137,15 @@ namespace Patchwork
 			this.watchFolder = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.ooMale = new System.Windows.Forms.TextBox();
+			this.label42 = new System.Windows.Forms.Label();
+			this.ooFemale = new System.Windows.Forms.TextBox();
+			this.label41 = new System.Windows.Forms.Label();
+			this.label44 = new System.Windows.Forms.Label();
+			this.mmMale = new System.Windows.Forms.TextBox();
+			this.label43 = new System.Windows.Forms.Label();
+			this.mmFemale = new System.Windows.Forms.TextBox();
 			this.noscopeClipMask = new System.Windows.Forms.CheckBox();
 			this.enabler_noscopeClipMask = new System.Windows.Forms.GroupBox();
 			this.noscopeHead = new System.Windows.Forms.CheckBox();
@@ -156,61 +165,56 @@ namespace Patchwork
 			this.noscopeAlphaX = new System.Windows.Forms.TextBox();
 			this.noscopeAlphaY = new System.Windows.Forms.TextBox();
 			this.noTelescope = new System.Windows.Forms.CheckBox();
-			this.label44 = new System.Windows.Forms.Label();
-			this.label43 = new System.Windows.Forms.Label();
-			this.mmFemale = new System.Windows.Forms.TextBox();
-			this.mmMale = new System.Windows.Forms.TextBox();
-			this.label41 = new System.Windows.Forms.Label();
-			this.ooFemale = new System.Windows.Forms.TextBox();
-			this.label42 = new System.Windows.Forms.Label();
-			this.ooMale = new System.Windows.Forms.TextBox();
 			this.hideMoz = new System.Windows.Forms.CheckBox();
 			this.fixPenis = new System.Windows.Forms.CheckBox();
 			this.fixVagina = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.onTop = new System.Windows.Forms.CheckBox();
-			this.cacheSprites = new System.Windows.Forms.CheckBox();
-			this.label40 = new System.Windows.Forms.Label();
-			this.label39 = new System.Windows.Forms.Label();
-			this.physRate = new System.Windows.Forms.TextBox();
-			this.label38 = new System.Windows.Forms.Label();
-			this.label37 = new System.Windows.Forms.Label();
-			this.label36 = new System.Windows.Forms.Label();
-			this.physDivisor = new System.Windows.Forms.TextBox();
-			this.physReflectSpeed = new System.Windows.Forms.TextBox();
-			this.physLoopCount = new System.Windows.Forms.TextBox();
+			this.groupBox9 = new System.Windows.Forms.GroupBox();
 			this.useBOM = new System.Windows.Forms.CheckBox();
-			this.dontshow = new System.Windows.Forms.CheckBox();
-			this.dumpAssets = new System.Windows.Forms.CheckBox();
 			this.fetchAssets = new System.Windows.Forms.CheckBox();
-			this.label31 = new System.Windows.Forms.Label();
-			this.label30 = new System.Windows.Forms.Label();
-			this.label29 = new System.Windows.Forms.Label();
-			this.label28 = new System.Windows.Forms.Label();
-			this.label27 = new System.Windows.Forms.Label();
-			this.label26 = new System.Windows.Forms.Label();
-			this.eyeLowPoly = new System.Windows.Forms.TextBox();
-			this.eyeHiPoly = new System.Windows.Forms.TextBox();
-			this.faceLowPoly = new System.Windows.Forms.TextBox();
-			this.faceHiPoly = new System.Windows.Forms.TextBox();
-			this.bodyLowPoly = new System.Windows.Forms.TextBox();
-			this.bodyHiPoly = new System.Windows.Forms.TextBox();
+			this.dumpAssets = new System.Windows.Forms.CheckBox();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
-			this.whitePower = new System.Windows.Forms.CheckBox();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
+			this.cacheSprites = new System.Windows.Forms.CheckBox();
+			this.lazyAssetGC = new System.Windows.Forms.CheckBox();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.physDivisor = new System.Windows.Forms.TextBox();
+			this.physLoopCount = new System.Windows.Forms.TextBox();
+			this.physReflectSpeed = new System.Windows.Forms.TextBox();
+			this.label36 = new System.Windows.Forms.Label();
+			this.label37 = new System.Windows.Forms.Label();
+			this.label38 = new System.Windows.Forms.Label();
+			this.physRate = new System.Windows.Forms.TextBox();
+			this.label40 = new System.Windows.Forms.Label();
+			this.label39 = new System.Windows.Forms.Label();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.bodyHiPoly = new System.Windows.Forms.TextBox();
+			this.bodyLowPoly = new System.Windows.Forms.TextBox();
+			this.faceHiPoly = new System.Windows.Forms.TextBox();
+			this.faceLowPoly = new System.Windows.Forms.TextBox();
+			this.eyeHiPoly = new System.Windows.Forms.TextBox();
+			this.eyeLowPoly = new System.Windows.Forms.TextBox();
+			this.label26 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
+			this.label28 = new System.Windows.Forms.Label();
+			this.label29 = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
+			this.label31 = new System.Windows.Forms.Label();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.whitePower = new System.Windows.Forms.CheckBox();
+			this.dontshow = new System.Windows.Forms.CheckBox();
+			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.lazyAssetGC = new System.Windows.Forms.CheckBox();
-			this.lazyGC = new System.Windows.Forms.CheckBox();
+			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.hiPoly = new System.Windows.Forms.CheckBox();
-			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.groupBox5 = new System.Windows.Forms.GroupBox();
-			this.groupBox6 = new System.Windows.Forms.GroupBox();
-			this.groupBox7 = new System.Windows.Forms.GroupBox();
-			this.groupBox8 = new System.Windows.Forms.GroupBox();
-			this.groupBox9 = new System.Windows.Forms.GroupBox();
-			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.lowPolyADV = new System.Windows.Forms.CheckBox();
+			this.spectateADV = new System.Windows.Forms.CheckBox();
+			this.spectateH = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -223,16 +227,17 @@ namespace Patchwork
 			this.tabPage2.SuspendLayout();
 			this.enabler_tumblr.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			this.groupBox10.SuspendLayout();
 			this.enabler_noscopeClipMask.SuspendLayout();
 			this.tabPage3.SuspendLayout();
-			this.tabPage6.SuspendLayout();
-			this.groupBox4.SuspendLayout();
-			this.groupBox5.SuspendLayout();
-			this.groupBox6.SuspendLayout();
-			this.groupBox7.SuspendLayout();
-			this.groupBox8.SuspendLayout();
 			this.groupBox9.SuspendLayout();
-			this.groupBox10.SuspendLayout();
+			this.groupBox8.SuspendLayout();
+			this.groupBox7.SuspendLayout();
+			this.groupBox6.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			this.tabPage6.SuspendLayout();
+			this.groupBox11.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -830,6 +835,7 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.groupBox11);
 			this.tabPage2.Controls.Add(this.enabler_tumblr);
 			this.tabPage2.Controls.Add(this.geass);
 			this.tabPage2.Controls.Add(this.noBustNorm);
@@ -1017,6 +1023,60 @@ namespace Patchwork
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
+			// groupBox10
+			// 
+			this.groupBox10.Controls.Add(this.ooMale);
+			this.groupBox10.Controls.Add(this.label42);
+			this.groupBox10.Controls.Add(this.ooFemale);
+			this.groupBox10.Controls.Add(this.label41);
+			this.groupBox10.Controls.Add(this.label44);
+			this.groupBox10.Controls.Add(this.mmMale);
+			this.groupBox10.Controls.Add(this.label43);
+			this.groupBox10.Controls.Add(this.mmFemale);
+			resources.ApplyResources(this.groupBox10, "groupBox10");
+			this.groupBox10.Name = "groupBox10";
+			this.groupBox10.TabStop = false;
+			// 
+			// ooMale
+			// 
+			resources.ApplyResources(this.ooMale, "ooMale");
+			this.ooMale.Name = "ooMale";
+			// 
+			// label42
+			// 
+			resources.ApplyResources(this.label42, "label42");
+			this.label42.Name = "label42";
+			// 
+			// ooFemale
+			// 
+			resources.ApplyResources(this.ooFemale, "ooFemale");
+			this.ooFemale.Name = "ooFemale";
+			// 
+			// label41
+			// 
+			resources.ApplyResources(this.label41, "label41");
+			this.label41.Name = "label41";
+			// 
+			// label44
+			// 
+			resources.ApplyResources(this.label44, "label44");
+			this.label44.Name = "label44";
+			// 
+			// mmMale
+			// 
+			resources.ApplyResources(this.mmMale, "mmMale");
+			this.mmMale.Name = "mmMale";
+			// 
+			// label43
+			// 
+			resources.ApplyResources(this.label43, "label43");
+			this.label43.Name = "label43";
+			// 
+			// mmFemale
+			// 
+			resources.ApplyResources(this.mmFemale, "mmFemale");
+			this.mmFemale.Name = "mmFemale";
+			// 
 			// noscopeClipMask
 			// 
 			resources.ApplyResources(this.noscopeClipMask, "noscopeClipMask");
@@ -1134,46 +1194,6 @@ namespace Patchwork
 			this.noTelescope.Name = "noTelescope";
 			this.noTelescope.UseVisualStyleBackColor = true;
 			// 
-			// label44
-			// 
-			resources.ApplyResources(this.label44, "label44");
-			this.label44.Name = "label44";
-			// 
-			// label43
-			// 
-			resources.ApplyResources(this.label43, "label43");
-			this.label43.Name = "label43";
-			// 
-			// mmFemale
-			// 
-			resources.ApplyResources(this.mmFemale, "mmFemale");
-			this.mmFemale.Name = "mmFemale";
-			// 
-			// mmMale
-			// 
-			resources.ApplyResources(this.mmMale, "mmMale");
-			this.mmMale.Name = "mmMale";
-			// 
-			// label41
-			// 
-			resources.ApplyResources(this.label41, "label41");
-			this.label41.Name = "label41";
-			// 
-			// ooFemale
-			// 
-			resources.ApplyResources(this.ooFemale, "ooFemale");
-			this.ooFemale.Name = "ooFemale";
-			// 
-			// label42
-			// 
-			resources.ApplyResources(this.label42, "label42");
-			this.label42.Name = "label42";
-			// 
-			// ooMale
-			// 
-			resources.ApplyResources(this.ooMale, "ooMale");
-			this.ooMale.Name = "ooMale";
-			// 
 			// hideMoz
 			// 
 			resources.ApplyResources(this.hideMoz, "hideMoz");
@@ -1205,62 +1225,14 @@ namespace Patchwork
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
-			// onTop
+			// groupBox9
 			// 
-			resources.ApplyResources(this.onTop, "onTop");
-			this.onTop.Name = "onTop";
-			this.onTop.UseVisualStyleBackColor = true;
-			// 
-			// cacheSprites
-			// 
-			resources.ApplyResources(this.cacheSprites, "cacheSprites");
-			this.cacheSprites.Name = "cacheSprites";
-			this.cacheSprites.UseVisualStyleBackColor = true;
-			// 
-			// label40
-			// 
-			resources.ApplyResources(this.label40, "label40");
-			this.label40.Name = "label40";
-			// 
-			// label39
-			// 
-			resources.ApplyResources(this.label39, "label39");
-			this.label39.Name = "label39";
-			// 
-			// physRate
-			// 
-			resources.ApplyResources(this.physRate, "physRate");
-			this.physRate.Name = "physRate";
-			// 
-			// label38
-			// 
-			resources.ApplyResources(this.label38, "label38");
-			this.label38.Name = "label38";
-			// 
-			// label37
-			// 
-			resources.ApplyResources(this.label37, "label37");
-			this.label37.Name = "label37";
-			// 
-			// label36
-			// 
-			resources.ApplyResources(this.label36, "label36");
-			this.label36.Name = "label36";
-			// 
-			// physDivisor
-			// 
-			resources.ApplyResources(this.physDivisor, "physDivisor");
-			this.physDivisor.Name = "physDivisor";
-			// 
-			// physReflectSpeed
-			// 
-			resources.ApplyResources(this.physReflectSpeed, "physReflectSpeed");
-			this.physReflectSpeed.Name = "physReflectSpeed";
-			// 
-			// physLoopCount
-			// 
-			resources.ApplyResources(this.physLoopCount, "physLoopCount");
-			this.physLoopCount.Name = "physLoopCount";
+			this.groupBox9.Controls.Add(this.useBOM);
+			this.groupBox9.Controls.Add(this.fetchAssets);
+			this.groupBox9.Controls.Add(this.dumpAssets);
+			resources.ApplyResources(this.groupBox9, "groupBox9");
+			this.groupBox9.Name = "groupBox9";
+			this.groupBox9.TabStop = false;
 			// 
 			// useBOM
 			// 
@@ -1268,11 +1240,11 @@ namespace Patchwork
 			this.useBOM.Name = "useBOM";
 			this.useBOM.UseVisualStyleBackColor = true;
 			// 
-			// dontshow
+			// fetchAssets
 			// 
-			resources.ApplyResources(this.dontshow, "dontshow");
-			this.dontshow.Name = "dontshow";
-			this.dontshow.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.fetchAssets, "fetchAssets");
+			this.fetchAssets.Name = "fetchAssets";
+			this.fetchAssets.UseVisualStyleBackColor = true;
 			// 
 			// dumpAssets
 			// 
@@ -1280,71 +1252,13 @@ namespace Patchwork
 			this.dumpAssets.Name = "dumpAssets";
 			this.dumpAssets.UseVisualStyleBackColor = true;
 			// 
-			// fetchAssets
+			// groupBox8
 			// 
-			resources.ApplyResources(this.fetchAssets, "fetchAssets");
-			this.fetchAssets.Name = "fetchAssets";
-			this.fetchAssets.UseVisualStyleBackColor = true;
-			// 
-			// label31
-			// 
-			resources.ApplyResources(this.label31, "label31");
-			this.label31.Name = "label31";
-			// 
-			// label30
-			// 
-			resources.ApplyResources(this.label30, "label30");
-			this.label30.Name = "label30";
-			// 
-			// label29
-			// 
-			resources.ApplyResources(this.label29, "label29");
-			this.label29.Name = "label29";
-			// 
-			// label28
-			// 
-			resources.ApplyResources(this.label28, "label28");
-			this.label28.Name = "label28";
-			// 
-			// label27
-			// 
-			resources.ApplyResources(this.label27, "label27");
-			this.label27.Name = "label27";
-			// 
-			// label26
-			// 
-			resources.ApplyResources(this.label26, "label26");
-			this.label26.Name = "label26";
-			// 
-			// eyeLowPoly
-			// 
-			resources.ApplyResources(this.eyeLowPoly, "eyeLowPoly");
-			this.eyeLowPoly.Name = "eyeLowPoly";
-			// 
-			// eyeHiPoly
-			// 
-			resources.ApplyResources(this.eyeHiPoly, "eyeHiPoly");
-			this.eyeHiPoly.Name = "eyeHiPoly";
-			// 
-			// faceLowPoly
-			// 
-			resources.ApplyResources(this.faceLowPoly, "faceLowPoly");
-			this.faceLowPoly.Name = "faceLowPoly";
-			// 
-			// faceHiPoly
-			// 
-			resources.ApplyResources(this.faceHiPoly, "faceHiPoly");
-			this.faceHiPoly.Name = "faceHiPoly";
-			// 
-			// bodyLowPoly
-			// 
-			resources.ApplyResources(this.bodyLowPoly, "bodyLowPoly");
-			this.bodyLowPoly.Name = "bodyLowPoly";
-			// 
-			// bodyHiPoly
-			// 
-			resources.ApplyResources(this.bodyHiPoly, "bodyHiPoly");
-			this.bodyHiPoly.Name = "bodyHiPoly";
+			this.groupBox8.Controls.Add(this.enableTrace);
+			this.groupBox8.Controls.Add(this.enableSpam);
+			resources.ApplyResources(this.groupBox8, "groupBox8");
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.TabStop = false;
 			// 
 			// enableTrace
 			// 
@@ -1358,40 +1272,15 @@ namespace Patchwork
 			this.enableSpam.Name = "enableSpam";
 			this.enableSpam.UseVisualStyleBackColor = true;
 			// 
-			// whitePower
+			// groupBox7
 			// 
-			resources.ApplyResources(this.whitePower, "whitePower");
-			this.whitePower.Name = "whitePower";
-			this.whitePower.UseVisualStyleBackColor = true;
-			// 
-			// assetCache
-			// 
-			resources.ApplyResources(this.assetCache, "assetCache");
-			this.assetCache.Name = "assetCache";
-			this.assetCache.UseVisualStyleBackColor = true;
-			// 
-			// tabPage6
-			// 
-			this.tabPage6.Controls.Add(this.replInput);
-			this.tabPage6.Controls.Add(this.replOutput);
-			resources.ApplyResources(this.tabPage6, "tabPage6");
-			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.UseVisualStyleBackColor = true;
-			// 
-			// replOutput
-			// 
-			resources.ApplyResources(this.replOutput, "replOutput");
-			this.replOutput.DetectUrls = false;
-			this.replOutput.HideSelection = false;
-			this.replOutput.Name = "replOutput";
-			this.replOutput.ReadOnly = true;
-			this.replOutput.TabStop = false;
-			// 
-			// lazyAssetGC
-			// 
-			resources.ApplyResources(this.lazyAssetGC, "lazyAssetGC");
-			this.lazyAssetGC.Name = "lazyAssetGC";
-			this.lazyAssetGC.UseVisualStyleBackColor = true;
+			this.groupBox7.Controls.Add(this.lazyGC);
+			this.groupBox7.Controls.Add(this.assetCache);
+			this.groupBox7.Controls.Add(this.cacheSprites);
+			this.groupBox7.Controls.Add(this.lazyAssetGC);
+			resources.ApplyResources(this.groupBox7, "groupBox7");
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.TabStop = false;
 			// 
 			// lazyGC
 			// 
@@ -1399,20 +1288,83 @@ namespace Patchwork
 			this.lazyGC.Name = "lazyGC";
 			this.lazyGC.UseVisualStyleBackColor = true;
 			// 
-			// hiPoly
+			// assetCache
 			// 
-			resources.ApplyResources(this.hiPoly, "hiPoly");
-			this.hiPoly.Name = "hiPoly";
-			this.hiPoly.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.assetCache, "assetCache");
+			this.assetCache.Name = "assetCache";
+			this.assetCache.UseVisualStyleBackColor = true;
 			// 
-			// groupBox4
+			// cacheSprites
 			// 
-			this.groupBox4.Controls.Add(this.whitePower);
-			this.groupBox4.Controls.Add(this.dontshow);
-			this.groupBox4.Controls.Add(this.onTop);
-			resources.ApplyResources(this.groupBox4, "groupBox4");
-			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.TabStop = false;
+			resources.ApplyResources(this.cacheSprites, "cacheSprites");
+			this.cacheSprites.Name = "cacheSprites";
+			this.cacheSprites.UseVisualStyleBackColor = true;
+			// 
+			// lazyAssetGC
+			// 
+			resources.ApplyResources(this.lazyAssetGC, "lazyAssetGC");
+			this.lazyAssetGC.Name = "lazyAssetGC";
+			this.lazyAssetGC.UseVisualStyleBackColor = true;
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.physDivisor);
+			this.groupBox6.Controls.Add(this.physLoopCount);
+			this.groupBox6.Controls.Add(this.physReflectSpeed);
+			this.groupBox6.Controls.Add(this.label36);
+			this.groupBox6.Controls.Add(this.label37);
+			this.groupBox6.Controls.Add(this.label38);
+			this.groupBox6.Controls.Add(this.physRate);
+			this.groupBox6.Controls.Add(this.label40);
+			this.groupBox6.Controls.Add(this.label39);
+			resources.ApplyResources(this.groupBox6, "groupBox6");
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.TabStop = false;
+			// 
+			// physDivisor
+			// 
+			resources.ApplyResources(this.physDivisor, "physDivisor");
+			this.physDivisor.Name = "physDivisor";
+			// 
+			// physLoopCount
+			// 
+			resources.ApplyResources(this.physLoopCount, "physLoopCount");
+			this.physLoopCount.Name = "physLoopCount";
+			// 
+			// physReflectSpeed
+			// 
+			resources.ApplyResources(this.physReflectSpeed, "physReflectSpeed");
+			this.physReflectSpeed.Name = "physReflectSpeed";
+			// 
+			// label36
+			// 
+			resources.ApplyResources(this.label36, "label36");
+			this.label36.Name = "label36";
+			// 
+			// label37
+			// 
+			resources.ApplyResources(this.label37, "label37");
+			this.label37.Name = "label37";
+			// 
+			// label38
+			// 
+			resources.ApplyResources(this.label38, "label38");
+			this.label38.Name = "label38";
+			// 
+			// physRate
+			// 
+			resources.ApplyResources(this.physRate, "physRate");
+			this.physRate.Name = "physRate";
+			// 
+			// label40
+			// 
+			resources.ApplyResources(this.label40, "label40");
+			this.label40.Name = "label40";
+			// 
+			// label39
+			// 
+			resources.ApplyResources(this.label39, "label39");
+			this.label39.Name = "label39";
 			// 
 			// groupBox5
 			// 
@@ -1432,62 +1384,143 @@ namespace Patchwork
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.TabStop = false;
 			// 
-			// groupBox6
+			// bodyHiPoly
 			// 
-			this.groupBox6.Controls.Add(this.physDivisor);
-			this.groupBox6.Controls.Add(this.physLoopCount);
-			this.groupBox6.Controls.Add(this.physReflectSpeed);
-			this.groupBox6.Controls.Add(this.label36);
-			this.groupBox6.Controls.Add(this.label37);
-			this.groupBox6.Controls.Add(this.label38);
-			this.groupBox6.Controls.Add(this.physRate);
-			this.groupBox6.Controls.Add(this.label40);
-			this.groupBox6.Controls.Add(this.label39);
-			resources.ApplyResources(this.groupBox6, "groupBox6");
-			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.TabStop = false;
+			resources.ApplyResources(this.bodyHiPoly, "bodyHiPoly");
+			this.bodyHiPoly.Name = "bodyHiPoly";
 			// 
-			// groupBox7
+			// bodyLowPoly
 			// 
-			this.groupBox7.Controls.Add(this.lazyGC);
-			this.groupBox7.Controls.Add(this.assetCache);
-			this.groupBox7.Controls.Add(this.cacheSprites);
-			this.groupBox7.Controls.Add(this.hiPoly);
-			this.groupBox7.Controls.Add(this.lazyAssetGC);
-			resources.ApplyResources(this.groupBox7, "groupBox7");
-			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.TabStop = false;
+			resources.ApplyResources(this.bodyLowPoly, "bodyLowPoly");
+			this.bodyLowPoly.Name = "bodyLowPoly";
 			// 
-			// groupBox8
+			// faceHiPoly
 			// 
-			this.groupBox8.Controls.Add(this.enableTrace);
-			this.groupBox8.Controls.Add(this.enableSpam);
-			resources.ApplyResources(this.groupBox8, "groupBox8");
-			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.TabStop = false;
+			resources.ApplyResources(this.faceHiPoly, "faceHiPoly");
+			this.faceHiPoly.Name = "faceHiPoly";
 			// 
-			// groupBox9
+			// faceLowPoly
 			// 
-			this.groupBox9.Controls.Add(this.useBOM);
-			this.groupBox9.Controls.Add(this.fetchAssets);
-			this.groupBox9.Controls.Add(this.dumpAssets);
-			resources.ApplyResources(this.groupBox9, "groupBox9");
-			this.groupBox9.Name = "groupBox9";
-			this.groupBox9.TabStop = false;
+			resources.ApplyResources(this.faceLowPoly, "faceLowPoly");
+			this.faceLowPoly.Name = "faceLowPoly";
 			// 
-			// groupBox10
+			// eyeHiPoly
 			// 
-			this.groupBox10.Controls.Add(this.ooMale);
-			this.groupBox10.Controls.Add(this.label42);
-			this.groupBox10.Controls.Add(this.ooFemale);
-			this.groupBox10.Controls.Add(this.label41);
-			this.groupBox10.Controls.Add(this.label44);
-			this.groupBox10.Controls.Add(this.mmMale);
-			this.groupBox10.Controls.Add(this.label43);
-			this.groupBox10.Controls.Add(this.mmFemale);
-			resources.ApplyResources(this.groupBox10, "groupBox10");
-			this.groupBox10.Name = "groupBox10";
-			this.groupBox10.TabStop = false;
+			resources.ApplyResources(this.eyeHiPoly, "eyeHiPoly");
+			this.eyeHiPoly.Name = "eyeHiPoly";
+			// 
+			// eyeLowPoly
+			// 
+			resources.ApplyResources(this.eyeLowPoly, "eyeLowPoly");
+			this.eyeLowPoly.Name = "eyeLowPoly";
+			// 
+			// label26
+			// 
+			resources.ApplyResources(this.label26, "label26");
+			this.label26.Name = "label26";
+			// 
+			// label27
+			// 
+			resources.ApplyResources(this.label27, "label27");
+			this.label27.Name = "label27";
+			// 
+			// label28
+			// 
+			resources.ApplyResources(this.label28, "label28");
+			this.label28.Name = "label28";
+			// 
+			// label29
+			// 
+			resources.ApplyResources(this.label29, "label29");
+			this.label29.Name = "label29";
+			// 
+			// label30
+			// 
+			resources.ApplyResources(this.label30, "label30");
+			this.label30.Name = "label30";
+			// 
+			// label31
+			// 
+			resources.ApplyResources(this.label31, "label31");
+			this.label31.Name = "label31";
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.whitePower);
+			this.groupBox4.Controls.Add(this.dontshow);
+			this.groupBox4.Controls.Add(this.onTop);
+			resources.ApplyResources(this.groupBox4, "groupBox4");
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.TabStop = false;
+			// 
+			// whitePower
+			// 
+			resources.ApplyResources(this.whitePower, "whitePower");
+			this.whitePower.Name = "whitePower";
+			this.whitePower.UseVisualStyleBackColor = true;
+			// 
+			// dontshow
+			// 
+			resources.ApplyResources(this.dontshow, "dontshow");
+			this.dontshow.Name = "dontshow";
+			this.dontshow.UseVisualStyleBackColor = true;
+			// 
+			// onTop
+			// 
+			resources.ApplyResources(this.onTop, "onTop");
+			this.onTop.Name = "onTop";
+			this.onTop.UseVisualStyleBackColor = true;
+			// 
+			// tabPage6
+			// 
+			this.tabPage6.Controls.Add(this.replInput);
+			this.tabPage6.Controls.Add(this.replOutput);
+			resources.ApplyResources(this.tabPage6, "tabPage6");
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// replOutput
+			// 
+			resources.ApplyResources(this.replOutput, "replOutput");
+			this.replOutput.DetectUrls = false;
+			this.replOutput.HideSelection = false;
+			this.replOutput.Name = "replOutput";
+			this.replOutput.ReadOnly = true;
+			this.replOutput.TabStop = false;
+			// 
+			// groupBox11
+			// 
+			this.groupBox11.Controls.Add(this.spectateH);
+			this.groupBox11.Controls.Add(this.spectateADV);
+			this.groupBox11.Controls.Add(this.lowPolyADV);
+			this.groupBox11.Controls.Add(this.hiPoly);
+			resources.ApplyResources(this.groupBox11, "groupBox11");
+			this.groupBox11.Name = "groupBox11";
+			this.groupBox11.TabStop = false;
+			// 
+			// hiPoly
+			// 
+			resources.ApplyResources(this.hiPoly, "hiPoly");
+			this.hiPoly.Name = "hiPoly";
+			this.hiPoly.UseVisualStyleBackColor = true;
+			// 
+			// lowPolyADV
+			// 
+			resources.ApplyResources(this.lowPolyADV, "lowPolyADV");
+			this.lowPolyADV.Name = "lowPolyADV";
+			this.lowPolyADV.UseVisualStyleBackColor = true;
+			// 
+			// spectateADV
+			// 
+			resources.ApplyResources(this.spectateADV, "spectateADV");
+			this.spectateADV.Name = "spectateADV";
+			this.spectateADV.UseVisualStyleBackColor = true;
+			// 
+			// spectateH
+			// 
+			resources.ApplyResources(this.spectateH, "spectateH");
+			this.spectateH.Name = "spectateH";
+			this.spectateH.UseVisualStyleBackColor = true;
 			// 
 			// replInput
 			// 
@@ -1525,24 +1558,26 @@ namespace Patchwork
 			this.enabler_tumblr.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			this.groupBox10.ResumeLayout(false);
+			this.groupBox10.PerformLayout();
 			this.enabler_noscopeClipMask.ResumeLayout(false);
 			this.enabler_noscopeClipMask.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
-			this.tabPage6.ResumeLayout(false);
-			this.groupBox4.ResumeLayout(false);
-			this.groupBox4.PerformLayout();
-			this.groupBox5.ResumeLayout(false);
-			this.groupBox5.PerformLayout();
-			this.groupBox6.ResumeLayout(false);
-			this.groupBox6.PerformLayout();
-			this.groupBox7.ResumeLayout(false);
-			this.groupBox7.PerformLayout();
-			this.groupBox8.ResumeLayout(false);
-			this.groupBox8.PerformLayout();
 			this.groupBox9.ResumeLayout(false);
 			this.groupBox9.PerformLayout();
-			this.groupBox10.ResumeLayout(false);
-			this.groupBox10.PerformLayout();
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
+			this.tabPage6.ResumeLayout(false);
+			this.groupBox11.ResumeLayout(false);
+			this.groupBox11.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1725,12 +1760,16 @@ namespace Patchwork
 		private System.Windows.Forms.GroupBox groupBox8;
 		private System.Windows.Forms.GroupBox groupBox7;
 		private System.Windows.Forms.CheckBox lazyGC;
-		private System.Windows.Forms.CheckBox hiPoly;
 		private System.Windows.Forms.CheckBox lazyAssetGC;
 		private System.Windows.Forms.GroupBox groupBox6;
 		private System.Windows.Forms.GroupBox groupBox5;
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.GroupBox groupBox10;
+		private System.Windows.Forms.GroupBox groupBox11;
+		private System.Windows.Forms.CheckBox spectateH;
+		private System.Windows.Forms.CheckBox spectateADV;
+		private System.Windows.Forms.CheckBox lowPolyADV;
+		private System.Windows.Forms.CheckBox hiPoly;
 	}
 }
 

@@ -2598,6 +2598,159 @@
   <data name="&gt;&gt;tabPage4.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="spectateH.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="spectateH.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="spectateH.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 83</value>
+  </data>
+  <data name="spectateH.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="spectateH.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 17</value>
+  </data>
+  <data name="spectateH.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="spectateH.Text" xml:space="preserve">
+    <value>Keep NPCs in H</value>
+  </data>
+  <data name="&gt;&gt;spectateH.Name" xml:space="preserve">
+    <value>spectateH</value>
+  </data>
+  <data name="&gt;&gt;spectateH.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;spectateH.Parent" xml:space="preserve">
+    <value>groupBox11</value>
+  </data>
+  <data name="&gt;&gt;spectateH.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="spectateADV.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="spectateADV.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="spectateADV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 62</value>
+  </data>
+  <data name="spectateADV.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="spectateADV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 17</value>
+  </data>
+  <data name="spectateADV.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="spectateADV.Text" xml:space="preserve">
+    <value>Keep NPCs in talk scenes and events</value>
+  </data>
+  <data name="&gt;&gt;spectateADV.Name" xml:space="preserve">
+    <value>spectateADV</value>
+  </data>
+  <data name="&gt;&gt;spectateADV.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;spectateADV.Parent" xml:space="preserve">
+    <value>groupBox11</value>
+  </data>
+  <data name="&gt;&gt;spectateADV.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lowPolyADV.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lowPolyADV.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lowPolyADV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 40</value>
+  </data>
+  <data name="lowPolyADV.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="lowPolyADV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 17</value>
+  </data>
+  <data name="lowPolyADV.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="lowPolyADV.Text" xml:space="preserve">
+    <value>LowPoly talk scenes</value>
+  </data>
+  <data name="&gt;&gt;lowPolyADV.Name" xml:space="preserve">
+    <value>lowPolyADV</value>
+  </data>
+  <data name="&gt;&gt;lowPolyADV.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lowPolyADV.Parent" xml:space="preserve">
+    <value>groupBox11</value>
+  </data>
+  <data name="&gt;&gt;lowPolyADV.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="hiPoly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="hiPoly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 19</value>
+  </data>
+  <data name="hiPoly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="hiPoly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 17</value>
+  </data>
+  <data name="hiPoly.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="hiPoly.Text" xml:space="preserve">
+    <value>HiPoly overworld (shows mods; RAM hog)</value>
+  </data>
+  <data name="&gt;&gt;hiPoly.Name" xml:space="preserve">
+    <value>hiPoly</value>
+  </data>
+  <data name="&gt;&gt;hiPoly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hiPoly.Parent" xml:space="preserve">
+    <value>groupBox11</value>
+  </data>
+  <data name="&gt;&gt;hiPoly.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="groupBox11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>199, 122</value>
+  </data>
+  <data name="groupBox11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 128</value>
+  </data>
+  <data name="groupBox11.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="groupBox11.Text" xml:space="preserve">
+    <value>Character rendering</value>
+  </data>
+  <data name="&gt;&gt;groupBox11.Name" xml:space="preserve">
+    <value>groupBox11</value>
+  </data>
+  <data name="&gt;&gt;groupBox11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox11.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;groupBox11.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="bothFreeH.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2764,7 +2917,7 @@
     <value>4</value>
   </data>
   <data name="enabler_tumblr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 144</value>
+    <value>11, 122</value>
   </data>
   <data name="enabler_tumblr.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 128</value>
@@ -2782,7 +2935,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;enabler_tumblr.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="geass.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2815,7 +2968,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;geass.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="noBustNorm.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2848,7 +3001,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;noBustNorm.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label48.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2857,7 +3010,7 @@
     <value>NoControl</value>
   </data>
   <data name="label48.Location" type="System.Drawing.Point, System.Drawing">
-    <value>453, 74</value>
+    <value>470, 69</value>
   </data>
   <data name="label48.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 65</value>
@@ -2882,7 +3035,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label47.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2912,7 +3065,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label47.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="cardFmt.Location" type="System.Drawing.Point, System.Drawing">
     <value>456, 37</value>
@@ -2936,7 +3089,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;cardFmt.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="noFade.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2969,7 +3122,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;noFade.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="skipLogo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3002,7 +3155,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;skipLogo.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="label35.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3032,7 +3185,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label35.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="chardb.Location" type="System.Drawing.Point, System.Drawing">
     <value>456, 11</value>
@@ -3053,7 +3206,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;chardb.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="tumblr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3086,7 +3239,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tumblr.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="useLR.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3119,7 +3272,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;useLR.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="sliderMax.Location" type="System.Drawing.Point, System.Drawing">
     <value>586, 312</value>
@@ -3143,7 +3296,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;sliderMax.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="label33.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3173,7 +3326,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="label32.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3203,7 +3356,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label32.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="sliderMin.Location" type="System.Drawing.Point, System.Drawing">
     <value>586, 289</value>
@@ -3227,7 +3380,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;sliderMin.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="equality.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3260,7 +3413,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;equality.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="bgmAsync.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3293,7 +3446,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bgmAsync.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="watchFolder.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3326,7 +3479,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;watchFolder.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="unlockH.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3359,7 +3512,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;unlockH.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -4481,7 +4634,7 @@
     <value>NoControl</value>
   </data>
   <data name="lazyGC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 67</value>
+    <value>5, 41</value>
   </data>
   <data name="lazyGC.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4514,7 +4667,7 @@
     <value>NoControl</value>
   </data>
   <data name="assetCache.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 115</value>
+    <value>5, 89</value>
   </data>
   <data name="assetCache.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4547,7 +4700,7 @@
     <value>NoControl</value>
   </data>
   <data name="cacheSprites.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 89</value>
+    <value>5, 63</value>
   </data>
   <data name="cacheSprites.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4573,39 +4726,6 @@
   <data name="&gt;&gt;cacheSprites.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="hiPoly.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="hiPoly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="hiPoly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 19</value>
-  </data>
-  <data name="hiPoly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="hiPoly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 17</value>
-  </data>
-  <data name="hiPoly.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="hiPoly.Text" xml:space="preserve">
-    <value>hiPoly overworld</value>
-  </data>
-  <data name="&gt;&gt;hiPoly.Name" xml:space="preserve">
-    <value>hiPoly</value>
-  </data>
-  <data name="&gt;&gt;hiPoly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;hiPoly.Parent" xml:space="preserve">
-    <value>groupBox7</value>
-  </data>
-  <data name="&gt;&gt;hiPoly.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="lazyAssetGC.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -4613,7 +4733,7 @@
     <value>NoControl</value>
   </data>
   <data name="lazyAssetGC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 42</value>
+    <value>5, 16</value>
   </data>
   <data name="lazyAssetGC.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4637,13 +4757,13 @@
     <value>groupBox7</value>
   </data>
   <data name="&gt;&gt;lazyAssetGC.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="groupBox7.Location" type="System.Drawing.Point, System.Drawing">
     <value>232, 17</value>
   </data>
   <data name="groupBox7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 145</value>
+    <value>125, 110</value>
   </data>
   <data name="groupBox7.TabIndex" type="System.Int32, mscorlib">
     <value>57</value>
@@ -5471,7 +5591,7 @@
     <value>replInput</value>
   </data>
   <data name="&gt;&gt;replInput.Type" xml:space="preserve">
-    <value>EditLine, Assembly-CSharp, Version=8.5.6737.38588, Culture=neutral, PublicKeyToken=null</value>
+    <value>EditLine, Assembly-CSharp, Version=8.7.6738.42048, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;replInput.Parent" xml:space="preserve">
     <value>tabPage6</value>
@@ -5574,6 +5694,9 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>655, 385</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>

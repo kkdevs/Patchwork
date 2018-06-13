@@ -65,8 +65,6 @@
     <Compile Include="uihide.cs" />
     <Compile Include="unzip.cs" />
     <Compile Include="uppervolta\freelook_during_talk.cs" />
-    <Compile Include="uppervolta\h_spectators.cs" />
-    <Compile Include="uppervolta\nude_overworld.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Patchwork\Patchwork.csproj">

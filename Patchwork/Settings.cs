@@ -23,8 +23,11 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool spectateADV = true;
+		public bool spectateH = true;
 		public bool lazyAssetGC = true;
 		public bool lazyGC = true;
+		public bool lowPolyADV = true;
 		public bool hiPoly = false;
 		public bool noscopeHead = false;
 		public bool noscopeClipMask = false;
