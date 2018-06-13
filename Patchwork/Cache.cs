@@ -403,7 +403,10 @@ public partial class GlobalMethod
 		}
 		var res = _LoadAllListText(_assetbundleFolder, _strLoadFile, _OmitFolderName);
 		if (res == "" || res == null || !Patchwork.Program.settings.dumpAssets || File.Exists(Cache.ABPath(_assetbundleFolder, _strLoadFile, "csv")))
+		{
+			Debug.Log($"[CACHE] LoadAllListText - empty result for {_assetbundleFolder}/{_strLoadFile}");
 			return res;
+		}
 		Debug.Log($"[CACHE] Saving multi-LST {_assetbundleFolder}/{_strLoadFile}");
 		var ex = ScriptableObject.CreateInstance<ExcelData>();
 		ex.Import(CSV.ParseTSV(res));

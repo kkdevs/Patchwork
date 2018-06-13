@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Diagnostics;
 
 
-public class Reloader : Script.AutoRun
+public class Reloader : MonoBehaviour
 {
 	int ticks;
 	bool stop;
@@ -72,7 +72,7 @@ public partial class ScriptEnv : Script
 		Object.DontDestroyOnLoad(G);
 		var nadd = 0;
 		foreach (var t in Assembly.GetExecutingAssembly().GetTypes()) {
-			if (t.BaseType == typeof(AutoRun))
+			if (t.BaseType == typeof(MonoBehaviour))
 			{
 				G.AddComponent(t);
 				nadd++;

@@ -74,7 +74,7 @@ public class MonoScript : Evaluator
 	public bool IsBadLib(string name)
 	{
 		//tw.WriteLine("Importing " + name);
-		return name == "Assembly-CSharp-firstpass" || name == "mscorlib" || name == "System.Core" || name == "System" || name == "System.Xml";
+		return /*name == "Assembly-CSharp-firstpass" || */name == "mscorlib" || name == "System.Core" || name == "System" || name == "System.Xml";
 	}
 
 	public AssemblyBuilder LoadScripts(IEnumerable<string> scripts)

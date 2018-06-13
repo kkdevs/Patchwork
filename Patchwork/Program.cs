@@ -82,6 +82,7 @@ namespace Patchwork
 		}
 
 		public static bool launched = false;
+		public static bool exiting = false;
 		public static bool earlydone = false;
 
 		public static void ConfigDialog()
@@ -121,12 +122,6 @@ namespace Patchwork
 				Process.Start(exename);
 				Environment.Exit(0);
 			};
-			form.FormClosing += (o, e) =>
-			{
-				//if (e.CloseReason == CloseReason.ApplicationExitCall)
-				if (launched)
-					e.Cancel = true;
-			};
 			if (form.ShowDialog() == DialogResult.OK)
 				launched = true;
 			SaveConfig();
@@ -135,6 +130,12 @@ namespace Patchwork
 			form.launchButton.Enabled = false;
 			form.runChara.Enabled = false;
 			form.Show();
+			form.FormClosing += (o, e) =>
+			{
+				//if (e.CloseReason == CloseReason.ApplicationExitCall)
+				if (!exiting)
+					e.Cancel = true;
+			};
 		}
 		public static string exename;
 		public static bool initConfig;
@@ -229,6 +230,7 @@ namespace Patchwork
 			try
 			{
 				launched = false;
+				exiting = true;
 				Program.form.Close();
 			}
 			catch { };
@@ -357,7 +359,7 @@ namespace Patchwork
 
 		public static void GC(string who, bool asset, bool heap, object o)
 		{
-			if (!Singleton<Character>.Instance.enableCharaLoadGCClear)
+			if (Singleton<Character>.Instance != null && !Singleton<Character>.Instance.enableCharaLoadGCClear)
 				return;
 			Trace.Spam("[GC] Requested by " + who);
 			if (asset && !settings.lazyAssetGC) {

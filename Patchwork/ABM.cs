@@ -150,9 +150,9 @@ public class LoadedAssetBundle
 		typeof(FaceBlendShape),
 		typeof(Animator),
 		typeof(DynamicBone),
-		typeof(ChaAccessoryComponent),
-		typeof(ChaClothesComponent),
-		typeof(ChaCustomHairComponent),
+		//typeof(ChaAccessoryComponent),
+		//typeof(ChaClothesComponent),
+		//typeof(ChaCustomHairComponent),
 		typeof(EyeLookController),
 		typeof(Rigidbody),
 	};
