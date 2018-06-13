@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using System.Linq;
 
-public class unzip : Script.AutoRun
+public class unzip : MonoBehaviour
 {
 	static byte []entry2bytes(ZipFile zf, ZipEntry entry)
 	{

@@ -53,6 +53,9 @@ public class MonoScript : Evaluator
 
 	public void ImportAssemblies(Action<Assembly> into)
 	{
+		/*foreach (var aa in AppDomain.CurrentDomain.GetAssemblies())
+			if (aa.GetName().Name == "Assembly-CSharp-firstpass")
+				into(aa);*/
 		foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
 		{
 			// Don't import our past versions, it would end in tears.

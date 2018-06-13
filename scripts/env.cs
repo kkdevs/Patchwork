@@ -79,7 +79,7 @@ public partial class ScriptEnv : Script
 			}
 			else
 			// A dynamic component.
-			if (typeof(Component).IsAssignableFrom(t) && t.BaseType.Assembly.GetName().Name == "Assembly-CSharp")
+			if (typeof(Component).IsAssignableFrom(t) && t.BaseType.Assembly.GetName().Name == "Assembly-CSharp" && t.BaseType.Name != "AutoRun")
 			{
 				System.Type ot = null;
 				try

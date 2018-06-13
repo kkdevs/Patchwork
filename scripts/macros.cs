@@ -15,6 +15,7 @@ public partial class ScriptEnv
 	//public static GameObject male => GameObject.Find("chaM_001");
 	public static GameObject male => SceneManager.GetSceneAt(0).GetRootGameObjects()[0].transform.FindLoop("chaM_001");
 	public static ChaControl control => Object.FindObjectOfType(typeof(ChaControl)) as ChaControl;
+	public static Manager.Scene scene = Singleton<Manager.Scene>.Instance;
 
 	public static void SetDankon(ChaControl cha)
 	{
