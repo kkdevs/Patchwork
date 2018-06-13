@@ -1,0 +1,1 @@
+to enable, copy script to parent folder of this one
