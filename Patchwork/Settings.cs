@@ -95,6 +95,7 @@ namespace Patchwork
 
 		public bool bgmAsync = true;
 		public bool assetCache = true;
+		public bool compCache = true;
 		public bool assetAsync = true;
 		public bool tumblr = true;
 		public bool watchFolder = true;

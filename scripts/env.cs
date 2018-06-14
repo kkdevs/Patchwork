@@ -17,12 +17,15 @@ public class Reloader : MonoBehaviour
 			tss[src] = File.GetLastWriteTime(src);
 		Application.logMessageReceived += forward;
 	}
+	public static List<string> logFilter = new List<string>();
 	void forward(string logString, string stackTrace, LogType type)
 	{
 		if (logString.Contains("AssetBundle with the same files is already loaded."))
 			return;
-		var frames = (new StackTrace()).GetFrames();
 		string caller = $"{type.ToString()}";
+		if (logFilter.Contains(caller))
+			return;
+		var frames = (new StackTrace()).GetFrames();
 		for (int i = 0; i < frames.Length; i++)
 		{
 			if (frames[i].GetMethod().Name == "print")

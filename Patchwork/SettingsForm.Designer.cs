@@ -216,6 +216,7 @@ namespace Patchwork
 			this.spectateADV = new System.Windows.Forms.CheckBox();
 			this.spectateH = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
+			this.compCache = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1274,6 +1275,7 @@ namespace Patchwork
 			// 
 			// groupBox7
 			// 
+			this.groupBox7.Controls.Add(this.compCache);
 			this.groupBox7.Controls.Add(this.lazyGC);
 			this.groupBox7.Controls.Add(this.assetCache);
 			this.groupBox7.Controls.Add(this.cacheSprites);
@@ -1529,6 +1531,13 @@ namespace Patchwork
 			this.replInput.Name = "replInput";
 			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
 			// 
+			// compCache
+			// 
+			resources.ApplyResources(this.compCache, "compCache");
+			this.compCache.Name = "compCache";
+			this.compCache.UseVisualStyleBackColor = true;
+			this.compCache.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+			// 
 			// SettingsForm
 			// 
 			resources.ApplyResources(this, "$this");
@@ -1770,6 +1779,7 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox spectateADV;
 		private System.Windows.Forms.CheckBox lowPolyADV;
 		private System.Windows.Forms.CheckBox hiPoly;
+		private System.Windows.Forms.CheckBox compCache;
 	}
 }
 

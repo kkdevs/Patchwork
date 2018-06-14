@@ -157,6 +157,13 @@ public class LoadedAssetBundle
 		typeof(Rigidbody),
 	};
 
+	static HashSet<Type> cacheables2 = new HashSet<Type>()
+	{
+		typeof(ChaAccessoryComponent),
+		typeof(ChaClothesComponent),
+		typeof(ChaCustomHairComponent),
+	};
+
 	public static bool IsCacheable(UnityEngine.Object obj)
 	{
 		if (!caching)
@@ -175,7 +182,7 @@ public class LoadedAssetBundle
 		if (go != null)
 		{
 			foreach (var comp in go.GetComponents<Component>())
-				if (cacheables.Contains(comp.GetType()))
+				if (cacheables.Contains(comp.GetType()) || (Program.settings.compCache && cacheables2.Contains(comp.GetType())))
 					return true;
 		}
 		return false;
