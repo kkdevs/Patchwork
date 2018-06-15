@@ -83,7 +83,7 @@ namespace Patchwork
 
 		// Second tab
 		public bool hideMoz = true;
-		public bool fixPenis = false;
+		public bool fixPenis = true;
 		public bool fixVagina = false;
 
 		public bool bothMC = false;

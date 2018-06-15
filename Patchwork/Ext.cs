@@ -9,6 +9,12 @@ namespace Patchwork
 {
 	public static class Ext
 	{
+		public static void LWrite(this BinaryWriter bw, byte[] buf)
+		{
+			buf = buf ?? new byte[0];
+			bw.Write(buf.Length);
+			bw.Write(buf);
+		}
 		public static string StripBOM(this string str)
 		{
 			if (str[0] == '\uFEFF')
