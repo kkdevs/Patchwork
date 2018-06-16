@@ -170,6 +170,8 @@ public class LoadedAssetBundle
 			return false;
 		if (obj is Transform)
 			return true;
+		if (obj is RuntimeAnimatorController)
+			return true;
 		if ((obj is Texture) || (obj is Texture2D))
 			return true;// Program.settings.lazyAssetGC; // TODO
 		if (obj is Mesh)

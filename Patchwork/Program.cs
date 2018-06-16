@@ -144,6 +144,7 @@ namespace Patchwork
 		{
 			if (initConfig)
 				return;
+			Ext.Init();
 
 			initConfig = true;
 			exename = Environment.GetEnvironmentVariable("PATCHWORK_EXE");

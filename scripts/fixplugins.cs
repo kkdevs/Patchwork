@@ -69,3 +69,9 @@ public class fixplugins : Script.AutoRun
 	}
 }
 
+public class HookFixes : ScriptEnv {
+	public void OnLoadCard()
+	{
+
+	}
+}

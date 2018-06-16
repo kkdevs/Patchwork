@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 
@@ -14,6 +16,34 @@ namespace Patchwork
 			buf = buf ?? new byte[0];
 			bw.Write(buf.Length);
 			bw.Write(buf);
+		}
+
+		public static MethodInfo serialize;
+		public static MethodInfo lz4serialize;
+		public static void Init()
+		{
+			serialize = InitMsgPack(typeof(MessagePackSerializer));
+			lz4serialize = InitMsgPack(typeof(LZ4MessagePackSerializer));
+			Debug.Log(serialize);
+			Debug.Log(lz4serialize);
+		}
+
+		public static MethodInfo InitMsgPack(Type ct)
+		{
+			return ct.GetMethods().First(t => t.Name == "Serialize" && t.GetParameters().Count() == 1);
+		}
+
+
+		public static byte[] SerializeObject(object o, bool lz4)
+		{
+			var ser = lz4 ? lz4serialize : serialize;
+			return ser.MakeGenericMethod(o.GetType()).Invoke(null, new object[] { o }) as byte[];
+		}
+
+		public static byte[] LRead(this BinaryReader br)
+		{
+			int n = br.ReadInt32();
+			return br.ReadBytes(n);
 		}
 		public static string StripBOM(this string str)
 		{

@@ -84,7 +84,7 @@ public partial class ScriptEnv : Script
 			return "null";
 		if (o is Symbol)
 			return (o as Symbol).s;
-		if (o is string)
+		if ((o is string) || (o is System.String))
 			return $"\"{o}\"";
 		if (o is char)
 			return $"'{o}'";

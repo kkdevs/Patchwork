@@ -23,6 +23,7 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public int nAcsSlots = 40;
 		public bool spectateADV = true;
 		public bool spectateH = true;
 		public bool lazyAssetGC = true;
@@ -80,6 +81,7 @@ namespace Patchwork
 		public bool enableTrace = true;
 		public bool enableInfo = true;
 		public bool enableError = true;
+
 
 		// Second tab
 		public bool hideMoz = true;
