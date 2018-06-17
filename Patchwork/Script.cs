@@ -21,15 +21,15 @@ namespace Patchwork
 	[System.AttributeUsage(System.AttributeTargets.Event)]
 	public class ScriptEvent : System.Attribute
 	{
-		public static Dictionary<string, EventInfo> events;
+		public static Dictionary<string, EventInfo> events = new Dictionary<string, EventInfo>();
 		public static void Init()
 		{
-			foreach (var t in Assembly.GetExecutingAssembly().GetExportedTypes())
+			foreach (var t in Assembly.GetExecutingAssembly().GetTypesSafe())
 			{
 				foreach (var ev in t.GetEvents())
 				{
 					var attr = ev.GetCustomAttributes(typeof(ScriptEvent), true);
-					if (attr.Length > 1)
+					if (attr != null && attr.Length > 0)
 						events[ev.Name] = ev;
 				}
 			}

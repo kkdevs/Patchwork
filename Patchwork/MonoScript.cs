@@ -29,7 +29,7 @@ public class MonoScript : Evaluator
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
 		if (pause) return;
-		//tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
+		tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);

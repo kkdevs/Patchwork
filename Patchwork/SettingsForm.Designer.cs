@@ -123,7 +123,6 @@ namespace Patchwork
 			this.bothClass = new System.Windows.Forms.CheckBox();
 			this.bothMC = new System.Windows.Forms.CheckBox();
 			this.geass = new System.Windows.Forms.CheckBox();
-			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.label48 = new System.Windows.Forms.Label();
 			this.label47 = new System.Windows.Forms.Label();
 			this.cardFmt = new System.Windows.Forms.TextBox();
@@ -138,7 +137,6 @@ namespace Patchwork
 			this.label32 = new System.Windows.Forms.Label();
 			this.sliderMin = new System.Windows.Forms.TextBox();
 			this.equality = new System.Windows.Forms.CheckBox();
-			this.bgmAsync = new System.Windows.Forms.CheckBox();
 			this.watchFolder = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -211,13 +209,20 @@ namespace Patchwork
 			this.label30 = new System.Windows.Forms.Label();
 			this.label31 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.noFrillsExit = new System.Windows.Forms.CheckBox();
 			this.whitePower = new System.Windows.Forms.CheckBox();
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.noFrillsExit = new System.Windows.Forms.CheckBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.noBustNorm = new System.Windows.Forms.CheckBox();
+			this.bgmAsync = new System.Windows.Forms.CheckBox();
+			this.groupBox12 = new System.Windows.Forms.GroupBox();
+			this.groupBox13 = new System.Windows.Forms.GroupBox();
+			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.groupBox15 = new System.Windows.Forms.GroupBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -240,6 +245,10 @@ namespace Patchwork
 			this.groupBox5.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.tabPage6.SuspendLayout();
+			this.groupBox12.SuspendLayout();
+			this.groupBox13.SuspendLayout();
+			this.groupBox14.SuspendLayout();
+			this.groupBox15.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -680,8 +689,8 @@ namespace Patchwork
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.Controls.Add(this.enabler_shadowOverride);
 			this.tabPage4.Controls.Add(this.shadowOverride);
+			this.tabPage4.Controls.Add(this.enabler_shadowOverride);
 			this.tabPage4.Controls.Add(this.cam_ppOverride);
 			this.tabPage4.Controls.Add(this.enabler_cam_ppOverride);
 			resources.ApplyResources(this.tabPage4, "tabPage4");
@@ -837,27 +846,12 @@ namespace Patchwork
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.groupBox14);
+			this.tabPage2.Controls.Add(this.groupBox13);
+			this.tabPage2.Controls.Add(this.tumblr);
+			this.tabPage2.Controls.Add(this.groupBox12);
 			this.tabPage2.Controls.Add(this.groupBox11);
 			this.tabPage2.Controls.Add(this.enabler_tumblr);
-			this.tabPage2.Controls.Add(this.geass);
-			this.tabPage2.Controls.Add(this.noBustNorm);
-			this.tabPage2.Controls.Add(this.label48);
-			this.tabPage2.Controls.Add(this.label47);
-			this.tabPage2.Controls.Add(this.cardFmt);
-			this.tabPage2.Controls.Add(this.noFade);
-			this.tabPage2.Controls.Add(this.skipLogo);
-			this.tabPage2.Controls.Add(this.label35);
-			this.tabPage2.Controls.Add(this.chardb);
-			this.tabPage2.Controls.Add(this.tumblr);
-			this.tabPage2.Controls.Add(this.useLR);
-			this.tabPage2.Controls.Add(this.sliderMax);
-			this.tabPage2.Controls.Add(this.label33);
-			this.tabPage2.Controls.Add(this.label32);
-			this.tabPage2.Controls.Add(this.sliderMin);
-			this.tabPage2.Controls.Add(this.equality);
-			this.tabPage2.Controls.Add(this.bgmAsync);
-			this.tabPage2.Controls.Add(this.watchFolder);
-			this.tabPage2.Controls.Add(this.unlockH);
 			resources.ApplyResources(this.tabPage2, "tabPage2");
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -945,12 +939,6 @@ namespace Patchwork
 			this.geass.Name = "geass";
 			this.geass.UseVisualStyleBackColor = true;
 			// 
-			// noBustNorm
-			// 
-			resources.ApplyResources(this.noBustNorm, "noBustNorm");
-			this.noBustNorm.Name = "noBustNorm";
-			this.noBustNorm.UseVisualStyleBackColor = true;
-			// 
 			// label48
 			// 
 			resources.ApplyResources(this.label48, "label48");
@@ -1028,12 +1016,6 @@ namespace Patchwork
 			this.equality.Name = "equality";
 			this.equality.UseVisualStyleBackColor = true;
 			// 
-			// bgmAsync
-			// 
-			resources.ApplyResources(this.bgmAsync, "bgmAsync");
-			this.bgmAsync.Name = "bgmAsync";
-			this.bgmAsync.UseVisualStyleBackColor = true;
-			// 
 			// watchFolder
 			// 
 			resources.ApplyResources(this.watchFolder, "watchFolder");
@@ -1048,13 +1030,10 @@ namespace Patchwork
 			// 
 			// tabPage5
 			// 
-			this.tabPage5.Controls.Add(this.groupBox10);
+			this.tabPage5.Controls.Add(this.groupBox15);
 			this.tabPage5.Controls.Add(this.noscopeClipMask);
+			this.tabPage5.Controls.Add(this.groupBox10);
 			this.tabPage5.Controls.Add(this.enabler_noscopeClipMask);
-			this.tabPage5.Controls.Add(this.noTelescope);
-			this.tabPage5.Controls.Add(this.hideMoz);
-			this.tabPage5.Controls.Add(this.fixPenis);
-			this.tabPage5.Controls.Add(this.fixVagina);
 			resources.ApplyResources(this.tabPage5, "tabPage5");
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -1251,6 +1230,7 @@ namespace Patchwork
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.noBustNorm);
 			this.tabPage3.Controls.Add(this.groupBox9);
 			this.tabPage3.Controls.Add(this.groupBox8);
 			this.tabPage3.Controls.Add(this.groupBox7);
@@ -1310,6 +1290,7 @@ namespace Patchwork
 			// 
 			// groupBox7
 			// 
+			this.groupBox7.Controls.Add(this.bgmAsync);
 			this.groupBox7.Controls.Add(this.compCache);
 			this.groupBox7.Controls.Add(this.lazyGC);
 			this.groupBox7.Controls.Add(this.assetCache);
@@ -1498,6 +1479,12 @@ namespace Patchwork
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.TabStop = false;
 			// 
+			// noFrillsExit
+			// 
+			resources.ApplyResources(this.noFrillsExit, "noFrillsExit");
+			this.noFrillsExit.Name = "noFrillsExit";
+			this.noFrillsExit.UseVisualStyleBackColor = true;
+			// 
 			// whitePower
 			// 
 			resources.ApplyResources(this.whitePower, "whitePower");
@@ -1524,13 +1511,6 @@ namespace Patchwork
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			resources.ApplyResources(this.replInput, "replInput");
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Name = "replInput";
-			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
-			// 
 			// replOutput
 			// 
 			resources.ApplyResources(this.replOutput, "replOutput");
@@ -1540,11 +1520,75 @@ namespace Patchwork
 			this.replOutput.ReadOnly = true;
 			this.replOutput.TabStop = false;
 			// 
-			// noFrillsExit
+			// checkBox1
 			// 
-			resources.ApplyResources(this.noFrillsExit, "noFrillsExit");
-			this.noFrillsExit.Name = "noFrillsExit";
-			this.noFrillsExit.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.checkBox1, "checkBox1");
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// noBustNorm
+			// 
+			resources.ApplyResources(this.noBustNorm, "noBustNorm");
+			this.noBustNorm.Name = "noBustNorm";
+			this.noBustNorm.UseVisualStyleBackColor = true;
+			// 
+			// bgmAsync
+			// 
+			resources.ApplyResources(this.bgmAsync, "bgmAsync");
+			this.bgmAsync.Name = "bgmAsync";
+			this.bgmAsync.UseVisualStyleBackColor = true;
+			// 
+			// groupBox12
+			// 
+			this.groupBox12.Controls.Add(this.label32);
+			this.groupBox12.Controls.Add(this.sliderMin);
+			this.groupBox12.Controls.Add(this.label33);
+			this.groupBox12.Controls.Add(this.sliderMax);
+			this.groupBox12.Controls.Add(this.useLR);
+			resources.ApplyResources(this.groupBox12, "groupBox12");
+			this.groupBox12.Name = "groupBox12";
+			this.groupBox12.TabStop = false;
+			// 
+			// groupBox13
+			// 
+			this.groupBox13.Controls.Add(this.cardFmt);
+			this.groupBox13.Controls.Add(this.chardb);
+			this.groupBox13.Controls.Add(this.label35);
+			this.groupBox13.Controls.Add(this.checkBox1);
+			this.groupBox13.Controls.Add(this.label47);
+			this.groupBox13.Controls.Add(this.label48);
+			resources.ApplyResources(this.groupBox13, "groupBox13");
+			this.groupBox13.Name = "groupBox13";
+			this.groupBox13.TabStop = false;
+			// 
+			// groupBox14
+			// 
+			this.groupBox14.Controls.Add(this.geass);
+			this.groupBox14.Controls.Add(this.unlockH);
+			this.groupBox14.Controls.Add(this.watchFolder);
+			this.groupBox14.Controls.Add(this.equality);
+			this.groupBox14.Controls.Add(this.skipLogo);
+			this.groupBox14.Controls.Add(this.noFade);
+			resources.ApplyResources(this.groupBox14, "groupBox14");
+			this.groupBox14.Name = "groupBox14";
+			this.groupBox14.TabStop = false;
+			// 
+			// groupBox15
+			// 
+			this.groupBox15.Controls.Add(this.fixPenis);
+			this.groupBox15.Controls.Add(this.fixVagina);
+			this.groupBox15.Controls.Add(this.hideMoz);
+			this.groupBox15.Controls.Add(this.noTelescope);
+			resources.ApplyResources(this.groupBox15, "groupBox15");
+			this.groupBox15.Name = "groupBox15";
+			this.groupBox15.TabStop = false;
+			// 
+			// replInput
+			// 
+			resources.ApplyResources(this.replInput, "replInput");
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Name = "replInput";
+			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
 			// 
 			// SettingsForm
 			// 
@@ -1582,6 +1626,7 @@ namespace Patchwork
 			this.enabler_noscopeClipMask.ResumeLayout(false);
 			this.enabler_noscopeClipMask.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
 			this.groupBox9.ResumeLayout(false);
 			this.groupBox9.PerformLayout();
 			this.groupBox8.ResumeLayout(false);
@@ -1595,6 +1640,14 @@ namespace Patchwork
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
+			this.groupBox12.ResumeLayout(false);
+			this.groupBox12.PerformLayout();
+			this.groupBox13.ResumeLayout(false);
+			this.groupBox13.PerformLayout();
+			this.groupBox14.ResumeLayout(false);
+			this.groupBox14.PerformLayout();
+			this.groupBox15.ResumeLayout(false);
+			this.groupBox15.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1657,7 +1710,6 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox bothFreeH;
 		private System.Windows.Forms.CheckBox unlockH;
 		private System.Windows.Forms.CheckBox watchFolder;
-		private System.Windows.Forms.CheckBox bgmAsync;
 		private System.Windows.Forms.CheckBox bothClass;
 		private System.Windows.Forms.CheckBox bothEdit;
 		private System.Windows.Forms.CheckBox equality;
@@ -1734,7 +1786,6 @@ namespace Patchwork
 		private System.Windows.Forms.TextBox cardFmt;
 		private System.Windows.Forms.Label label48;
 		private System.Windows.Forms.CheckBox cacheSprites;
-		private System.Windows.Forms.CheckBox noBustNorm;
 		private System.Windows.Forms.CheckBox noTelescope;
 		private System.Windows.Forms.Label label44;
 		private System.Windows.Forms.Label label43;
@@ -1789,6 +1840,13 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox hiPoly;
 		private System.Windows.Forms.CheckBox compCache;
 		private System.Windows.Forms.CheckBox noFrillsExit;
+		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.CheckBox noBustNorm;
+		private System.Windows.Forms.GroupBox groupBox14;
+		private System.Windows.Forms.GroupBox groupBox13;
+		private System.Windows.Forms.GroupBox groupBox12;
+		private System.Windows.Forms.CheckBox bgmAsync;
+		private System.Windows.Forms.GroupBox groupBox15;
 	}
 }
 

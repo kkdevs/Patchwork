@@ -16,8 +16,14 @@ namespace Patchwork
 			try
 			{
 				return ass.GetExportedTypes();
-			} catch (NotSupportedException) {
-				return ass.GetTypes();
+			} catch {
+				try
+				{
+					return ass.GetTypes();
+				} catch
+				{
+					return new Type[] { };
+				}
 			}
 		}
 		public static void LWrite(this BinaryWriter bw, byte[] buf)
