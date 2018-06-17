@@ -111,6 +111,11 @@ namespace Patchwork
 			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.spectateH = new System.Windows.Forms.CheckBox();
+			this.spectateADV = new System.Windows.Forms.CheckBox();
+			this.lowPolyADV = new System.Windows.Forms.CheckBox();
+			this.hiPoly = new System.Windows.Forms.CheckBox();
 			this.enabler_tumblr = new System.Windows.Forms.GroupBox();
 			this.bothFreeH = new System.Windows.Forms.CheckBox();
 			this.benderClothes = new System.Windows.Forms.CheckBox();
@@ -177,6 +182,7 @@ namespace Patchwork
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.compCache = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
 			this.cacheSprites = new System.Windows.Forms.CheckBox();
@@ -209,14 +215,9 @@ namespace Patchwork
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.groupBox11 = new System.Windows.Forms.GroupBox();
-			this.hiPoly = new System.Windows.Forms.CheckBox();
-			this.lowPolyADV = new System.Windows.Forms.CheckBox();
-			this.spectateADV = new System.Windows.Forms.CheckBox();
-			this.spectateH = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
-			this.compCache = new System.Windows.Forms.CheckBox();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.noFrillsExit = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -226,6 +227,7 @@ namespace Patchwork
 			this.enabler_shadowOverride.SuspendLayout();
 			this.enabler_cam_ppOverride.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.groupBox11.SuspendLayout();
 			this.enabler_tumblr.SuspendLayout();
 			this.tabPage5.SuspendLayout();
 			this.groupBox10.SuspendLayout();
@@ -238,7 +240,6 @@ namespace Patchwork
 			this.groupBox5.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.tabPage6.SuspendLayout();
-			this.groupBox11.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -862,6 +863,40 @@ namespace Patchwork
 			this.tabPage2.UseVisualStyleBackColor = true;
 			this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
 			// 
+			// groupBox11
+			// 
+			this.groupBox11.Controls.Add(this.spectateH);
+			this.groupBox11.Controls.Add(this.spectateADV);
+			this.groupBox11.Controls.Add(this.lowPolyADV);
+			this.groupBox11.Controls.Add(this.hiPoly);
+			resources.ApplyResources(this.groupBox11, "groupBox11");
+			this.groupBox11.Name = "groupBox11";
+			this.groupBox11.TabStop = false;
+			// 
+			// spectateH
+			// 
+			resources.ApplyResources(this.spectateH, "spectateH");
+			this.spectateH.Name = "spectateH";
+			this.spectateH.UseVisualStyleBackColor = true;
+			// 
+			// spectateADV
+			// 
+			resources.ApplyResources(this.spectateADV, "spectateADV");
+			this.spectateADV.Name = "spectateADV";
+			this.spectateADV.UseVisualStyleBackColor = true;
+			// 
+			// lowPolyADV
+			// 
+			resources.ApplyResources(this.lowPolyADV, "lowPolyADV");
+			this.lowPolyADV.Name = "lowPolyADV";
+			this.lowPolyADV.UseVisualStyleBackColor = true;
+			// 
+			// hiPoly
+			// 
+			resources.ApplyResources(this.hiPoly, "hiPoly");
+			this.hiPoly.Name = "hiPoly";
+			this.hiPoly.UseVisualStyleBackColor = true;
+			// 
 			// enabler_tumblr
 			// 
 			this.enabler_tumblr.Controls.Add(this.bothFreeH);
@@ -1284,6 +1319,13 @@ namespace Patchwork
 			this.groupBox7.Name = "groupBox7";
 			this.groupBox7.TabStop = false;
 			// 
+			// compCache
+			// 
+			resources.ApplyResources(this.compCache, "compCache");
+			this.compCache.Name = "compCache";
+			this.compCache.UseVisualStyleBackColor = true;
+			this.compCache.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+			// 
 			// lazyGC
 			// 
 			resources.ApplyResources(this.lazyGC, "lazyGC");
@@ -1448,6 +1490,7 @@ namespace Patchwork
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.noFrillsExit);
 			this.groupBox4.Controls.Add(this.whitePower);
 			this.groupBox4.Controls.Add(this.dontshow);
 			this.groupBox4.Controls.Add(this.onTop);
@@ -1481,6 +1524,13 @@ namespace Patchwork
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			resources.ApplyResources(this.replInput, "replInput");
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Name = "replInput";
+			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
+			// 
 			// replOutput
 			// 
 			resources.ApplyResources(this.replOutput, "replOutput");
@@ -1490,53 +1540,11 @@ namespace Patchwork
 			this.replOutput.ReadOnly = true;
 			this.replOutput.TabStop = false;
 			// 
-			// groupBox11
+			// noFrillsExit
 			// 
-			this.groupBox11.Controls.Add(this.spectateH);
-			this.groupBox11.Controls.Add(this.spectateADV);
-			this.groupBox11.Controls.Add(this.lowPolyADV);
-			this.groupBox11.Controls.Add(this.hiPoly);
-			resources.ApplyResources(this.groupBox11, "groupBox11");
-			this.groupBox11.Name = "groupBox11";
-			this.groupBox11.TabStop = false;
-			// 
-			// hiPoly
-			// 
-			resources.ApplyResources(this.hiPoly, "hiPoly");
-			this.hiPoly.Name = "hiPoly";
-			this.hiPoly.UseVisualStyleBackColor = true;
-			// 
-			// lowPolyADV
-			// 
-			resources.ApplyResources(this.lowPolyADV, "lowPolyADV");
-			this.lowPolyADV.Name = "lowPolyADV";
-			this.lowPolyADV.UseVisualStyleBackColor = true;
-			// 
-			// spectateADV
-			// 
-			resources.ApplyResources(this.spectateADV, "spectateADV");
-			this.spectateADV.Name = "spectateADV";
-			this.spectateADV.UseVisualStyleBackColor = true;
-			// 
-			// spectateH
-			// 
-			resources.ApplyResources(this.spectateH, "spectateH");
-			this.spectateH.Name = "spectateH";
-			this.spectateH.UseVisualStyleBackColor = true;
-			// 
-			// replInput
-			// 
-			resources.ApplyResources(this.replInput, "replInput");
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Name = "replInput";
-			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
-			// 
-			// compCache
-			// 
-			resources.ApplyResources(this.compCache, "compCache");
-			this.compCache.Name = "compCache";
-			this.compCache.UseVisualStyleBackColor = true;
-			this.compCache.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+			resources.ApplyResources(this.noFrillsExit, "noFrillsExit");
+			this.noFrillsExit.Name = "noFrillsExit";
+			this.noFrillsExit.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -1563,6 +1571,8 @@ namespace Patchwork
 			this.enabler_cam_ppOverride.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			this.groupBox11.ResumeLayout(false);
+			this.groupBox11.PerformLayout();
 			this.enabler_tumblr.ResumeLayout(false);
 			this.enabler_tumblr.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
@@ -1585,8 +1595,6 @@ namespace Patchwork
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
-			this.groupBox11.ResumeLayout(false);
-			this.groupBox11.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1780,6 +1788,7 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox lowPolyADV;
 		private System.Windows.Forms.CheckBox hiPoly;
 		private System.Windows.Forms.CheckBox compCache;
+		private System.Windows.Forms.CheckBox noFrillsExit;
 	}
 }
 

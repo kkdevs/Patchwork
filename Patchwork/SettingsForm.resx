@@ -5452,6 +5452,36 @@
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="noFrillsExit.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="noFrillsExit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="noFrillsExit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 85</value>
+  </data>
+  <data name="noFrillsExit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 17</value>
+  </data>
+  <data name="noFrillsExit.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="noFrillsExit.Text" xml:space="preserve">
+    <value>Fast exit</value>
+  </data>
+  <data name="&gt;&gt;noFrillsExit.Name" xml:space="preserve">
+    <value>noFrillsExit</value>
+  </data>
+  <data name="&gt;&gt;noFrillsExit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;noFrillsExit.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;noFrillsExit.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="whitePower.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -5459,7 +5489,7 @@
     <value>NoControl</value>
   </data>
   <data name="whitePower.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 66</value>
+    <value>17, 63</value>
   </data>
   <data name="whitePower.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -5483,7 +5513,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;whitePower.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="dontshow.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5492,7 +5522,7 @@
     <value>NoControl</value>
   </data>
   <data name="dontshow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 45</value>
+    <value>17, 42</value>
   </data>
   <data name="dontshow.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -5516,7 +5546,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;dontshow.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="onTop.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5525,7 +5555,7 @@
     <value>NoControl</value>
   </data>
   <data name="onTop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 23</value>
+    <value>17, 20</value>
   </data>
   <data name="onTop.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 17</value>
@@ -5546,13 +5576,13 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;onTop.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 216</value>
   </data>
   <data name="groupBox4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>311, 100</value>
+    <value>311, 112</value>
   </data>
   <data name="groupBox4.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
@@ -5624,7 +5654,7 @@
     <value>replInput</value>
   </data>
   <data name="&gt;&gt;replInput.Type" xml:space="preserve">
-    <value>EditLine, Assembly-CSharp, Version=9.0.6738.42503, Culture=neutral, PublicKeyToken=null</value>
+    <value>EditLine, Assembly-CSharp, Version=9.5.6742.8855, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;replInput.Parent" xml:space="preserve">
     <value>tabPage6</value>

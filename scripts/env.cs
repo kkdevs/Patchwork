@@ -13,10 +13,16 @@ public class Reloader : MonoBehaviour
 	Dictionary<string, System.DateTime> tss = new Dictionary<string, System.DateTime>();
 	public void Awake()
 	{
+		print("Initializing reloader from " + Assembly.GetExecutingAssembly().FullName);
 		foreach (var src in Script.scriptFiles)
 			tss[src] = File.GetLastWriteTime(src);
 		Application.logMessageReceived += forward;
 	}
+	public void OnDestroy()
+	{
+		Application.logMessageReceived -= forward;
+	}
+
 	public static List<string> logFilter = new List<string>();
 	void forward(string logString, string stackTrace, LogType type)
 	{
@@ -37,11 +43,6 @@ public class Reloader : MonoBehaviour
 		Script.print($"[{caller}] {logString}");
 	}
 
-	public void OnDestroy()
-	{
-		Application.logMessageReceived -= forward;
-	}
-
 	public void Update()
 	{
 		if (++ticks < 60) return;
@@ -56,7 +57,9 @@ public class Reloader : MonoBehaviour
 				fail = fail || !Script.reload(() =>
 				{
 					stop = true;
+					print("Destroying scriptenv GO");
 					Object.DestroyImmediate(ScriptEnv.G);
+					ScriptEnv.G = null;
 				});
 				if (stop)
 					break;
@@ -71,7 +74,7 @@ public partial class ScriptEnv : Script
 	public static GameObject G;
 	public static void EnvInit()
 	{
-		G = new GameObject("Script Environment");
+		G = new GameObject("ScriptEnv");
 		Object.DontDestroyOnLoad(G);
 		var nadd = 0;
 		foreach (var t in Assembly.GetExecutingAssembly().GetTypes()) {
@@ -110,5 +113,4 @@ public partial class ScriptEnv : Script
 			return typeof(Sentinel);
 		}
 	}
-
 }

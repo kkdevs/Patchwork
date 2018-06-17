@@ -145,6 +145,7 @@ namespace Patchwork
 			if (initConfig)
 				return;
 			Ext.Init();
+			ScriptEvent.Init();
 
 			initConfig = true;
 			exename = Environment.GetEnvironmentVariable("PATCHWORK_EXE");
@@ -222,6 +223,8 @@ namespace Patchwork
 
 		public static void DoExit()
 		{
+			if (settings.noFrillsExit)
+				ExitProcess(0);
 			try
 			{
 				timer.Stop();
@@ -236,7 +239,7 @@ namespace Patchwork
 			}
 			catch { };
 			for (int i = 0; i < 1000; i++)
-				System.Windows.Forms.Application.DoEvents();
+				System.Windows.Forms.Application.DoEvents();		
 		}
 
 		public static IntPtr hwnd = (IntPtr)(-1);
@@ -250,7 +253,7 @@ namespace Patchwork
 				Console.WriteLine(msg);
 				Console.Out.Flush();
 				MessageBox.Show(msg, "Fatal error", MessageBoxButtons.OK);
-				Environment.FailFast(msg);
+				Environment.Exit(1);
 			}
 		}
 		public static void InitBeforeBaseLoader()
@@ -312,7 +315,6 @@ namespace Patchwork
 					Trace.Log(s.Trim());
 				System.Windows.Forms.Application.DoEvents();
 			};
-			Script.Evaluator = MonoScript.New(new Script.Reporter(), typeof(Script));
 			if (Script.reload())
 			{
 				form.replInput.Print = (s) => Script.Invoke("pp", s);

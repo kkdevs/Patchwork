@@ -12,7 +12,11 @@ public class unzip : MonoBehaviour
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
 	}
-	public void Start()
+	public void OnDestroy()
+	{
+		print("Destroyed");
+	}
+	public void Awake()
 	{
 		var target = UserData.Path + "mod/";
 		var zipdir = Program.BasePath + "/mods";

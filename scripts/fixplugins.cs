@@ -1,26 +1,26 @@
 ﻿// Compatibility for plugins with sheer brute force. No regrets.
+
 using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
 using Patchwork;
+using System.Linq;
+using System.Collections.Generic;
 
-
-public class fixplugins : Script.AutoRun
+public class fixplugins : MonoBehaviour
 {
-	public bool hasBepin()
-	{
-		foreach (var ass in AppDomain.CurrentDomain.GetAssemblies())
-			if (ass.FullName.ToLower().StartsWith("bepinex"))
-				return true;
-		return false;
-	}
-	public void Awake()
+	public static bool hasBepinGo => GameObject.Find("BepInEx_Manager") != null;
+	public static bool hasBepinAss =>
+		AppDomain.CurrentDomain.GetAssemblies().First(x => x.FullName.ToLower().StartsWith("bepinex")) != null;
+
+	void Awake()
 	{
 		// its already in appdomain, it probably loaded correctly
-		if (hasBepin())
+		if (hasBepinGo)
 		{
 			print("BepinEx already loaded and (probably) running ok.");
+			fixFilters();
 			return;
 		}
 		print("Trying to fix plugins");
@@ -32,16 +32,16 @@ public class fixplugins : Script.AutoRun
 			{
 				try
 				{
-					AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(dll));
+					Assembly.Load(AssemblyName.GetAssemblyName(dll));
 				}
 				catch { };
 			}
 		}
 		catch {};
 
-		if (!hasBepin())
+		if (!hasBepinAss)
 			try {
-				AppDomain.CurrentDomain.Load(Application.dataPath + "/Managed/bepinex.dll");
+				Assembly.Load(Application.dataPath + "/Managed/bepinex.dll");
 			} catch {
 				// none found, bail
 				return;
@@ -53,13 +53,9 @@ public class fixplugins : Script.AutoRun
 			{
 				var an = AssemblyName.GetAssemblyName(dll);
 				var ass = AppDomain.CurrentDomain.Load(an);
-				foreach (var t in ass.GetExportedTypes())
-				{
+				foreach (var t in ass.GetTypesSafe())
 					if (t.BaseType?.Name == "BaseUnityPlugin")
-					{
 						gameObject.AddComponent(t);
-					}
-				}
 			}
 			catch (Exception ex)
 			{
@@ -67,11 +63,31 @@ public class fixplugins : Script.AutoRun
 			};
 		}
 	}
-}
 
-public class HookFixes : ScriptEnv {
-	public void OnLoadCard()
+	public void fixFilters()
 	{
+		foreach (var ass in AppDomain.CurrentDomain.GetAssemblies())
+			foreach (var t in ass.GetTypesSafe())
+				if (t.BaseType?.Name == "BaseUnityPlugin")
+				{
+					try
+					{
+						if (t.GetCustomAttributes(false).First(x => x.GetType().Name == "BepInProcess") != null)
+							if (gameObject.GetComponent(t) == null)
+							{
+								print("Instancing filtered plugin " + t.Name);
+								gameObject.AddComponent(t);
+							}
+					}
+					catch { };
+				}
+	}
 
+	public void OnCardLoad(ChaFile f, BlockHeader bh)
+	{
+	}
+	public void OnCardSave(ChaFile f, List<object> blocks)
+	{
 	}
 }
+

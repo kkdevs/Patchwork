@@ -18,10 +18,40 @@ using System.Collections;
 
 namespace Patchwork
 {
+	[System.AttributeUsage(System.AttributeTargets.Event)]
+	public class ScriptEvent : System.Attribute
+	{
+		public static Dictionary<string, EventInfo> events;
+		public static void Init()
+		{
+			foreach (var t in Assembly.GetExecutingAssembly().GetExportedTypes())
+			{
+				foreach (var ev in t.GetEvents())
+				{
+					var attr = ev.GetCustomAttributes(typeof(ScriptEvent), true);
+					if (attr.Length > 1)
+						events[ev.Name] = ev;
+				}
+			}
+		}
+
+		public static void Register(MonoBehaviour mb)
+		{
+			var mbt = mb.GetType();
+			foreach (var m in mbt.GetMethods())
+			{
+				if (events.ContainsKey(m.Name))
+				{
+					var evi = events[m.Name];
+					evi.AddEventHandler(null, System.Delegate.CreateDelegate(mbt, m));
+				}
+			}
+		}
+	}
+
 	public partial class Script : InteractiveBase
 	{
 		public static Dictionary<string, object> registry = new Dictionary<string, object>();
-		public class AutoRun : MonoBehaviour { };
 		public static Dictionary<string, Type> Components = new Dictionary<string, Type>();
 		public class Reporter : TextWriter
 		{
@@ -73,9 +103,9 @@ namespace Patchwork
 		public static List<string> scriptFiles = new List<string>();
 		public static bool reload(Action destroyer = null)
 		{
+			if (Evaluator != null)
+				Evaluator.pause = true;
 			print("Trying to (re)load script env.");
-			Output = Evaluator.tw;
-			Error = Evaluator.tw;
 			var scripts = Path.Combine(UserData.Path, "scripts");
 			try { Directory.CreateDirectory(scripts); } catch { };
 			scriptFiles.Clear();
@@ -93,37 +123,26 @@ namespace Patchwork
 						print($"WARNING: Failed to load {f} => {ex.Message}");
 					}
 				}
-			var prevInit = Evaluator.InteractiveBaseClass;
-			var newasm = Evaluator.LoadScripts(scriptFiles);
+			var neweva = MonoScript.New(new Reporter(), typeof(Script));
+			var newasm = neweva.LoadScripts(scriptFiles);
 			if (newasm == null)
 			{
 				print("Scripts reload failed.");
+				if (Evaluator != null)
+					Evaluator.pause = false;
 				return false;
 			}
-			Evaluator.ReferenceAssembly(newasm);
-			var init = Evaluator.InteractiveBaseClass.GetMethod("EnvInit");
-			if (init == null)
-			{
-				print($"WARNING: Script environment init missing in ${Evaluator.InteractiveBaseClass.Name}, typeof(Script)={Evaluator.InteractiveBaseClass==typeof(Script)}");
-				print("Will retain previous env.");
-			} else
-			{
-				if (destroyer != null)
-					destroyer.Invoke();
-				else
-				{
-					if (prevInit != Evaluator.initialBase)
-					{
-						print("WARNING: Reload called without environment destroyer, attempting to clean up on our own.");
-						try
-						{
-							Object.DestroyImmediate(prevInit.GetField("G").GetValue(null) as GameObject);
-						}
-						catch (Exception ex) { print(ex.Message); };
-					}
-				}
+			neweva.ReferenceAssembly(newasm);
+			var init = neweva.InteractiveBaseClass.GetMethod("EnvInit");
+			if (destroyer != null)
+				destroyer();
+			if (Evaluator != null)
+				Evaluator.Dispose();
+			Evaluator = neweva;
+			Output = Evaluator.tw;
+			Error = Evaluator.tw;
+			if (init != null)
 				init.Invoke(null, new object[] { });
-			}
 			return true;
 		}
 

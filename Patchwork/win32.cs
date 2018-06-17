@@ -8,6 +8,9 @@ namespace Patchwork
 {
 	public static partial class Program
 	{
+		[DllImport("kernel32.dll")]
+		static extern void ExitProcess(uint uExitCode);
+
 		[DllImport("kernel32.dll", SetLastError = true)]
 		[PreserveSig]
 		public static extern uint GetModuleFileName

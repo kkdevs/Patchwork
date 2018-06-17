@@ -11,6 +11,15 @@ namespace Patchwork
 {
 	public static class Ext
 	{
+		public static Type[] GetTypesSafe(this Assembly ass)
+		{
+			try
+			{
+				return ass.GetExportedTypes();
+			} catch (NotSupportedException) {
+				return ass.GetTypes();
+			}
+		}
 		public static void LWrite(this BinaryWriter bw, byte[] buf)
 		{
 			buf = buf ?? new byte[0];

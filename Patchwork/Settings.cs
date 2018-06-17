@@ -23,6 +23,7 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool noFrillsExit = true;
 		public int nAcsSlots = 40;
 		public bool spectateADV = true;
 		public bool spectateH = true;

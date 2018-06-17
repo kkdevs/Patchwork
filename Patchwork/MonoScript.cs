@@ -24,9 +24,12 @@ public class MonoScript : Evaluator
 		AppDomain.CurrentDomain.AssemblyLoad += ms.asmLoaded;
 		return ms;
 	}
+
+	public bool pause;
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
-		//tw.WriteLine("Registering assembly " + e.LoadedAssembly.FullName);
+		if (pause) return;
+		//tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);
@@ -34,7 +37,8 @@ public class MonoScript : Evaluator
 		catch (Exception ex) { tw.WriteLine(ex); };
 	}
 
-	~MonoScript()
+	
+	public void Dispose()
 	{
 		AppDomain.CurrentDomain.AssemblyLoad -= asmLoaded;
 	}
@@ -143,9 +147,9 @@ public class MonoScript : Evaluator
 		// Find new base for repl if there is any
 		foreach (var t in newasm.GetTypes())
 		{
-			Debug.Log(t.Name);
 			if (t.BaseType != initialBase)
 				continue;
+			//tw.WriteLine("new base from " + t.Assembly.FullName);
 			InteractiveBaseClass = t;
 			break;
 		}
