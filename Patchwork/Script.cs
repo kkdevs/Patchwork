@@ -18,6 +18,10 @@ using System.Collections;
 
 namespace Patchwork
 {
+	public class CatItem : System.Attribute
+	{
+
+	}
 	[System.AttributeUsage(System.AttributeTargets.Event)]
 	public class ScriptEvent : System.Attribute
 	{

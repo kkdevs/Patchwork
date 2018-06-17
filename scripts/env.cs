@@ -26,8 +26,16 @@ public class Reloader : MonoBehaviour
 	public static List<string> logFilter = new List<string>();
 	void forward(string logString, string stackTrace, LogType type)
 	{
+		// who cares
 		if (logString.Contains("AssetBundle with the same files is already loaded."))
 			return;
+		if (logString.Contains("The referenced script on this Behaviour"))
+			return;
+		if (logString.Contains("Unknown shader channel count"))
+			return;
+		if (logString.Contains("is corrupted! Remove it and launch unity again!"))
+			return;
+
 		string caller = $"{type.ToString()}";
 		if (logFilter.Contains(caller))
 			return;

@@ -109,7 +109,7 @@ public class fixplugins : MonoBehaviour
 	public class ResolveInfo
 	{
 		public string ModID;
-		public int LocalSlot;
+		public int Slot;
 		public string Property;
 	}
 
@@ -123,6 +123,8 @@ public class fixplugins : MonoBehaviour
 			var e = MessagePackSerializer.Deserialize<ResolveInfo>(entry as byte[]);
 			var prop = e.Property;
 			var prop2 = prop.Split('.').Last();
+			print(prop);
+			print(prop2);
 			CategoryNo catno;
 			if (!getcat.TryGetValue(prop, out catno) && !getcat.TryGetValue(prop2, out catno))
 			{
@@ -130,22 +132,26 @@ public class fixplugins : MonoBehaviour
 				continue;
 			}
 			var prefs = f.dict.guidPrefs;
-			var pair = new KeyValuePair<int,int>((int)catno, e.LocalSlot);
+			var pair = new KeyValuePair<int,int>((int)catno, e.Slot);
+			print(catno);
+			print(e.Slot);
 			List<string> chain;
 			if (!prefs.TryGetValue(pair, out chain))
 				prefs[pair] = chain = new List<string>();
 			if (!chain.Contains(e.ModID))
 				chain.Add(e.ModID);
+			print(prefs);
 		}
 	}
 
 	public void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
-		print("Loading card");
 		if (nopng) return;
+		print("Loading card");
 		var k = new kkex();
 		if (bh.Load(k))
 		{
+			print("Found KKEx");
 			// remember kkex so that we can save it back
 			f.dict.dict["kkex"] = k;
 			try
