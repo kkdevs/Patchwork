@@ -58,9 +58,12 @@ public class Reloader : MonoBehaviour
 				{
 					stop = true;
 					print("Destroying scriptenv GO");
+					ScriptEvent.Reset();
 					Object.DestroyImmediate(ScriptEnv.G);
 					ScriptEnv.G = null;
 				});
+				if (fail)
+					print("Reload failed.");
 				if (stop)
 					break;
 			}
@@ -80,7 +83,8 @@ public partial class ScriptEnv : Script
 		foreach (var t in Assembly.GetExecutingAssembly().GetTypes()) {
 			if (t.BaseType == typeof(MonoBehaviour))
 			{
-				G.AddComponent(t);
+				var mb = G.AddComponent(t) as MonoBehaviour;
+				ScriptEvent.Register(mb);
 				nadd++;
 			}
 			else

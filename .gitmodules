@@ -1,3 +1,9 @@
 [submodule "kksrc"]
 	path = kksrc
 	url = git@bitbucket.org:kkdevs/kksrc.git
+[submodule "kksrc-fp"]
+	path = kksrc-fp
+	url = git@bitbucket.org:kkdevs/kksrc-fp.git
+[submodule "MessagePack-CSharp"]
+	path = MessagePack-CSharp
+	url = git@github.com:kkdevs/MessagePack-CSharp.git

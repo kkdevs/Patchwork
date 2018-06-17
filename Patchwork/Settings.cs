@@ -24,8 +24,9 @@ namespace Patchwork
 	public partial class Settings
 	{
 		public bool faceJPG = true;
+		public bool capJPG = true;
 		public bool noFrillsExit = true;
-		public int nAcsSlots = 40;
+		public int nAcsSlots = 512;
 		public bool spectateADV = true;
 		public bool spectateH = true;
 		public bool lazyAssetGC = true;

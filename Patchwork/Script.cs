@@ -35,6 +35,15 @@ namespace Patchwork
 			}
 		}
 
+		public static void Reset()
+		{
+			// Nuke all event handlers
+			foreach (var kv in events)
+			{
+				var ei = kv.Value;
+				ei.DeclaringType.GetField(kv.Key, BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, null);
+			}
+		}
 		public static void Register(MonoBehaviour mb)
 		{
 			var mbt = mb.GetType();
@@ -43,7 +52,13 @@ namespace Patchwork
 				if (events.ContainsKey(m.Name))
 				{
 					var evi = events[m.Name];
-					evi.AddEventHandler(null, System.Delegate.CreateDelegate(mbt, m));
+					try
+					{
+						evi.AddEventHandler(null, System.Delegate.CreateDelegate(evi.EventHandlerType, mb, m));
+					} catch (Exception ex)
+					{
+						Script.print($"Couldn't wire method {mbt.Name}.{m} to event {evi.DeclaringType.Name}.{evi}: {ex.Message}");
+					}
 				}
 			}
 		}

@@ -11,6 +11,21 @@ namespace Patchwork
 {
 	public static class Ext
 	{
+		public static bool Cmp(byte[] a, byte[] b) {
+			if (a.Length != b.Length)
+				return false;
+
+			for (int j = 0; j<a.Length; j++)
+				if (a[j] != b[j])
+					return false;
+			return true;
+		}
+
+		public static bool Cmp<T>(T a, T b) where T : class
+		{
+			return Cmp(MessagePackSerializer.Serialize(a), MessagePackSerializer.Serialize(b));
+		}
+
 		public static Type[] GetTypesSafe(this Assembly ass)
 		{
 			try
@@ -26,6 +41,8 @@ namespace Patchwork
 				}
 			}
 		}
+
+
 		public static void LWrite(this BinaryWriter bw, byte[] buf)
 		{
 			buf = buf ?? new byte[0];

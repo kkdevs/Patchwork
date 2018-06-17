@@ -87,6 +87,7 @@ namespace Patchwork
 			this.antiAliasing = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.shadowOverride = new System.Windows.Forms.CheckBox();
 			this.enabler_shadowOverride = new System.Windows.Forms.GroupBox();
 			this.customShadowStrengthLimit = new System.Windows.Forms.TextBox();
 			this.label34 = new System.Windows.Forms.Label();
@@ -94,7 +95,6 @@ namespace Patchwork
 			this.rimOverride = new System.Windows.Forms.TextBox();
 			this.label23 = new System.Windows.Forms.Label();
 			this.customShadowStrengthTarget = new System.Windows.Forms.TextBox();
-			this.shadowOverride = new System.Windows.Forms.CheckBox();
 			this.cam_ppOverride = new System.Windows.Forms.CheckBox();
 			this.enabler_cam_ppOverride = new System.Windows.Forms.GroupBox();
 			this.label46 = new System.Windows.Forms.Label();
@@ -111,6 +111,27 @@ namespace Patchwork
 			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.geass = new System.Windows.Forms.CheckBox();
+			this.unlockH = new System.Windows.Forms.CheckBox();
+			this.watchFolder = new System.Windows.Forms.CheckBox();
+			this.equality = new System.Windows.Forms.CheckBox();
+			this.skipLogo = new System.Windows.Forms.CheckBox();
+			this.noFade = new System.Windows.Forms.CheckBox();
+			this.groupBox13 = new System.Windows.Forms.GroupBox();
+			this.cardFmt = new System.Windows.Forms.TextBox();
+			this.chardb = new System.Windows.Forms.ComboBox();
+			this.label35 = new System.Windows.Forms.Label();
+			this.faceJPG = new System.Windows.Forms.CheckBox();
+			this.label47 = new System.Windows.Forms.Label();
+			this.label48 = new System.Windows.Forms.Label();
+			this.tumblr = new System.Windows.Forms.CheckBox();
+			this.groupBox12 = new System.Windows.Forms.GroupBox();
+			this.label32 = new System.Windows.Forms.Label();
+			this.sliderMin = new System.Windows.Forms.TextBox();
+			this.label33 = new System.Windows.Forms.Label();
+			this.sliderMax = new System.Windows.Forms.TextBox();
+			this.useLR = new System.Windows.Forms.CheckBox();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.spectateH = new System.Windows.Forms.CheckBox();
 			this.spectateADV = new System.Windows.Forms.CheckBox();
@@ -122,24 +143,13 @@ namespace Patchwork
 			this.bothEdit = new System.Windows.Forms.CheckBox();
 			this.bothClass = new System.Windows.Forms.CheckBox();
 			this.bothMC = new System.Windows.Forms.CheckBox();
-			this.geass = new System.Windows.Forms.CheckBox();
-			this.label48 = new System.Windows.Forms.Label();
-			this.label47 = new System.Windows.Forms.Label();
-			this.cardFmt = new System.Windows.Forms.TextBox();
-			this.noFade = new System.Windows.Forms.CheckBox();
-			this.skipLogo = new System.Windows.Forms.CheckBox();
-			this.label35 = new System.Windows.Forms.Label();
-			this.chardb = new System.Windows.Forms.ComboBox();
-			this.tumblr = new System.Windows.Forms.CheckBox();
-			this.useLR = new System.Windows.Forms.CheckBox();
-			this.sliderMax = new System.Windows.Forms.TextBox();
-			this.label33 = new System.Windows.Forms.Label();
-			this.label32 = new System.Windows.Forms.Label();
-			this.sliderMin = new System.Windows.Forms.TextBox();
-			this.equality = new System.Windows.Forms.CheckBox();
-			this.watchFolder = new System.Windows.Forms.CheckBox();
-			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.groupBox15 = new System.Windows.Forms.GroupBox();
+			this.fixPenis = new System.Windows.Forms.CheckBox();
+			this.fixVagina = new System.Windows.Forms.CheckBox();
+			this.hideMoz = new System.Windows.Forms.CheckBox();
+			this.noTelescope = new System.Windows.Forms.CheckBox();
+			this.noscopeClipMask = new System.Windows.Forms.CheckBox();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
 			this.ooMale = new System.Windows.Forms.TextBox();
 			this.label42 = new System.Windows.Forms.Label();
@@ -149,7 +159,6 @@ namespace Patchwork
 			this.mmMale = new System.Windows.Forms.TextBox();
 			this.label43 = new System.Windows.Forms.Label();
 			this.mmFemale = new System.Windows.Forms.TextBox();
-			this.noscopeClipMask = new System.Windows.Forms.CheckBox();
 			this.enabler_noscopeClipMask = new System.Windows.Forms.GroupBox();
 			this.noscopeHead = new System.Windows.Forms.CheckBox();
 			this.label52 = new System.Windows.Forms.Label();
@@ -167,11 +176,8 @@ namespace Patchwork
 			this.noscopeScale = new System.Windows.Forms.TextBox();
 			this.noscopeAlphaX = new System.Windows.Forms.TextBox();
 			this.noscopeAlphaY = new System.Windows.Forms.TextBox();
-			this.noTelescope = new System.Windows.Forms.CheckBox();
-			this.hideMoz = new System.Windows.Forms.CheckBox();
-			this.fixPenis = new System.Windows.Forms.CheckBox();
-			this.fixVagina = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.groupBox9 = new System.Windows.Forms.GroupBox();
 			this.useBOM = new System.Windows.Forms.CheckBox();
 			this.fetchAssets = new System.Windows.Forms.CheckBox();
@@ -180,6 +186,7 @@ namespace Patchwork
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.bgmAsync = new System.Windows.Forms.CheckBox();
 			this.compCache = new System.Windows.Forms.CheckBox();
 			this.lazyGC = new System.Windows.Forms.CheckBox();
 			this.assetCache = new System.Windows.Forms.CheckBox();
@@ -215,13 +222,7 @@ namespace Patchwork
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.noBustNorm = new System.Windows.Forms.CheckBox();
-			this.bgmAsync = new System.Windows.Forms.CheckBox();
-			this.groupBox12 = new System.Windows.Forms.GroupBox();
-			this.groupBox13 = new System.Windows.Forms.GroupBox();
-			this.groupBox14 = new System.Windows.Forms.GroupBox();
-			this.groupBox15 = new System.Windows.Forms.GroupBox();
+			this.capJPG = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -232,9 +233,13 @@ namespace Patchwork
 			this.enabler_shadowOverride.SuspendLayout();
 			this.enabler_cam_ppOverride.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.groupBox14.SuspendLayout();
+			this.groupBox13.SuspendLayout();
+			this.groupBox12.SuspendLayout();
 			this.groupBox11.SuspendLayout();
 			this.enabler_tumblr.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			this.groupBox15.SuspendLayout();
 			this.groupBox10.SuspendLayout();
 			this.enabler_noscopeClipMask.SuspendLayout();
 			this.tabPage3.SuspendLayout();
@@ -245,10 +250,6 @@ namespace Patchwork
 			this.groupBox5.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.tabPage6.SuspendLayout();
-			this.groupBox12.SuspendLayout();
-			this.groupBox13.SuspendLayout();
-			this.groupBox14.SuspendLayout();
-			this.groupBox15.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -697,6 +698,12 @@ namespace Patchwork
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
+			// shadowOverride
+			// 
+			resources.ApplyResources(this.shadowOverride, "shadowOverride");
+			this.shadowOverride.Name = "shadowOverride";
+			this.shadowOverride.UseVisualStyleBackColor = true;
+			// 
 			// enabler_shadowOverride
 			// 
 			this.enabler_shadowOverride.Controls.Add(this.customShadowStrengthLimit);
@@ -738,12 +745,6 @@ namespace Patchwork
 			// 
 			resources.ApplyResources(this.customShadowStrengthTarget, "customShadowStrengthTarget");
 			this.customShadowStrengthTarget.Name = "customShadowStrengthTarget";
-			// 
-			// shadowOverride
-			// 
-			resources.ApplyResources(this.shadowOverride, "shadowOverride");
-			this.shadowOverride.Name = "shadowOverride";
-			this.shadowOverride.UseVisualStyleBackColor = true;
 			// 
 			// cam_ppOverride
 			// 
@@ -857,6 +858,143 @@ namespace Patchwork
 			this.tabPage2.UseVisualStyleBackColor = true;
 			this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
 			// 
+			// groupBox14
+			// 
+			this.groupBox14.Controls.Add(this.capJPG);
+			this.groupBox14.Controls.Add(this.geass);
+			this.groupBox14.Controls.Add(this.unlockH);
+			this.groupBox14.Controls.Add(this.watchFolder);
+			this.groupBox14.Controls.Add(this.equality);
+			this.groupBox14.Controls.Add(this.skipLogo);
+			this.groupBox14.Controls.Add(this.noFade);
+			resources.ApplyResources(this.groupBox14, "groupBox14");
+			this.groupBox14.Name = "groupBox14";
+			this.groupBox14.TabStop = false;
+			// 
+			// geass
+			// 
+			resources.ApplyResources(this.geass, "geass");
+			this.geass.Name = "geass";
+			this.geass.UseVisualStyleBackColor = true;
+			// 
+			// unlockH
+			// 
+			resources.ApplyResources(this.unlockH, "unlockH");
+			this.unlockH.Name = "unlockH";
+			this.unlockH.UseVisualStyleBackColor = true;
+			// 
+			// watchFolder
+			// 
+			resources.ApplyResources(this.watchFolder, "watchFolder");
+			this.watchFolder.Name = "watchFolder";
+			this.watchFolder.UseVisualStyleBackColor = true;
+			// 
+			// equality
+			// 
+			resources.ApplyResources(this.equality, "equality");
+			this.equality.Name = "equality";
+			this.equality.UseVisualStyleBackColor = true;
+			// 
+			// skipLogo
+			// 
+			resources.ApplyResources(this.skipLogo, "skipLogo");
+			this.skipLogo.Name = "skipLogo";
+			this.skipLogo.UseVisualStyleBackColor = true;
+			// 
+			// noFade
+			// 
+			resources.ApplyResources(this.noFade, "noFade");
+			this.noFade.Name = "noFade";
+			this.noFade.UseVisualStyleBackColor = true;
+			// 
+			// groupBox13
+			// 
+			this.groupBox13.Controls.Add(this.cardFmt);
+			this.groupBox13.Controls.Add(this.chardb);
+			this.groupBox13.Controls.Add(this.label35);
+			this.groupBox13.Controls.Add(this.faceJPG);
+			this.groupBox13.Controls.Add(this.label47);
+			this.groupBox13.Controls.Add(this.label48);
+			resources.ApplyResources(this.groupBox13, "groupBox13");
+			this.groupBox13.Name = "groupBox13";
+			this.groupBox13.TabStop = false;
+			// 
+			// cardFmt
+			// 
+			resources.ApplyResources(this.cardFmt, "cardFmt");
+			this.cardFmt.Name = "cardFmt";
+			// 
+			// chardb
+			// 
+			this.chardb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.chardb.FormattingEnabled = true;
+			resources.ApplyResources(this.chardb, "chardb");
+			this.chardb.Name = "chardb";
+			// 
+			// label35
+			// 
+			resources.ApplyResources(this.label35, "label35");
+			this.label35.Name = "label35";
+			// 
+			// faceJPG
+			// 
+			resources.ApplyResources(this.faceJPG, "faceJPG");
+			this.faceJPG.Name = "faceJPG";
+			this.faceJPG.UseVisualStyleBackColor = true;
+			// 
+			// label47
+			// 
+			resources.ApplyResources(this.label47, "label47");
+			this.label47.Name = "label47";
+			// 
+			// label48
+			// 
+			resources.ApplyResources(this.label48, "label48");
+			this.label48.Name = "label48";
+			// 
+			// tumblr
+			// 
+			resources.ApplyResources(this.tumblr, "tumblr");
+			this.tumblr.Name = "tumblr";
+			this.tumblr.UseVisualStyleBackColor = true;
+			// 
+			// groupBox12
+			// 
+			this.groupBox12.Controls.Add(this.label32);
+			this.groupBox12.Controls.Add(this.sliderMin);
+			this.groupBox12.Controls.Add(this.label33);
+			this.groupBox12.Controls.Add(this.sliderMax);
+			this.groupBox12.Controls.Add(this.useLR);
+			resources.ApplyResources(this.groupBox12, "groupBox12");
+			this.groupBox12.Name = "groupBox12";
+			this.groupBox12.TabStop = false;
+			// 
+			// label32
+			// 
+			resources.ApplyResources(this.label32, "label32");
+			this.label32.Name = "label32";
+			// 
+			// sliderMin
+			// 
+			resources.ApplyResources(this.sliderMin, "sliderMin");
+			this.sliderMin.Name = "sliderMin";
+			// 
+			// label33
+			// 
+			resources.ApplyResources(this.label33, "label33");
+			this.label33.Name = "label33";
+			// 
+			// sliderMax
+			// 
+			resources.ApplyResources(this.sliderMax, "sliderMax");
+			this.sliderMax.Name = "sliderMax";
+			// 
+			// useLR
+			// 
+			resources.ApplyResources(this.useLR, "useLR");
+			this.useLR.Name = "useLR";
+			this.useLR.UseVisualStyleBackColor = true;
+			// 
 			// groupBox11
 			// 
 			this.groupBox11.Controls.Add(this.spectateH);
@@ -933,101 +1071,6 @@ namespace Patchwork
 			this.bothMC.Name = "bothMC";
 			this.bothMC.UseVisualStyleBackColor = true;
 			// 
-			// geass
-			// 
-			resources.ApplyResources(this.geass, "geass");
-			this.geass.Name = "geass";
-			this.geass.UseVisualStyleBackColor = true;
-			// 
-			// label48
-			// 
-			resources.ApplyResources(this.label48, "label48");
-			this.label48.Name = "label48";
-			// 
-			// label47
-			// 
-			resources.ApplyResources(this.label47, "label47");
-			this.label47.Name = "label47";
-			// 
-			// cardFmt
-			// 
-			resources.ApplyResources(this.cardFmt, "cardFmt");
-			this.cardFmt.Name = "cardFmt";
-			// 
-			// noFade
-			// 
-			resources.ApplyResources(this.noFade, "noFade");
-			this.noFade.Name = "noFade";
-			this.noFade.UseVisualStyleBackColor = true;
-			// 
-			// skipLogo
-			// 
-			resources.ApplyResources(this.skipLogo, "skipLogo");
-			this.skipLogo.Name = "skipLogo";
-			this.skipLogo.UseVisualStyleBackColor = true;
-			// 
-			// label35
-			// 
-			resources.ApplyResources(this.label35, "label35");
-			this.label35.Name = "label35";
-			// 
-			// chardb
-			// 
-			this.chardb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.chardb.FormattingEnabled = true;
-			resources.ApplyResources(this.chardb, "chardb");
-			this.chardb.Name = "chardb";
-			// 
-			// tumblr
-			// 
-			resources.ApplyResources(this.tumblr, "tumblr");
-			this.tumblr.Name = "tumblr";
-			this.tumblr.UseVisualStyleBackColor = true;
-			// 
-			// useLR
-			// 
-			resources.ApplyResources(this.useLR, "useLR");
-			this.useLR.Name = "useLR";
-			this.useLR.UseVisualStyleBackColor = true;
-			// 
-			// sliderMax
-			// 
-			resources.ApplyResources(this.sliderMax, "sliderMax");
-			this.sliderMax.Name = "sliderMax";
-			// 
-			// label33
-			// 
-			resources.ApplyResources(this.label33, "label33");
-			this.label33.Name = "label33";
-			// 
-			// label32
-			// 
-			resources.ApplyResources(this.label32, "label32");
-			this.label32.Name = "label32";
-			// 
-			// sliderMin
-			// 
-			resources.ApplyResources(this.sliderMin, "sliderMin");
-			this.sliderMin.Name = "sliderMin";
-			// 
-			// equality
-			// 
-			resources.ApplyResources(this.equality, "equality");
-			this.equality.Name = "equality";
-			this.equality.UseVisualStyleBackColor = true;
-			// 
-			// watchFolder
-			// 
-			resources.ApplyResources(this.watchFolder, "watchFolder");
-			this.watchFolder.Name = "watchFolder";
-			this.watchFolder.UseVisualStyleBackColor = true;
-			// 
-			// unlockH
-			// 
-			resources.ApplyResources(this.unlockH, "unlockH");
-			this.unlockH.Name = "unlockH";
-			this.unlockH.UseVisualStyleBackColor = true;
-			// 
 			// tabPage5
 			// 
 			this.tabPage5.Controls.Add(this.groupBox15);
@@ -1037,6 +1080,47 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage5, "tabPage5");
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// groupBox15
+			// 
+			this.groupBox15.Controls.Add(this.fixPenis);
+			this.groupBox15.Controls.Add(this.fixVagina);
+			this.groupBox15.Controls.Add(this.hideMoz);
+			this.groupBox15.Controls.Add(this.noTelescope);
+			resources.ApplyResources(this.groupBox15, "groupBox15");
+			this.groupBox15.Name = "groupBox15";
+			this.groupBox15.TabStop = false;
+			// 
+			// fixPenis
+			// 
+			resources.ApplyResources(this.fixPenis, "fixPenis");
+			this.fixPenis.Name = "fixPenis";
+			this.fixPenis.UseVisualStyleBackColor = true;
+			// 
+			// fixVagina
+			// 
+			resources.ApplyResources(this.fixVagina, "fixVagina");
+			this.fixVagina.Name = "fixVagina";
+			this.fixVagina.UseVisualStyleBackColor = true;
+			// 
+			// hideMoz
+			// 
+			resources.ApplyResources(this.hideMoz, "hideMoz");
+			this.hideMoz.Name = "hideMoz";
+			this.hideMoz.UseVisualStyleBackColor = true;
+			this.hideMoz.CheckedChanged += new System.EventHandler(this.hideMoz_CheckedChanged);
+			// 
+			// noTelescope
+			// 
+			resources.ApplyResources(this.noTelescope, "noTelescope");
+			this.noTelescope.Name = "noTelescope";
+			this.noTelescope.UseVisualStyleBackColor = true;
+			// 
+			// noscopeClipMask
+			// 
+			resources.ApplyResources(this.noscopeClipMask, "noscopeClipMask");
+			this.noscopeClipMask.Name = "noscopeClipMask";
+			this.noscopeClipMask.UseVisualStyleBackColor = true;
 			// 
 			// groupBox10
 			// 
@@ -1091,12 +1175,6 @@ namespace Patchwork
 			// 
 			resources.ApplyResources(this.mmFemale, "mmFemale");
 			this.mmFemale.Name = "mmFemale";
-			// 
-			// noscopeClipMask
-			// 
-			resources.ApplyResources(this.noscopeClipMask, "noscopeClipMask");
-			this.noscopeClipMask.Name = "noscopeClipMask";
-			this.noscopeClipMask.UseVisualStyleBackColor = true;
 			// 
 			// enabler_noscopeClipMask
 			// 
@@ -1203,31 +1281,6 @@ namespace Patchwork
 			resources.ApplyResources(this.noscopeAlphaY, "noscopeAlphaY");
 			this.noscopeAlphaY.Name = "noscopeAlphaY";
 			// 
-			// noTelescope
-			// 
-			resources.ApplyResources(this.noTelescope, "noTelescope");
-			this.noTelescope.Name = "noTelescope";
-			this.noTelescope.UseVisualStyleBackColor = true;
-			// 
-			// hideMoz
-			// 
-			resources.ApplyResources(this.hideMoz, "hideMoz");
-			this.hideMoz.Name = "hideMoz";
-			this.hideMoz.UseVisualStyleBackColor = true;
-			this.hideMoz.CheckedChanged += new System.EventHandler(this.hideMoz_CheckedChanged);
-			// 
-			// fixPenis
-			// 
-			resources.ApplyResources(this.fixPenis, "fixPenis");
-			this.fixPenis.Name = "fixPenis";
-			this.fixPenis.UseVisualStyleBackColor = true;
-			// 
-			// fixVagina
-			// 
-			resources.ApplyResources(this.fixVagina, "fixVagina");
-			this.fixVagina.Name = "fixVagina";
-			this.fixVagina.UseVisualStyleBackColor = true;
-			// 
 			// tabPage3
 			// 
 			this.tabPage3.Controls.Add(this.noBustNorm);
@@ -1240,6 +1293,12 @@ namespace Patchwork
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// noBustNorm
+			// 
+			resources.ApplyResources(this.noBustNorm, "noBustNorm");
+			this.noBustNorm.Name = "noBustNorm";
+			this.noBustNorm.UseVisualStyleBackColor = true;
 			// 
 			// groupBox9
 			// 
@@ -1299,6 +1358,12 @@ namespace Patchwork
 			resources.ApplyResources(this.groupBox7, "groupBox7");
 			this.groupBox7.Name = "groupBox7";
 			this.groupBox7.TabStop = false;
+			// 
+			// bgmAsync
+			// 
+			resources.ApplyResources(this.bgmAsync, "bgmAsync");
+			this.bgmAsync.Name = "bgmAsync";
+			this.bgmAsync.UseVisualStyleBackColor = true;
 			// 
 			// compCache
 			// 
@@ -1520,68 +1585,11 @@ namespace Patchwork
 			this.replOutput.ReadOnly = true;
 			this.replOutput.TabStop = false;
 			// 
-			// checkBox1
+			// capJPG
 			// 
-			resources.ApplyResources(this.checkBox1, "checkBox1");
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.UseVisualStyleBackColor = true;
-			// 
-			// noBustNorm
-			// 
-			resources.ApplyResources(this.noBustNorm, "noBustNorm");
-			this.noBustNorm.Name = "noBustNorm";
-			this.noBustNorm.UseVisualStyleBackColor = true;
-			// 
-			// bgmAsync
-			// 
-			resources.ApplyResources(this.bgmAsync, "bgmAsync");
-			this.bgmAsync.Name = "bgmAsync";
-			this.bgmAsync.UseVisualStyleBackColor = true;
-			// 
-			// groupBox12
-			// 
-			this.groupBox12.Controls.Add(this.label32);
-			this.groupBox12.Controls.Add(this.sliderMin);
-			this.groupBox12.Controls.Add(this.label33);
-			this.groupBox12.Controls.Add(this.sliderMax);
-			this.groupBox12.Controls.Add(this.useLR);
-			resources.ApplyResources(this.groupBox12, "groupBox12");
-			this.groupBox12.Name = "groupBox12";
-			this.groupBox12.TabStop = false;
-			// 
-			// groupBox13
-			// 
-			this.groupBox13.Controls.Add(this.cardFmt);
-			this.groupBox13.Controls.Add(this.chardb);
-			this.groupBox13.Controls.Add(this.label35);
-			this.groupBox13.Controls.Add(this.checkBox1);
-			this.groupBox13.Controls.Add(this.label47);
-			this.groupBox13.Controls.Add(this.label48);
-			resources.ApplyResources(this.groupBox13, "groupBox13");
-			this.groupBox13.Name = "groupBox13";
-			this.groupBox13.TabStop = false;
-			// 
-			// groupBox14
-			// 
-			this.groupBox14.Controls.Add(this.geass);
-			this.groupBox14.Controls.Add(this.unlockH);
-			this.groupBox14.Controls.Add(this.watchFolder);
-			this.groupBox14.Controls.Add(this.equality);
-			this.groupBox14.Controls.Add(this.skipLogo);
-			this.groupBox14.Controls.Add(this.noFade);
-			resources.ApplyResources(this.groupBox14, "groupBox14");
-			this.groupBox14.Name = "groupBox14";
-			this.groupBox14.TabStop = false;
-			// 
-			// groupBox15
-			// 
-			this.groupBox15.Controls.Add(this.fixPenis);
-			this.groupBox15.Controls.Add(this.fixVagina);
-			this.groupBox15.Controls.Add(this.hideMoz);
-			this.groupBox15.Controls.Add(this.noTelescope);
-			resources.ApplyResources(this.groupBox15, "groupBox15");
-			this.groupBox15.Name = "groupBox15";
-			this.groupBox15.TabStop = false;
+			resources.ApplyResources(this.capJPG, "capJPG");
+			this.capJPG.Name = "capJPG";
+			this.capJPG.UseVisualStyleBackColor = true;
 			// 
 			// replInput
 			// 
@@ -1615,12 +1623,20 @@ namespace Patchwork
 			this.enabler_cam_ppOverride.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			this.groupBox14.ResumeLayout(false);
+			this.groupBox14.PerformLayout();
+			this.groupBox13.ResumeLayout(false);
+			this.groupBox13.PerformLayout();
+			this.groupBox12.ResumeLayout(false);
+			this.groupBox12.PerformLayout();
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox11.PerformLayout();
 			this.enabler_tumblr.ResumeLayout(false);
 			this.enabler_tumblr.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			this.groupBox15.ResumeLayout(false);
+			this.groupBox15.PerformLayout();
 			this.groupBox10.ResumeLayout(false);
 			this.groupBox10.PerformLayout();
 			this.enabler_noscopeClipMask.ResumeLayout(false);
@@ -1640,14 +1656,6 @@ namespace Patchwork
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
-			this.groupBox12.ResumeLayout(false);
-			this.groupBox12.PerformLayout();
-			this.groupBox13.ResumeLayout(false);
-			this.groupBox13.PerformLayout();
-			this.groupBox14.ResumeLayout(false);
-			this.groupBox14.PerformLayout();
-			this.groupBox15.ResumeLayout(false);
-			this.groupBox15.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1840,13 +1848,14 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox hiPoly;
 		private System.Windows.Forms.CheckBox compCache;
 		private System.Windows.Forms.CheckBox noFrillsExit;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.CheckBox faceJPG;
 		private System.Windows.Forms.CheckBox noBustNorm;
 		private System.Windows.Forms.GroupBox groupBox14;
 		private System.Windows.Forms.GroupBox groupBox13;
 		private System.Windows.Forms.GroupBox groupBox12;
 		private System.Windows.Forms.CheckBox bgmAsync;
 		private System.Windows.Forms.GroupBox groupBox15;
+		private System.Windows.Forms.CheckBox capJPG;
 	}
 }
 

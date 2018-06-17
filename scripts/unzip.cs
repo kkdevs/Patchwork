@@ -43,6 +43,8 @@ public class unzip : MonoBehaviour
 				{
 					if (!entry.IsFile) continue;
 					var efn = entry.Name;
+					if (efn.ToLower().EndsWith("/manifest.xml"))
+						continue;
 					
 					if (efn.StartsWith("abdata/"))
 						efn = efn.Substring(7);
@@ -85,7 +87,7 @@ public class unzip : MonoBehaviour
 						// if we can't figure out the category, bail on this csv
 						if (cat == -1)
 						{
-							print(zipfn + " export failed");
+							print(zipfn + " unzip failed");
 							continue;
 						}
 						efn = $"{prefix}{dist:D2}_{guid}/{cat}_{basename}.csv";
