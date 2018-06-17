@@ -7,3 +7,6 @@
 [submodule "MessagePack-CSharp"]
 	path = MessagePack-CSharp
 	url = git@github.com:kkdevs/MessagePack-CSharp.git
+[submodule "UniRx"]
+	path = UniRx
+	url = git@github.com:kkdevs/UniRx.git

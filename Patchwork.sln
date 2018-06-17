@@ -9,13 +9,24 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Assembly-CSharp", "kksrc\As
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loader", "loader\loader.vcxproj", "{5B729EE4-4C05-412E-B7EF-2AFCBAAC5441}"
 	ProjectSection(ProjectDependencies) = postProject
+		{3B09D220-E6E6-470A-84D7-C1D736F49485} = {3B09D220-E6E6-470A-84D7-C1D736F49485}
 		{EFA8AEF5-D97B-49C2-88FA-0552601B48D5} = {EFA8AEF5-D97B-49C2-88FA-0552601B48D5}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scripts", "scripts\scripts.csproj", "{BF9DCA1F-ACE3-4371-99A7-496C00E2BDED}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MessagePack-CSharp", "MessagePack-CSharp\MessagePack-CSharp.shproj", "{4ABA7552-2E31-416C-95CB-71EC40D6B60B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "kksrc-fp\Assembly-CSharp-firstpass.csproj", "{3B09D220-E6E6-470A-84D7-C1D736F49485}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UniRx", "UniRx\UniRx.shproj", "{718F00AC-FFE1-4503-9D8E-BD821C75FF4F}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		MessagePack-CSharp\MessagePack-CSharp.projitems*{3b09d220-e6e6-470a-84d7-c1d736f49485}*SharedItemsImports = 4
+		UniRx\UniRx.projitems*{3b09d220-e6e6-470a-84d7-c1d736f49485}*SharedItemsImports = 4
+		MessagePack-CSharp\MessagePack-CSharp.projitems*{4aba7552-2e31-416c-95cb-71ec40d6b60b}*SharedItemsImports = 13
+		UniRx\UniRx.projitems*{718f00ac-ffe1-4503-9d8e-bd821c75ff4f}*SharedItemsImports = 13
 		kksrc\Assembly-CSharp.projitems*{efa8aef5-d97b-49c2-88fa-0552601b48d5}*SharedItemsImports = 4
 		kksrc\Assembly-CSharp.projitems*{efe9644a-6db3-4a87-841a-1b72c84415ff}*SharedItemsImports = 13
 	EndGlobalSection
@@ -76,6 +87,24 @@ Global
 		{BF9DCA1F-ACE3-4371-99A7-496C00E2BDED}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF9DCA1F-ACE3-4371-99A7-496C00E2BDED}.Release|x64.ActiveCfg = Release|Any CPU
 		{BF9DCA1F-ACE3-4371-99A7-496C00E2BDED}.Release|x86.ActiveCfg = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug_local|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug_local|Any CPU.Build.0 = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug_local|x64.ActiveCfg = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug_local|x64.Build.0 = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug_local|x86.ActiveCfg = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug_local|x86.Build.0 = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug|x64.ActiveCfg = Debug|x64
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug|x64.Build.0 = Debug|x64
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Release|x64.ActiveCfg = Release|x64
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Release|x64.Build.0 = Release|x64
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B09D220-E6E6-470A-84D7-C1D736F49485}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
