@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using MessagePack;
 using static ChaListDefine;
+using System.Reflection.Emit;
 
 public class fixplugins : MonoBehaviour
 {
@@ -31,18 +32,21 @@ public class fixplugins : MonoBehaviour
 		print("Trying to fix plugins");
 		// it broke, so load all plugins "manually"
 		string path = Path.GetFullPath(Application.dataPath + "/../bepinex");
-		try
+		for (int i = 0; i < 2; i++)
 		{
-			foreach (var dll in Directory.GetFiles(path + "/core", "*.dll"))
+			try
 			{
-				try
+				foreach (var dll in Directory.GetFiles(path + "/core", "*.dll"))
 				{
-					Assembly.Load(AssemblyName.GetAssemblyName(dll));
+					try
+					{
+						Assembly.Load(AssemblyName.GetAssemblyName(dll));
+					}
+					catch { };
 				}
-				catch { };
 			}
+			catch { };
 		}
-		catch {};
 
 		if (!hasBepinAss)
 			try {
@@ -58,13 +62,13 @@ public class fixplugins : MonoBehaviour
 			{
 				var an = AssemblyName.GetAssemblyName(dll);
 				var ass = AppDomain.CurrentDomain.Load(an);
-				foreach (var t in ass.GetTypesSafe())
+				foreach (var t in ass.GetExportedTypes())
 					if (t.BaseType?.Name == "BaseUnityPlugin")
 						gameObject.AddComponent(t);
 			}
 			catch (Exception ex)
 			{
-				print(ex);
+				print("Plugin {path} may not work: {ex}");
 			};
 		}
 
@@ -75,7 +79,10 @@ public class fixplugins : MonoBehaviour
 	public void fixFilters()
 	{
 		foreach (var ass in AppDomain.CurrentDomain.GetAssemblies())
-			foreach (var t in ass.GetTypesSafe())
+		{
+			if (ass is AssemblyBuilder)
+				continue;
+			foreach (var t in ass.GetExportedTypes())
 				if (t.BaseType?.Name == "BaseUnityPlugin")
 				{
 					try
@@ -89,6 +96,7 @@ public class fixplugins : MonoBehaviour
 					}
 					catch { };
 				}
+		}
 	}
 }
 
