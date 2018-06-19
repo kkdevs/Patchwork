@@ -47,7 +47,7 @@ public class MonoScript : Evaluator
 	{
 		var settings = new CompilerSettings()
 		{
-			GenerateDebugInfo = true,
+			//GenerateDebugInfo = true,
 			//StdLib = false,
 			//Unsafe = true,
 			Target = Target.Library,

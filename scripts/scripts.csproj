@@ -59,7 +59,10 @@
   <ItemGroup>
     <Compile Include="dumpcsv.cs" />
     <Compile Include="env.cs" />
+    <Compile Include="fakeid.cs" />
+    <Compile Include="fakeidkkex.cs" />
     <Compile Include="fixplugins.cs" />
+    <Compile Include="kkex.cs" />
     <Compile Include="macros.cs" />
     <Compile Include="prettyprint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

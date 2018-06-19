@@ -257,7 +257,6 @@ namespace Patchwork
 				CSV.LoadLst(ex, out entry);
 				res.Add(entry);
 			}
-			Script.registry[asset] = res;
 			return res;
 		}
 

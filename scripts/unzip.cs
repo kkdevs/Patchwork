@@ -1,4 +1,6 @@
-﻿using Patchwork;
+﻿//@INFO: Compatibility for zipmods
+
+using Patchwork;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Xml;

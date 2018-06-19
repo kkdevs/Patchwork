@@ -11,6 +11,76 @@ namespace Patchwork
 {
 	public static class Ext
 	{
+		public static IEnumerable<MemberInfo> GetVars(this Type t)
+		{
+			foreach (var v in t.GetFields())
+				yield return v;
+			foreach (var gs in t.GetProperties())
+				yield return gs;
+		}
+		public static Type GetVarType(this MemberInfo m)
+		{
+			var f = m as FieldInfo;
+			if (f != null)
+				return f.FieldType;
+			var p = m as PropertyInfo;
+			if (p != null)
+				return p.PropertyType;
+			throw new Exception("Invalid member type");
+		}
+		public static object GetValue(this MemberInfo m, object o)
+		{
+			var f = m as FieldInfo;
+			if (f != null)
+				return f.GetValue(o);
+			var p = m as PropertyInfo;
+			if (p != null && p.CanRead)
+				return p.GetValue(o, null);
+			throw new Exception("Invalid member type for " + m.Name);
+		}
+		public static bool IsString(this Type t)
+		{
+			return typeof(String) == t;//.IsAssignableFrom(t);
+		}
+		public static bool IsBasic(this Type t)
+		{
+			return t.IsPrimitive || t.IsString();
+		}
+
+		public static bool GetAttr<T>(this MemberInfo m, ref T ret) where T : class
+		{
+			foreach (var attr in m.GetCustomAttributes(true))
+			{
+				if (attr is T)
+				{
+					ret = attr as T;
+					return true;
+				}
+			}
+			return false;
+		}
+		public static bool HasAttr<T>(this MemberInfo m) where T : class
+		{
+			T dummy = null;
+			return GetAttr(m, ref dummy);
+		}
+		public static void SetValue(this MemberInfo m, object o, object v)
+		{
+			var f = m as FieldInfo;
+			if (f != null)
+			{
+				f.SetValue(o, v);
+				return;
+			}
+			var p = m as PropertyInfo;
+			if (p != null && p.CanWrite)
+			{
+				p.SetValue(o, v, null);
+				return;
+			}
+			throw new Exception("Invalid member type for " + m.Name);
+		}
+
 		public static bool Cmp(byte[] a, byte[] b) {
 			if (a.Length != b.Length)
 				return false;

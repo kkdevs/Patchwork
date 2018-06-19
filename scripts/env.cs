@@ -114,6 +114,7 @@ public partial class ScriptEnv : Script
 				print($"Registered component {t.Name} => {t.BaseType.Name}");
 			}
 		}
+		ScriptEvent.Wire();
 		eval("using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine; using UnityEngine.SceneManagement;");
 		print($"Script environment initialized, {nadd} MonoBs running.");
 	}
