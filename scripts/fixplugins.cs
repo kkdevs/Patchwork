@@ -29,6 +29,10 @@ public class fixplugins : MonoBehaviour
 			fixFilters();
 			return;
 		}
+
+		if (Script.getset("fixplugins", true))
+			return;
+
 		print("Trying to fix plugins");
 		// it broke, so load all plugins "manually"
 		string path = Path.GetFullPath(Application.dataPath + "/../bepinex");

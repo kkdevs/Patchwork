@@ -5,6 +5,14 @@ using Patchwork;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public class Macros : MonoBehaviour {
+	public bool OnScene(string name, string subname)
+	{
+		print($"[SCENE] {name} {subname}");
+		return false;
+	}
+}
+
 public partial class ScriptEnv
 {
 	public static Lookat_dan lookatdan => Object.FindObjectOfType<Lookat_dan>();

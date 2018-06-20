@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,21 +12,44 @@ namespace Patchwork
 {
 	public static class Ext
 	{
-		public static IEnumerable<MemberInfo> GetVars(this Type t)
+		public static Dictionary<string, Dictionary<Type, MethodInfo>> methodCache = new Dictionary<string, Dictionary<Type, MethodInfo>>();
+		public static MethodInfo CachedGetMethod(this Type t, string name)
 		{
-			foreach (var v in t.GetFields())
-				yield return v;
-			foreach (var gs in t.GetProperties())
-				yield return gs;
+			if (!methodCache.TryGetValue(name, out Dictionary<Type, MethodInfo> mdict))
+				mdict = methodCache[name] = new Dictionary<Type, MethodInfo>();
+			if (mdict.TryGetValue(t, out MethodInfo mi))
+				return mi;
+			mi = t.GetMethod(name);
+			return mdict[t] = mi;
 		}
+		public static Dictionary<Type, MemberInfo[]> varCache = new Dictionary<Type, MemberInfo[]>();
+		public static MemberInfo[] GetVars(this Type t, bool reversed)
+		{
+			MemberInfo[] res;		
+			if (!varCache.TryGetValue(t, out res))
+			{
+				List<MemberInfo> tmp = new List<MemberInfo>();
+				foreach (var v in t.GetFields())
+					tmp.Add(v);
+				foreach (var gs in t.GetProperties())
+					tmp.Add(gs);
+				varCache[t] = res = tmp.ToArray();
+			}
+			if (reversed)
+				return res.Reverse().ToArray();
+			return res;
+		}
+		public static Dictionary<MemberInfo, Type> memTypeCache = new Dictionary<MemberInfo, Type>();
 		public static Type GetVarType(this MemberInfo m)
 		{
+			if (memTypeCache.TryGetValue(m, out Type res))
+				return res;
 			var f = m as FieldInfo;
 			if (f != null)
-				return f.FieldType;
+				return memTypeCache[m] = f.FieldType;
 			var p = m as PropertyInfo;
 			if (p != null)
-				return p.PropertyType;
+				return memTypeCache[m] = p.PropertyType;
 			throw new Exception("Invalid member type");
 		}
 		public static object GetValue(this MemberInfo m, object o)
@@ -47,17 +71,27 @@ namespace Patchwork
 			return t.IsPrimitive || t.IsString();
 		}
 
+		public static Dictionary<Type, Dictionary<MemberInfo, object>> attrCache = new Dictionary<Type, Dictionary<MemberInfo, object>>();
 		public static bool GetAttr<T>(this MemberInfo m, ref T ret) where T : class
 		{
+			if (!attrCache.TryGetValue(typeof(T), out Dictionary<MemberInfo, object> mdict))
+				mdict = attrCache[typeof(T)] = new Dictionary<MemberInfo, object>();
+			if (mdict.TryGetValue(m, out object retval))
+			{
+				ret = retval as T;
+				return ret != null;
+			}
+
 			foreach (var attr in m.GetCustomAttributes(true))
 			{
 				if (attr is T)
 				{
 					ret = attr as T;
-					return true;
+					break;
 				}
 			}
-			return false;
+			mdict[m] = ret;
+			return ret != null;
 		}
 		public static bool HasAttr<T>(this MemberInfo m) where T : class
 		{
@@ -132,15 +166,43 @@ namespace Patchwork
 
 		public static MethodInfo InitMsgPack(Type ct)
 		{
-			return ct.GetMethods().First(t => t.Name == "Serialize" && t.GetParameters().Count() == 1);
+			return ct.GetMethods().First(t => t.Name == "Serialize" && t.GetParameters().Count() == 2);
 		}
 
 
 		public static byte[] SerializeObject(object o, bool lz4)
 		{
-			var ser = lz4 ? lz4serialize : serialize;
-			return ser.MakeGenericMethod(o.GetType()).Invoke(null, new object[] { o }) as byte[];
+			if (lz4)
+				return LZ4MessagePackSerializer.NonGeneric.Serialize(o.GetType(), o, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
+			else
+				return MessagePackSerializer.NonGeneric.Serialize(o.GetType(), o, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
+			//var ser = lz4 ? lz4serialize : serialize;
+			//return ser.MakeGenericMethod(o.GetType()).Invoke(null, new object[] { o, MessagePack.Resolvers.ContractlessStandardResolver.Instance}) as byte[];
 		}
+
+		public static byte[] Compress(byte[] input, CompressionMode mode = CompressionMode.Compress)
+		{
+			var buf = new MemoryStream();
+			var gzip = new DeflateStream(buf, mode);
+			gzip.Write(input, 0, input.Length);
+			gzip.Close();
+			return buf.ToArray();
+		}
+
+		public static T CopyTo<T>(this Stream source, T destination, int bufferSize = 81920) where T : Stream
+		{
+			byte[] array = new byte[bufferSize];
+			int count;
+			while ((count = source.Read(array, 0, array.Length)) != 0)
+				destination.Write(array, 0, count);
+			return destination;
+		}
+
+		public static byte[] Decompress(byte[] buf)
+		{
+			return Compress(buf, CompressionMode.Decompress);
+		}
+
 
 		public static byte[] LRead(this BinaryReader br)
 		{

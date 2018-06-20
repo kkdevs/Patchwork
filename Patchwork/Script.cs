@@ -21,6 +21,18 @@ namespace Patchwork
 	[System.AttributeUsage(System.AttributeTargets.Event)]
 	public class ScriptEvent : System.Attribute
 	{
+		[ScriptEvent]
+		public static event Func<string, string, bool> OnScene;
+		public static bool Scene(string name, string name2)
+		{
+			if (OnScene != null)
+			{
+				foreach (var cb in OnScene.GetInvocationList())
+					if ((bool)cb.DynamicInvoke(new object[] { name, name2 }))
+						return true;
+			}
+			return false;
+		}
 		public static Dictionary<string, KeyValuePair<EventInfo, List<KeyValuePair<int, System.Delegate>>>> events = new Dictionary<string, KeyValuePair<EventInfo, List<KeyValuePair<int, System.Delegate>>>>();
 		public static void Init()
 		{
@@ -102,14 +114,25 @@ namespace Patchwork
 	public partial class Script : InteractiveBase
 	{
 		public static Dictionary<string, object> regDict = new Dictionary<string, object>();
-		public static T registry<T>(string name) where T : new()
+		public static T registry<T>(string name) where T : class, new()
 		{
 			if (regDict.TryGetValue(name, out object obj))
-				return (T)obj;
+				return obj as T;
 			var v = new T();
 			regDict[name] = v;
 			return v;
 		}
+		public static T getset<T>(string name, T val) where T : struct
+		{
+			if (regDict.TryGetValue(name, out object obj))
+			{
+				regDict[name] = val;
+				return (T)obj;
+			}
+			regDict[name] = val;
+			return new T();
+		}
+
 		public static Dictionary<string, Type> Components = new Dictionary<string, Type>();
 		public class Reporter : TextWriter
 		{

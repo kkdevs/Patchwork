@@ -18,26 +18,31 @@ public class FakeID : MonoBehaviour
 		InitListInfo();
 	}
 
-	// ids to never rewrite as the game code treats em specially
-	public static HashSet<KeyValuePair<int,int>> exempt = new HashSet<KeyValuePair<int, int>>()
+	// ids to never rewrite as those are treated specially by the game
+	public static bool exempt(CategoryNo cat, int id)
 	{
-		new KeyValuePair<int, int>((int)CategoryNo.co_top, 1),
-		new KeyValuePair<int, int>((int)CategoryNo.co_top, 2),
-	};
+		if (id != 0 && id != 1)
+			return false;
+		if ((cat >= CategoryNo.co_top && cat <= CategoryNo.co_shoes))
+			return true;
+		if (cat >= CategoryNo.cpo_sailor_a && cat <= CategoryNo.cpo_sailor_c)
+			return true;
+		if (cat >= CategoryNo.cpo_jacket_a && cat <= CategoryNo.cpo_jacket_c)
+			return true;
+		return false;
+	}
 
 	// (re)load the listinfos
 	public static IdMap idMap;
 	public void InitListInfo()
 	{
-		idMap = Script.registry<IdMap>("fixplugins.idMap");
+		idMap = new IdMap();
 		if (Manager.Character.Instance != null)
 		{
 			Manager.Character.Instance.chaListCtrl = new ChaListControl();
 			Manager.Character.Instance.chaListCtrl.LoadListInfoAll();
 		}
 	}
-
-	public static ChaListControl ctrl => Manager.Character.Instance.chaListCtrl;
 
 	// When a new item list entry is created, remap its id to fake index
 	// to ensure its unique. At the same time, remember the mapping so that
@@ -56,6 +61,8 @@ public class FakeID : MonoBehaviour
 		public Dictionary<int, ListInfoBase> fake2real = new Dictionary<int, ListInfoBase>();
 		public int NewFake(int cat, int realid, ListInfoBase data)
 		{
+			if (exempt((CategoryNo)cat, realid))
+				return realid;
 			var realpair = new KeyValuePair<int, int>(cat, realid);
 			List<int> fakeids;
 			if (!real2fake.TryGetValue(realpair, out fakeids))
@@ -65,7 +72,7 @@ public class FakeID : MonoBehaviour
 				if (fake2real[item].Distribution2 == data.Distribution2)
 					return item;
 			// otherwise make a new fake
-			int fakeid = exempt.Contains(realpair) ? realid : --counter;
+			int fakeid = --counter;
 			fakeids.Add(fakeid);
 			fake2real[fakeid] = data;
 			return fakeid;
@@ -91,6 +98,8 @@ public class FakeID : MonoBehaviour
 		{
 			Item item;
 			List<int> candidates;
+			if (exempt((CategoryNo)cat, id))
+				return id;
 			var realpair = new KeyValuePair<int, int>(cat, id);
 			if (items.TryGetValue(prop, out item))
 			{
@@ -105,24 +114,36 @@ public class FakeID : MonoBehaviour
 			if (idMap.real2fake.TryGetValue(realpair, out candidates))
 				return candidates.FirstOrDefault();
 
-			print($"can't find {prop}/{cat}/{id}");
+			print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
 
-			return int.MaxValue;
+			return id;// int.MaxValue;
 		}
 
 		// translate fake id to a real one. at the same time, record guid usage.
 		public int GetReal(string prop, int cat, int id)
 		{
-			ListInfoBase lib = idMap.fake2real[id];
-			if (lib.Distribution2 == "") // if no guid now, nuke the mapping
+			ListInfoBase lib;
+			if (exempt((CategoryNo)cat, id))
+				return id;
+			if (!idMap.fake2real.TryGetValue(id, out lib) || lib.Category != cat)
+			{
+				print($"Failed to translate fake to real prop={prop} cat({cat})==libcat({lib.Category}), id={id}");
+				return id;
+			}
+			if (lib.Distribution2.IsNullOrEmpty())
+			{ // if no guid now, nuke the mapping
 				items.Remove(prop);
+			}
 			else
-				items[prop] = new Item() {
+			{
+				items[prop] = new Item()
+				{
 					guid = lib.Distribution2,
 					cat = cat,
 					id = lib.Id,
 					prop = prop
 				};
+			}
 			return lib.Id;
 		}
 	}
@@ -138,6 +159,8 @@ public class FakeID : MonoBehaviour
 		if (tofake)
 		{
 			newid = map.GetFake(prefix, cat, id);
+			if (newid == int.MaxValue)
+				return id;
 			int id2 = -1;
 			try
 			{
@@ -151,14 +174,15 @@ public class FakeID : MonoBehaviour
 		} else
 		{
 			newid = map.GetReal(prefix, cat, id);
+			if (newid == int.MaxValue)
+				return id;
 		}
 		return newid;
 	}
 
-	public int currIdx;
 
 	// traverse object and rewrite ids
-	public void traverse(string prefix, object root)
+	public void traverse(string prefix, object root, int currIdx = 0)
 	{
 		if (root == null) return;
 		var t = root.GetType();
@@ -167,17 +191,13 @@ public class FakeID : MonoBehaviour
 		{
 			var arr = root as Array;
 			int idx = 0;
-			if (arr != null)
+			if (arr != null && !t.GetElementType().IsBasic())
 				foreach (var sub in arr)
-				{
-					if (!sub.GetType().IsBasic())
-						traverse($"{prefix}[{currIdx = idx++}]", sub);
-				}
-			currIdx = 0;
+					traverse($"{prefix}[{idx}]", sub, idx++);
 			return;
 		}
 
-		foreach (var mem in t.GetVars())
+		foreach (var mem in t.GetVars(!tofake))
 		{
 			var name = mem.Name;
 			var mt = mem.GetVarType();
@@ -187,13 +207,10 @@ public class FakeID : MonoBehaviour
 			{
 				CatHint hint = null;
 				if (!mem.GetAttr(ref hint))
-				{
-					print($"Missing hint for {prefix}.{name}");
 					continue;
-				}
-
+				hint.Reset();
 				if (hint.hint == (int)CategoryNo.dynamic)
-					hint.hint = (int)t.GetMethod(name + "_cat").Invoke(root, new object[] { currIdx });
+					hint.hint = (int)t.CachedGetMethod(name + "_cat").Invoke(root, new object[] { currIdx });
 				var val = mem.GetValue(root);
 				var arr = val as Array;
 				if (mt == typeof(int))
@@ -207,19 +224,21 @@ public class FakeID : MonoBehaviour
 					}
 				}
 			}
-			else if (mt.IsArray || t.GetMethod("SaveBytes") != null || t.HasAttr<MessagePackObjectAttribute>())
+			else if (mt.IsArray || t.CachedGetMethod("SaveBytes") != null || t.HasAttr<MessagePackObjectAttribute>())
 				traverse(prefix + "." + name, mem.GetValue(root));
 
 		}
 	}
 
-	// id rewriter should run last, after guid preference tables are populated
-	public void OnCardLoad_1000(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
+	public void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
+//		print("CARDLOAD");
+//		print(Environment.StackTrace);
 		map = f.dict.Get<GuidMap>("guidmap");
 		tofake = true;
-		print("Traverse?");
+		Trace.Log("CARD coord");
 		traverse("coordinate",f.coordinate);
+		Trace.Log("CARD cust");
 		traverse("custom",f.custom);
 	}
 
