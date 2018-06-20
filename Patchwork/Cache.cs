@@ -163,15 +163,28 @@ namespace Patchwork
 
 		// Load generic asset. Serializable assets are re-routed to/from CSV.
 		// Returns true if we *handle* the request, regardless of success.
-		public static bool Asset(string bundle, string asset, System.Type type, string manifest, out AssetBundleLoadAssetOperation res)
+		public static AssetBundleLoadAssetOperation AssetABM(string bundle, string asset, System.Type type)
 		{
-			res = null;
-			Debug.Log($"[CACHE] Loading translated asset {bundle} {asset} {type.Name}");
+			UnityEngine.Object ass = null;
+			if (asset != null)
+				ass = Asset(bundle, asset, type);
+			return new AssetBundleLoadAssetOperationSimulation(ass);
+		}
+
+		public static Dictionary<string, UnityEngine.Object> assetCache = new Dictionary<string, UnityEngine.Object>();
+		public static HashSet<string> nxpng = new HashSet<string>();
+		public static UnityEngine.Object Asset(string bundle, string asset, System.Type type, bool nocache = false)
+		{
+			var key = $"{bundle}/{asset}/{type.Name}";
+			Debug.Log($"[CACHE] Loading asset {bundle} {asset} {type.Name}");
 			if (asset == null)
-				return false;
-#if !USE_OLD_ABM
+				return null;
+
+			if (assetCache.TryGetValue(key, out UnityEngine.Object obj))
+				return obj;
+
 			var fakepath = LoadedAssetBundle.basePath + bundle.Substring(0, bundle.Length - 8) + "/" + asset;
-			if (type == typeof(Texture2D))
+			if (type == typeof(Texture2D) && !nxpng.Contains(key))
 			{
 				var pngpath = GetPath(fakepath + ".png");			
 				Texture2D tex = null;
@@ -189,35 +202,58 @@ namespace Patchwork
 						tex.wrapMode = TextureWrapMode.Clamp;
 					else if (fakepath.Contains("repeat"))
 						tex.wrapMode = TextureWrapMode.Repeat;
-					res = new AssetBundleLoadAssetOperationSimulation(tex);
-					return true;
+					if (!nocache)
+						assetCache[key] = tex;
+					return tex;
 				}
-			}
-#endif
-			if (!typeof(IDumpable).IsAssignableFrom(type))
-				return false;
-			if (Program.settings.fetchAssets)
-			{
-				var obj = Load(bundle, asset, type) as UnityEngine.Object;
-				if (obj != null)
-				{
-					Debug.Log($"[CACHE] Loading CSV {bundle}/{asset}");
-					res = new AssetBundleLoadAssetOperationSimulation(obj);
-					return true;
-				}
+				nxpng.Add(key);
 			}
 
-			res = AssetBundleManager._LoadAsset(bundle, asset, type, manifest);
 
-			if (Program.settings.dumpAssets)
+			LoadedAssetBundle asb = null;
+
+			if (typeof(IDumpable).IsAssignableFrom(type))
 			{
-				if (!res.IsEmpty() && !File.Exists(ABPath(bundle, asset, "csv")))
+				
+				if (Program.settings.dumpAssets && !File.Exists(ABPath(bundle, asset, "csv")) && (asb = LoadedAssetBundle.Load(bundle)) != null)
 				{
-					Debug.Log($"[CACHE] Saving CSV {bundle}/{asset}");
-					Save(res.GetAsset<UnityEngine.Object>(), bundle, asset);
+					var ass = asb.LoadAsset(asset, type);
+					if (ass != null)
+					{
+						Debug.Log($"[CACHE] Saving CSV {bundle}/{asset}");
+						Save(ass, bundle, asset);
+						return ass;
+					}
 				}
+
+				if (!Program.settings.fetchAssets)
+				{
+					if (asb == null)
+						asb = LoadedAssetBundle.Load(bundle);
+					if (asb == null)
+						return null;
+					return assetCache[key] = asb.LoadAsset(asset, type);
+				}
+
+				obj = Load(bundle, asset, type) as UnityEngine.Object;
+				if (obj == null)
+				{
+					if (asb == null)
+						asb = LoadedAssetBundle.Load(bundle);
+					if (asb == null)
+						return null;
+					obj = asb.LoadAsset(asset, type);
+					assetCache[key] = obj;
+				}
+				return obj;
 			}
-			return true;
+
+			// go up to abm, which implements lower level caching of unity objects
+			if (asb == null)
+				asb = LoadedAssetBundle.Load(bundle);
+			if (asb == null)
+				return null;
+			return asb.LoadAsset(asset, type);
 		}
 
 		public static string Base(ChaInfo who, string typ = "oo")
@@ -425,7 +461,8 @@ public class SpriteCache<T>
 		{
 			Debug.Log($"[SPRITE] Miss {bundle}/{name} @ {key}");
 			// dont cache the sprite texture when the sprite is cached as such
-			var tex = CommonLib.LoadAsset<Texture2D>(bundle, name);
+			//var tex = CommonLib.LoadAsset<Texture2D>(bundle, name);
+			var tex = Cache.Asset(bundle, name, typeof(Texture2D), true) as Texture2D;
 			if (tex == null)
 			{
 				Debug.Log("Failed to load sprite");

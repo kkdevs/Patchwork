@@ -105,9 +105,10 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 
 	public static AssetBundleLoadAssetOperation LoadAsset(string assetBundleName, string assetName, Type type, string manifestAssetBundleName = null)
 	{
-		if (Cache.Asset(assetBundleName, assetName, type, manifestAssetBundleName, out AssetBundleLoadAssetOperation cached))
-			return cached;
-		return _LoadAsset(assetBundleName, assetName, type, manifestAssetBundleName);
+		return Cache.AssetABM(assetBundleName, assetName, type);
+//		if (Cache.AssetABM(assetBundleName, assetName, type, manifestAssetBundleName, out AssetBundleLoadAssetOperation cached))
+//			return cached;
+//		return _LoadAsset(assetBundleName, assetName, type, manifestAssetBundleName);
 	}
 	public static AssetBundleLoadAssetOperation _LoadAsset(string assetBundleName, string assetName, Type type, string manifestAssetBundleName = null)
 	{

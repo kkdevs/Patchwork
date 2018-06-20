@@ -21,6 +21,10 @@ public class FakeID : MonoBehaviour
 	// ids to never rewrite as those are treated specially by the game
 	public static bool exempt(CategoryNo cat, int id)
 	{
+		if (cat < 0)
+			return true;
+		if (id == -1)
+			return true;
 		if (id != 0 && id != 1)
 			return false;
 		if ((cat >= CategoryNo.co_top && cat <= CategoryNo.co_shoes))
@@ -116,7 +120,7 @@ public class FakeID : MonoBehaviour
 
 			print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
 
-			return id;// int.MaxValue;
+			return 0;// int.MaxValue;
 		}
 
 		// translate fake id to a real one. at the same time, record guid usage.
@@ -128,7 +132,7 @@ public class FakeID : MonoBehaviour
 			if (!idMap.fake2real.TryGetValue(id, out lib) || lib.Category != cat)
 			{
 				print($"Failed to translate fake to real prop={prop} cat({cat})==libcat({lib.Category}), id={id}");
-				return id;
+				return 0;
 			}
 			if (lib.Distribution2.IsNullOrEmpty())
 			{ // if no guid now, nuke the mapping
@@ -150,35 +154,7 @@ public class FakeID : MonoBehaviour
 
 	public GuidMap map;
 	public bool tofake;
-
-	public int rewrite(string prefix, int cat, int id, string name)
-	{
-		int newid = id;
-		if (cat < 0)
-			return id;
-		if (tofake)
-		{
-			newid = map.GetFake(prefix, cat, id);
-			if (newid == int.MaxValue)
-				return id;
-			int id2 = -1;
-			try
-			{
-				id2 = map.GetReal(prefix, cat, newid);
-			} catch (Exception ex)
-			{
-				print(ex);
-			}
-			if (id != id2)
-				print($"Rewrite failed {prefix} {cat}: {id} => {newid} => {id2}");
-		} else
-		{
-			newid = map.GetReal(prefix, cat, id);
-			if (newid == int.MaxValue)
-				return id;
-		}
-		return newid;
-	}
+	public int rewrite(string prefix, int cat, int id, string name) => tofake ? map.GetFake(prefix, cat, id) : map.GetReal(prefix, cat, id);
 
 
 	// traverse object and rewrite ids
@@ -232,13 +208,9 @@ public class FakeID : MonoBehaviour
 
 	public void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
-//		print("CARDLOAD");
-//		print(Environment.StackTrace);
 		map = f.dict.Get<GuidMap>("guidmap");
 		tofake = true;
-		Trace.Log("CARD coord");
 		traverse("coordinate",f.coordinate);
-		Trace.Log("CARD cust");
 		traverse("custom",f.custom);
 	}
 

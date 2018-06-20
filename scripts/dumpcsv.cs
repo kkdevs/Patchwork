@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
+/*
 public partial class ScriptEnv
 {
 	public static void dumpallcsv()
@@ -47,11 +48,9 @@ public partial class ScriptEnv
 						continue;
 					// or one of the serializable types
 					foreach (var typ in dumpables) {
-						AssetBundleLoadAssetOperation dummy;
 						try
 						{
-							var ok = Cache.Asset(abname, shorted, typ, null, out dummy);
-							if (ok && !dummy.IsEmpty())
+							if (Cache.Asset(abname, shorted, typ) != null)
 								break;
 						} catch { };
 					}
@@ -61,3 +60,4 @@ public partial class ScriptEnv
 		}
 	}
 }
+*/

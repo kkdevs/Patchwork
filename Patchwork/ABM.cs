@@ -224,6 +224,8 @@ public class LoadedAssetBundle
 		beforeLoad?.Invoke(this, name);
 		if (!LoadAssetCache(name, t, out UnityEngine.Object obj))
 		{
+			//if (name == "p_o_top_swim04")
+			//	Trace.Back("swimslow");
 			Debug.Log($"[ABM] Cache miss {path}/{name}");
 			if (!Ensure(name))
 			{
@@ -275,6 +277,8 @@ public class LoadedAssetBundle
 		if (nocache || !LoadAssetCache(name, typ, out UnityEngine.Object obj))
 		{
 			Debug.Log($"[ABM] Cache miss {path}/{name}");
+			//if (name == "p_o_top_swim04")
+			//	Trace.Back("swimslow");
 			if (!Ensure(name))
 				return null;
 			obj = m_AssetBundle.LoadAsset(name, typ);
