@@ -18,8 +18,20 @@ using System.Collections;
 
 namespace Patchwork
 {
+	[System.AttributeUsage(System.AttributeTargets.All)]
+	public class Prio : System.Attribute
+	{
+		public int prio;
+		public Prio(int n)
+		{
+			prio = n;
+		}
+	}
+	
+
+	/*
 	[System.AttributeUsage(System.AttributeTargets.Event)]
-	public class ScriptEvent : System.Attribute
+	public class ScriptEventx : System.Attribute
 	{
 		[ScriptEvent]
 		public static event Func<string, string, bool> OnScene;
@@ -110,10 +122,11 @@ namespace Patchwork
 				}
 			}
 		}
-	}
+	}*/
 
 	public partial class Script : InteractiveBase
 	{
+		public static ScriptEvents On;
 		public static Dictionary<string, object> regDict = new Dictionary<string, object>();
 		public static T registry<T>(string name) where T : class, new()
 		{

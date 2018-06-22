@@ -5,8 +5,8 @@ using Patchwork;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Macros : MonoBehaviour {
-	public bool OnScene(string name, string subname)
+public class Macros : ScriptEvents {
+	public delegate OnScene(string name, string subname) 
 	{
 		print($"[SCENE] {name} {subname}");
 		return false;

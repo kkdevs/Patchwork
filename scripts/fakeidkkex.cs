@@ -4,8 +4,9 @@
 
 using UnityEngine;
 using MessagePack;
+using Patchwork;
 
-public class FakeIDKKEx : MonoBehaviour
+public class FakeIDKKEx : ScriptEvents
 {
 	// bepinex retains no structure suitable for reflection/eval() based rewriting.
 	// fuzzy reconstruct the property path to a (hopefuly) valid C# expression
@@ -84,7 +85,8 @@ public class FakeIDKKEx : MonoBehaviour
 		public int Category;
 	}
 
-	public void OnCardLoad_1000(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
+	[Prio(1000)]
+	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
 		try
 		{

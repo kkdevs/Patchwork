@@ -12,7 +12,7 @@ using MessagePack;
 using static ChaListDefine;
 
 
-public class FakeID : MonoBehaviour
+public class FakeID : ScriptEvents
 {
 	const int FAKE_BASE = -100;
 	public void Start()
@@ -50,7 +50,7 @@ public class FakeID : MonoBehaviour
 		}
 	}
 
-	public void OnSetListInfo(ListInfoBase lib)
+	public override void OnSetListInfo(ListInfoBase lib)
 	{
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
 	}
@@ -198,7 +198,7 @@ public class FakeID : MonoBehaviour
 		}
 	}
 
-	public void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
+	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
 		map = f.dict.Get<GuidMap>("guidmap");
 		tofake = true;
@@ -207,7 +207,7 @@ public class FakeID : MonoBehaviour
 	}
 
 	// rewrite our fake ids to the actual real ones again
-	public void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng)
+	public override void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng)
 	{
 		map = f.dict.Get<GuidMap>("guidmap");
 		map.items.Clear(); // guid mappings will be be-regenerated

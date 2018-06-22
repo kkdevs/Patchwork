@@ -88,6 +88,7 @@
     <DebugSymbols>true</DebugSymbols>
     <WarningLevel>4</WarningLevel>
     <NoWarn>CS0169,CS0649,CS0219,CS0105,CS0414,CS0642,CS0618,CS0642,CS1522,CS0164,CS0162,CS0067,CS1717,CS8012,CS0626</NoWarn>
+    <DocumentationFile>..\Managed\Assembly-CSharp.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_local|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -114,6 +115,7 @@
     </Compile>
     <Compile Include="Ext.cs" />
     <Compile Include="MonoScript.cs" />
+    <Compile Include="ScriptEvent.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Properties\LocalAssemblyInfo.cs" />
     <Compile Include="Script.cs" />
@@ -236,6 +238,9 @@
       <Project>{3b09d220-e6e6-470a-84d7-c1d736f49485}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly-CSharp.xml" />
   </ItemGroup>
   <Import Project="..\kksrc\Assembly-CSharp.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
