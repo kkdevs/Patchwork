@@ -23,6 +23,7 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool cacheScripts = true;
 		public bool faceJPG = true;
 		public bool capJPG = true;
 		public bool noFrillsExit = true;
@@ -297,7 +298,7 @@ namespace Patchwork
 					try
 					{
 						var val = typeof(Settings).GetField(name);
-						Trace.Log($"Updating setting for {name} = {val.GetValue(this)}");
+						Debug.Log($"Updating setting for {name} = {val.GetValue(this)}");
 
 						// shader prop
 						if (name[0] == '_')
@@ -310,7 +311,7 @@ namespace Patchwork
 						var prop = typeof(QualitySettings).GetProperty(name);
 						if (prop == null)
 						{
-							Trace.Error($"Setting unknown RenderQuality property {name}");
+							Debug.Log($"Setting unknown RenderQuality property {name}");
 							return;
 						}
 

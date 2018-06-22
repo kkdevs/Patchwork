@@ -59,6 +59,7 @@ namespace Patchwork
 		public static string cfgpath { get { return BasePath + "UserData/patchwork.xml"; } }
 		public static string historypath { get { return BasePath + "UserData/history.xml"; } }
 		public static string modbase { get { return Path.GetFullPath(BasePath + "UserData/mod/"); } }
+		public static string tempbase { get { return Path.GetFullPath(BasePath + "cache"); } }
 		public static SettingsForm form;
 		public static Settings _settings;
 		public static Settings settings
@@ -158,6 +159,7 @@ namespace Patchwork
 			BasePath = Path.GetDirectoryName(exename) + "/";
 			LoadConfig();
 			Directory.CreateDirectory(modbase);
+			Directory.CreateDirectory(tempbase);
 			Trace.Info("Basepath=" + BasePath);
 		}
 

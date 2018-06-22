@@ -6,6 +6,8 @@ using Mono.CSharp;
 using System.Reflection.Emit;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
+using Patchwork;
 
 public class MonoScript : Evaluator
 {
@@ -29,7 +31,7 @@ public class MonoScript : Evaluator
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
 		if (pause) return;
-		tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
+		//tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);
@@ -47,8 +49,8 @@ public class MonoScript : Evaluator
 	{
 		var settings = new CompilerSettings()
 		{
-			//GenerateDebugInfo = true,
-			//StdLib = false,
+			GenerateDebugInfo = false,
+			StdLib = true,
 			//Unsafe = true,
 			Target = Target.Library,
 		};
@@ -84,66 +86,91 @@ public class MonoScript : Evaluator
 		return /*name == "Assembly-CSharp-firstpass" || */name == "mscorlib" || name == "System.Core" || name == "System" || name == "System.Xml";
 	}
 
-	public AssemblyBuilder LoadScripts(IEnumerable<string> scripts)
+	public Assembly LoadScripts(IEnumerable<string> scripts, string tempdir = null)
 	{
 		reporter.Reset();
 		var ctx = BuildContext(reporter);
 		int i = 0;
+		var md5 = SHA1.Create();
+		var allBytes = new MemoryStream();
 		foreach (var f in scripts)
 		{
 			if (!f.EndsWith(".cs"))
 				continue;
+			var bname = (f + "\n").ToBytes();
+			allBytes.Write(bname, 0, bname.Length);
+			var fbuf = File.ReadAllBytes(f);
+			allBytes.Write(fbuf, 0, fbuf.Length);
 			i++;
 			ctx.Settings.SourceFiles.Add(new SourceFile(Path.GetFileName(f), f, i));
 		}
-		var mod = new ModuleContainer(ctx);
-		RootContext.ToplevelTypes = mod;
-		Location.Initialize(ctx.SourceFiles);
-		var session = new ParserSession()
+		string dllname = "dynamic_script_" + (counter++) + ".dll";
+		if (tempdir != null)
 		{
-			UseJayGlobalArrays = true,
-			LocatedTokens = new LocatedToken[15000]
-		};
-		mod.EnableRedefinition();
-		foreach (var finfo in ctx.Settings.SourceFiles)
+			var hash = Convert.ToBase64String(md5.ComputeHash(allBytes.ToArray())).Replace("/", "").Replace(".", "").Replace("+","").Substring(0, 16).ToLower() + ".dll";
+			dllname = Path.Combine(tempdir, hash);
+		}
+		Assembly newasm;
+		if (!File.Exists(dllname))
 		{
-			using (var fd = File.OpenRead(finfo.FullPathName))
+			var mod = new ModuleContainer(ctx);
+			RootContext.ToplevelTypes = mod;
+			Location.Initialize(ctx.SourceFiles);
+			var session = new ParserSession()
 			{
-				var fs = new SeekableStreamReader(fd, Encoding.UTF8);
-				var csrc = new CompilationSourceFile(mod, finfo);
-				csrc.EnableRedefinition();
-				mod.AddTypeContainer(csrc);
-				var parser = new CSharpParser(fs, csrc, session);
-				parser.parse();
+				UseJayGlobalArrays = true,
+				LocatedTokens = new LocatedToken[15000]
+			};
+			mod.EnableRedefinition();
+			foreach (var finfo in ctx.Settings.SourceFiles)
+			{
+				using (var fd = File.OpenRead(finfo.FullPathName))
+				{
+					var fs = new SeekableStreamReader(fd, Encoding.UTF8);
+					var csrc = new CompilationSourceFile(mod, finfo);
+					csrc.EnableRedefinition();
+					mod.AddTypeContainer(csrc);
+					var parser = new CSharpParser(fs, csrc, session);
+					parser.parse();
+				}
 			}
-		}
-		var asmname = "dynamic_scripts_" + counter++;
-		var ass = new AssemblyDefinitionDynamic(mod, asmname, asmname + ".dll");
-		mod.SetDeclaringAssembly(ass);
-		var importer = new ReflectionImporter(mod, ctx.BuiltinTypes);
-		ass.Importer = importer;
-		var loader = new DynamicLoader(importer, ctx);
-		ImportAssemblies((a) => importer.ImportAssembly(a, mod.GlobalRootNamespace));
-		loader.LoadReferences(mod);
-		ass.Create(AppDomain.CurrentDomain, AssemblyBuilderAccess.RunAndSave);
-		mod.CreateContainer();
-		loader.LoadModules(ass, mod.GlobalRootNamespace);
-		mod.InitializePredefinedTypes();
-		mod.Define();
-		if (ctx.Report.Errors > 0)
+			var ass = new AssemblyDefinitionDynamic(mod, Path.GetFileNameWithoutExtension(dllname), dllname);
+			mod.SetDeclaringAssembly(ass);
+			var importer = new ReflectionImporter(mod, ctx.BuiltinTypes);
+			ass.Importer = importer;
+			var loader = new DynamicLoader(importer, ctx);
+			ImportAssemblies((a) => importer.ImportAssembly(a, mod.GlobalRootNamespace));
+			loader.LoadReferences(mod);
+			ass.Create(AppDomain.CurrentDomain, AssemblyBuilderAccess.RunAndSave);
+			mod.CreateContainer();
+			loader.LoadModules(ass, mod.GlobalRootNamespace);
+			mod.InitializePredefinedTypes();
+			mod.Define();
+			if (ctx.Report.Errors > 0)
+			{
+				tw.WriteLine($"{ctx.Report.Errors} errors, aborting.");
+				return null;
+			}
+			try
+			{
+				ass.Resolve();
+				ass.Emit();
+				mod.CloseContainer();
+				ass.EmbedResources();
+			}
+			catch (Exception ex)
+			{
+				tw.WriteLine($"Link error: " + ex.ToString());
+				return null;
+			}
+			if (tempdir != null)
+				ass.Save();
+			newasm = ass.Builder;
+		} else
 		{
-			tw.WriteLine($"{ctx.Report.Errors} errors, aborting.");
-			return null;
+			newasm = Assembly.Load(AssemblyName.GetAssemblyName(dllname));
 		}
-		try
-		{
-			ass.Resolve();
-			ass.Emit();
-			mod.CloseContainer();
-		} catch (Exception ex) { tw.WriteLine($"Link error: " + ex.ToString());
-			return null;
-		}
-		var newasm = ass.Builder;
+		Debug.Log($"Doing reload");
 		// Find new base for repl if there is any
 		foreach (var t in newasm.GetTypes())
 		{
@@ -153,6 +180,7 @@ public class MonoScript : Evaluator
 			InteractiveBaseClass = t;
 			break;
 		}
+		Debug.Log("done");
 		return newasm;
 	}
 	public static int counter;

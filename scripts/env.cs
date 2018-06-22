@@ -35,11 +35,15 @@ public class Reloader : MonoBehaviour
 			return;
 		if (logString.Contains("is corrupted! Remove it and launch unity again!"))
 			return;
-
 		string caller = $"{type.ToString()}";
 		if (logFilter.Contains(caller))
 			return;
 		var frames = (new StackTrace()).GetFrames();
+		if (type == LogType.Exception)
+		{
+			caller += ":" + stackTrace.Replace("\r", "").Split('\n')[0];
+		}
+
 		for (int i = 0; i < frames.Length; i++)
 		{
 			if (frames[i].GetMethod().Name == "print")
@@ -48,7 +52,8 @@ public class Reloader : MonoBehaviour
 				caller = $"{cal.DeclaringType.Name}.{cal.Name}";
 			}
 		}
-		Script.print($"[{caller}] {logString}");
+		var msg = $"[{caller}] {logString}";
+		ScriptEnv.Print(msg);
 	}
 
 	public void Update()
@@ -83,6 +88,12 @@ public class Reloader : MonoBehaviour
 public partial class ScriptEnv : Script
 {
 	public static GameObject G;
+	public static event System.Action<string> OnPrint;
+	public static void Print(string msg)
+	{
+		OnPrint?.Invoke(msg);
+		print(msg);
+	}
 	public static void EnvInit()
 	{
 		G = new GameObject("ScriptEnv");
@@ -115,8 +126,15 @@ public partial class ScriptEnv : Script
 			}
 		}
 		ScriptEvent.Wire();
-		eval("using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine; using UnityEngine.SceneManagement;");
 		print($"Script environment initialized, {nadd} MonoBs running.");
+	}
+	public static bool firsteval;
+	public static new object eval(string str)
+	{
+		if (!firsteval)
+			Script.eval("using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine; using UnityEngine.SceneManagement;");
+		firsteval = true;
+		return Script.eval(str);
 	}
 	public static object clear
 	{

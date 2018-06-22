@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
@@ -22,8 +23,17 @@ namespace Patchwork
 			mi = t.GetMethod(name);
 			return mdict[t] = mi;
 		}
+		public static Dictionary<Type, Type> arrayOf = new Dictionary<Type, Type>();
+		public static bool IsArrayOf<T>(Type t)
+		{
+			if (!arrayOf.TryGetValue(t, out Type oft))
+				if (t.IsArray)
+					oft = arrayOf[t] = t.GetElementType();
+			return oft == typeof(T);
+		}
+
 		public static Dictionary<Type, MemberInfo[]> varCache = new Dictionary<Type, MemberInfo[]>();
-		public static MemberInfo[] GetVars(this Type t, bool reversed)
+		public static IEnumerable<MemberInfo> GetVars(this Type t, bool reversed)
 		{
 			MemberInfo[] res;		
 			if (!varCache.TryGetValue(t, out res))
@@ -36,10 +46,17 @@ namespace Patchwork
 				varCache[t] = res = tmp.ToArray();
 			}
 			if (reversed)
-				return res.Reverse().ToArray();
+				return res.Reverse();
 			return res;
 		}
 		public static Dictionary<MemberInfo, Type> memTypeCache = new Dictionary<MemberInfo, Type>();
+		public static Dictionary<MemberInfo, string> memNameCache = new Dictionary<MemberInfo, string>();
+		public static string GetName(this MemberInfo m)
+		{
+			if (memNameCache.TryGetValue(m, out string name))
+				return name;
+			return memNameCache[m] = m.Name;
+		}
 		public static Type GetVarType(this MemberInfo m)
 		{
 			if (memTypeCache.TryGetValue(m, out Type res))
@@ -134,16 +151,26 @@ namespace Patchwork
 		{
 			try
 			{
-				return ass.GetExportedTypes();
-			} catch {
+				return ass.GetTypes();
+			} catch (Exception ex) {
+				Debug.Log(ex);
 				try
 				{
-					return ass.GetTypes();
-				} catch
+					return ass.GetExportedTypes();
+				} catch (Exception ex2)
 				{
+					Debug.Log(ex2);
 					return new Type[] { };
 				}
 			}
+		}
+
+		public static IEnumerable<string> GetFilesMulti(string[] path, string mask)
+		{
+			foreach (var pa in path)
+				if (Directory.Exists(pa))
+					foreach (var f in Directory.GetFiles(pa, mask))
+						yield return f;
 		}
 
 
@@ -176,7 +203,7 @@ namespace Patchwork
 				return LZ4MessagePackSerializer.NonGeneric.Serialize(o.GetType(), o, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
 			else
 				return MessagePackSerializer.NonGeneric.Serialize(o.GetType(), o, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
-			//var ser = lz4 ? lz4serialize : serialize;
+			//var ser = lz4 ?	 : serialize;
 			//return ser.MakeGenericMethod(o.GetType()).Invoke(null, new object[] { o, MessagePack.Resolvers.ContractlessStandardResolver.Instance}) as byte[];
 		}
 
@@ -187,6 +214,14 @@ namespace Patchwork
 			gzip.Write(input, 0, input.Length);
 			gzip.Close();
 			return buf.ToArray();
+		}
+
+		public static Expression[] CreateParameterExpressions(this MethodInfo method, Expression argumentsParameter)
+		{
+			return method.GetParameters().Select((parameter, index) =>
+				Expression.Convert(
+					Expression.ArrayIndex(argumentsParameter, Expression.Constant(index)),
+					parameter.ParameterType)).ToArray();
 		}
 
 		public static T CopyTo<T>(this Stream source, T destination, int bufferSize = 81920) where T : Stream

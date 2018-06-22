@@ -74,6 +74,10 @@
       <Project>{efa8aef5-d97b-49c2-88fa-0552601b48d5}</Project>
       <Name>Patchwork</Name>
     </ProjectReference>
+    <ProjectReference Include="..\shims\shims.csproj">
+      <Project>{2f0b5b0e-22e9-493f-8bae-843a47a412cb}</Project>
+      <Name>shims</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

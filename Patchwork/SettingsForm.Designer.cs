@@ -112,6 +112,7 @@ namespace Patchwork
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.capJPG = new System.Windows.Forms.CheckBox();
 			this.geass = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
 			this.watchFolder = new System.Windows.Forms.CheckBox();
@@ -221,9 +222,9 @@ namespace Patchwork
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.capJPG = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.cacheScripts = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -871,6 +872,12 @@ namespace Patchwork
 			this.groupBox14.Name = "groupBox14";
 			this.groupBox14.TabStop = false;
 			// 
+			// capJPG
+			// 
+			resources.ApplyResources(this.capJPG, "capJPG");
+			this.capJPG.Name = "capJPG";
+			this.capJPG.UseVisualStyleBackColor = true;
+			// 
 			// geass
 			// 
 			resources.ApplyResources(this.geass, "geass");
@@ -1349,6 +1356,7 @@ namespace Patchwork
 			// 
 			// groupBox7
 			// 
+			this.groupBox7.Controls.Add(this.cacheScripts);
 			this.groupBox7.Controls.Add(this.bgmAsync);
 			this.groupBox7.Controls.Add(this.compCache);
 			this.groupBox7.Controls.Add(this.lazyGC);
@@ -1576,6 +1584,13 @@ namespace Patchwork
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			resources.ApplyResources(this.replInput, "replInput");
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Name = "replInput";
+			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
+			// 
 			// replOutput
 			// 
 			resources.ApplyResources(this.replOutput, "replOutput");
@@ -1585,18 +1600,11 @@ namespace Patchwork
 			this.replOutput.ReadOnly = true;
 			this.replOutput.TabStop = false;
 			// 
-			// capJPG
+			// cacheScripts
 			// 
-			resources.ApplyResources(this.capJPG, "capJPG");
-			this.capJPG.Name = "capJPG";
-			this.capJPG.UseVisualStyleBackColor = true;
-			// 
-			// replInput
-			// 
-			resources.ApplyResources(this.replInput, "replInput");
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Name = "replInput";
-			this.replInput.SelectedIndexChanged += new System.EventHandler(this.replInput_SelectedIndexChanged);
+			resources.ApplyResources(this.cacheScripts, "cacheScripts");
+			this.cacheScripts.Name = "cacheScripts";
+			this.cacheScripts.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -1856,6 +1864,7 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox bgmAsync;
 		private System.Windows.Forms.GroupBox groupBox15;
 		private System.Windows.Forms.CheckBox capJPG;
+		private System.Windows.Forms.CheckBox cacheScripts;
 	}
 }
 

@@ -94,7 +94,7 @@ public class FakeIDKKEx : MonoBehaviour
 	}
 
 	public void TryImport(KKEx k, FakeID.GuidMap map) {
-		var guids = k.data["com.bepis.sideloader.universalautoresolver"].Value["info"] as object[];
+		var guids = k.data["com.bepis.sideloader.universalautoresolver"].data["info"] as object[];
 		foreach (var entry in guids)
 		{
 			var e = MessagePackSerializer.Deserialize<ResolveInfo>(entry as byte[]);

@@ -36,7 +36,7 @@ namespace Patchwork
 		public static Dictionary<string, KeyValuePair<EventInfo, List<KeyValuePair<int, System.Delegate>>>> events = new Dictionary<string, KeyValuePair<EventInfo, List<KeyValuePair<int, System.Delegate>>>>();
 		public static void Init()
 		{
-			foreach (var t in Assembly.GetExecutingAssembly().GetTypesSafe())
+			foreach (var t in Assembly.GetExecutingAssembly().GetExportedTypes())
 			{
 				foreach (var ev in t.GetEvents())
 				{
@@ -57,6 +57,7 @@ namespace Patchwork
 				ei.Value.Clear();
 			}
 		}
+		
 		public static void Register(MonoBehaviour mb)
 		{
 			var mbt = mb.GetType();
@@ -99,7 +100,7 @@ namespace Patchwork
 				ei.Value.Sort((b, a) => { return a.Key - b.Key; });
 				foreach (var hand in ei.Value)
 				{
-					Script.print($"Register {hand.Value} prio {hand.Key}");
+					//Script.print($"Register {hand.Value} prio {hand.Key}");
 					try
 					{
 						ei.Key.AddEventHandler(null, hand.Value);
@@ -205,7 +206,7 @@ namespace Patchwork
 					}
 				}
 			var neweva = MonoScript.New(new Reporter(), typeof(Script));
-			var newasm = neweva.LoadScripts(scriptFiles);
+			var newasm = neweva.LoadScripts(scriptFiles, Program.tempbase);
 			if (newasm == null)
 			{
 				print("Scripts reload failed.");

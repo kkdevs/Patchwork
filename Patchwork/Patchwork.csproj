@@ -176,7 +176,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Managed\DOTween50.dll</HintPath>
     </Reference>
-    <Reference Include="mcs, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="mcs, Version=2.6.5.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Managed\mcs.dll</HintPath>
     </Reference>

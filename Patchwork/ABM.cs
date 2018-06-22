@@ -293,7 +293,7 @@ public class LoadedAssetBundle
 			{
 				if (caching)
 					cache[typ][name] = null; // nxcache
-				Trace.Error($"[ABM] Load {path}/{name} failed");
+				Debug.Log($"[ABM] Load {path}/{name} failed");
 				Trace.Back("from");
 				return null;
 			}

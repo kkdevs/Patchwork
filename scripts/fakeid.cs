@@ -11,8 +11,10 @@ using System.Collections.Generic;
 using MessagePack;
 using static ChaListDefine;
 
+
 public class FakeID : MonoBehaviour
 {
+	const int FAKE_BASE = -100;
 	public void Start()
 	{
 		InitListInfo();
@@ -48,9 +50,6 @@ public class FakeID : MonoBehaviour
 		}
 	}
 
-	// When a new item list entry is created, remap its id to fake index
-	// to ensure its unique. At the same time, remember the mapping so that
-	// we can rewrite the ids in card data back and forth on load/save later on.
 	public void OnSetListInfo(ListInfoBase lib)
 	{
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
@@ -58,7 +57,7 @@ public class FakeID : MonoBehaviour
 
 	public class IdMap
 	{
-		public int counter = -3;
+		public int counter = FAKE_BASE;
 		// map a real <cat,id> pair to list of fake ids
 		public Dictionary<KeyValuePair<int, int>, List<int>> real2fake = new Dictionary<KeyValuePair<int, int>, List<int>>();
 		// map one fake id to real <cat,id,dist> (all contained in infobase)
@@ -102,7 +101,7 @@ public class FakeID : MonoBehaviour
 		{
 			Item item;
 			List<int> candidates;
-			if (exempt((CategoryNo)cat, id))
+			if (exempt((CategoryNo)cat, id) || id < 0)
 				return id;
 			var realpair = new KeyValuePair<int, int>(cat, id);
 			if (items.TryGetValue(prop, out item))
@@ -120,19 +119,19 @@ public class FakeID : MonoBehaviour
 
 			print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
 
-			return 0;// int.MaxValue;
+			return id;// int.MaxValue;
 		}
 
 		// translate fake id to a real one. at the same time, record guid usage.
 		public int GetReal(string prop, int cat, int id)
 		{
 			ListInfoBase lib;
-			if (exempt((CategoryNo)cat, id))
+			if (exempt((CategoryNo)cat, id) || id >= FAKE_BASE)
 				return id;
 			if (!idMap.fake2real.TryGetValue(id, out lib) || lib.Category != cat)
 			{
-				print($"Failed to translate fake to real prop={prop} cat({cat})==libcat({lib.Category}), id={id}");
-				return 0;
+				print($"Failed to translate fake to real prop={prop} cat({cat}), id={id}");
+				return id;
 			}
 			if (lib.Distribution2.IsNullOrEmpty())
 			{ // if no guid now, nuke the mapping
@@ -175,9 +174,9 @@ public class FakeID : MonoBehaviour
 
 		foreach (var mem in t.GetVars(!tofake))
 		{
-			var name = mem.Name;
 			var mt = mem.GetVarType();
 			if (mt == null) continue;
+			var name = mem.GetName();
 
 			if (name == "pattern" || name == "id" || name.EndsWith("Id"))
 			{
@@ -185,24 +184,17 @@ public class FakeID : MonoBehaviour
 				if (!mem.GetAttr(ref hint))
 					continue;
 				hint.Reset();
-				if (hint.hint == (int)CategoryNo.dynamic)
-					hint.hint = (int)t.CachedGetMethod(name + "_cat").Invoke(root, new object[] { currIdx });
+				var cat = hint.Get(root, mem, currIdx);
 				var val = mem.GetValue(root);
 				var arr = val as Array;
 				if (mt == typeof(int))
-					mem.SetValue(root, rewrite(prefix + "." + name, hint.hint, (int)val, name));
+					mem.SetValue(root, rewrite(prefix + "." + name, cat, (int)val, name));
 				else if (arr != null && mt.GetElementType() == typeof(int))
-				{
 					for (int i = 0; i < arr.Length; i++)
-					{
-						arr.SetValue(rewrite($"{prefix}.{mem.Name}[{i}]", hint.hint, (int)arr.GetValue(i), name), i);
-						hint.Next();
-					}
-				}
+						arr.SetValue(rewrite($"{prefix}.{name}[{i}]", hint.Next(), (int)arr.GetValue(i), name), i);
 			}
-			else if (mt.IsArray || t.CachedGetMethod("SaveBytes") != null || t.HasAttr<MessagePackObjectAttribute>())
+			else if (name == "parts" || name == "pupil" || mt.CachedGetMethod("SaveBytes") != null || mt.HasAttr<MessagePackObjectAttribute>())
 				traverse(prefix + "." + name, mem.GetValue(root));
-
 		}
 	}
 
