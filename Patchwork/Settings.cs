@@ -23,6 +23,22 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+
+		public string scriptPath = @"bepinex;bepinex\ipa;userdata\scripts;bepinex\core";
+		public string[] scriptBlacklist = new string[]
+		{
+			"extensiblesaveformat",
+			"resourceredirector",
+			"sideloader",
+			"demosaic",
+			"zextensiblesaveremover",
+			"sliderunlocker",
+			"texrespatch",
+			"ipaloader",
+			"illusionplugin",
+			"bepinex",
+		};
+		public List<string> scriptDisabled = new List<string>();
 		public bool cacheScripts = true;
 		public bool faceJPG = true;
 		public bool capJPG = true;

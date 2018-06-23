@@ -80,15 +80,16 @@
     <OutputPath>..\Managed\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>full</DebugType>
+    <DebugType>none</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>false</DebugSymbols>
     <WarningLevel>4</WarningLevel>
     <NoWarn>CS0169,CS0649,CS0219,CS0105,CS0414,CS0642,CS0618,CS0642,CS1522,CS0164,CS0162,CS0067,CS1717,CS8012,CS0626</NoWarn>
-    <DocumentationFile>..\Managed\Assembly-CSharp.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_local|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -106,7 +107,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ABM.cs" />
-    <Compile Include="ABMcruft.cs" />
+    <Compile Include="Bikeshed.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="CamEffect.cs" />
     <Compile Include="CSV.cs" />
@@ -128,6 +129,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trace.cs" />
     <Compile Include="win32.cs" />
     <EmbeddedResource Include="SettingsForm.resx">
@@ -142,6 +149,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -178,7 +188,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Managed\DOTween50.dll</HintPath>
     </Reference>
-    <Reference Include="mcs, Version=2.6.5.0, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="mcs, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Managed\mcs.dll</HintPath>
     </Reference>
@@ -234,17 +244,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Assembly-CSharp.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\kksrc-fp\Assembly-CSharp-firstpass.csproj">
       <Project>{3b09d220-e6e6-470a-84d7-c1d736f49485}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Assembly-CSharp.xml" />
-  </ItemGroup>
   <Import Project="..\kksrc\Assembly-CSharp.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>pdb2mdb Assembly-Csharp.dll</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

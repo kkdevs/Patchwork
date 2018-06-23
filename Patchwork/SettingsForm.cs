@@ -28,7 +28,7 @@ namespace Patchwork
 
 			// Generate automatic data binding for class Settings
 			foreach (var f in typeof(Settings).GetFields())
-			{
+			{			Program.ShowScrollBar(new IntPtr(scriptList.Handle.ToInt64()), 0, false);
 				var ff = typeof(SettingsForm).GetField(f.Name, flags);
 				if (ff == null) continue;
 				var control = ff.GetValue(this) as Control;
@@ -105,10 +105,55 @@ namespace Patchwork
 				if (tabControl1.SelectedTab == tabPage6)
 					replInput.Focus();
 			};
+			/*for (var i = 0; i < 100; i++)
+			{
+				var li = new ListViewItem(new[] { "a", "b", "c" });
+				scriptList.Items.Add(li);
+			}*/
+			scriptList.ItemCheck += (o, e) =>
+			{
+				var script = scriptList.Items[e.Index].Tag as ScriptEntry;
+				if (Program.settings.scriptBlacklist.Contains(script.name))
+				{
+					e.NewValue = CheckState.Unchecked;
+					return;
+				}
+
+				if (e.NewValue == CheckState.Checked)
+				{
+					foreach (var scr in Program.scriptEntries)
+						if (script.deps.Contains(scr.name.ToLower()))
+						{
+							scr.listView.Checked = true;
+							scr.enabled = true;
+						}
+					script.enabled = true;
+					Program.settings.scriptDisabled.Remove(script.name.ToLower());
+					Program.SaveConfig();
+				}  else
+				{
+					script.enabled = false;
+					Program.settings.scriptDisabled.Add(script.name.ToLower());
+					Program.SaveConfig();
+				}
+			};
+			var sb = scriptList.GetType().GetField("h_scroll", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(scriptList) as ScrollBar;
+			sb.Size = new System.Drawing.Size(0, 0);
 		}
 
+		public bool updating;
 		public void UpdateForm()
 		{
+			scriptList.Items.Clear();
+			foreach (var script in Program.scriptEntries)
+			{
+				var item = new ListViewItem(new[] { script.name, script.ass == null ? "Script" : "DLL", script.version, script.info });
+				item.Tag = item;
+				script.listView = item;
+				var sn = script.name.ToLower();
+				item.Checked = script.enabled;
+			}
+			updating = true;
 			var enabled = s.qualitySelect == 0;
 			foreach (var f in typeof(Settings).GetFields())
 			{
@@ -150,6 +195,7 @@ namespace Patchwork
 				}
 			}
 			f_qualitySelect.SelectedIndex = s.qualitySelect;
+			updating = false;
 		}
 
 		private void tabPage2_Click(object sender, EventArgs e)

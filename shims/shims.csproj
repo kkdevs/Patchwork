@@ -46,6 +46,10 @@
     <Compile Include="shims.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\kksrc-fp\Assembly-CSharp-firstpass.csproj">
+      <Project>{3b09d220-e6e6-470a-84d7-c1d736f49485}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Patchwork\Patchwork.csproj">
       <Project>{efa8aef5-d97b-49c2-88fa-0552601b48d5}</Project>
       <Name>Patchwork</Name>

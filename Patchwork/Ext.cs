@@ -165,7 +165,7 @@ namespace Patchwork
 			}
 		}
 
-		public static IEnumerable<string> GetFilesMulti(string[] path, string mask)
+		public static IEnumerable<string> GetFilesMulti(IEnumerable<string> path, string mask)
 		{
 			foreach (var pa in path)
 				if (Directory.Exists(pa))
@@ -278,16 +278,6 @@ namespace Patchwork
 			if (ft.GetGenericTypeDefinition() != typeof(List<>))
 				return false;
 			return true;
-		}
-		public static T ScriptComponent<T>(this GameObject go) where T : MonoBehaviour
-		{
-			var name = typeof(T).Name;
-			if (Script.Components != null && Program.settings.CheckComponent(name) && Script.Components.TryGetValue(name, out Type t))
-			{
-				Debug.Log($"Spawning component {t.Name}");
-				return go.AddComponent(t) as T;
-			}
-			return go.AddComponent(typeof(T)) as T;
 		}
 	}
 

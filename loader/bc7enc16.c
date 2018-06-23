@@ -8,6 +8,8 @@
 
 #include "bc7enc16.h"
 
+#undef assert
+#define assert(x)
 int _fltused;
 
 // Helpers

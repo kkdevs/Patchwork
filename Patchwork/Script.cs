@@ -15,9 +15,13 @@ using System;
 using Object = UnityEngine.Object;
 using Forms = System.Windows.Forms;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace Patchwork
 {
+	/// <summary>
+	/// Set scriptevent priority
+	/// </summary>
 	[System.AttributeUsage(System.AttributeTargets.All)]
 	public class Prio : System.Attribute
 	{
@@ -27,106 +31,43 @@ namespace Patchwork
 			prio = n;
 		}
 	}
-	
 
-	/*
-	[System.AttributeUsage(System.AttributeTargets.Event)]
-	public class ScriptEventx : System.Attribute
+	public class ScriptEntry
 	{
-		[ScriptEvent]
-		public static event Func<string, string, bool> OnScene;
-		public static bool Scene(string name, string name2)
+		public string name;
+		public string source;
+		public string version = "";
+		public string info = "";
+		public Assembly ass;
+		public List<string> deps = new List<string>();
+		public ListViewItem listView;
+		public bool enabled;
+		public void SetAssembly(Assembly ass)
 		{
-			if (OnScene != null)
-			{
-				foreach (var cb in OnScene.GetInvocationList())
-					if ((bool)cb.DynamicInvoke(new object[] { name, name2 }))
-						return true;
-			}
-			return false;
+			this.ass = ass;
+			name = ass.GetName().Name;
+			version = ass.GetName().Version.ToString();
+			info = ass.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).OfType<AssemblyDescriptionAttribute>().FirstOrDefault()?.Description ?? "";
 		}
-		public static Dictionary<string, KeyValuePair<EventInfo, List<KeyValuePair<int, System.Delegate>>>> events = new Dictionary<string, KeyValuePair<EventInfo, List<KeyValuePair<int, System.Delegate>>>>();
-		public static void Init()
+		public void SetScript(string body)
 		{
-			foreach (var t in Assembly.GetExecutingAssembly().GetExportedTypes())
+			var lines = body.Split('\n');
+			int probe = 10;
+			foreach (var l in body.Split('\n'))
 			{
-				foreach (var ev in t.GetEvents())
-				{
-					var attr = ev.GetCustomAttributes(typeof(ScriptEvent), true);
-					if (attr != null && attr.Length > 0)
-						events[ev.Name] = new KeyValuePair<EventInfo, List<KeyValuePair<int, System.Delegate>>>(ev, new List<KeyValuePair<int, System.Delegate>>());
-				}
-			}
-		}
-
-		public static void Reset()
-		{
-			// Nuke all event handlers
-			foreach (var kv in events)
-			{
-				var ei = kv.Value;
-				ei.Key.DeclaringType.GetField(kv.Key, BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, null);
-				ei.Value.Clear();
+				if (probe-- < 0) break;
+				var tag = l.Split(' ');
+				var rest = l.Substring(tag[0].Length);
+				if (tag[0] == "//@INFO:") info = rest;
+				if (tag[0] == "//@VER:") version = rest;
+				if (tag[0] == "//@DEP:") deps = rest.ToLower().Split(' ').ToList();
 			}
 		}
-		
-		public static void Register(MonoBehaviour mb)
-		{
-			var mbt = mb.GetType();
-			foreach (var m in mbt.GetMethods())
-			{
-				int prio = 0;
-				string mname = m.Name;
-				try
-				{
-					var lp = mname.Split('_').Last();
-					prio = int.Parse(lp);
-					mname = mname.Substring(0, mname.Length - lp.Length - 1);
-				}
-				catch { };
-				
-				if (events.ContainsKey(mname))
-				{
-					var evi = events[mname];
-					System.Delegate dele = null;
-					try
-					{
-						dele = System.Delegate.CreateDelegate(evi.Key.EventHandlerType, mb, m);
-					}
-					catch (Exception ex)
-					{
-						Script.print($"Couldn't wire method {mbt.Name}.{m} to event {evi.Key.DeclaringType.Name}.{evi.Key}: {ex.Message}");
-					}
-
-					var mipair = new KeyValuePair<int, System.Delegate>(prio, dele);
-					evi.Value.Add(mipair);
-				}
-			}
-		}
-		public static void Wire()
-		{
-			foreach (var kv in events)
-			{
-				var ei = kv.Value;
-				// sort by prio
-				ei.Value.Sort((b, a) => { return a.Key - b.Key; });
-				foreach (var hand in ei.Value)
-				{
-					//Script.print($"Register {hand.Value} prio {hand.Key}");
-					try
-					{
-						ei.Key.AddEventHandler(null, hand.Value);
-					} catch (Exception ex) {
-						Script.print(ex);
-					}
-				}
-			}
-		}
-	}*/
+	}
 
 	public partial class Script : InteractiveBase
 	{
-		public static ScriptEvents On;
+		public static ScriptEvents On = new ScriptEvents();
 		public static Dictionary<string, object> regDict = new Dictionary<string, object>();
 		public static T registry<T>(string name) where T : class, new()
 		{
@@ -147,7 +88,6 @@ namespace Patchwork
 			return new T();
 		}
 
-		public static Dictionary<string, Type> Components = new Dictionary<string, Type>();
 		public class Reporter : TextWriter
 		{
 			public static Action<string> write;
@@ -198,6 +138,7 @@ namespace Patchwork
 		public static List<string> scriptFiles = new List<string>();
 		public static bool reload(Action destroyer = null)
 		{
+			return false;
 			if (Evaluator != null)
 				Evaluator.pause = true;
 			print("Trying to (re)load script env.");

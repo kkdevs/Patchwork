@@ -102,8 +102,10 @@ namespace Patchwork
 			form.resolution.Items.AddRange(settings.resolutions);
 			foreach (var n in settings.chardbs)
 				form.chardb.Items.Add(n.Split('|')[0]);
+			InitScripts();
 			form.UpdateForm();
-
+			Trace.Info("Updated form data");
+			splash?.Close();
 			if (Environment.GetEnvironmentVariable("KK_RUNSTUDIO") != null)
 			{
 				form.Show();
@@ -161,8 +163,12 @@ namespace Patchwork
 			Trace.Info("Basepath=" + BasePath);
 		}
 
+		public static Splash splash;
 		public static int Main(string[] args)
 		{
+			splash = new Splash();
+			splash.Show();
+			splash.Refresh();
 			InitConfig();
 			ConfigDialog();
 			earlydone = true;
@@ -210,6 +216,8 @@ namespace Patchwork
 
 		public static void SaveConfig()
 		{
+			if (form != null && form.updating)
+				return;
 			try
 			{
 				XmlSerializer x = new XmlSerializer(typeof(Settings));
@@ -262,13 +270,13 @@ namespace Patchwork
 		public static System.Timers.Timer timer;
 		public static void PostInit()
 		{
-			initdone = true;
 			earlydone = true;
 			if (!initConfig)
 			{
 				InitConfig(); // If we're running standalone
 				ConfigDialog();
 			}
+			initdone = true;
 			timer = new System.Timers.Timer(100);
 			timer.AutoReset = true;
 			timer.Elapsed += (o, e) =>
@@ -358,6 +366,78 @@ namespace Patchwork
 			{
 				Environment.Exit(0);
 			};
+		}
+
+		public static void InitScripts()
+		{
+			AppDomain.CurrentDomain.AssemblyResolve += (o, e) =>
+			{
+				var fn = new AssemblyName(e.Name).Name;
+				if (settings.scriptBlacklist.Contains(fn.ToLower()))
+					return Assembly.GetExecutingAssembly();
+				foreach (var p in settings.scriptPath.Split(';')) {
+					var nass = Assembly.LoadFile(Path.Combine(BasePath, p) + "/" + fn + ".dll");
+					if (nass != null)
+						return nass;
+				}
+				return null;
+			};
+			DiscoverScripts();
+		}
+
+		public static List<ScriptEntry> scriptEntries = new List<ScriptEntry>();
+		public static void DiscoverScripts()
+		{
+			scriptEntries.Clear();
+			foreach (var f in Ext.GetFilesMulti(settings.scriptPath.Split(';').Select(x => BasePath + x), "*.*")) {
+				var bn = Path.GetFileNameWithoutExtension(f);
+				if (settings.scriptBlacklist.Contains(bn.ToLower()))
+					continue;
+				var entry = new ScriptEntry()
+				{
+					name = bn,
+					source = f,
+					enabled = !settings.scriptDisabled.Contains(bn.ToLower()),
+			};
+				if (f.EndsWith(".dll"))
+				{
+					Assembly ass;
+					try
+					{
+						ass = Assembly.LoadFile(f);
+					} catch (Exception ex)
+					{
+						Debug.Log(ex);
+						continue;
+					}
+					foreach (var t in ass.GetTypesSafe()) {
+						if (typeof(IllusionPlugin.IPlugin).IsAssignableFrom(t) || typeof(BepInEx.BaseUnityPlugin).IsAssignableFrom(t)) {
+							entry.SetAssembly(ass);
+							scriptEntries.Add(entry);
+							continue;
+						}
+					}
+				} else if (f.EndsWith(".cs"))
+				{
+					var body = LoadTextFile(f).Replace("\r", "");
+					if (body != null)
+					{
+						entry.SetScript(body);
+						scriptEntries.Add(entry);
+					}
+				}
+			}
+		}
+
+		public static string LoadTextFile(string f)
+		{
+			try
+			{
+				return Encoding.UTF8.GetString(File.ReadAllBytes(f));
+			} catch
+			{
+				return null;
+			}
 		}
 
 		public static void GC(string who, bool asset, bool heap, object o)

@@ -8,6 +8,9 @@ namespace Patchwork
 {
 	public static partial class Program
 	{
+		[DllImport("user32", CallingConvention = CallingConvention.Winapi)]
+		[return: System.Runtime.InteropServices.MarshalAs(UnmanagedType.Bool)]
+		public static extern bool ShowScrollBar(IntPtr hwnd, int wBar, [MarshalAs(UnmanagedType.Bool)] bool bShow);
 		[DllImport("kernel32.dll")]
 		static extern void ExitProcess(uint uExitCode);
 
