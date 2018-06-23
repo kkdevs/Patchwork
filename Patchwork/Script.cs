@@ -42,11 +42,12 @@ namespace Patchwork
 		public List<string> deps = new List<string>();
 		public ListViewItem listView;
 		public bool enabled;
+		public List<Type> entrypoint = new List<Type>();
 		public void SetAssembly(Assembly ass)
 		{
 			this.ass = ass;
 			name = ass.GetName().Name;
-			version = ass.GetName().Version.ToString();
+			version = ass.GetName().Version.ToString().Trim();
 			info = ass.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).OfType<AssemblyDescriptionAttribute>().FirstOrDefault()?.Description ?? "";
 		}
 		public void SetScript(string body)
@@ -57,7 +58,7 @@ namespace Patchwork
 			{
 				if (probe-- < 0) break;
 				var tag = l.Split(' ');
-				var rest = l.Substring(tag[0].Length);
+				var rest = l.Substring(tag[0].Length).Trim();
 				if (tag[0] == "//@INFO:") info = rest;
 				if (tag[0] == "//@VER:") version = rest;
 				if (tag[0] == "//@DEP:") deps = rest.ToLower().Split(' ').ToList();
@@ -138,7 +139,6 @@ namespace Patchwork
 		public static List<string> scriptFiles = new List<string>();
 		public static bool reload(Action destroyer = null)
 		{
-			return false;
 			if (Evaluator != null)
 				Evaluator.pause = true;
 			print("Trying to (re)load script env.");

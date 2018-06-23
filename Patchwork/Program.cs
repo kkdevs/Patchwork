@@ -88,6 +88,13 @@ namespace Patchwork
 
 		public static void ConfigDialog()
 		{
+			bool runStudio = Environment.GetEnvironmentVariable("KK_RUNSTUDIO") != null;
+			if ((!runStudio && File.Exists(BasePath + "Koikatu_Data/Managed/bepinex.dll")) || (runStudio && File.Exists(BasePath + "CharaStudio/Managed/bepinex.dll")))
+			{
+				splash?.Close();
+				MessageBox.Show("This release can't run under bepinex 3 anymore, please update to bepinex 4.");
+				ExitProcess(1);
+			}
 			//System.Windows.Forms.Application.EnableVisualStyles();
 			System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(true);
 			if (settings.dontshow)
@@ -104,14 +111,18 @@ namespace Patchwork
 				form.chardb.Items.Add(n.Split('|')[0]);
 			InitScripts();
 			form.UpdateForm();
-			Trace.Info("Updated form data");
 			splash?.Close();
-			if (Environment.GetEnvironmentVariable("KK_RUNSTUDIO") != null)
+			if (runStudio)
 			{
 				form.Show();
 				launched = true;
 				return;
 			}
+			form.scriptReload.Click += (o, e) =>
+			{
+				InitScripts();
+				form.UpdateForm();
+			};
 			form.launchButton.Click += (o, e) =>
 			{
 				form.Close();
@@ -376,7 +387,11 @@ namespace Patchwork
 				if (settings.scriptBlacklist.Contains(fn.ToLower()))
 					return Assembly.GetExecutingAssembly();
 				foreach (var p in settings.scriptPath.Split(';')) {
-					var nass = Assembly.LoadFile(Path.Combine(BasePath, p) + "/" + fn + ".dll");
+					Assembly nass = null;
+					try
+					{
+						nass = Assembly.LoadFile(Path.Combine(BasePath, p) + "/" + fn + ".dll");
+					} catch { };
 					if (nass != null)
 						return nass;
 				}
@@ -398,7 +413,7 @@ namespace Patchwork
 					name = bn,
 					source = f,
 					enabled = !settings.scriptDisabled.Contains(bn.ToLower()),
-			};
+				};
 				if (f.EndsWith(".dll"))
 				{
 					Assembly ass;
@@ -407,7 +422,7 @@ namespace Patchwork
 						ass = Assembly.LoadFile(f);
 					} catch (Exception ex)
 					{
-						Debug.Log(ex);
+						Trace.Info(ex.ToString());
 						continue;
 					}
 					foreach (var t in ass.GetTypesSafe()) {
@@ -433,7 +448,7 @@ namespace Patchwork
 		{
 			try
 			{
-				return Encoding.UTF8.GetString(File.ReadAllBytes(f));
+				return Encoding.UTF8.GetString(File.ReadAllBytes(f)).StripBOM();
 			} catch
 			{
 				return null;

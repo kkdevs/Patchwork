@@ -340,7 +340,6 @@ namespace BepInEx
 		}
 		public BepInDependency(string a, DependencyFlags b = DependencyFlags.HardDependency)
 		{
-			Debug.Log("depcall");
 		}
 	}
 
@@ -414,6 +413,14 @@ namespace BepInEx
 		{
 			public static string PluginsDirectory => Path.GetFullPath(Application.dataPath + "/../bepinex");
 		}
+	}
+
+	public class ConfigWrapper<T>
+	{
+		public T Value { get; set; }
+		public ConfigWrapper(string name, BaseUnityPlugin o, T val) { Value = val; }
+		public event EventHandler SettingChanged;
+		public void Clear() { }
 	}
 }
 

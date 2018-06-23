@@ -110,6 +110,7 @@ namespace Patchwork
 				var li = new ListViewItem(new[] { "a", "b", "c" });
 				scriptList.Items.Add(li);
 			}*/
+			var checkLock = false;
 			scriptList.ItemCheck += (o, e) =>
 			{
 				var script = scriptList.Items[e.Index].Tag as ScriptEntry;
@@ -121,10 +122,12 @@ namespace Patchwork
 
 				if (e.NewValue == CheckState.Checked)
 				{
+					// enable script's dependencies
 					foreach (var scr in Program.scriptEntries)
 						if (script.deps.Contains(scr.name.ToLower()))
 						{
-							scr.listView.Checked = true;
+							if (scr.listView != null)
+								scr.listView.Checked = true;
 							scr.enabled = true;
 						}
 					script.enabled = true;
@@ -132,6 +135,14 @@ namespace Patchwork
 					Program.SaveConfig();
 				}  else
 				{
+					// disable all scripts depending on this one
+					foreach (var scr in Program.scriptEntries)
+						if (scr.deps.Contains(script.name.ToLower()))
+						{
+							if (scr.listView != null)
+								scr.listView.Checked = false;
+							scr.enabled = false;
+						}
 					script.enabled = false;
 					Program.settings.scriptDisabled.Add(script.name.ToLower());
 					Program.SaveConfig();
@@ -147,11 +158,14 @@ namespace Patchwork
 			scriptList.Items.Clear();
 			foreach (var script in Program.scriptEntries)
 			{
-				var item = new ListViewItem(new[] { script.name, script.ass == null ? "Script" : "DLL", script.version, script.info });
-				item.Tag = item;
-				script.listView = item;
+				var item = new ListViewItem(new[] { script.name, script.version, script.ass == null ? "Script" : "DLL", script.info });
+				item.Tag = script;
 				var sn = script.name.ToLower();
 				item.Checked = script.enabled;
+				if (script.ass == null && script.info == "")
+					continue;
+				script.listView = item;
+				scriptList.Items.Add(item);
 			}
 			updating = true;
 			var enabled = s.qualitySelect == 0;

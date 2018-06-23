@@ -1,4 +1,5 @@
 ﻿//@INFO: Compatibility for zipmods
+//@VER: 1
 
 using Patchwork;
 using System.IO;

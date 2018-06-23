@@ -186,8 +186,7 @@ namespace Patchwork
 			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.scriptInfoBox = new System.Windows.Forms.GroupBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.scriptReload = new System.Windows.Forms.Button();
 			this.label54 = new System.Windows.Forms.Label();
 			this.scriptPath = new System.Windows.Forms.TextBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -239,8 +238,8 @@ namespace Patchwork
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -2017,8 +2016,7 @@ namespace Patchwork
 			// tabPage7
 			// 
 			this.tabPage7.Controls.Add(this.scriptList);
-			this.tabPage7.Controls.Add(this.scriptInfoBox);
-			this.tabPage7.Controls.Add(this.button1);
+			this.tabPage7.Controls.Add(this.scriptReload);
 			this.tabPage7.Controls.Add(this.label54);
 			this.tabPage7.Controls.Add(this.scriptPath);
 			this.tabPage7.Location = new System.Drawing.Point(4, 29);
@@ -2044,61 +2042,48 @@ namespace Patchwork
 			this.scriptList.LabelWrap = false;
 			this.scriptList.Location = new System.Drawing.Point(16, 18);
 			this.scriptList.Name = "scriptList";
-			this.scriptList.Size = new System.Drawing.Size(924, 408);
+			this.scriptList.Size = new System.Drawing.Size(924, 472);
 			this.scriptList.TabIndex = 5;
 			this.scriptList.UseCompatibleStateImageBehavior = false;
 			this.scriptList.View = System.Windows.Forms.View.Details;
 			// 
 			// columnHeader1
 			// 
-			this.columnHeader1.Text = "Name2";
-			this.columnHeader1.Width = 281;
+			this.columnHeader1.Text = "Name";
+			this.columnHeader1.Width = 300;
 			// 
 			// columnHeader2
 			// 
 			this.columnHeader2.Text = "Version";
-			this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.columnHeader2.Width = 91;
+			this.columnHeader2.Width = 120;
 			// 
 			// columnHeader3
 			// 
-			this.columnHeader3.Text = "Type2";
-			this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.columnHeader3.Width = 67;
+			this.columnHeader3.Text = "Type";
+			this.columnHeader3.Width = 70;
 			// 
 			// columnHeader4
 			// 
 			this.columnHeader4.Text = "Description";
 			this.columnHeader4.Width = 4000;
 			// 
-			// scriptInfoBox
+			// scriptReload
 			// 
-			this.scriptInfoBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.scriptInfoBox.Location = new System.Drawing.Point(16, 432);
-			this.scriptInfoBox.Name = "scriptInfoBox";
-			this.scriptInfoBox.Size = new System.Drawing.Size(655, 88);
-			this.scriptInfoBox.TabIndex = 4;
-			this.scriptInfoBox.TabStop = false;
-			this.scriptInfoBox.Text = "Info";
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.button1.Location = new System.Drawing.Point(677, 493);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(263, 28);
-			this.button1.TabIndex = 3;
-			this.button1.Text = "Reload";
-			this.button1.UseVisualStyleBackColor = true;
+			this.scriptReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.scriptReload.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.scriptReload.Location = new System.Drawing.Point(677, 498);
+			this.scriptReload.Name = "scriptReload";
+			this.scriptReload.Size = new System.Drawing.Size(263, 28);
+			this.scriptReload.TabIndex = 3;
+			this.scriptReload.Text = "Reload";
+			this.scriptReload.UseVisualStyleBackColor = true;
 			// 
 			// label54
 			// 
 			this.label54.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label54.AutoSize = true;
 			this.label54.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label54.Location = new System.Drawing.Point(682, 432);
+			this.label54.Location = new System.Drawing.Point(12, 501);
 			this.label54.Name = "label54";
 			this.label54.Size = new System.Drawing.Size(221, 20);
 			this.label54.TabIndex = 2;
@@ -2107,9 +2092,9 @@ namespace Patchwork
 			// scriptPath
 			// 
 			this.scriptPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.scriptPath.Location = new System.Drawing.Point(677, 458);
+			this.scriptPath.Location = new System.Drawing.Point(244, 499);
 			this.scriptPath.Name = "scriptPath";
-			this.scriptPath.Size = new System.Drawing.Size(263, 26);
+			this.scriptPath.Size = new System.Drawing.Size(423, 26);
 			this.scriptPath.TabIndex = 1;
 			this.scriptPath.Text = "bepinex;bepinex\\ipa;userdata\\scripts";
 			// 
@@ -2658,14 +2643,6 @@ namespace Patchwork
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 499);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 28);
-			this.replInput.TabIndex = 0;
-			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2682,6 +2659,14 @@ namespace Patchwork
 			this.replOutput.TabIndex = 2;
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
+			// 
+			// replInput
+			// 
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 499);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 28);
+			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 
@@ -2949,8 +2934,6 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox capJPG;
 		private System.Windows.Forms.CheckBox cacheScripts;
 		private System.Windows.Forms.TabPage tabPage7;
-		private System.Windows.Forms.GroupBox scriptInfoBox;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Label label54;
 		private System.Windows.Forms.TextBox scriptPath;
 		private System.Windows.Forms.ListView scriptList;
@@ -2965,6 +2948,7 @@ namespace Patchwork
 		private System.Windows.Forms.LinkLabel linkLabel3;
 		private System.Windows.Forms.LinkLabel linkLabel5;
 		private System.Windows.Forms.LinkLabel linkLabel4;
+		public System.Windows.Forms.Button scriptReload;
 	}
 }
 

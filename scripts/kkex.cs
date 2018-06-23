@@ -1,4 +1,5 @@
 ﻿//@INFO: Bepinex card data support
+//@VER: 1
 
 using MessagePack;
 using System;

@@ -1,6 +1,7 @@
 ﻿//@INFO: Support for loading cards with bepinex ExtendedSave
 //@DESC: UAR<->fakeid interop
 //@DEP: kkex fakeid
+//@VER: 1
 
 using UnityEngine;
 using MessagePack;
