@@ -5,12 +5,12 @@ using UnityEngine;
 namespace Patchwork
 {
 	/// <summary>
-	/// ScriptEvents are pseudo-monobs in that the same global events are dispattched there.
+	/// ScriptEvents are pseudo-monobs in that the same global events are dispatched there.
 	/// 
-	/// Using virtual overrides has the advantage of intellisense/type checking in IDE, as well
+	/// Using overrides has the advantage of intellisense/type checking in IDE, as well
 	/// as far less overhead [1] - only a single, dynamic IL built GO Component is present
-	/// dispatching everything to individual scripts without having to cross icall boundary
-	/// for each script.
+	/// dispatching everything to individual scripts without having unity cross icall boundary
+	/// for each individually every frame.
 	///
 	/// [1] http://blog.theknightsofunity.com/monobehavior-calls-optimization/
 	/// </summary>
@@ -109,5 +109,11 @@ namespace Patchwork
 		/// </summary>
 		/// <param name="lib">Item entry, can be mutated</param>
 		public virtual void OnGetListInfo(ListInfoBase lib) { }
+
+
+		public static void print(object o)
+		{
+			Script.print(o);
+		}
 	}
 }

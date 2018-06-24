@@ -9,19 +9,20 @@ using System.Text;
 using UnityEngine;
 using System.Linq;
 
-public class unzip : MonoBehaviour
+public class unzip : ScriptEvents
 {
 	static byte []entry2bytes(ZipFile zf, ZipEntry entry)
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
 	}
-	public void OnDestroy()
+	public override void OnDestroy()
 	{
 		print("Destroyed");
 	}
-	public void Awake()
+	public override void Awake()
 	{
 		var target = UserData.Path + "mod/";
+		print("Unzipping mods into " + Path.GetFullPath(target));
 		var zipdir = Program.BasePath + "/mods";
 		foreach (var zipfn in Directory.GetFiles(zipdir, "*.zip", SearchOption.TopDirectoryOnly))
 		{

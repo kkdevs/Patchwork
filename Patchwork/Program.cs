@@ -120,7 +120,7 @@ namespace Patchwork
 			}
 			form.scriptReload.Click += (o, e) =>
 			{
-				InitScripts();
+				DiscoverScripts();
 				form.UpdateForm();
 			};
 			form.launchButton.Click += (o, e) =>
@@ -143,6 +143,8 @@ namespace Patchwork
 				Environment.Exit(1);
 			form.launchButton.Enabled = false;
 			form.runChara.Enabled = false;
+			foreach (var c in form.tabPage7.Controls)
+				(c as Control).Enabled = false;
 			form.Show();
 			form.FormClosing += (o, e) =>
 			{
@@ -312,6 +314,7 @@ namespace Patchwork
 				return null;
 			};
 
+			// Load history buffer
 			List<string> hist = null;
 			XmlSerializer x = new XmlSerializer(typeof(List<string>));
 			try
@@ -326,7 +329,7 @@ namespace Patchwork
 				Debug.Log(ex);
 			}
 
-			// Fire up scripts
+			// Fire up scripts as well the repl
 			Script.Reporter.write = (s) =>
 			{
 				form.replOutput.AppendText(s);
@@ -359,9 +362,6 @@ namespace Patchwork
 			{
 				Trace.Error("[SCRIPT] Failed to initialize script state.");
 			}
-			//Script.instance.InitCompiler();
-			//Script.instance.SetupRepl(form.replInput, form.replOutput);
-			//Script.instance.reload();
 
 			// Fix up window
 			var proc = Process.GetCurrentProcess();
@@ -400,10 +400,9 @@ namespace Patchwork
 			DiscoverScripts();
 		}
 
-		public static List<ScriptEntry> scriptEntries = new List<ScriptEntry>();
 		public static void DiscoverScripts()
 		{
-			scriptEntries.Clear();
+			ScriptEntry.list.Clear();
 			foreach (var f in Ext.GetFilesMulti(settings.scriptPath.Split(';').Select(x => BasePath + x), "*.*")) {
 				var bn = Path.GetFileNameWithoutExtension(f);
 				if (settings.scriptBlacklist.Contains(bn.ToLower()))
@@ -414,46 +413,10 @@ namespace Patchwork
 					source = f,
 					enabled = !settings.scriptDisabled.Contains(bn.ToLower()),
 				};
-				if (f.EndsWith(".dll"))
-				{
-					Assembly ass;
-					try
-					{
-						ass = Assembly.LoadFile(f);
-					} catch (Exception ex)
-					{
-						Trace.Info(ex.ToString());
-						continue;
-					}
-					foreach (var t in ass.GetTypesSafe()) {
-						if (typeof(IllusionPlugin.IPlugin).IsAssignableFrom(t) || typeof(BepInEx.BaseUnityPlugin).IsAssignableFrom(t)) {
-							entry.SetAssembly(ass);
-							scriptEntries.Add(entry);
-							continue;
-						}
-					}
-				} else if (f.EndsWith(".cs"))
-				{
-					var body = LoadTextFile(f).Replace("\r", "");
-					if (body != null)
-					{
-						entry.SetScript(body);
-						scriptEntries.Add(entry);
-					}
-				}
+				entry.Add();
 			}
 		}
 
-		public static string LoadTextFile(string f)
-		{
-			try
-			{
-				return Encoding.UTF8.GetString(File.ReadAllBytes(f)).StripBOM();
-			} catch
-			{
-				return null;
-			}
-		}
 
 		public static void GC(string who, bool asset, bool heap, object o)
 		{

@@ -36,6 +36,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="mcs">
+      <HintPath>..\Managed\mcs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -55,10 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dumpcsv.cs" />
-    <Compile Include="env.cs" />
+    <Compile Include="reloader.cs" />
     <Compile Include="fakeid.cs" />
     <Compile Include="fakeidkkex.cs" />
-    <Compile Include="fixplugins.cs" />
     <Compile Include="kkex.cs" />
     <Compile Include="macros.cs" />
     <Compile Include="prettyprint.cs" />

@@ -2662,6 +2662,8 @@ namespace Patchwork
 			// 
 			// replInput
 			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.replInput.FormattingEnabled = true;
 			this.replInput.Location = new System.Drawing.Point(10, 499);
 			this.replInput.Name = "replInput";
@@ -2933,7 +2935,6 @@ namespace Patchwork
 		private System.Windows.Forms.GroupBox groupBox15;
 		private System.Windows.Forms.CheckBox capJPG;
 		private System.Windows.Forms.CheckBox cacheScripts;
-		private System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.Label label54;
 		private System.Windows.Forms.TextBox scriptPath;
 		private System.Windows.Forms.ListView scriptList;
@@ -2949,6 +2950,7 @@ namespace Patchwork
 		private System.Windows.Forms.LinkLabel linkLabel5;
 		private System.Windows.Forms.LinkLabel linkLabel4;
 		public System.Windows.Forms.Button scriptReload;
+		public System.Windows.Forms.TabPage tabPage7;
 	}
 }
 

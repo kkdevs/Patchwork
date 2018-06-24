@@ -123,7 +123,7 @@ namespace Patchwork
 				if (e.NewValue == CheckState.Checked)
 				{
 					// enable script's dependencies
-					foreach (var scr in Program.scriptEntries)
+					foreach (var scr in ScriptEntry.list)
 						if (script.deps.Contains(scr.name.ToLower()))
 						{
 							if (scr.listView != null)
@@ -136,7 +136,7 @@ namespace Patchwork
 				}  else
 				{
 					// disable all scripts depending on this one
-					foreach (var scr in Program.scriptEntries)
+					foreach (var scr in ScriptEntry.list)
 						if (scr.deps.Contains(script.name.ToLower()))
 						{
 							if (scr.listView != null)
@@ -156,7 +156,7 @@ namespace Patchwork
 		public void UpdateForm()
 		{
 			scriptList.Items.Clear();
-			foreach (var script in Program.scriptEntries)
+			foreach (var script in ScriptEntry.list)
 			{
 				var item = new ListViewItem(new[] { script.name, script.version, script.ass == null ? "Script" : "DLL", script.info });
 				item.Tag = script;

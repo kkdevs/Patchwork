@@ -419,6 +419,8 @@ namespace BepInEx
 	{
 		public T Value { get; set; }
 		public ConfigWrapper(string name, BaseUnityPlugin o, T val) { Value = val; }
+		public ConfigWrapper(string name, T val) { Value = val; }
+
 		public event EventHandler SettingChanged;
 		public void Clear() { }
 	}

@@ -15,12 +15,14 @@ public class MonoScript : Evaluator
 	public TextWriter tw;
 	public Type initialBase;
 	public MonoScript(CompilerContext ctx) : base(ctx) { }
-	public static MonoScript New(TextWriter rw, Type ib)
+	public string tempdir;
+	public static MonoScript New(TextWriter rw, Type ib, string tmp = null)
 	{
 		var reporter = new StreamReportPrinter(rw);
 		var ms = new MonoScript(BuildContext(reporter));
 		ms.reporter = reporter;
 		ms.tw = rw;
+		ms.tempdir = tmp;
 		ms.ImportAssemblies(ms.ReferenceAssembly);
 		ms.InteractiveBaseClass = ms.initialBase = ib;
 		AppDomain.CurrentDomain.AssemblyLoad += ms.asmLoaded;
@@ -49,7 +51,6 @@ public class MonoScript : Evaluator
 	{
 		var settings = new CompilerSettings()
 		{
-			Platform = Platform.X64,
 			Version = LanguageVersion.Experimental,
 			GenerateDebugInfo = false,
 			StdLib = true,
@@ -63,12 +64,10 @@ public class MonoScript : Evaluator
 	{
 		foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
 		{
-			// Don't import our past versions, it would end in tears.
-			if (a is AssemblyBuilder)
-				continue;
 			var an = a.GetName().Name;
-			if (IsStdLib(an))
+			if (IsStdLib(an) || an.StartsWith("eval-") || an.StartsWith("completion"))
 				continue;
+			Debug.Log("Referencing " + an);
 			try
 			{
 				into(a);
@@ -93,17 +92,24 @@ public class MonoScript : Evaluator
 	/// Statically compile list of files (or raw source, if sources[] item is a byte[])
 	/// </summary>
 	/// <param name="sources"></param>
-	/// <param name="tempdir"></param>
 	/// <returns></returns>
-	public Assembly StaticCompile(IEnumerable<object> sources, string tempdir = null)
+	public Assembly StaticCompile(IEnumerable<object> sources)
 	{
 		reporter.Reset();
+		Location.Reset();
 		var ctx = BuildContext(reporter);
+		ctx.Settings.SourceFiles.Clear();
 		int i = 0;
 		var md5 = SHA1.Create();
 		var allBytes = new MemoryStream();
+		List<Assembly> imports = new List<Assembly>();
 		foreach (var fo in sources)
 		{
+			Assembly impass = fo as Assembly;
+			if (impass != null) {
+				imports.Add(impass);
+				continue;
+			}
 			var f = fo as string;
 			byte[] fbuf = fo as byte[];
 			if (f != null)
@@ -117,10 +123,10 @@ public class MonoScript : Evaluator
 			} else
 			{
 				allBytes.Write(fbuf, 0, fbuf.Length);
-				f = "<eval>";
+				f = null;
 			}
 			i++;
-			ctx.Settings.SourceFiles.Add(new SourceFile(Path.GetFileName(f), f, i, (o) =>
+			ctx.Settings.SourceFiles.Add(new SourceFile(f == null ? "<eval>" : Path.GetFileName(f), f ?? "<eval>", i, (o) =>
 			{
 				return new SeekableStreamReader(new MemoryStream(fbuf), Encoding.UTF8);
 			}));
@@ -136,7 +142,7 @@ public class MonoScript : Evaluator
 
 		var mod = new ModuleContainer(ctx);
 		RootContext.ToplevelTypes = mod;
-		Location.Initialize(ctx.SourceFiles);
+		Location.Initialize(ctx.Settings.SourceFiles);
 		var session = new ParserSession()
 		{
 			UseJayGlobalArrays = true,
@@ -158,6 +164,8 @@ public class MonoScript : Evaluator
 		ass.Importer = importer;
 		var loader = new DynamicLoader(importer, ctx);
 		ImportAssemblies((a) => importer.ImportAssembly(a, mod.GlobalRootNamespace));
+		foreach (var impa in imports)
+			importer.ImportAssembly(impa, mod.GlobalRootNamespace);
 		loader.LoadReferences(mod);
 		ass.Create(AppDomain.CurrentDomain, AssemblyBuilderAccess.RunAndSave);
 		mod.CreateContainer();
@@ -185,27 +193,6 @@ public class MonoScript : Evaluator
 			ass.Save();
 		return ass.Builder;
 
-	}
-
-	/// <summary>
-	/// Load the initial set of scripts for evaluator
-	/// </summary>
-	/// <param name="scripts"></param>
-	/// <param name="tempdir"></param>
-	/// <returns></returns>
-	public Assembly LoadScripts(IEnumerable<string> scripts, string tempdir = null)
-	{
-		var newasm = StaticCompile(scripts.Cast<object>(), tempdir);
-
-		// Look for a class deriving from the initial base, and set current ibase to it
-		foreach (var t in newasm.GetTypes())
-		{
-			if (t.BaseType != initialBase)
-				continue;
-			InteractiveBaseClass = t;
-			break;
-		}
-		return newasm;
 	}
 
 	public static int counter;

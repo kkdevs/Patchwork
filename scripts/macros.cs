@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Macros : ScriptEvents {
-	public delegate OnScene(string name, string subname) 
+	public override bool OnScene(string name, string subname) 
 	{
 		print($"[SCENE] {name} {subname}");
 		return false;
@@ -72,6 +72,22 @@ public partial class ScriptEnv
 				print($"Progress {progress}");
 			}
 			dan.male.SetDankonClipVars(dan.renDan, progress);
+		}
+	}
+	public static bool firsteval;
+	public static new object eval(string str)
+	{
+		if (!firsteval)
+			Script.eval("using System.Linq; using System.Collections.Generic; using System.Collections; using Patchwork; using UnityEngine; using UnityEngine.SceneManagement;");
+		firsteval = true;
+		return Script.eval(str);
+	}
+	public static object clear
+	{
+		get
+		{
+			Program.form.replOutput.Text = "";
+			return typeof(Sentinel);
 		}
 	}
 

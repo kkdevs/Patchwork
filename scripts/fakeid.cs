@@ -16,7 +16,7 @@ using static ChaListDefine;
 public class FakeID : ScriptEvents
 {
 	const int FAKE_BASE = -100;
-	public void Start()
+	public override void Start()
 	{
 		InitListInfo();
 	}
@@ -51,7 +51,7 @@ public class FakeID : ScriptEvents
 		}
 	}
 
-	public override void OnSetListInfo(ListInfoBase lib)
+	override public void OnSetListInfo(ListInfoBase lib)
 	{
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
 	}
