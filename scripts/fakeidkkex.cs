@@ -43,7 +43,7 @@ public class FakeIDKKEx : ScriptEvents
 		"ClothesSailorSubC", "subPartsId[2]",
 
 	};
-	public string translate(string from)
+	public string translateIn(string from)
 	{
 		var orig = from;
 		for (int i = 0; i < tab.Length; i += 2)
@@ -75,6 +75,11 @@ public class FakeIDKKEx : ScriptEvents
 		print($"Ooops, don't know how to translate {orig}");
 		return orig;
 	}
+	//tbd
+	public string translateOut(string from)
+	{
+		return from;
+	}
 
 
 	[MessagePackObject(true)]
@@ -101,7 +106,7 @@ public class FakeIDKKEx : ScriptEvents
 		foreach (var entry in guids)
 		{
 			var e = MessagePackSerializer.Deserialize<ResolveInfo>(entry as byte[]);
-			var prop = translate(e.Property);
+			var prop = translateIn(e.Property);
 			if (prop == e.Property)
 			{
 				print($"Failed to recover property path for {e.Property}");

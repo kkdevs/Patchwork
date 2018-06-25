@@ -87,7 +87,14 @@ namespace Patchwork
 			foreach (var ip in ipa)
 				(ip as IEnhancedPlugin)?.OnLateUpdate();
 		}
+		public int tick;
 		public void FixedUpdate() {
+			if (tick-- < 0)
+			{
+				tick = 60;
+				Script.On.Occasion();
+			}
+			
 			Script.On.FixedUpdate();
 			foreach (var ip in ipa)
 				ip.OnFixedUpdate();
@@ -128,7 +135,7 @@ namespace Patchwork
 			{
 				try
 				{
-					Add(Assembly.LoadFile(source));
+					Add(Ext.LoadAssembly(source));
 				}
 				catch (Exception ex)
 				{
@@ -208,7 +215,6 @@ namespace Patchwork
 			// collect the methods we'll broadcast to
 			foreach (var t in scriptass.GetTypesSafe())
 			{
-				// Look for class T : ScriptEvents<T>
 				if (!typeof(ScriptEvents).IsAssignableFrom(t))
 					continue;
 				foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.Instance))

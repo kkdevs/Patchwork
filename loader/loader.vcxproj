@@ -267,7 +267,7 @@
       <Command>copy $(TargetPath) c:\illusion\koikatu</Command>
     </PostBuildEvent>
     <Manifest>
-      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
+      <EnableDpiAwareness>true</EnableDpiAwareness>
     </Manifest>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

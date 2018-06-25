@@ -7,13 +7,10 @@ using System.IO;
 
 public class Reloader : ScriptEvents
 {
-	int ticks;
 	bool stop;
 	Dictionary<string, System.DateTime> tss = new Dictionary<string, System.DateTime>();
-	public override void FixedUpdate()
+	public override void Occasion()
 	{
-		if (++ticks < 60) return;
-		ticks = 0;
 		if (stop) return;
 		foreach (var script in ScriptEntry.list)
 		{

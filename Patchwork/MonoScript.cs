@@ -54,7 +54,7 @@ public class MonoScript : Evaluator
 			Version = LanguageVersion.Experimental,
 			GenerateDebugInfo = false,
 			StdLib = true,
-			//Unsafe = true,
+			Unsafe = true,
 			Target = Target.Library,
 		};
 		return new CompilerContext(settings, rp);

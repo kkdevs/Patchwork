@@ -110,6 +110,11 @@ namespace Patchwork
 		/// <param name="lib">Item entry, can be mutated</param>
 		public virtual void OnGetListInfo(ListInfoBase lib) { }
 
+		/// <summary>
+		/// Gets executed "occasionaly", roughly every second.
+		/// </summary>
+		/// <param name="o"></param>
+		public virtual void Occasion() { }
 
 		public static void print(object o)
 		{

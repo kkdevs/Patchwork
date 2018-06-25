@@ -48,7 +48,6 @@ namespace Patchwork
 		{
 			if (Program.settings.enableInfo)
 				TimedMsg("INFO", msg);
-			TimedMsg("INFO", msg);
 		}
 		public static void Error(string msg)
 		{

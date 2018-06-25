@@ -37,6 +37,7 @@ namespace Patchwork
 			"ipaloader",
 			"illusionplugin",
 			"bepinex",
+			"configurationmanager",
 		};
 		public List<string> scriptDisabled = new List<string>();
 		public bool cacheScripts = true;

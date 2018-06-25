@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-/*
 public partial class ScriptEnv
 {
 	public static void dumpallcsv()
@@ -60,4 +59,3 @@ public partial class ScriptEnv
 		}
 	}
 }
-*/

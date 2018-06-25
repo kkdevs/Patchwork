@@ -39,7 +39,7 @@
     <WarningLevel>2</WarningLevel>
     <LangVersion>default</LangVersion>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -115,6 +115,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ext.cs" />
+    <Compile Include="EzHook.cs" />
     <Compile Include="MonoScript.cs" />
     <Compile Include="ScriptEvent.cs" />
     <Compile Include="Serialize.cs" />

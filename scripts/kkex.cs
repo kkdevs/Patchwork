@@ -5,9 +5,8 @@ using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
-using ExtensibleSaveFormat;
-using static ChaListDefine;
+using ExtensibleSaveFormat; //bikeshed.cs
+using Patchwork;
 
 public class KKEx
 {
@@ -21,43 +20,26 @@ public class KKEx
 	}
 }
 
-public class ImportKKEx : MonoBehaviour
+public class ImportKKEx : ScriptEvents
 {
-	public void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
+	public override void Awake()
+	{
+		ExtendedSave.GetAllExtendedDataCB = (file) => file.dict.Get<KKEx>("kkex").data;
+	}
+
+	[Prio(2000)]
+	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
 		var k = new KKEx();
 		if (bh.Load(k))
 			f.dict.dict["kkex"] = k;
+		Ext.Raise<ExtendedSave>(null, "CardBeingLoaded", f);
 	}
 
-	public void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng)
+	public override void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng)
 	{
 		blocks.Add(f.dict.Get<KKEx>("kkex"));
+		Ext.Raise<ExtendedSave>(null, "CardBeingSaved", f);
 	}
 }
 
-//bikeshed
-namespace ExtensibleSaveFormat
-{
-	[MessagePackObject]
-	public class PluginData
-	{
-		[Key(0)]
-		public int version;
-		[Key(1)]
-		public Dictionary<string, object> data = new Dictionary<string, object>();
-	}
-	public class ExtendedSave
-	{
-		public static Dictionary<string, PluginData> GetAllExtendedData(ChaFile file) => file.dict.Get<KKEx>("kkex").data;
-		public static PluginData GetExtendedDataById(ChaFile file, string id)
-		{
-			PluginData res;
-			return GetAllExtendedData(file).TryGetValue(id, out res) ? res : null;
-		}
-		public static void SetExtendedDataById(ChaFile file, string id, PluginData d)
-		{
-			GetAllExtendedData(file)[id] = d;
-		}
-	}
-}

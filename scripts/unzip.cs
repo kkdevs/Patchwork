@@ -15,10 +15,6 @@ public class unzip : ScriptEvents
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
 	}
-	public override void OnDestroy()
-	{
-		print("Destroyed");
-	}
 	public override void Awake()
 	{
 		var target = UserData.Path + "mod/";

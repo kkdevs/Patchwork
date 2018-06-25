@@ -222,6 +222,39 @@ namespace Patchwork
 			sb.Append('>');
 			return sb.ToString();
 		}
+		public static object Raise<T>(object inst, string name, params object[] args)
+		{
+			return (typeof(T).GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(inst) as Delegate).DynamicInvoke(inst, args);
+		}
+
+		public static Dictionary<Assembly, string> locSpoof;
+
+		public class AssHook : EzHook<AssHook>
+		{
+			public static MethodInfo locOrig = typeof(Assembly).GetType().GetMethod("get_location", BindingFlags.NonPublic | BindingFlags.Instance);
+			public string get_Location()
+			{
+				var ass = ((object)this) as Assembly;
+				if (locSpoof.TryGetValue(ass, out string path))
+					return path;
+				return locOrig.Invoke(ass, null) as string;
+			}
+		}
+
+		public static Assembly LoadAssembly(string fn)
+		{
+			var ass = Assembly.Load(File.ReadAllBytes(fn));
+			if (ass != null)
+			{
+				if (locSpoof == null)
+				{
+					locSpoof = new Dictionary<Assembly, string>();
+					AssHook.ApplyTo(ass.GetType());
+				}
+				locSpoof[ass] = fn;
+			}
+			return ass;
+		}
 		public static string LoadTextFile(string f)
 		{
 			try
@@ -309,10 +342,11 @@ namespace Patchwork
 		public static MethodInfo lz4serialize;
 		public static void Init()
 		{
-			serialize = InitMsgPack(typeof(MessagePackSerializer));
+			/*serialize = InitMsgPack(typeof(MessagePackSerializer));
 			lz4serialize = InitMsgPack(typeof(LZ4MessagePackSerializer));
 			Debug.Log(serialize);
-			Debug.Log(lz4serialize);
+			Debug.Log(lz4serialize);*/
+			//EzHook.Redirect(typeof(Ext), "get_Location", typeof(Assembly), "LocationSpoofer");
 		}
 
 		public static MethodInfo InitMsgPack(Type ct)
@@ -331,14 +365,20 @@ namespace Patchwork
 			//return ser.MakeGenericMethod(o.GetType()).Invoke(null, new object[] { o, MessagePack.Resolvers.ContractlessStandardResolver.Instance}) as byte[];
 		}
 
-		public static byte[] Compress(byte[] input, CompressionMode mode = CompressionMode.Compress)
+		public static byte[] Compress(byte[] input)
 		{
 			var buf = new MemoryStream();
-			var gzip = new DeflateStream(buf, mode);
+			var gzip = new DeflateStream(buf, CompressionMode.Compress);
 			gzip.Write(input, 0, input.Length);
 			gzip.Close();
 			return buf.ToArray();
 		}
+		public static byte[] Decompress(byte[] buf)
+		{
+			var gzip = new DeflateStream(new MemoryStream(buf), CompressionMode.Decompress);
+			return gzip.CopyTo(new MemoryStream()).ToArray();
+		}
+
 
 		public static Expression[] CreateParameterExpressions(this MethodInfo method, Expression argumentsParameter)
 		{
@@ -357,10 +397,6 @@ namespace Patchwork
 			return destination;
 		}
 
-		public static byte[] Decompress(byte[] buf)
-		{
-			return Compress(buf, CompressionMode.Decompress);
-		}
 
 
 		public static byte[] LRead(this BinaryReader br)

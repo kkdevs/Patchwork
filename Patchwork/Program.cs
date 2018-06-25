@@ -89,7 +89,7 @@ namespace Patchwork
 		public static void ConfigDialog()
 		{
 			bool runStudio = Environment.GetEnvironmentVariable("KK_RUNSTUDIO") != null;
-			if ((!runStudio && File.Exists(BasePath + "Koikatu_Data/Managed/bepinex.dll")) || (runStudio && File.Exists(BasePath + "CharaStudio/Managed/bepinex.dll")))
+			if (((!runStudio) && File.Exists(BasePath + "Koikatu_Data/Managed/bepinex.dll")) || (runStudio && File.Exists(BasePath + "CharaStudio_data/Managed/bepinex.dll")))
 			{
 				splash?.Close();
 				MessageBox.Show("This release can't run under bepinex 3 anymore, please update to bepinex 4.");
@@ -384,13 +384,17 @@ namespace Patchwork
 			AppDomain.CurrentDomain.AssemblyResolve += (o, e) =>
 			{
 				var fn = new AssemblyName(e.Name).Name;
-				if (settings.scriptBlacklist.Contains(fn.ToLower()))
+				if (settings.scriptBlacklist.Contains(fn.ToLower())) {
+					Debug.Log("Redirecting " + fn);
 					return Assembly.GetExecutingAssembly();
+				}
 				foreach (var p in settings.scriptPath.Split(';')) {
 					Assembly nass = null;
 					try
 					{
-						nass = Assembly.LoadFile(Path.Combine(BasePath, p) + "/" + fn + ".dll");
+						var ffn = Path.Combine(BasePath, p) + "/" + fn + ".dll";
+						Debug.Log("Loading " + ffn);
+						nass = Ext.LoadAssembly(ffn);
 					} catch { };
 					if (nass != null)
 						return nass;
@@ -403,16 +407,29 @@ namespace Patchwork
 		public static void DiscoverScripts()
 		{
 			ScriptEntry.list.Clear();
+			Dictionary<string, ScriptEntry> dupes = new Dictionary<string, ScriptEntry>();
 			foreach (var f in Ext.GetFilesMulti(settings.scriptPath.Split(';').Select(x => BasePath + x), "*.*")) {
 				var bn = Path.GetFileNameWithoutExtension(f);
-				if (settings.scriptBlacklist.Contains(bn.ToLower()))
+				var bnfl = Path.GetFileName(f).ToLower();
+				var bnl = bn.ToLower();
+				if (settings.scriptBlacklist.Contains(bnl))
+				{
+					Trace.Log($"[SCRIPT] Skipping {bn} because it is blacklisted");
 					continue;
+				}
+				if (dupes.ContainsKey(bnfl))
+				{
+					Trace.Log($"[SCRIPT] Skipping duplicate {f}, previously seen as {dupes[bnfl].source}");
+					continue;
+				}
+				
 				var entry = new ScriptEntry()
 				{
 					name = bn,
 					source = f,
 					enabled = !settings.scriptDisabled.Contains(bn.ToLower()),
 				};
+				dupes[bnl] = entry;
 				entry.Add();
 			}
 		}

@@ -1,4 +1,5 @@
 ﻿#if !USE_OLD_ABM
+using MessagePack;
 using Patchwork;
 using System;
 using System.Collections;
@@ -446,3 +447,32 @@ namespace IllusionPlugin
 	}
 }
 
+namespace ExtensibleSaveFormat
+{
+	[MessagePackObject]
+	public class PluginData
+	{
+		[Key(0)]
+		public int version;
+		[Key(1)]
+		public Dictionary<string, object> data = new Dictionary<string, object>();
+	}
+	public class ExtendedSave
+	{
+		public delegate Dictionary<string, PluginData> CbType(ChaFile file);
+		public static CbType GetAllExtendedDataCB;
+		public static Dictionary<string, PluginData> GetAllExtendedData(ChaFile file) => GetAllExtendedDataCB(file);
+		public static PluginData GetExtendedDataById(ChaFile file, string id)
+		{
+			PluginData res;
+			return GetAllExtendedData(file).TryGetValue(id, out res) ? res : null;
+		}
+		public static void SetExtendedDataById(ChaFile file, string id, PluginData d)
+		{
+			GetAllExtendedData(file)[id] = d;
+		}
+		public delegate void CardEventHandler(ChaFile file);
+		public static event CardEventHandler CardBeingSaved;
+		public static event CardEventHandler CardBeingLoaded;
+	}
+}
