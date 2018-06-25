@@ -394,11 +394,25 @@ namespace Patchwork
 		public static bool firstRun;
 		public static bool reload()
 		{
-			Evaluator?.Dispose();
+			var oldeva = Evaluator;
 			Evaluator = MonoScript.New(new Reporter(), typeof(Script), Program.tempbase);
 			Output = Evaluator.tw;
 			Error = Evaluator.tw;
-			var sass = ScriptEntry.CompileScripts();
+			Assembly sass = null;
+			try
+			{
+				sass = ScriptEntry.CompileScripts();
+			} catch (Exception ex)
+			{
+				print(ex);
+			}
+			if (sass == null)
+			{
+				Evaluator.Dispose();
+				Evaluator = oldeva;
+				return false;
+			}
+			oldeva?.Dispose();
 			var newbase = sass.GetType("ScriptEnv");
 			if (newbase != null)
 				Evaluator.InteractiveBaseClass = newbase;

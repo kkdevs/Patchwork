@@ -24,6 +24,7 @@ public partial class ScriptEnv
 	public static GameObject male => SceneManager.GetSceneAt(0).GetRootGameObjects()[0].transform.FindLoop("chaM_001");
 	public static ChaControl control => Object.FindObjectOfType(typeof(ChaControl)) as ChaControl;
 	public static Manager.Scene scene = Singleton<Manager.Scene>.Instance;
+	public static Manager.Game game => Singleton<Manager.Game>.Instance;
 
 	public static void SetDankon(ChaControl cha)
 	{
@@ -90,6 +91,5 @@ public partial class ScriptEnv
 			return typeof(Sentinel);
 		}
 	}
-
 }
 

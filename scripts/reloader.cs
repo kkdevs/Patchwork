@@ -24,8 +24,16 @@ public class Reloader : ScriptEvents
 				tss[src] = cts;
 				continue;
 			}
+			// this script gets reloaded too, along with tss
 			stop = true;
-			Script.reload();
+			try
+			{
+				Script.reload();
+			} catch (System.Exception ex)
+			{
+				stop = false;
+				print(ex);
+			}
 			break;
 		}
 	}

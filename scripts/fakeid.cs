@@ -210,7 +210,11 @@ public class FakeID : ScriptEvents
 	// rewrite our fake ids to the actual real ones again
 	public override void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng)
 	{
+		if (f.dict == null)
+			Debug.Log("dict is null");
 		map = f.dict.Get<GuidMap>("guidmap");
+		if (map == null)
+			Debug.Log("map is null");
 		map.items.Clear(); // guid mappings will be be-regenerated
 		tofake = false;
 		foreach (var b in blocks)
