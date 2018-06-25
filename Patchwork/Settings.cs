@@ -23,7 +23,7 @@ namespace Patchwork
 	[Serializable]
 	public partial class Settings
 	{
-
+		public bool fixGuides = false;
 		public string scriptPath = @"bepinex;bepinex\ipa;userdata\scripts;bepinex\core";
 		public string[] scriptBlacklist = new string[]
 		{

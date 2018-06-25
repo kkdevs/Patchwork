@@ -13,6 +13,13 @@ namespace Patchwork
 {
 	public static class Ext
 	{
+		public static MethodInfo GetMethod<T>(string name)
+		{
+			foreach (var n in typeof(T).GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
+				if (n.Name == name)
+					return n;
+			return null;
+		}
 		public static Dictionary<string, Dictionary<Type, MethodInfo>> methodCache = new Dictionary<string, Dictionary<Type, MethodInfo>>();
 		public static MethodInfo CachedGetMethod(this Type t, string name)
 		{
@@ -231,12 +238,12 @@ namespace Patchwork
 
 		public class AssHook : EzHook<AssHook>
 		{
-			public static MethodInfo get_location = typeof(Assembly).GetType().GetMethod("get_location", BindingFlags.NonPublic | BindingFlags.Instance);
+			public static MethodInfo get_location = GetMethod<Assembly>("get_location");
 			public static string get_Location(Assembly ass)
 			{
 				if (locSpoof.TryGetValue(ass, out string path))
 					return path;
-				return get_location.Invoke(ass, null) as string;
+				return get_location.Invoke(ass, new object[] { }) as string;
 			}
 		}
 
@@ -252,6 +259,7 @@ namespace Patchwork
 				}
 				locSpoof[ass] = fn;
 			}
+			else ass = Assembly.LoadFile(fn);
 			return ass;
 		}
 		public static string LoadTextFile(string f)

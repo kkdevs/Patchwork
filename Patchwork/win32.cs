@@ -12,7 +12,7 @@ namespace Patchwork
 		[return: System.Runtime.InteropServices.MarshalAs(UnmanagedType.Bool)]
 		public static extern bool ShowScrollBar(IntPtr hwnd, int wBar, [MarshalAs(UnmanagedType.Bool)] bool bShow);
 		[DllImport("kernel32.dll")]
-		static extern void ExitProcess(uint uExitCode);
+		public static extern void ExitProcess(uint uExitCode);
 
 		[DllImport("kernel32.dll", SetLastError = true)]
 		[PreserveSig]
