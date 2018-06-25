@@ -193,14 +193,17 @@ namespace Patchwork
 					yield return script.source;
 		}
 
-		
+
+		public static Assembly oldScripts;
 		/// <summary>
 		/// (re)Run the scripts collected thus far
 		/// </summary>
 		public static Assembly CompileScripts()
 		{
 			// compile
-			var scriptass = Script.Evaluator.StaticCompile(GetSources());
+			MonoScript.Unload(oldScripts);
+			var scriptass = Script.Evaluator.StaticCompile(GetSources(), "s_");
+			oldScripts = scriptass;
 			Dictionary<string, List<MethodInfo>> broadcast = new Dictionary<string, List<MethodInfo>>();
 
 			// populate the base dispatch list
@@ -266,10 +269,11 @@ namespace Patchwork
 				dispatcher.AppendLine("}");
 			}
 			dispatcher.AppendLine("}");
+			dispatcher.AppendLine("//" + scriptass.FullName);
 			var dstr = dispatcher.ToString();
 			Debug.Log("Compiled dispatch: " + dstr);
 			// compile this mess and instantiate the dispatcher
-			var dispAss = Script.Evaluator.StaticCompile(new object[] { /*scriptass, */dstr.ToBytes() });
+			var dispAss = Script.Evaluator.StaticCompile(new object[] { /*scriptass, */dstr.ToBytes() }, "d_");
 			Script.On?.OnDestroy();
 			Script.On = Activator.CreateInstance(dispAss.GetTypesSafe().First(x => x.Name == "ScriptDispatcher")) as ScriptEvents;
 			// if there is a GO already in place, we'll have to simulate start and awake
@@ -278,6 +282,7 @@ namespace Patchwork
 				Script.On.Awake();
 				Script.On.Start();
 			}
+			MonoScript.Unload(dispAss);
 			return scriptass;
 		}
 
@@ -389,6 +394,7 @@ namespace Patchwork
 		public static bool firstRun;
 		public static bool reload()
 		{
+			Evaluator?.Dispose();
 			Evaluator = MonoScript.New(new Reporter(), typeof(Script), Program.tempbase);
 			Output = Evaluator.tw;
 			Error = Evaluator.tw;

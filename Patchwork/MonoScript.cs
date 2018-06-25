@@ -29,11 +29,20 @@ public class MonoScript : Evaluator
 		return ms;
 	}
 
+	public static List<string> unloaded = new List<string>();
+	public static void Unload(Assembly n)
+	{
+		if (n == null) return;
+		var ln = n.GetName().Name.ToLower();
+		Debug.Log("unloading " + ln);
+		unloaded.Add(ln);
+	}
+
 	public bool pause;
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
 		if (pause) return;
-		//tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
+		tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);
@@ -54,19 +63,22 @@ public class MonoScript : Evaluator
 			Version = LanguageVersion.Experimental,
 			GenerateDebugInfo = false,
 			StdLib = true,
-			Unsafe = true,
+			//Unsafe = true,
 			Target = Target.Library,
 		};
 		return new CompilerContext(settings, rp);
 	}
 
-	public void ImportAssemblies(Action<Assembly> into)
+	public void ImportAssemblies(Action<Assembly> into, string ignore = ".")
 	{
 		foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
 		{
 			var an = a.GetName().Name;
-			if (IsStdLib(an) || an.StartsWith("eval-") || an.StartsWith("completion"))
+			if (IsStdLib(an) || an.StartsWith("eval-") || an.StartsWith("completion") || an.StartsWith(ignore) || unloaded.Contains(an.ToLower()))
+			{
+				Debug.Log("Skipping blacklisted reference " + an);
 				continue;
+			}
 			Debug.Log("Referencing " + an);
 			try
 			{
@@ -93,7 +105,14 @@ public class MonoScript : Evaluator
 	/// </summary>
 	/// <param name="sources"></param>
 	/// <returns></returns>
-	public Assembly StaticCompile(IEnumerable<object> sources)
+	public Assembly StaticCompile(IEnumerable<object> sources, string prefix = "compiled_")
+	{
+		pause = true;
+		var ret = DoStaticCompile(sources, prefix);
+		pause = false;
+		return ret;
+	}
+	public Assembly DoStaticCompile(IEnumerable<object> sources, string prefix = "compiled_")
 	{
 		reporter.Reset();
 		Location.Reset();
@@ -131,13 +150,17 @@ public class MonoScript : Evaluator
 				return new SeekableStreamReader(new MemoryStream(fbuf), Encoding.UTF8);
 			}));
 		}
-		string dllname = "compiled_scripts_" + (counter++) + ".dll";
+		string dllname = prefix + (counter++) + ".dll";
 		if (tempdir != null)
 		{
-			var hash = Convert.ToBase64String(md5.ComputeHash(allBytes.ToArray())).Replace("/", "").Replace(".", "").Replace("+", "").Substring(0, 16).ToLower() + ".dll";
+			var hash = prefix + Convert.ToBase64String(md5.ComputeHash(allBytes.ToArray())).Replace("/", "").Replace(".", "").Replace("+", "").Substring(0, 12).ToLower() + ".dll";
 			dllname = Path.Combine(tempdir, hash);
 			if (File.Exists(dllname))
-				return Assembly.Load(AssemblyName.GetAssemblyName(dllname));
+			{
+				var nam = AssemblyName.GetAssemblyName(dllname);
+				unloaded.Remove(nam.Name.ToLower());
+				return Assembly.Load(nam);
+			}
 		}
 
 		var mod = new ModuleContainer(ctx);
@@ -158,12 +181,13 @@ public class MonoScript : Evaluator
 			var parser = new CSharpParser(fs, csrc, session);
 			parser.parse();
 		}
+		Debug.Log("Defining new assembly " + dllname);
 		var ass = new AssemblyDefinitionDynamic(mod, Path.GetFileNameWithoutExtension(dllname), dllname);
 		mod.SetDeclaringAssembly(ass);
 		var importer = new ReflectionImporter(mod, ctx.BuiltinTypes);
 		ass.Importer = importer;
 		var loader = new DynamicLoader(importer, ctx);
-		ImportAssemblies((a) => importer.ImportAssembly(a, mod.GlobalRootNamespace));
+		ImportAssemblies((a) => importer.ImportAssembly(a, mod.GlobalRootNamespace), prefix);
 		foreach (var impa in imports)
 			importer.ImportAssembly(impa, mod.GlobalRootNamespace);
 		loader.LoadReferences(mod);
