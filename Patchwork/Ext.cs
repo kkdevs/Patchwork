@@ -251,7 +251,6 @@ namespace Patchwork
 					AssHook.ApplyTo(ass.GetType());
 				}
 				locSpoof[ass] = fn;
-				Trace.Log(ass.Location);
 			}
 			return ass;
 		}

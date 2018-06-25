@@ -1,5 +1,4 @@
-﻿using Patchwork;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -16,7 +15,6 @@ public class EzHook
 			if (mfrom.DeclaringType != from) continue;
 			var mto = to.GetMethod(mfrom.Name, flags);
 			if (mto == null) continue;
-			Trace.Log(mto.Name);
 			unsafe
 			{
 				var ap = (byte*)mto.MethodHandle.GetFunctionPointer();
