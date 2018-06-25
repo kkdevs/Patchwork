@@ -231,13 +231,12 @@ namespace Patchwork
 
 		public class AssHook : EzHook<AssHook>
 		{
-			public static MethodInfo locOrig = typeof(Assembly).GetType().GetMethod("get_location", BindingFlags.NonPublic | BindingFlags.Instance);
-			public string get_Location()
+			public static MethodInfo get_location = typeof(Assembly).GetType().GetMethod("get_location", BindingFlags.NonPublic | BindingFlags.Instance);
+			public static string get_Location(Assembly ass)
 			{
-				var ass = ((object)this) as Assembly;
 				if (locSpoof.TryGetValue(ass, out string path))
 					return path;
-				return locOrig.Invoke(ass, null) as string;
+				return get_location.Invoke(ass, null) as string;
 			}
 		}
 
@@ -252,6 +251,7 @@ namespace Patchwork
 					AssHook.ApplyTo(ass.GetType());
 				}
 				locSpoof[ass] = fn;
+				Trace.Log(ass.Location);
 			}
 			return ass;
 		}
