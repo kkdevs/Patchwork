@@ -13,7 +13,6 @@ public class MonoScript : Evaluator
 {
 	public ReportPrinter reporter;
 	public TextWriter tw;
-	public Type initialBase;
 	public MonoScript(CompilerContext ctx) : base(ctx) { }
 	public string tempdir;
 	public static MonoScript New(TextWriter rw, Type ib, string tmp = null)
@@ -24,7 +23,6 @@ public class MonoScript : Evaluator
 		ms.tw = rw;
 		ms.tempdir = tmp;
 		ms.ImportAssemblies(ms.ReferenceAssembly);
-		ms.InteractiveBaseClass = ms.initialBase = ib;
 		AppDomain.CurrentDomain.AssemblyLoad += ms.asmLoaded;
 		return ms;
 	}
@@ -42,7 +40,9 @@ public class MonoScript : Evaluator
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
 		if (pause) return;
-		tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
+		if (e.LoadedAssembly.FullName.StartsWith("eval-") || e.LoadedAssembly.FullName == "completions")
+			return;
+		//tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);

@@ -352,10 +352,17 @@ namespace Patchwork
 				{
 					string prefix;
 					var ret = new List<string>();
-					var arr = Script.Evaluator.GetCompletions(s, out prefix);
-					if (arr != null)
-						foreach (var sug in arr)
-							ret.Add(s + sug);
+					try
+					{
+						var arr = Script.Evaluator.GetCompletions(s, out prefix);
+						if (arr != null)
+							foreach (var sug in arr)
+								ret.Add(s + sug);
+					}
+					catch (Exception ex)
+					{
+						Debug.Log("Auto-complete exception: " + ex.ToString());
+					}
 					return ret;
 				};
 			} else

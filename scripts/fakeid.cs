@@ -1,6 +1,7 @@
 ﻿//@INFO: Compatibility for Id colliding mods
 //@DESC: Rewrite item ids to fake ones so that broken mods still show up
 //@VER: 1
+//@AFTER: unzip
 
 using System;
 using System.IO;

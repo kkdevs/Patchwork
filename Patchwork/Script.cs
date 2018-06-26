@@ -423,6 +423,7 @@ namespace Patchwork
 				MBProxy.Attach();
 				ScriptEntry.RunDLLs();
 			}
+			print("Scripts reloaded");
 			return true;
 		}
 

@@ -34,7 +34,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\Managed\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;GAME_DEBUG,USE_OLD_ABM,USE_OLD_CHAFILE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;GAME_DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
     <LangVersion>default</LangVersion>
@@ -256,7 +256,6 @@
   <Import Project="..\kksrc\Assembly-CSharp.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>..\Managed\pdb2mdb $(TargetPath)</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -1,14 +1,16 @@
 ﻿//@INFO: Nicer game save/load
 //@VER: 1
 
-// this file is a horrible, horrible thing
+// eye bleach alert
 
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ActionGame;
 using Manager;
 using Patchwork;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using static Manager.Scene.Data;
@@ -17,7 +19,6 @@ public class GhettoSave : ScriptEvents
 {
 	public string datefmt = "MM/dd/yyyy hh:mm:ss";
 	public string scene;
-	public Rect rect;
 	public List<GraphicRaycaster> casters = new List<GraphicRaycaster>();
 	public void disableRaycasts()
 	{
@@ -31,6 +32,9 @@ public class GhettoSave : ScriptEvents
 	}
 	public void enableRaycasts()
 	{
+		scene = null;
+		ask = null;
+		maybesave = null;
 		foreach (var c in casters)
 			c.enabled = true;
 		casters.Clear();
@@ -53,12 +57,8 @@ public class GhettoSave : ScriptEvents
 	{
 		if (name == "Load" || name == "Save")
 		{
+			print("Entering ghetto");
 			scene = name;
-			var w = Screen.width;
-			var h = Screen.height;
-			var cx = w / 2;
-			var cy = h / 2;
-			rect = new Rect(cx - w / 4, cy - h / 4, w/2, h/2);
 			disableRaycasts();
 			reloadSaves();
 			return true;
@@ -86,6 +86,25 @@ public class GhettoSave : ScriptEvents
 	{
 		if (!Singleton<Manager.Scene>.Instance.isGameEndCheck)
 			return;
+		var e = Event.current;
+		if (e.isKey && ScriptEnv.scene.NowSceneNames.FirstOrDefault() == "Action" && Input.GetKeyDown(KeyCode.F6))
+		{
+			if (scene == null)
+			{
+				if (ScriptEnv.act != null)
+					ScriptEnv.act._isCursorLock = false;
+				scene = "Save";
+				disableRaycasts();
+				reloadSaves();
+			}
+		}
+		if (e.isMouse && e.button == 1)
+		{
+			if (ask == null)
+				enableRaycasts();
+			ask = null;
+		}
+		if (scene == null) return;
 		if (skin == null)
 		{
 			Texture2D tex, tex2, tex3;
@@ -129,8 +148,6 @@ public class GhettoSave : ScriptEvents
 			toleft.alignment = TextAnchor.MiddleLeft;
 		}
 		GUI.skin = skin;
-		if (scene == null) return;
-
 
 		GUILayout.BeginArea(new Rect(Screen.width * 0.25f, Screen.height * 0.25f, Screen.width * 0.5f, Screen.height * 0.5f));
 		GUILayout.FlexibleSpace();
@@ -167,9 +184,14 @@ public class GhettoSave : ScriptEvents
 						scene = null;
 						enableRaycasts();
 						ScriptEnv.game.saveData.LoadFull(b.Key);
-						ScriptEnv.pp(ScriptEnv.scene.NowSceneNames);
 						if (!ScriptEnv.scene.NowSceneNames.Contains("NightMenu"))
-							ScriptEnv.scene.LoadReserve(new Scene.Data { levelName = "Action", fadeType = FadeType.None}, false);
+						{
+							ScriptEnv.scene.LoadReserve(new Scene.Data { levelName = "Action", fadeType = FadeType.None }, false);
+						} else
+						{
+							Object.FindObjectOfType<NightMenuScene>().onLoadSubject.OnNext(Unit.Default);
+						}
+
 					}
 					else
 					{
@@ -182,7 +204,6 @@ public class GhettoSave : ScriptEvents
 			GUILayout.Space(2);
 			if (GUILayout.Button("Close"))
 			{
-				scene = null;
 				enableRaycasts();
 			}
 		}
@@ -191,6 +212,7 @@ public class GhettoSave : ScriptEvents
 	}
 	public void doSave(string path = null)
 	{
+		print("Saving game");
 		if (path == null)
 		{
 			int idx = 0;
@@ -198,9 +220,7 @@ public class GhettoSave : ScriptEvents
 				idx++;
 		}
 		ScriptEnv.game.saveData.SaveFull(path, true);
-		scene = null;
 		enableRaycasts();
-		ask = null;
-		maybesave = null;
+		print("Saved");
 	}
 }

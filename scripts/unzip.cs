@@ -15,6 +15,7 @@ public class unzip : ScriptEvents
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
 	}
+	[Prio(99999)]
 	public override void Awake()
 	{
 		var target = UserData.Path + "mod/";

@@ -94,6 +94,7 @@ public class FakeIDKKEx : ScriptEvents
 	[Prio(1000)]
 	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
+		print("oncard");
 		try
 		{
 			TryImport(f.dict.Get<KKEx>("kkex"), f.dict.Get<FakeID.GuidMap>("guidmap"));
@@ -103,6 +104,7 @@ public class FakeIDKKEx : ScriptEvents
 
 	public void TryImport(KKEx k, FakeID.GuidMap map) {
 		var guids = k.data["com.bepis.sideloader.universalautoresolver"].data["info"] as object[];
+		print("found kkex guid map");
 		foreach (var entry in guids)
 		{
 			var e = MessagePackSerializer.Deserialize<ResolveInfo>(entry as byte[]);
@@ -112,6 +114,7 @@ public class FakeIDKKEx : ScriptEvents
 				print($"Failed to recover property path for {e.Property}");
 				continue;
 			}
+			print($"{e.Slot} {prop} {e.ModID}");
 			if (!map.items.ContainsKey(prop)) map.items[prop] = new FakeID.GuidMap.Item()
 			{
 				cat = -1,
@@ -121,5 +124,4 @@ public class FakeIDKKEx : ScriptEvents
 			};
 		}
 	}
-
 }

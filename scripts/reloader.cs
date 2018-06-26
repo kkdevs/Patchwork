@@ -28,7 +28,8 @@ public class Reloader : ScriptEvents
 			stop = true;
 			try
 			{
-				Script.reload();
+				if (!Script.reload())
+					stop = false;
 			} catch (System.Exception ex)
 			{
 				stop = false;

@@ -171,6 +171,12 @@ namespace Patchwork
 			return new AssetBundleLoadAssetOperationSimulation(ass);
 		}
 
+		public static void Flush()
+		{
+			dirCache.Clear();
+			nxpng.Clear();
+			assetCache.Clear();
+		}
 		public static Dictionary<string, UnityEngine.Object> assetCache = new Dictionary<string, UnityEngine.Object>();
 		public static HashSet<string> nxpng = new HashSet<string>();
 

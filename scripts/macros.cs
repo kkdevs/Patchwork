@@ -83,6 +83,8 @@ public partial class ScriptEnv
 		firsteval = true;
 		return Script.eval(str);
 	}
+
+	public static ActionScene act => Object.FindObjectOfType(typeof(ActionScene)) as ActionScene;
 	public static object clear
 	{
 		get
