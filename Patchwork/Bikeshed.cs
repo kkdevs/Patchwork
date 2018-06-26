@@ -1,4 +1,4 @@
-﻿#if !USE_OLD_ABM
+﻿
 using MessagePack;
 using Patchwork;
 using System;
@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if !USE_OLD_ABM
 public static class AssetBundleCheck
 {
 	public static bool IsSimulation => false;

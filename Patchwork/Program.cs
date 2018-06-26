@@ -441,7 +441,9 @@ namespace Patchwork
 				return;
 			Trace.Spam("[GC] Requested by " + who);
 			if (asset && !settings.lazyAssetGC) {
+#if !USE_OLD_ABM
 				LoadedAssetBundle.Flush(true);
+#endif
 				Resources.UnloadUnusedAssets();
 			}
 			if (heap && !settings.lazyGC)

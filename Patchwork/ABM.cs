@@ -9,12 +9,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 #if !USE_OLD_ABM
 
-/// <summary>
-/// This is a down-to-earth replacement for the original trainwreck of asset bundle handling.
-/// * Allows for asset name "conflicts" - meaning asset bundle path is now part of asset's locator
-/// * Object instancing/caching instead of reloading those over and over
-/// * Assets are garbage collected, not refcounted
-/// </summary>
 public class LoadedAssetBundle
 {
 	public static bool caching

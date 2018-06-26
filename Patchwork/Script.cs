@@ -295,6 +295,7 @@ namespace Patchwork
 			foreach (var dll in list)
 			{
 				if (dll.ass == null) continue;
+				if (!dll.enabled) continue;
 				foreach (var ep in dll.entrypoint)
 				{
 					try

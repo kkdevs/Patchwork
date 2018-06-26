@@ -161,7 +161,7 @@ namespace Patchwork
 			return Cache.SaveString(str, bundle, asset, ext);
 		}
 
-		// Load generic asset. Serializable assets are re-routed to/from CSV.
+#if !USE_OLD_ABM
 		// Returns true if we *handle* the request, regardless of success.
 		public static AssetBundleLoadAssetOperation AssetABM(string bundle, string asset, System.Type type)
 		{
@@ -173,6 +173,8 @@ namespace Patchwork
 
 		public static Dictionary<string, UnityEngine.Object> assetCache = new Dictionary<string, UnityEngine.Object>();
 		public static HashSet<string> nxpng = new HashSet<string>();
+
+		// Load generic asset. Serializable assets are re-routed to/from CSV.
 		public static UnityEngine.Object Asset(string bundle, string asset, System.Type type, bool nocache = false)
 		{
 			var key = $"{bundle}/{asset}/{type.Name}";
@@ -255,6 +257,7 @@ namespace Patchwork
 				return null;
 			return asb.LoadAsset(asset, type);
 		}
+#endif
 
 		public static string Base(ChaInfo who, string typ = "oo")
 		{
@@ -285,6 +288,7 @@ namespace Patchwork
 					}
 				//var ta = LoadedAssetBundle.Load(bn)?.LoadAsset(asset, typeof(TextAsset)) as TextAsset;
 				var ta = CommonLib.LoadAsset<TextAsset>(bn, asset);
+				AssetBundleManager.UnloadAssetBundle(bn, true, null, false);
 				if (ta == null)
 					continue;
 				var ex = ScriptableObject.CreateInstance<ExcelData>();
@@ -424,10 +428,8 @@ public partial class GlobalMethod
 	{
 		if (_strLoadFile.IsNullOrEmpty())
 			return null;
-		if (_strLoadFile.StartsWith("dan_kh"))
-		{
-			Trace.Back("HDAN!");
-		}
+		Debug.Log($"[CACHE] LoadAllListText {_assetbundleFolder}/*/{_strLoadFile}");
+
 		if (Program.settings.fetchAssets)
 		{
 			if (CSV.LoadLst(_assetbundleFolder, _strLoadFile, out gArray))
@@ -439,7 +441,8 @@ public partial class GlobalMethod
 		var res = _LoadAllListText(_assetbundleFolder, _strLoadFile, _OmitFolderName);
 		if (res == "" || res == null || !Patchwork.Program.settings.dumpAssets || File.Exists(Cache.ABPath(_assetbundleFolder, _strLoadFile, "csv")))
 		{
-			Debug.Log($"[CACHE] LoadAllListText - empty result for {_assetbundleFolder}/{_strLoadFile}");
+			if (res == "" || res == null)
+				Debug.Log($"[CACHE] LoadAllListText - empty result for {_assetbundleFolder}/*/{_strLoadFile}");
 			return res;
 		}
 		Debug.Log($"[CACHE] Saving multi-LST {_assetbundleFolder}/{_strLoadFile}");
