@@ -183,8 +183,9 @@ public class GhettoSave : ScriptEvents
 					{
 						scene = null;
 						enableRaycasts();
-						//ScriptEnv.game.saveData.LoadFull(b.Key);
+						ScriptEnv.game.saveData.LoadFull(b.Key);
 						//ScriptEnv.game.saveData.player.ext.changeMap = false;
+						//Singleton<Game>.Instance.saveData.isOpening = false;
 						if (!ScriptEnv.scene.NowSceneNames.Contains("NightMenu"))
 						{
 							print("loading from title");
