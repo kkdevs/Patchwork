@@ -94,7 +94,6 @@ public class FakeIDKKEx : ScriptEvents
 	[Prio(1000)]
 	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
-		print("oncard");
 		try
 		{
 			TryImport(f.dict.Get<KKEx>("kkex"), f.dict.Get<FakeID.GuidMap>("guidmap"));

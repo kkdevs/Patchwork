@@ -183,15 +183,19 @@ public class GhettoSave : ScriptEvents
 					{
 						scene = null;
 						enableRaycasts();
-						ScriptEnv.game.saveData.LoadFull(b.Key);
+						//ScriptEnv.game.saveData.LoadFull(b.Key);
+						//ScriptEnv.game.saveData.player.ext.changeMap = false;
 						if (!ScriptEnv.scene.NowSceneNames.Contains("NightMenu"))
 						{
+							print("loading from title");
 							ScriptEnv.scene.LoadReserve(new Scene.Data { levelName = "Action", fadeType = FadeType.None }, false);
 						} else
 						{
+							print("loading from home");
 							Object.FindObjectOfType<NightMenuScene>().onLoadSubject.OnNext(Unit.Default);
+							//if (Singleton<Game>.Instance.saveData.dayPeriod != (int)Cycle.Type.MyHouse)
+							//	ScriptEnv.scene.UnLoad();
 						}
-
 					}
 					else
 					{
@@ -219,6 +223,9 @@ public class GhettoSave : ScriptEvents
 			while (File.Exists(path = savedir + "/" + ScriptEnv.game.Player.Name.Trim() + " at " + ScriptEnv.game.saveData.accademyName.Trim() + ((idx == 0) ? "" : idx.ToString()) + ".dat"))
 				idx++;
 		}
+
+		//Singleton<Game>.Instance.saveData.dayPeriod = (int)ScriptEnv.act.Cycle.nowType;
+		//Singleton<Game>.Instance.saveData.player.ext.changeMap = true;
 		ScriptEnv.game.saveData.SaveFull(path, true);
 		enableRaycasts();
 		print("Saved");

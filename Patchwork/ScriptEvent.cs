@@ -116,9 +116,23 @@ namespace Patchwork
 		/// <param name="o"></param>
 		public virtual void Occasion() { }
 
+		/// <summary>
+		/// Print stringified object.
+		/// </summary>
+		/// <param name="o"></param>
 		public static void print(object o)
 		{
 			Script.print(o);
+		}
+
+		/// <summary>
+		/// Pretty print an object.
+		/// </summary>
+		/// <param name="o"></param>
+		public static void pp(object o)
+		{
+
+			Script.pp(o);
 		}
 	}
 }

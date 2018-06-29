@@ -160,6 +160,15 @@ namespace Patchwork
 				return false;
 			return Cache.SaveString(str, bundle, asset, ext);
 		}
+		public static void Flush()
+		{
+#if !USE_OLD_ABM
+			dirCache.Clear();
+			nxpng.Clear();
+			assetCache.Clear();
+#endif
+		}
+
 
 #if !USE_OLD_ABM
 		// Returns true if we *handle* the request, regardless of success.
@@ -171,12 +180,6 @@ namespace Patchwork
 			return new AssetBundleLoadAssetOperationSimulation(ass);
 		}
 
-		public static void Flush()
-		{
-			dirCache.Clear();
-			nxpng.Clear();
-			assetCache.Clear();
-		}
 		public static Dictionary<string, UnityEngine.Object> assetCache = new Dictionary<string, UnityEngine.Object>();
 		public static HashSet<string> nxpng = new HashSet<string>();
 

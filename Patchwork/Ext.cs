@@ -328,7 +328,16 @@ namespace Patchwork
 				}
 			}
 		}
-
+		public static Vector3 ReadVector3(this BinaryReader br)
+		{
+			return new Vector3(br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+		}
+		public static void Write(this BinaryWriter bw, Vector3 vec)
+		{
+			bw.Write(vec.x);
+			bw.Write(vec.y);
+			bw.Write(vec.z);
+		}
 		public static IEnumerable<string> GetFilesMulti(IEnumerable<string> path, string mask)
 		{
 			foreach (var pa in path)
