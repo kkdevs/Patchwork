@@ -32,8 +32,8 @@ public class FakeID : ScriptEvents
 		if (id != 0 && id != 1)
 			return false;
 		//unfortunately some mods do this. for id 1/2. what now?
-		//if ((cat >= CategoryNo.co_top && cat <= CategoryNo.co_shoes))
-		//	return true;
+		if ((cat >= CategoryNo.co_top && cat <= CategoryNo.co_shoes))
+			return true;
 		if (cat >= CategoryNo.cpo_sailor_a && cat <= CategoryNo.cpo_sailor_c)
 			return true;
 		if (cat >= CategoryNo.cpo_jacket_a && cat <= CategoryNo.cpo_jacket_c)
