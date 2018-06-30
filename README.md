@@ -8,17 +8,12 @@ This is a fork of the KK engine adding some more features to it
 
 ## Card and class save compatibility
 
-Both class save and card files "degrade" in features when saved here and then
-loaded in vanilla engine. For example, if right side slider is used and vanilla
-doesnt have it both sides will use the value for left. Same with other
-settings - whatever new is saved is simply not used by vanilla and
-ignored, or filled with approximate default if possible.
+Cards remain "mostly" compatible, in thata features added by patchwork
+are simply stripped when loaded elsewhere.
 
-Newly introduced fields are serialized the same way as vanilla data since most
-of those are properties added to existing classes. Vanilla game can deal with
-such extensions gracefuly, as the serialization mechanism (msgpack in string
-key mode) was designed to ignore all unknown fields from the get go for
-extensibility in the first place.
+Game save files are compatible only if no custom save script is used (currently
+'ghettosave'). Custom saves use their own and typically are stored in different
+folder. The format change is to make save files smaller (400kb/class vs 8MB/class).
 
 ## Binary-only plugins compatibility
 
@@ -60,5 +55,16 @@ familiar with modding, unity or the predecessors of this engine (PH, HS).
 
 Public support is exclusively via github tickets. There are better venues to
 get in touch hidden as easter eggs.
+
+## Troubleshooting bugs
+
+Here is how you troubleshoot in general, ordered by complexity:
+
+* Post output log
+* Could be a zipmod. Delete userdata/mod and untick unzip in scripts tab.
+* Could be some other plugin/script. Uncheck all entries in scripts tab so pw runs alone.
+* Could be launcher exe issue, try hardpatch
+* Could be a card issue. Try using non-modded cards only.
+* If its a hardmod collision, try with unmodded abdata
 
 

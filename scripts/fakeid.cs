@@ -60,7 +60,6 @@ public class FakeID : ScriptEvents
 		if (lib != null)
 			return;
 		var realpair = new KeyValuePair<int, int>(cat, id);
-		print($"Mod missing: cat={cat} id={id}, trying to guess some defaults");
 		if (idMap.real2fake.TryGetValue(realpair, out List<int> hints))
 			if (idMap.fake2real.TryGetValue(hints.FirstOrDefault(), out ListInfoBase found))
 				lib = found;
