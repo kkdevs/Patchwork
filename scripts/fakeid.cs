@@ -31,9 +31,11 @@ public class FakeID : ScriptEvents
 			return true;
 		if (id != 0 && id != 1)
 			return false;
-		//unfortunately some mods do this. for id 1/2. what now?
+		
+		//unfortunately some mods occupy default id 0/1 slots. you might want to comment out following 2 lines.
 		if ((cat >= CategoryNo.co_top && cat <= CategoryNo.co_shoes))
 			return true;
+
 		if (cat >= CategoryNo.cpo_sailor_a && cat <= CategoryNo.cpo_sailor_c)
 			return true;
 		if (cat >= CategoryNo.cpo_jacket_a && cat <= CategoryNo.cpo_jacket_c)
@@ -53,6 +55,16 @@ public class FakeID : ScriptEvents
 		}
 	}
 
+	public override void OnGetListInfo(ref ListInfoBase lib, int cat, int id)
+	{
+		if (lib != null)
+			return;
+		var realpair = new KeyValuePair<int, int>(cat, id);
+		print($"Mod missing: cat={cat} id={id}, trying to guess some defaults");
+		if (idMap.real2fake.TryGetValue(realpair, out List<int> hints))
+			if (idMap.fake2real.TryGetValue(hints.FirstOrDefault(), out ListInfoBase found))
+				lib = found;
+	}
 	override public void OnSetListInfo(ListInfoBase lib)
 	{
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
