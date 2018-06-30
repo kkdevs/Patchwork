@@ -240,6 +240,7 @@ namespace Patchwork
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.replInput = new EditLine();
+			this.blackFade = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -310,10 +311,10 @@ namespace Patchwork
 			this.tabPage1.Controls.Add(this.groupBox2);
 			this.tabPage1.Controls.Add(this.f_qualitySelect);
 			this.tabPage1.Controls.Add(this.groupBox1);
-			this.tabPage1.Location = new System.Drawing.Point(4, 29);
+			this.tabPage1.Location = new System.Drawing.Point(4, 25);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(958, 535);
+			this.tabPage1.Size = new System.Drawing.Size(958, 539);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = " Graphics ";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -325,7 +326,7 @@ namespace Patchwork
 			this.showFPS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.showFPS.Location = new System.Drawing.Point(326, 25);
 			this.showFPS.Name = "showFPS";
-			this.showFPS.Size = new System.Drawing.Size(110, 24);
+			this.showFPS.Size = new System.Drawing.Size(94, 21);
 			this.showFPS.TabIndex = 33;
 			this.showFPS.Text = "Show FPS";
 			this.showFPS.UseVisualStyleBackColor = true;
@@ -347,7 +348,7 @@ namespace Patchwork
 			this.linkUnityDoc.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.linkUnityDoc.Location = new System.Drawing.Point(471, 25);
 			this.linkUnityDoc.Name = "linkUnityDoc";
-			this.linkUnityDoc.Size = new System.Drawing.Size(422, 20);
+			this.linkUnityDoc.Size = new System.Drawing.Size(377, 17);
 			this.linkUnityDoc.TabIndex = 34;
 			this.linkUnityDoc.TabStop = true;
 			this.linkUnityDoc.Text = "https://docs.unity3d.com/Manual/class-QualitySettings.html";
@@ -358,7 +359,7 @@ namespace Patchwork
 			this.label22.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.label22.Location = new System.Drawing.Point(100, 26);
 			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(57, 20);
+			this.label22.Size = new System.Drawing.Size(52, 17);
 			this.label22.TabIndex = 33;
 			this.label22.Text = "Quality";
 			// 
@@ -391,7 +392,7 @@ namespace Patchwork
 			// 
 			this.maxQueuedFrames.Location = new System.Drawing.Point(141, 114);
 			this.maxQueuedFrames.Name = "maxQueuedFrames";
-			this.maxQueuedFrames.Size = new System.Drawing.Size(136, 26);
+			this.maxQueuedFrames.Size = new System.Drawing.Size(136, 23);
 			this.maxQueuedFrames.TabIndex = 40;
 			// 
 			// label14
@@ -428,14 +429,14 @@ namespace Patchwork
 			// 
 			this.asyncUploadBufferSize.Location = new System.Drawing.Point(141, 295);
 			this.asyncUploadBufferSize.Name = "asyncUploadBufferSize";
-			this.asyncUploadBufferSize.Size = new System.Drawing.Size(136, 26);
+			this.asyncUploadBufferSize.Size = new System.Drawing.Size(136, 23);
 			this.asyncUploadBufferSize.TabIndex = 35;
 			// 
 			// asyncUploadTimeSlice
 			// 
 			this.asyncUploadTimeSlice.Location = new System.Drawing.Point(141, 258);
 			this.asyncUploadTimeSlice.Name = "asyncUploadTimeSlice";
-			this.asyncUploadTimeSlice.Size = new System.Drawing.Size(136, 26);
+			this.asyncUploadTimeSlice.Size = new System.Drawing.Size(136, 23);
 			this.asyncUploadTimeSlice.TabIndex = 34;
 			// 
 			// label17
@@ -452,7 +453,7 @@ namespace Patchwork
 			// 
 			this.particleRaycastBudget.Location = new System.Drawing.Point(141, 220);
 			this.particleRaycastBudget.Name = "particleRaycastBudget";
-			this.particleRaycastBudget.Size = new System.Drawing.Size(136, 26);
+			this.particleRaycastBudget.Size = new System.Drawing.Size(136, 23);
 			this.particleRaycastBudget.TabIndex = 28;
 			// 
 			// label16
@@ -469,7 +470,7 @@ namespace Patchwork
 			// 
 			this.maximumLODLevel.Location = new System.Drawing.Point(141, 185);
 			this.maximumLODLevel.Name = "maximumLODLevel";
-			this.maximumLODLevel.Size = new System.Drawing.Size(136, 26);
+			this.maximumLODLevel.Size = new System.Drawing.Size(136, 23);
 			this.maximumLODLevel.TabIndex = 31;
 			// 
 			// label15
@@ -486,7 +487,7 @@ namespace Patchwork
 			// 
 			this.lodBias.Location = new System.Drawing.Point(141, 149);
 			this.lodBias.Name = "lodBias";
-			this.lodBias.Size = new System.Drawing.Size(136, 26);
+			this.lodBias.Size = new System.Drawing.Size(136, 23);
 			this.lodBias.TabIndex = 28;
 			// 
 			// vsyncText
@@ -511,7 +512,7 @@ namespace Patchwork
             "4 frames"});
 			this.vSyncCount.Location = new System.Drawing.Point(141, 71);
 			this.vSyncCount.Name = "vSyncCount";
-			this.vSyncCount.Size = new System.Drawing.Size(136, 28);
+			this.vSyncCount.Size = new System.Drawing.Size(136, 24);
 			this.vSyncCount.TabIndex = 28;
 			// 
 			// blendWeights
@@ -524,7 +525,7 @@ namespace Patchwork
             "Four bones"});
 			this.blendWeights.Location = new System.Drawing.Point(141, 31);
 			this.blendWeights.Name = "blendWeights";
-			this.blendWeights.Size = new System.Drawing.Size(136, 28);
+			this.blendWeights.Size = new System.Drawing.Size(136, 24);
 			this.blendWeights.TabIndex = 28;
 			// 
 			// label13
@@ -565,7 +566,7 @@ namespace Patchwork
 			// 
 			this.shadowCascade2Split.Location = new System.Drawing.Point(156, 255);
 			this.shadowCascade2Split.Name = "shadowCascade2Split";
-			this.shadowCascade2Split.Size = new System.Drawing.Size(136, 26);
+			this.shadowCascade2Split.Size = new System.Drawing.Size(136, 23);
 			this.shadowCascade2Split.TabIndex = 29;
 			// 
 			// label12
@@ -588,21 +589,21 @@ namespace Patchwork
             "4"});
 			this.shadowCascades.Location = new System.Drawing.Point(156, 218);
 			this.shadowCascades.Name = "shadowCascades";
-			this.shadowCascades.Size = new System.Drawing.Size(136, 28);
+			this.shadowCascades.Size = new System.Drawing.Size(136, 24);
 			this.shadowCascades.TabIndex = 27;
 			// 
 			// shadowNearPlaneOffset
 			// 
 			this.shadowNearPlaneOffset.Location = new System.Drawing.Point(156, 182);
 			this.shadowNearPlaneOffset.Name = "shadowNearPlaneOffset";
-			this.shadowNearPlaneOffset.Size = new System.Drawing.Size(136, 26);
+			this.shadowNearPlaneOffset.Size = new System.Drawing.Size(136, 23);
 			this.shadowNearPlaneOffset.TabIndex = 26;
 			// 
 			// shadowDistance
 			// 
 			this.shadowDistance.Location = new System.Drawing.Point(156, 145);
 			this.shadowDistance.Name = "shadowDistance";
-			this.shadowDistance.Size = new System.Drawing.Size(136, 26);
+			this.shadowDistance.Size = new System.Drawing.Size(136, 23);
 			this.shadowDistance.TabIndex = 23;
 			// 
 			// realtimeReflectionProbes
@@ -626,7 +627,7 @@ namespace Patchwork
             "Stable fit"});
 			this.shadowProjection.Location = new System.Drawing.Point(156, 106);
 			this.shadowProjection.Name = "shadowProjection";
-			this.shadowProjection.Size = new System.Drawing.Size(136, 28);
+			this.shadowProjection.Size = new System.Drawing.Size(136, 24);
 			this.shadowProjection.TabIndex = 22;
 			// 
 			// shadowResolution
@@ -640,7 +641,7 @@ namespace Patchwork
             "Very high"});
 			this.shadowResolution.Location = new System.Drawing.Point(156, 69);
 			this.shadowResolution.Name = "shadowResolution";
-			this.shadowResolution.Size = new System.Drawing.Size(136, 28);
+			this.shadowResolution.Size = new System.Drawing.Size(136, 24);
 			this.shadowResolution.TabIndex = 21;
 			// 
 			// label11
@@ -703,7 +704,7 @@ namespace Patchwork
             "All"});
 			this.shadows.Location = new System.Drawing.Point(156, 31);
 			this.shadows.Name = "shadows";
-			this.shadows.Size = new System.Drawing.Size(136, 28);
+			this.shadows.Size = new System.Drawing.Size(136, 24);
 			this.shadows.TabIndex = 15;
 			// 
 			// label2
@@ -727,7 +728,7 @@ namespace Patchwork
             "Mode 2"});
 			this.f_qualitySelect.Location = new System.Drawing.Point(166, 22);
 			this.f_qualitySelect.Name = "f_qualitySelect";
-			this.f_qualitySelect.Size = new System.Drawing.Size(136, 28);
+			this.f_qualitySelect.Size = new System.Drawing.Size(136, 24);
 			this.f_qualitySelect.TabIndex = 0;
 			// 
 			// groupBox1
@@ -799,7 +800,7 @@ namespace Patchwork
             "Deferred shadows"});
 			this.cam_renderingPath.Location = new System.Drawing.Point(156, 31);
 			this.cam_renderingPath.Name = "cam_renderingPath";
-			this.cam_renderingPath.Size = new System.Drawing.Size(136, 28);
+			this.cam_renderingPath.Size = new System.Drawing.Size(136, 24);
 			this.cam_renderingPath.TabIndex = 30;
 			// 
 			// softParticles
@@ -809,7 +810,7 @@ namespace Patchwork
 			this.softParticles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.softParticles.Location = new System.Drawing.Point(36, 297);
 			this.softParticles.Name = "softParticles";
-			this.softParticles.Size = new System.Drawing.Size(128, 24);
+			this.softParticles.Size = new System.Drawing.Size(112, 21);
 			this.softParticles.TabIndex = 31;
 			this.softParticles.Text = "Soft particles";
 			this.softParticles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -819,7 +820,7 @@ namespace Patchwork
 			// 
 			this.pixelLightCount.Location = new System.Drawing.Point(156, 143);
 			this.pixelLightCount.Name = "pixelLightCount";
-			this.pixelLightCount.Size = new System.Drawing.Size(136, 26);
+			this.pixelLightCount.Size = new System.Drawing.Size(136, 23);
 			this.pixelLightCount.TabIndex = 28;
 			// 
 			// label8
@@ -837,7 +838,7 @@ namespace Patchwork
 			this.resolution.FormattingEnabled = true;
 			this.resolution.Location = new System.Drawing.Point(156, 103);
 			this.resolution.Name = "resolution";
-			this.resolution.Size = new System.Drawing.Size(136, 28);
+			this.resolution.Size = new System.Drawing.Size(136, 24);
 			this.resolution.TabIndex = 3;
 			// 
 			// label7
@@ -870,7 +871,7 @@ namespace Patchwork
             "Forced"});
 			this.anisotropicFiltering.Location = new System.Drawing.Point(156, 217);
 			this.anisotropicFiltering.Name = "anisotropicFiltering";
-			this.anisotropicFiltering.Size = new System.Drawing.Size(136, 28);
+			this.anisotropicFiltering.Size = new System.Drawing.Size(136, 24);
 			this.anisotropicFiltering.TabIndex = 9;
 			// 
 			// label6
@@ -894,7 +895,7 @@ namespace Patchwork
             "1/8 res"});
 			this.masterTextureLimit.Location = new System.Drawing.Point(156, 178);
 			this.masterTextureLimit.Name = "masterTextureLimit";
-			this.masterTextureLimit.Size = new System.Drawing.Size(136, 28);
+			this.masterTextureLimit.Size = new System.Drawing.Size(136, 24);
 			this.masterTextureLimit.TabIndex = 7;
 			// 
 			// antiAliasing
@@ -910,7 +911,7 @@ namespace Patchwork
             "32x"});
 			this.antiAliasing.Location = new System.Drawing.Point(156, 254);
 			this.antiAliasing.Name = "antiAliasing";
-			this.antiAliasing.Size = new System.Drawing.Size(136, 28);
+			this.antiAliasing.Size = new System.Drawing.Size(136, 24);
 			this.antiAliasing.TabIndex = 5;
 			// 
 			// label3
@@ -931,11 +932,11 @@ namespace Patchwork
 			this.tabPage4.Controls.Add(this.enabler_shadowOverride);
 			this.tabPage4.Controls.Add(this.cam_ppOverride);
 			this.tabPage4.Controls.Add(this.enabler_cam_ppOverride);
-			this.tabPage4.Location = new System.Drawing.Point(4, 29);
+			this.tabPage4.Location = new System.Drawing.Point(4, 25);
 			this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage4.Size = new System.Drawing.Size(958, 535);
+			this.tabPage4.Size = new System.Drawing.Size(958, 539);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Shaders";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -945,7 +946,7 @@ namespace Patchwork
 			this.linkLabel7.AutoSize = true;
 			this.linkLabel7.Location = new System.Drawing.Point(687, 11);
 			this.linkLabel7.Name = "linkLabel7";
-			this.linkLabel7.Size = new System.Drawing.Size(26, 20);
+			this.linkLabel7.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel7.TabIndex = 72;
 			this.linkLabel7.TabStop = true;
 			this.linkLabel7.Tag = "hairShadowColor";
@@ -956,7 +957,7 @@ namespace Patchwork
 			this.linkLabel6.AutoSize = true;
 			this.linkLabel6.Location = new System.Drawing.Point(274, 10);
 			this.linkLabel6.Name = "linkLabel6";
-			this.linkLabel6.Size = new System.Drawing.Size(26, 20);
+			this.linkLabel6.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel6.TabIndex = 71;
 			this.linkLabel6.TabStop = true;
 			this.linkLabel6.Tag = "postProc";
@@ -968,7 +969,7 @@ namespace Patchwork
 			this.shadowOverride.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.shadowOverride.Location = new System.Drawing.Point(495, 9);
 			this.shadowOverride.Name = "shadowOverride";
-			this.shadowOverride.Size = new System.Drawing.Size(191, 24);
+			this.shadowOverride.Size = new System.Drawing.Size(172, 21);
 			this.shadowOverride.TabIndex = 33;
 			this.shadowOverride.Text = "Override hair shadows";
 			this.shadowOverride.UseVisualStyleBackColor = true;
@@ -994,7 +995,7 @@ namespace Patchwork
 			this.customShadowStrengthLimit.Location = new System.Drawing.Point(218, 62);
 			this.customShadowStrengthLimit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.customShadowStrengthLimit.Name = "customShadowStrengthLimit";
-			this.customShadowStrengthLimit.Size = new System.Drawing.Size(148, 26);
+			this.customShadowStrengthLimit.Size = new System.Drawing.Size(148, 23);
 			this.customShadowStrengthLimit.TabIndex = 32;
 			// 
 			// label34
@@ -1004,7 +1005,7 @@ namespace Patchwork
 			this.label34.Location = new System.Drawing.Point(16, 105);
 			this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label34.Name = "label34";
-			this.label34.Size = new System.Drawing.Size(174, 20);
+			this.label34.Size = new System.Drawing.Size(157, 17);
 			this.label34.TabIndex = 35;
 			this.label34.Text = "Rim light (-1 for default)";
 			// 
@@ -1015,7 +1016,7 @@ namespace Patchwork
 			this.label21.Location = new System.Drawing.Point(16, 31);
 			this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(183, 20);
+			this.label21.Size = new System.Drawing.Size(162, 17);
 			this.label21.TabIndex = 29;
 			this.label21.Text = "Shadow Strength Target";
 			// 
@@ -1023,7 +1024,7 @@ namespace Patchwork
 			// 
 			this.rimOverride.Location = new System.Drawing.Point(218, 100);
 			this.rimOverride.Name = "rimOverride";
-			this.rimOverride.Size = new System.Drawing.Size(148, 26);
+			this.rimOverride.Size = new System.Drawing.Size(148, 23);
 			this.rimOverride.TabIndex = 34;
 			// 
 			// label23
@@ -1033,7 +1034,7 @@ namespace Patchwork
 			this.label23.Location = new System.Drawing.Point(16, 69);
 			this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(170, 20);
+			this.label23.Size = new System.Drawing.Size(149, 17);
 			this.label23.TabIndex = 30;
 			this.label23.Text = "Shadow Strength Limit";
 			// 
@@ -1042,7 +1043,7 @@ namespace Patchwork
 			this.customShadowStrengthTarget.Location = new System.Drawing.Point(218, 25);
 			this.customShadowStrengthTarget.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.customShadowStrengthTarget.Name = "customShadowStrengthTarget";
-			this.customShadowStrengthTarget.Size = new System.Drawing.Size(148, 26);
+			this.customShadowStrengthTarget.Size = new System.Drawing.Size(148, 23);
 			this.customShadowStrengthTarget.TabIndex = 31;
 			// 
 			// cam_ppOverride
@@ -1052,7 +1053,7 @@ namespace Patchwork
 			this.cam_ppOverride.Location = new System.Drawing.Point(22, 9);
 			this.cam_ppOverride.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.cam_ppOverride.Name = "cam_ppOverride";
-			this.cam_ppOverride.Size = new System.Drawing.Size(253, 24);
+			this.cam_ppOverride.Size = new System.Drawing.Size(228, 21);
 			this.cam_ppOverride.TabIndex = 1;
 			this.cam_ppOverride.Text = "Override post-processing filters";
 			this.cam_ppOverride.UseVisualStyleBackColor = true;
@@ -1095,7 +1096,7 @@ namespace Patchwork
 			// 
 			this.cam_aoeRadius.Location = new System.Drawing.Point(291, 94);
 			this.cam_aoeRadius.Name = "cam_aoeRadius";
-			this.cam_aoeRadius.Size = new System.Drawing.Size(55, 26);
+			this.cam_aoeRadius.Size = new System.Drawing.Size(55, 23);
 			this.cam_aoeRadius.TabIndex = 38;
 			// 
 			// label45
@@ -1105,7 +1106,7 @@ namespace Patchwork
 			this.label45.Location = new System.Drawing.Point(207, 66);
 			this.label45.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label45.Name = "label45";
-			this.label45.Size = new System.Drawing.Size(76, 20);
+			this.label45.Size = new System.Drawing.Size(67, 17);
 			this.label45.TabIndex = 36;
 			this.label45.Text = "Exposure";
 			this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1114,7 +1115,7 @@ namespace Patchwork
 			// 
 			this.cam_amplColorExposure.Location = new System.Drawing.Point(291, 60);
 			this.cam_amplColorExposure.Name = "cam_amplColorExposure";
-			this.cam_amplColorExposure.Size = new System.Drawing.Size(55, 26);
+			this.cam_amplColorExposure.Size = new System.Drawing.Size(55, 23);
 			this.cam_amplColorExposure.TabIndex = 36;
 			// 
 			// cam_useSepia
@@ -1242,10 +1243,10 @@ namespace Patchwork
 			this.tabPage2.Controls.Add(this.groupBox12);
 			this.tabPage2.Controls.Add(this.groupBox11);
 			this.tabPage2.Controls.Add(this.enabler_tumblr);
-			this.tabPage2.Location = new System.Drawing.Point(4, 29);
+			this.tabPage2.Location = new System.Drawing.Point(4, 25);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(958, 535);
+			this.tabPage2.Size = new System.Drawing.Size(958, 539);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = " Game ";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -1253,6 +1254,7 @@ namespace Patchwork
 			// 
 			// groupBox14
 			// 
+			this.groupBox14.Controls.Add(this.blackFade);
 			this.groupBox14.Controls.Add(this.capJPG);
 			this.groupBox14.Controls.Add(this.geass);
 			this.groupBox14.Controls.Add(this.unlockH);
@@ -1275,7 +1277,7 @@ namespace Patchwork
 			this.capJPG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.capJPG.Location = new System.Drawing.Point(22, 220);
 			this.capJPG.Name = "capJPG";
-			this.capJPG.Size = new System.Drawing.Size(218, 24);
+			this.capJPG.Size = new System.Drawing.Size(193, 21);
 			this.capJPG.TabIndex = 37;
 			this.capJPG.Text = "Save screenshots as JPG";
 			this.capJPG.UseVisualStyleBackColor = true;
@@ -1286,7 +1288,7 @@ namespace Patchwork
 			this.geass.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.geass.Location = new System.Drawing.Point(22, 55);
 			this.geass.Name = "geass";
-			this.geass.Size = new System.Drawing.Size(448, 24);
+			this.geass.Size = new System.Drawing.Size(400, 21);
 			this.geass.TabIndex = 36;
 			this.geass.Text = "Geass - RMB for obedience in H, and to stop time in convo";
 			this.geass.UseVisualStyleBackColor = true;
@@ -1297,7 +1299,7 @@ namespace Patchwork
 			this.unlockH.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.unlockH.Location = new System.Drawing.Point(22, 23);
 			this.unlockH.Name = "unlockH";
-			this.unlockH.Size = new System.Drawing.Size(177, 24);
+			this.unlockH.Size = new System.Drawing.Size(156, 21);
 			this.unlockH.TabIndex = 0;
 			this.unlockH.Text = "Show all H positions";
 			this.unlockH.UseVisualStyleBackColor = true;
@@ -1308,7 +1310,7 @@ namespace Patchwork
 			this.watchFolder.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.watchFolder.Location = new System.Drawing.Point(22, 120);
 			this.watchFolder.Name = "watchFolder";
-			this.watchFolder.Size = new System.Drawing.Size(406, 24);
+			this.watchFolder.Size = new System.Drawing.Size(364, 21);
 			this.watchFolder.TabIndex = 2;
 			this.watchFolder.Text = "Watch card folder for changes during select in maker";
 			this.watchFolder.UseVisualStyleBackColor = true;
@@ -1319,7 +1321,7 @@ namespace Patchwork
 			this.equality.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.equality.Location = new System.Drawing.Point(22, 88);
 			this.equality.Name = "equality";
-			this.equality.Size = new System.Drawing.Size(349, 24);
+			this.equality.Size = new System.Drawing.Size(313, 21);
 			this.equality.TabIndex = 8;
 			this.equality.Text = "Unlock all controls in male maker (height etc)";
 			this.equality.UseVisualStyleBackColor = true;
@@ -1330,7 +1332,7 @@ namespace Patchwork
 			this.skipLogo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.skipLogo.Location = new System.Drawing.Point(22, 186);
 			this.skipLogo.Name = "skipLogo";
-			this.skipLogo.Size = new System.Drawing.Size(257, 24);
+			this.skipLogo.Size = new System.Drawing.Size(231, 21);
 			this.skipLogo.TabIndex = 29;
 			this.skipLogo.Text = "No logo (intro wait / screenshot)";
 			this.skipLogo.UseVisualStyleBackColor = true;
@@ -1341,7 +1343,7 @@ namespace Patchwork
 			this.noFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.noFade.Location = new System.Drawing.Point(22, 152);
 			this.noFade.Name = "noFade";
-			this.noFade.Size = new System.Drawing.Size(91, 24);
+			this.noFade.Size = new System.Drawing.Size(80, 21);
 			this.noFade.TabIndex = 30;
 			this.noFade.Text = "No fade";
 			this.noFade.UseVisualStyleBackColor = true;
@@ -1367,7 +1369,7 @@ namespace Patchwork
 			// 
 			this.cardFmt.Location = new System.Drawing.Point(147, 60);
 			this.cardFmt.Name = "cardFmt";
-			this.cardFmt.Size = new System.Drawing.Size(244, 26);
+			this.cardFmt.Size = new System.Drawing.Size(244, 23);
 			this.cardFmt.TabIndex = 32;
 			// 
 			// chardb
@@ -1377,7 +1379,7 @@ namespace Patchwork
 			this.chardb.Location = new System.Drawing.Point(147, 20);
 			this.chardb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.chardb.Name = "chardb";
-			this.chardb.Size = new System.Drawing.Size(244, 28);
+			this.chardb.Size = new System.Drawing.Size(244, 24);
 			this.chardb.TabIndex = 24;
 			// 
 			// label35
@@ -1387,7 +1389,7 @@ namespace Patchwork
 			this.label35.Location = new System.Drawing.Point(52, 28);
 			this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label35.Name = "label35";
-			this.label35.Size = new System.Drawing.Size(79, 20);
+			this.label35.Size = new System.Drawing.Size(69, 17);
 			this.label35.TabIndex = 26;
 			this.label35.Text = "Database";
 			// 
@@ -1397,7 +1399,7 @@ namespace Patchwork
 			this.faceJPG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.faceJPG.Location = new System.Drawing.Point(172, 220);
 			this.faceJPG.Name = "faceJPG";
-			this.faceJPG.Size = new System.Drawing.Size(181, 24);
+			this.faceJPG.Size = new System.Drawing.Size(159, 21);
 			this.faceJPG.TabIndex = 41;
 			this.faceJPG.Text = "Encode face as JPG";
 			this.faceJPG.UseVisualStyleBackColor = true;
@@ -1409,7 +1411,7 @@ namespace Patchwork
 			this.label47.Location = new System.Drawing.Point(38, 66);
 			this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label47.Name = "label47";
-			this.label47.Size = new System.Drawing.Size(98, 20);
+			this.label47.Size = new System.Drawing.Size(87, 17);
 			this.label47.TabIndex = 33;
 			this.label47.Text = "Card pattern";
 			// 
@@ -1420,7 +1422,7 @@ namespace Patchwork
 			this.label48.Location = new System.Drawing.Point(168, 109);
 			this.label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label48.Name = "label48";
-			this.label48.Size = new System.Drawing.Size(194, 100);
+			this.label48.Size = new System.Drawing.Size(173, 85);
 			this.label48.TabIndex = 34;
 			this.label48.Text = "{0} - M/F\r\n{1} - yyyyMMddHHmmssfff\r\n{2} - nickname\r\n{3} - first\r\n{4} - last";
 			// 
@@ -1430,7 +1432,7 @@ namespace Patchwork
 			this.tumblr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.tumblr.Location = new System.Drawing.Point(28, 303);
 			this.tumblr.Name = "tumblr";
-			this.tumblr.Size = new System.Drawing.Size(191, 24);
+			this.tumblr.Size = new System.Drawing.Size(170, 21);
 			this.tumblr.TabIndex = 23;
 			this.tumblr.Text = "Allow gender bending:";
 			this.tumblr.UseVisualStyleBackColor = true;
@@ -1458,7 +1460,7 @@ namespace Patchwork
 			this.label32.Location = new System.Drawing.Point(9, 62);
 			this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(78, 20);
+			this.label32.Size = new System.Drawing.Size(70, 17);
 			this.label32.TabIndex = 18;
 			this.label32.Text = "Slider min";
 			// 
@@ -1466,7 +1468,7 @@ namespace Patchwork
 			// 
 			this.sliderMin.Location = new System.Drawing.Point(105, 57);
 			this.sliderMin.Name = "sliderMin";
-			this.sliderMin.Size = new System.Drawing.Size(58, 26);
+			this.sliderMin.Size = new System.Drawing.Size(58, 23);
 			this.sliderMin.TabIndex = 17;
 			// 
 			// label33
@@ -1476,7 +1478,7 @@ namespace Patchwork
 			this.label33.Location = new System.Drawing.Point(9, 94);
 			this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label33.Name = "label33";
-			this.label33.Size = new System.Drawing.Size(82, 20);
+			this.label33.Size = new System.Drawing.Size(73, 17);
 			this.label33.TabIndex = 19;
 			this.label33.Text = "Slider max";
 			// 
@@ -1484,7 +1486,7 @@ namespace Patchwork
 			// 
 			this.sliderMax.Location = new System.Drawing.Point(105, 92);
 			this.sliderMax.Name = "sliderMax";
-			this.sliderMax.Size = new System.Drawing.Size(58, 26);
+			this.sliderMax.Size = new System.Drawing.Size(58, 23);
 			this.sliderMax.TabIndex = 20;
 			// 
 			// useLR
@@ -1493,7 +1495,7 @@ namespace Patchwork
 			this.useLR.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.useLR.Location = new System.Drawing.Point(12, 29);
 			this.useLR.Name = "useLR";
-			this.useLR.Size = new System.Drawing.Size(109, 24);
+			this.useLR.Size = new System.Drawing.Size(97, 21);
 			this.useLR.TabIndex = 21;
 			this.useLR.Text = "L/R sliders";
 			this.useLR.UseVisualStyleBackColor = true;
@@ -1519,7 +1521,7 @@ namespace Patchwork
 			this.spectateH.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.spectateH.Location = new System.Drawing.Point(10, 126);
 			this.spectateH.Name = "spectateH";
-			this.spectateH.Size = new System.Drawing.Size(148, 24);
+			this.spectateH.Size = new System.Drawing.Size(131, 21);
 			this.spectateH.TabIndex = 56;
 			this.spectateH.Text = "Keep NPCs in H";
 			this.spectateH.UseVisualStyleBackColor = true;
@@ -1530,7 +1532,7 @@ namespace Patchwork
 			this.spectateADV.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.spectateADV.Location = new System.Drawing.Point(10, 94);
 			this.spectateADV.Name = "spectateADV";
-			this.spectateADV.Size = new System.Drawing.Size(298, 24);
+			this.spectateADV.Size = new System.Drawing.Size(266, 21);
 			this.spectateADV.TabIndex = 55;
 			this.spectateADV.Text = "Keep NPCs in talk scenes and events";
 			this.spectateADV.UseVisualStyleBackColor = true;
@@ -1541,7 +1543,7 @@ namespace Patchwork
 			this.lowPolyADV.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.lowPolyADV.Location = new System.Drawing.Point(10, 60);
 			this.lowPolyADV.Name = "lowPolyADV";
-			this.lowPolyADV.Size = new System.Drawing.Size(177, 24);
+			this.lowPolyADV.Size = new System.Drawing.Size(157, 21);
 			this.lowPolyADV.TabIndex = 54;
 			this.lowPolyADV.Text = "LowPoly talk scenes";
 			this.lowPolyADV.UseVisualStyleBackColor = true;
@@ -1552,7 +1554,7 @@ namespace Patchwork
 			this.hiPoly.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.hiPoly.Location = new System.Drawing.Point(10, 28);
 			this.hiPoly.Name = "hiPoly";
-			this.hiPoly.Size = new System.Drawing.Size(150, 24);
+			this.hiPoly.Size = new System.Drawing.Size(135, 21);
 			this.hiPoly.TabIndex = 53;
 			this.hiPoly.Text = "HiPoly overworld";
 			this.hiPoly.UseVisualStyleBackColor = true;
@@ -1578,7 +1580,7 @@ namespace Patchwork
 			this.bothFreeH.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.bothFreeH.Location = new System.Drawing.Point(15, 60);
 			this.bothFreeH.Name = "bothFreeH";
-			this.bothFreeH.Size = new System.Drawing.Size(180, 24);
+			this.bothFreeH.Size = new System.Drawing.Size(160, 21);
 			this.bothFreeH.TabIndex = 1;
 			this.bothFreeH.Text = "Same-sex in (free) H";
 			this.bothFreeH.UseVisualStyleBackColor = true;
@@ -1589,7 +1591,7 @@ namespace Patchwork
 			this.benderClothes.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.benderClothes.Location = new System.Drawing.Point(15, 29);
 			this.benderClothes.Name = "benderClothes";
-			this.benderClothes.Size = new System.Drawing.Size(195, 24);
+			this.benderClothes.Size = new System.Drawing.Size(173, 21);
 			this.benderClothes.TabIndex = 38;
 			this.benderClothes.Text = "Clothes cross dressing";
 			this.benderClothes.UseVisualStyleBackColor = true;
@@ -1601,7 +1603,7 @@ namespace Patchwork
 			this.bothEdit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.bothEdit.Location = new System.Drawing.Point(15, 92);
 			this.bothEdit.Name = "bothEdit";
-			this.bothEdit.Size = new System.Drawing.Size(221, 24);
+			this.bothEdit.Size = new System.Drawing.Size(195, 21);
 			this.bothEdit.TabIndex = 6;
 			this.bothEdit.Text = "Both sexes in same maker";
 			this.bothEdit.UseVisualStyleBackColor = true;
@@ -1612,7 +1614,7 @@ namespace Patchwork
 			this.bothClass.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.bothClass.Location = new System.Drawing.Point(15, 125);
 			this.bothClass.Name = "bothClass";
-			this.bothClass.Size = new System.Drawing.Size(213, 24);
+			this.bothClass.Size = new System.Drawing.Size(188, 21);
 			this.bothClass.TabIndex = 7;
 			this.bothClass.Text = "Both sexes in class seats";
 			this.bothClass.UseVisualStyleBackColor = true;
@@ -1623,7 +1625,7 @@ namespace Patchwork
 			this.bothMC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.bothMC.Location = new System.Drawing.Point(15, 157);
 			this.bothMC.Name = "bothMC";
-			this.bothMC.Size = new System.Drawing.Size(163, 24);
+			this.bothMC.Size = new System.Drawing.Size(142, 21);
 			this.bothMC.TabIndex = 22;
 			this.bothMC.Text = "Both sexes as MC";
 			this.bothMC.UseVisualStyleBackColor = true;
@@ -1635,11 +1637,11 @@ namespace Patchwork
 			this.tabPage5.Controls.Add(this.noscopeClipMask);
 			this.tabPage5.Controls.Add(this.groupBox10);
 			this.tabPage5.Controls.Add(this.enabler_noscopeClipMask);
-			this.tabPage5.Location = new System.Drawing.Point(4, 29);
+			this.tabPage5.Location = new System.Drawing.Point(4, 25);
 			this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage5.Size = new System.Drawing.Size(958, 535);
+			this.tabPage5.Size = new System.Drawing.Size(958, 539);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = " H config ";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -1649,7 +1651,7 @@ namespace Patchwork
 			this.linkLabel1.AutoSize = true;
 			this.linkLabel1.Location = new System.Drawing.Point(144, 175);
 			this.linkLabel1.Name = "linkLabel1";
-			this.linkLabel1.Size = new System.Drawing.Size(26, 20);
+			this.linkLabel1.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel1.TabIndex = 67;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Tag = "clipMask";
@@ -1676,7 +1678,7 @@ namespace Patchwork
 			this.fixPenis.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.fixPenis.Location = new System.Drawing.Point(20, 75);
 			this.fixPenis.Name = "fixPenis";
-			this.fixPenis.Size = new System.Drawing.Size(313, 24);
+			this.fixPenis.Size = new System.Drawing.Size(281, 21);
 			this.fixPenis.TabIndex = 34;
 			this.fixPenis.Text = "Sync penis material to body (o_dankon)";
 			this.fixPenis.UseVisualStyleBackColor = true;
@@ -1687,7 +1689,7 @@ namespace Patchwork
 			this.fixVagina.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.fixVagina.Location = new System.Drawing.Point(20, 43);
 			this.fixVagina.Name = "fixVagina";
-			this.fixVagina.Size = new System.Drawing.Size(249, 24);
+			this.fixVagina.Size = new System.Drawing.Size(223, 21);
 			this.fixVagina.TabIndex = 33;
 			this.fixVagina.Text = "Sync vagina material (o_mnp*)";
 			this.fixVagina.UseVisualStyleBackColor = true;
@@ -1698,7 +1700,7 @@ namespace Patchwork
 			this.hideMoz.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.hideMoz.Location = new System.Drawing.Point(315, 42);
 			this.hideMoz.Name = "hideMoz";
-			this.hideMoz.Size = new System.Drawing.Size(68, 24);
+			this.hideMoz.Size = new System.Drawing.Size(59, 21);
 			this.hideMoz.TabIndex = 35;
 			this.hideMoz.Text = "Hide";
 			this.hideMoz.UseVisualStyleBackColor = true;
@@ -1710,7 +1712,7 @@ namespace Patchwork
 			this.noTelescope.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.noTelescope.Location = new System.Drawing.Point(20, 108);
 			this.noTelescope.Name = "noTelescope";
-			this.noTelescope.Size = new System.Drawing.Size(129, 24);
+			this.noTelescope.Size = new System.Drawing.Size(114, 21);
 			this.noTelescope.TabIndex = 58;
 			this.noTelescope.Text = "No-telescope";
 			this.noTelescope.UseVisualStyleBackColor = true;
@@ -1721,7 +1723,7 @@ namespace Patchwork
 			this.noscopeClipMask.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.noscopeClipMask.Location = new System.Drawing.Point(26, 172);
 			this.noscopeClipMask.Name = "noscopeClipMask";
-			this.noscopeClipMask.Size = new System.Drawing.Size(124, 24);
+			this.noscopeClipMask.Size = new System.Drawing.Size(109, 21);
 			this.noscopeClipMask.TabIndex = 64;
 			this.noscopeClipMask.Text = "Clip masking";
 			this.noscopeClipMask.UseVisualStyleBackColor = true;
@@ -1751,7 +1753,7 @@ namespace Patchwork
 			this.linkLabel2.AutoSize = true;
 			this.linkLabel2.Location = new System.Drawing.Point(137, 1);
 			this.linkLabel2.Name = "linkLabel2";
-			this.linkLabel2.Size = new System.Drawing.Size(26, 20);
+			this.linkLabel2.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel2.TabIndex = 68;
 			this.linkLabel2.TabStop = true;
 			this.linkLabel2.Tag = "customBody";
@@ -1761,7 +1763,7 @@ namespace Patchwork
 			// 
 			this.ooMale.Location = new System.Drawing.Point(74, 71);
 			this.ooMale.Name = "ooMale";
-			this.ooMale.Size = new System.Drawing.Size(142, 26);
+			this.ooMale.Size = new System.Drawing.Size(142, 23);
 			this.ooMale.TabIndex = 50;
 			// 
 			// label42
@@ -1771,7 +1773,7 @@ namespace Patchwork
 			this.label42.Location = new System.Drawing.Point(9, 75);
 			this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label42.Name = "label42";
-			this.label42.Size = new System.Drawing.Size(43, 20);
+			this.label42.Size = new System.Drawing.Size(38, 17);
 			this.label42.TabIndex = 51;
 			this.label42.Text = "male";
 			// 
@@ -1779,7 +1781,7 @@ namespace Patchwork
 			// 
 			this.ooFemale.Location = new System.Drawing.Point(74, 111);
 			this.ooFemale.Name = "ooFemale";
-			this.ooFemale.Size = new System.Drawing.Size(142, 26);
+			this.ooFemale.Size = new System.Drawing.Size(142, 23);
 			this.ooFemale.TabIndex = 52;
 			// 
 			// label41
@@ -1789,7 +1791,7 @@ namespace Patchwork
 			this.label41.Location = new System.Drawing.Point(9, 115);
 			this.label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label41.Name = "label41";
-			this.label41.Size = new System.Drawing.Size(57, 20);
+			this.label41.Size = new System.Drawing.Size(50, 17);
 			this.label41.TabIndex = 53;
 			this.label41.Text = "female";
 			// 
@@ -1800,7 +1802,7 @@ namespace Patchwork
 			this.label44.Location = new System.Drawing.Point(232, 35);
 			this.label44.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label44.Name = "label44";
-			this.label44.Size = new System.Drawing.Size(79, 20);
+			this.label44.Size = new System.Drawing.Size(69, 17);
 			this.label44.TabIndex = 57;
 			this.label44.Text = "mm_base";
 			// 
@@ -1808,7 +1810,7 @@ namespace Patchwork
 			// 
 			this.mmMale.Location = new System.Drawing.Point(237, 71);
 			this.mmMale.Name = "mmMale";
-			this.mmMale.Size = new System.Drawing.Size(136, 26);
+			this.mmMale.Size = new System.Drawing.Size(136, 23);
 			this.mmMale.TabIndex = 54;
 			// 
 			// label43
@@ -1818,7 +1820,7 @@ namespace Patchwork
 			this.label43.Location = new System.Drawing.Point(80, 35);
 			this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label43.Name = "label43";
-			this.label43.Size = new System.Drawing.Size(71, 20);
+			this.label43.Size = new System.Drawing.Size(63, 17);
 			this.label43.TabIndex = 56;
 			this.label43.Text = "oo_base";
 			// 
@@ -1826,7 +1828,7 @@ namespace Patchwork
 			// 
 			this.mmFemale.Location = new System.Drawing.Point(237, 111);
 			this.mmFemale.Name = "mmFemale";
-			this.mmFemale.Size = new System.Drawing.Size(136, 26);
+			this.mmFemale.Size = new System.Drawing.Size(136, 23);
 			this.mmFemale.TabIndex = 55;
 			// 
 			// enabler_noscopeClipMask
@@ -1863,7 +1865,7 @@ namespace Patchwork
 			this.noscopeHead.Location = new System.Drawing.Point(190, 189);
 			this.noscopeHead.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeHead.Name = "noscopeHead";
-			this.noscopeHead.Size = new System.Drawing.Size(193, 24);
+			this.noscopeHead.Size = new System.Drawing.Size(171, 21);
 			this.noscopeHead.TabIndex = 78;
 			this.noscopeHead.Text = "For head positions too";
 			this.noscopeHead.UseVisualStyleBackColor = true;
@@ -1875,7 +1877,7 @@ namespace Patchwork
 			this.label52.Location = new System.Drawing.Point(230, 109);
 			this.label52.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label52.Name = "label52";
-			this.label52.Size = new System.Drawing.Size(21, 20);
+			this.label52.Size = new System.Drawing.Size(20, 17);
 			this.label52.TabIndex = 77;
 			this.label52.Text = "...";
 			// 
@@ -1884,7 +1886,7 @@ namespace Patchwork
 			this.noscopeAlphaClampEnd.Location = new System.Drawing.Point(272, 109);
 			this.noscopeAlphaClampEnd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeAlphaClampEnd.Name = "noscopeAlphaClampEnd";
-			this.noscopeAlphaClampEnd.Size = new System.Drawing.Size(112, 26);
+			this.noscopeAlphaClampEnd.Size = new System.Drawing.Size(112, 23);
 			this.noscopeAlphaClampEnd.TabIndex = 76;
 			// 
 			// label53
@@ -1894,7 +1896,7 @@ namespace Patchwork
 			this.label53.Location = new System.Drawing.Point(38, 114);
 			this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label53.Name = "label53";
-			this.label53.Size = new System.Drawing.Size(54, 20);
+			this.label53.Size = new System.Drawing.Size(47, 17);
 			this.label53.TabIndex = 75;
 			this.label53.Text = "Clamp";
 			// 
@@ -1903,7 +1905,7 @@ namespace Patchwork
 			this.noscopeAlphaClamp.Location = new System.Drawing.Point(106, 109);
 			this.noscopeAlphaClamp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeAlphaClamp.Name = "noscopeAlphaClamp";
-			this.noscopeAlphaClamp.Size = new System.Drawing.Size(112, 26);
+			this.noscopeAlphaClamp.Size = new System.Drawing.Size(112, 23);
 			this.noscopeAlphaClamp.TabIndex = 74;
 			// 
 			// noscopeSim
@@ -1913,7 +1915,7 @@ namespace Patchwork
 			this.noscopeSim.Location = new System.Drawing.Point(272, 154);
 			this.noscopeSim.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeSim.Name = "noscopeSim";
-			this.noscopeSim.Size = new System.Drawing.Size(97, 24);
+			this.noscopeSim.Size = new System.Drawing.Size(84, 21);
 			this.noscopeSim.TabIndex = 73;
 			this.noscopeSim.Text = "Simulate";
 			this.noscopeSim.UseVisualStyleBackColor = true;
@@ -1925,7 +1927,7 @@ namespace Patchwork
 			this.label51.Location = new System.Drawing.Point(230, 69);
 			this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label51.Name = "label51";
-			this.label51.Size = new System.Drawing.Size(21, 20);
+			this.label51.Size = new System.Drawing.Size(20, 17);
 			this.label51.TabIndex = 72;
 			this.label51.Text = "...";
 			// 
@@ -1936,7 +1938,7 @@ namespace Patchwork
 			this.label25.Location = new System.Drawing.Point(230, 34);
 			this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(21, 20);
+			this.label25.Size = new System.Drawing.Size(20, 17);
 			this.label25.TabIndex = 71;
 			this.label25.Text = "...";
 			// 
@@ -1945,7 +1947,7 @@ namespace Patchwork
 			this.noscopeAlphaYEnd.Location = new System.Drawing.Point(272, 69);
 			this.noscopeAlphaYEnd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeAlphaYEnd.Name = "noscopeAlphaYEnd";
-			this.noscopeAlphaYEnd.Size = new System.Drawing.Size(112, 26);
+			this.noscopeAlphaYEnd.Size = new System.Drawing.Size(112, 23);
 			this.noscopeAlphaYEnd.TabIndex = 70;
 			// 
 			// noscopeAlphaXEnd
@@ -1953,7 +1955,7 @@ namespace Patchwork
 			this.noscopeAlphaXEnd.Location = new System.Drawing.Point(272, 29);
 			this.noscopeAlphaXEnd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeAlphaXEnd.Name = "noscopeAlphaXEnd";
-			this.noscopeAlphaXEnd.Size = new System.Drawing.Size(112, 26);
+			this.noscopeAlphaXEnd.Size = new System.Drawing.Size(112, 23);
 			this.noscopeAlphaXEnd.TabIndex = 69;
 			// 
 			// label50
@@ -1963,7 +1965,7 @@ namespace Patchwork
 			this.label50.Location = new System.Drawing.Point(70, 34);
 			this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label50.Name = "label50";
-			this.label50.Size = new System.Drawing.Size(20, 20);
+			this.label50.Size = new System.Drawing.Size(17, 17);
 			this.label50.TabIndex = 68;
 			this.label50.Text = "X";
 			// 
@@ -1974,7 +1976,7 @@ namespace Patchwork
 			this.label24.Location = new System.Drawing.Point(70, 74);
 			this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(20, 20);
+			this.label24.Size = new System.Drawing.Size(17, 17);
 			this.label24.TabIndex = 67;
 			this.label24.Text = "Y";
 			// 
@@ -1985,7 +1987,7 @@ namespace Patchwork
 			this.label49.Location = new System.Drawing.Point(40, 154);
 			this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label49.Name = "label49";
-			this.label49.Size = new System.Drawing.Size(49, 20);
+			this.label49.Size = new System.Drawing.Size(43, 17);
 			this.label49.TabIndex = 66;
 			this.label49.Text = "Scale";
 			// 
@@ -1994,7 +1996,7 @@ namespace Patchwork
 			this.noscopeScale.Location = new System.Drawing.Point(106, 149);
 			this.noscopeScale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeScale.Name = "noscopeScale";
-			this.noscopeScale.Size = new System.Drawing.Size(112, 26);
+			this.noscopeScale.Size = new System.Drawing.Size(112, 23);
 			this.noscopeScale.TabIndex = 65;
 			// 
 			// noscopeAlphaX
@@ -2002,7 +2004,7 @@ namespace Patchwork
 			this.noscopeAlphaX.Location = new System.Drawing.Point(106, 29);
 			this.noscopeAlphaX.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeAlphaX.Name = "noscopeAlphaX";
-			this.noscopeAlphaX.Size = new System.Drawing.Size(112, 26);
+			this.noscopeAlphaX.Size = new System.Drawing.Size(112, 23);
 			this.noscopeAlphaX.TabIndex = 59;
 			// 
 			// noscopeAlphaY
@@ -2010,7 +2012,7 @@ namespace Patchwork
 			this.noscopeAlphaY.Location = new System.Drawing.Point(106, 69);
 			this.noscopeAlphaY.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeAlphaY.Name = "noscopeAlphaY";
-			this.noscopeAlphaY.Size = new System.Drawing.Size(112, 26);
+			this.noscopeAlphaY.Size = new System.Drawing.Size(112, 23);
 			this.noscopeAlphaY.TabIndex = 60;
 			// 
 			// tabPage7
@@ -2019,10 +2021,10 @@ namespace Patchwork
 			this.tabPage7.Controls.Add(this.scriptReload);
 			this.tabPage7.Controls.Add(this.label54);
 			this.tabPage7.Controls.Add(this.scriptPath);
-			this.tabPage7.Location = new System.Drawing.Point(4, 29);
+			this.tabPage7.Location = new System.Drawing.Point(4, 25);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage7.Size = new System.Drawing.Size(958, 535);
+			this.tabPage7.Size = new System.Drawing.Size(958, 539);
 			this.tabPage7.TabIndex = 6;
 			this.tabPage7.Text = "Scripts";
 			this.tabPage7.UseVisualStyleBackColor = true;
@@ -2042,7 +2044,7 @@ namespace Patchwork
 			this.scriptList.LabelWrap = false;
 			this.scriptList.Location = new System.Drawing.Point(16, 18);
 			this.scriptList.Name = "scriptList";
-			this.scriptList.Size = new System.Drawing.Size(924, 472);
+			this.scriptList.Size = new System.Drawing.Size(924, 476);
 			this.scriptList.TabIndex = 5;
 			this.scriptList.UseCompatibleStateImageBehavior = false;
 			this.scriptList.View = System.Windows.Forms.View.Details;
@@ -2071,7 +2073,7 @@ namespace Patchwork
 			// 
 			this.scriptReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.scriptReload.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.scriptReload.Location = new System.Drawing.Point(677, 498);
+			this.scriptReload.Location = new System.Drawing.Point(677, 502);
 			this.scriptReload.Name = "scriptReload";
 			this.scriptReload.Size = new System.Drawing.Size(263, 28);
 			this.scriptReload.TabIndex = 3;
@@ -2083,18 +2085,18 @@ namespace Patchwork
 			this.label54.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label54.AutoSize = true;
 			this.label54.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label54.Location = new System.Drawing.Point(12, 501);
+			this.label54.Location = new System.Drawing.Point(12, 505);
 			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(221, 20);
+			this.label54.Size = new System.Drawing.Size(199, 17);
 			this.label54.TabIndex = 2;
 			this.label54.Text = "Search locations (; separated)";
 			// 
 			// scriptPath
 			// 
 			this.scriptPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.scriptPath.Location = new System.Drawing.Point(244, 499);
+			this.scriptPath.Location = new System.Drawing.Point(244, 503);
 			this.scriptPath.Name = "scriptPath";
-			this.scriptPath.Size = new System.Drawing.Size(423, 26);
+			this.scriptPath.Size = new System.Drawing.Size(423, 23);
 			this.scriptPath.TabIndex = 1;
 			this.scriptPath.Text = "bepinex;bepinex\\ipa;userdata\\scripts";
 			// 
@@ -2109,10 +2111,10 @@ namespace Patchwork
 			this.tabPage3.Controls.Add(this.groupBox5);
 			this.tabPage3.Controls.Add(this.groupBox4);
 			this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-			this.tabPage3.Location = new System.Drawing.Point(4, 29);
+			this.tabPage3.Location = new System.Drawing.Point(4, 25);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(958, 535);
+			this.tabPage3.Size = new System.Drawing.Size(958, 539);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = " Advanced ";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -2122,7 +2124,7 @@ namespace Patchwork
 			this.linkLabel3.AutoSize = true;
 			this.linkLabel3.Location = new System.Drawing.Point(456, 24);
 			this.linkLabel3.Name = "linkLabel3";
-			this.linkLabel3.Size = new System.Drawing.Size(26, 20);
+			this.linkLabel3.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel3.TabIndex = 68;
 			this.linkLabel3.TabStop = true;
 			this.linkLabel3.Tag = "perf";
@@ -2134,7 +2136,7 @@ namespace Patchwork
 			this.noBustNorm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.noBustNorm.Location = new System.Drawing.Point(612, 492);
 			this.noBustNorm.Name = "noBustNorm";
-			this.noBustNorm.Size = new System.Drawing.Size(229, 24);
+			this.noBustNorm.Size = new System.Drawing.Size(204, 21);
 			this.noBustNorm.TabIndex = 59;
 			this.noBustNorm.Text = "Disable bust normals recalc";
 			this.noBustNorm.UseVisualStyleBackColor = true;
@@ -2159,7 +2161,7 @@ namespace Patchwork
 			this.linkLabel5.AutoSize = true;
 			this.linkLabel5.Location = new System.Drawing.Point(95, -1);
 			this.linkLabel5.Name = "linkLabel5";
-			this.linkLabel5.Size = new System.Drawing.Size(26, 20);
+			this.linkLabel5.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel5.TabIndex = 70;
 			this.linkLabel5.TabStop = true;
 			this.linkLabel5.Tag = "textAss";
@@ -2171,7 +2173,7 @@ namespace Patchwork
 			this.useBOM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.useBOM.Location = new System.Drawing.Point(22, 100);
 			this.useBOM.Name = "useBOM";
-			this.useBOM.Size = new System.Drawing.Size(160, 24);
+			this.useBOM.Size = new System.Drawing.Size(139, 21);
 			this.useBOM.TabIndex = 28;
 			this.useBOM.Text = "Insert UTF8 BOM";
 			this.useBOM.UseVisualStyleBackColor = true;
@@ -2182,7 +2184,7 @@ namespace Patchwork
 			this.fetchAssets.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.fetchAssets.Location = new System.Drawing.Point(22, 34);
 			this.fetchAssets.Name = "fetchAssets";
-			this.fetchAssets.Size = new System.Drawing.Size(160, 24);
+			this.fetchAssets.Size = new System.Drawing.Size(139, 21);
 			this.fetchAssets.TabIndex = 25;
 			this.fetchAssets.Text = "Load CSV sheets";
 			this.fetchAssets.UseVisualStyleBackColor = true;
@@ -2193,7 +2195,7 @@ namespace Patchwork
 			this.dumpAssets.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.dumpAssets.Location = new System.Drawing.Point(22, 69);
 			this.dumpAssets.Name = "dumpAssets";
-			this.dumpAssets.Size = new System.Drawing.Size(167, 24);
+			this.dumpAssets.Size = new System.Drawing.Size(144, 21);
 			this.dumpAssets.TabIndex = 26;
 			this.dumpAssets.Text = "Dump CSV sheets";
 			this.dumpAssets.UseVisualStyleBackColor = true;
@@ -2217,7 +2219,7 @@ namespace Patchwork
 			this.enableTrace.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.enableTrace.Location = new System.Drawing.Point(16, 71);
 			this.enableTrace.Name = "enableTrace";
-			this.enableTrace.Size = new System.Drawing.Size(151, 24);
+			this.enableTrace.Size = new System.Drawing.Size(132, 21);
 			this.enableTrace.TabIndex = 12;
 			this.enableTrace.Text = "Enable [TRACE]";
 			this.enableTrace.UseVisualStyleBackColor = true;
@@ -2228,7 +2230,7 @@ namespace Patchwork
 			this.enableSpam.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.enableSpam.Location = new System.Drawing.Point(16, 37);
 			this.enableSpam.Name = "enableSpam";
-			this.enableSpam.Size = new System.Drawing.Size(142, 24);
+			this.enableSpam.Size = new System.Drawing.Size(124, 21);
 			this.enableSpam.TabIndex = 11;
 			this.enableSpam.Text = "Enable [SPAM]";
 			this.enableSpam.UseVisualStyleBackColor = true;
@@ -2257,7 +2259,7 @@ namespace Patchwork
 			this.cacheScripts.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.cacheScripts.Location = new System.Drawing.Point(8, 190);
 			this.cacheScripts.Name = "cacheScripts";
-			this.cacheScripts.Size = new System.Drawing.Size(181, 24);
+			this.cacheScripts.Size = new System.Drawing.Size(160, 21);
 			this.cacheScripts.TabIndex = 57;
 			this.cacheScripts.Text = "Cache scripts to disk";
 			this.cacheScripts.UseVisualStyleBackColor = true;
@@ -2268,7 +2270,7 @@ namespace Patchwork
 			this.bgmAsync.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.bgmAsync.Location = new System.Drawing.Point(8, 220);
 			this.bgmAsync.Name = "bgmAsync";
-			this.bgmAsync.Size = new System.Drawing.Size(164, 24);
+			this.bgmAsync.Size = new System.Drawing.Size(145, 21);
 			this.bgmAsync.TabIndex = 56;
 			this.bgmAsync.Text = "Lazy BGM loading";
 			this.bgmAsync.UseVisualStyleBackColor = true;
@@ -2279,7 +2281,7 @@ namespace Patchwork
 			this.compCache.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.compCache.Location = new System.Drawing.Point(8, 160);
 			this.compCache.Name = "compCache";
-			this.compCache.Size = new System.Drawing.Size(173, 24);
+			this.compCache.Size = new System.Drawing.Size(151, 21);
 			this.compCache.TabIndex = 55;
 			this.compCache.Text = "Cache components";
 			this.compCache.UseVisualStyleBackColor = true;
@@ -2291,7 +2293,7 @@ namespace Patchwork
 			this.lazyGC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.lazyGC.Location = new System.Drawing.Point(8, 63);
 			this.lazyGC.Name = "lazyGC";
-			this.lazyGC.Size = new System.Drawing.Size(96, 24);
+			this.lazyGC.Size = new System.Drawing.Size(84, 21);
 			this.lazyGC.TabIndex = 53;
 			this.lazyGC.Text = "Lazy GC";
 			this.lazyGC.UseVisualStyleBackColor = true;
@@ -2302,7 +2304,7 @@ namespace Patchwork
 			this.assetCache.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.assetCache.Location = new System.Drawing.Point(8, 128);
 			this.assetCache.Name = "assetCache";
-			this.assetCache.Size = new System.Drawing.Size(135, 24);
+			this.assetCache.Size = new System.Drawing.Size(118, 21);
 			this.assetCache.TabIndex = 6;
 			this.assetCache.Text = "Asset caching";
 			this.assetCache.UseVisualStyleBackColor = true;
@@ -2313,7 +2315,7 @@ namespace Patchwork
 			this.cacheSprites.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.cacheSprites.Location = new System.Drawing.Point(8, 97);
 			this.cacheSprites.Name = "cacheSprites";
-			this.cacheSprites.Size = new System.Drawing.Size(154, 24);
+			this.cacheSprites.Size = new System.Drawing.Size(135, 21);
 			this.cacheSprites.TabIndex = 50;
 			this.cacheSprites.Text = "UI sprite caching";
 			this.cacheSprites.UseVisualStyleBackColor = true;
@@ -2324,7 +2326,7 @@ namespace Patchwork
 			this.lazyAssetGC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.lazyAssetGC.Location = new System.Drawing.Point(8, 25);
 			this.lazyAssetGC.Name = "lazyAssetGC";
-			this.lazyAssetGC.Size = new System.Drawing.Size(139, 24);
+			this.lazyAssetGC.Size = new System.Drawing.Size(122, 21);
 			this.lazyAssetGC.TabIndex = 54;
 			this.lazyAssetGC.Text = "Lazy asset GC";
 			this.lazyAssetGC.UseVisualStyleBackColor = true;
@@ -2353,21 +2355,21 @@ namespace Patchwork
 			// 
 			this.physDivisor.Location = new System.Drawing.Point(92, 138);
 			this.physDivisor.Name = "physDivisor";
-			this.physDivisor.Size = new System.Drawing.Size(112, 26);
+			this.physDivisor.Size = new System.Drawing.Size(112, 23);
 			this.physDivisor.TabIndex = 31;
 			// 
 			// physLoopCount
 			// 
 			this.physLoopCount.Location = new System.Drawing.Point(92, 58);
 			this.physLoopCount.Name = "physLoopCount";
-			this.physLoopCount.Size = new System.Drawing.Size(112, 26);
+			this.physLoopCount.Size = new System.Drawing.Size(112, 23);
 			this.physLoopCount.TabIndex = 29;
 			// 
 			// physReflectSpeed
 			// 
 			this.physReflectSpeed.Location = new System.Drawing.Point(92, 102);
 			this.physReflectSpeed.Name = "physReflectSpeed";
-			this.physReflectSpeed.Size = new System.Drawing.Size(112, 26);
+			this.physReflectSpeed.Size = new System.Drawing.Size(112, 23);
 			this.physReflectSpeed.TabIndex = 30;
 			// 
 			// label36
@@ -2377,7 +2379,7 @@ namespace Patchwork
 			this.label36.Location = new System.Drawing.Point(30, 65);
 			this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label36.Name = "label36";
-			this.label36.Size = new System.Drawing.Size(39, 20);
+			this.label36.Size = new System.Drawing.Size(35, 17);
 			this.label36.TabIndex = 32;
 			this.label36.Text = "loop";
 			// 
@@ -2388,7 +2390,7 @@ namespace Patchwork
 			this.label37.Location = new System.Drawing.Point(16, 106);
 			this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label37.Name = "label37";
-			this.label37.Size = new System.Drawing.Size(53, 20);
+			this.label37.Size = new System.Drawing.Size(47, 17);
 			this.label37.TabIndex = 33;
 			this.label37.Text = "reflect";
 			// 
@@ -2399,7 +2401,7 @@ namespace Patchwork
 			this.label38.Location = new System.Drawing.Point(16, 143);
 			this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label38.Name = "label38";
-			this.label38.Size = new System.Drawing.Size(53, 20);
+			this.label38.Size = new System.Drawing.Size(49, 17);
 			this.label38.TabIndex = 34;
 			this.label38.Text = "divisor";
 			// 
@@ -2407,7 +2409,7 @@ namespace Patchwork
 			// 
 			this.physRate.Location = new System.Drawing.Point(92, 175);
 			this.physRate.Name = "physRate";
-			this.physRate.Size = new System.Drawing.Size(112, 26);
+			this.physRate.Size = new System.Drawing.Size(112, 23);
 			this.physRate.TabIndex = 35;
 			// 
 			// label40
@@ -2417,7 +2419,7 @@ namespace Patchwork
 			this.label40.Location = new System.Drawing.Point(87, 25);
 			this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label40.Name = "label40";
-			this.label40.Size = new System.Drawing.Size(61, 20);
+			this.label40.Size = new System.Drawing.Size(55, 17);
 			this.label40.TabIndex = 37;
 			this.label40.Text = "physics";
 			// 
@@ -2428,7 +2430,7 @@ namespace Patchwork
 			this.label39.Location = new System.Drawing.Point(28, 178);
 			this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label39.Name = "label39";
-			this.label39.Size = new System.Drawing.Size(37, 20);
+			this.label39.Size = new System.Drawing.Size(33, 17);
 			this.label39.TabIndex = 36;
 			this.label39.Text = "rate";
 			// 
@@ -2461,7 +2463,7 @@ namespace Patchwork
 			this.linkLabel4.AutoSize = true;
 			this.linkLabel4.Location = new System.Drawing.Point(165, 1);
 			this.linkLabel4.Name = "linkLabel4";
-			this.linkLabel4.Size = new System.Drawing.Size(26, 20);
+			this.linkLabel4.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel4.TabIndex = 69;
 			this.linkLabel4.TabStop = true;
 			this.linkLabel4.Tag = "paintSizes";
@@ -2471,42 +2473,42 @@ namespace Patchwork
 			// 
 			this.bodyHiPoly.Location = new System.Drawing.Point(64, 66);
 			this.bodyHiPoly.Name = "bodyHiPoly";
-			this.bodyHiPoly.Size = new System.Drawing.Size(112, 26);
+			this.bodyHiPoly.Size = new System.Drawing.Size(112, 23);
 			this.bodyHiPoly.TabIndex = 13;
 			// 
 			// bodyLowPoly
 			// 
 			this.bodyLowPoly.Location = new System.Drawing.Point(183, 66);
 			this.bodyLowPoly.Name = "bodyLowPoly";
-			this.bodyLowPoly.Size = new System.Drawing.Size(112, 26);
+			this.bodyLowPoly.Size = new System.Drawing.Size(112, 23);
 			this.bodyLowPoly.TabIndex = 14;
 			// 
 			// faceHiPoly
 			// 
 			this.faceHiPoly.Location = new System.Drawing.Point(64, 102);
 			this.faceHiPoly.Name = "faceHiPoly";
-			this.faceHiPoly.Size = new System.Drawing.Size(112, 26);
+			this.faceHiPoly.Size = new System.Drawing.Size(112, 23);
 			this.faceHiPoly.TabIndex = 15;
 			// 
 			// faceLowPoly
 			// 
 			this.faceLowPoly.Location = new System.Drawing.Point(183, 102);
 			this.faceLowPoly.Name = "faceLowPoly";
-			this.faceLowPoly.Size = new System.Drawing.Size(112, 26);
+			this.faceLowPoly.Size = new System.Drawing.Size(112, 23);
 			this.faceLowPoly.TabIndex = 16;
 			// 
 			// eyeHiPoly
 			// 
 			this.eyeHiPoly.Location = new System.Drawing.Point(64, 137);
 			this.eyeHiPoly.Name = "eyeHiPoly";
-			this.eyeHiPoly.Size = new System.Drawing.Size(112, 26);
+			this.eyeHiPoly.Size = new System.Drawing.Size(112, 23);
 			this.eyeHiPoly.TabIndex = 17;
 			// 
 			// eyeLowPoly
 			// 
 			this.eyeLowPoly.Location = new System.Drawing.Point(183, 137);
 			this.eyeLowPoly.Name = "eyeLowPoly";
-			this.eyeLowPoly.Size = new System.Drawing.Size(112, 26);
+			this.eyeLowPoly.Size = new System.Drawing.Size(112, 23);
 			this.eyeLowPoly.TabIndex = 18;
 			// 
 			// label26
@@ -2515,7 +2517,7 @@ namespace Patchwork
 			this.label26.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.label26.Location = new System.Drawing.Point(64, 38);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(49, 20);
+			this.label26.Size = new System.Drawing.Size(45, 17);
 			this.label26.TabIndex = 19;
 			this.label26.Text = "hipoly";
 			// 
@@ -2525,7 +2527,7 @@ namespace Patchwork
 			this.label27.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.label27.Location = new System.Drawing.Point(183, 37);
 			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(60, 20);
+			this.label27.Size = new System.Drawing.Size(54, 17);
 			this.label27.TabIndex = 20;
 			this.label27.Text = "lowpoly";
 			// 
@@ -2535,7 +2537,7 @@ namespace Patchwork
 			this.label28.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.label28.Location = new System.Drawing.Point(183, 38);
 			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(60, 20);
+			this.label28.Size = new System.Drawing.Size(54, 17);
 			this.label28.TabIndex = 21;
 			this.label28.Text = "lowpoly";
 			// 
@@ -2545,7 +2547,7 @@ namespace Patchwork
 			this.label29.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.label29.Location = new System.Drawing.Point(18, 75);
 			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(43, 20);
+			this.label29.Size = new System.Drawing.Size(39, 17);
 			this.label29.TabIndex = 22;
 			this.label29.Text = "body";
 			// 
@@ -2555,7 +2557,7 @@ namespace Patchwork
 			this.label30.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.label30.Location = new System.Drawing.Point(18, 108);
 			this.label30.Name = "label30";
-			this.label30.Size = new System.Drawing.Size(40, 20);
+			this.label30.Size = new System.Drawing.Size(35, 17);
 			this.label30.TabIndex = 23;
 			this.label30.Text = "face";
 			// 
@@ -2565,7 +2567,7 @@ namespace Patchwork
 			this.label31.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.label31.Location = new System.Drawing.Point(18, 138);
 			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(42, 20);
+			this.label31.Size = new System.Drawing.Size(38, 17);
 			this.label31.TabIndex = 24;
 			this.label31.Text = "eyes";
 			// 
@@ -2591,7 +2593,7 @@ namespace Patchwork
 			this.noFrillsExit.Location = new System.Drawing.Point(26, 131);
 			this.noFrillsExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noFrillsExit.Name = "noFrillsExit";
-			this.noFrillsExit.Size = new System.Drawing.Size(95, 24);
+			this.noFrillsExit.Size = new System.Drawing.Size(82, 21);
 			this.noFrillsExit.TabIndex = 52;
 			this.noFrillsExit.Text = "Fast exit";
 			this.noFrillsExit.UseVisualStyleBackColor = true;
@@ -2602,7 +2604,7 @@ namespace Patchwork
 			this.whitePower.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.whitePower.Location = new System.Drawing.Point(26, 97);
 			this.whitePower.Name = "whitePower";
-			this.whitePower.Size = new System.Drawing.Size(409, 24);
+			this.whitePower.Size = new System.Drawing.Size(366, 21);
 			this.whitePower.TabIndex = 10;
 			this.whitePower.Text = "(bench) replace all character textures with a white dot";
 			this.whitePower.UseVisualStyleBackColor = true;
@@ -2613,7 +2615,7 @@ namespace Patchwork
 			this.dontshow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.dontshow.Location = new System.Drawing.Point(26, 65);
 			this.dontshow.Name = "dontshow";
-			this.dontshow.Size = new System.Drawing.Size(369, 24);
+			this.dontshow.Size = new System.Drawing.Size(330, 21);
 			this.dontshow.TabIndex = 27;
 			this.dontshow.Text = "Disable launcher (edit patchwork.xml to restore)";
 			this.dontshow.UseVisualStyleBackColor = true;
@@ -2625,7 +2627,7 @@ namespace Patchwork
 			this.onTop.Location = new System.Drawing.Point(26, 31);
 			this.onTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.onTop.Name = "onTop";
-			this.onTop.Size = new System.Drawing.Size(83, 24);
+			this.onTop.Size = new System.Drawing.Size(73, 21);
 			this.onTop.TabIndex = 51;
 			this.onTop.Text = "On top";
 			this.onTop.UseVisualStyleBackColor = true;
@@ -2634,11 +2636,11 @@ namespace Patchwork
 			// 
 			this.tabPage6.Controls.Add(this.replInput);
 			this.tabPage6.Controls.Add(this.replOutput);
-			this.tabPage6.Location = new System.Drawing.Point(4, 29);
+			this.tabPage6.Location = new System.Drawing.Point(4, 25);
 			this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage6.Size = new System.Drawing.Size(958, 535);
+			this.tabPage6.Size = new System.Drawing.Size(958, 539);
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -2655,7 +2657,7 @@ namespace Patchwork
 			this.replOutput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.replOutput.Name = "replOutput";
 			this.replOutput.ReadOnly = true;
-			this.replOutput.Size = new System.Drawing.Size(937, 482);
+			this.replOutput.Size = new System.Drawing.Size(937, 486);
 			this.replOutput.TabIndex = 2;
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
@@ -2665,10 +2667,21 @@ namespace Patchwork
 			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 499);
+			this.replInput.Location = new System.Drawing.Point(10, 503);
 			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 28);
+			this.replInput.Size = new System.Drawing.Size(937, 24);
 			this.replInput.TabIndex = 0;
+			// 
+			// blackFade
+			// 
+			this.blackFade.AutoSize = true;
+			this.blackFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.blackFade.Location = new System.Drawing.Point(112, 152);
+			this.blackFade.Name = "blackFade";
+			this.blackFade.Size = new System.Drawing.Size(96, 21);
+			this.blackFade.TabIndex = 38;
+			this.blackFade.Text = "Black fade";
+			this.blackFade.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -2951,6 +2964,7 @@ namespace Patchwork
 		private System.Windows.Forms.LinkLabel linkLabel4;
 		public System.Windows.Forms.Button scriptReload;
 		public System.Windows.Forms.TabPage tabPage7;
+		private System.Windows.Forms.CheckBox blackFade;
 	}
 }
 

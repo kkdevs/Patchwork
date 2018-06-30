@@ -39,6 +39,7 @@ namespace Patchwork
 			"bepinex",
 			"configurationmanager",
 		};
+		public bool blackFade = false;
 		public List<string> scriptDisabled = new List<string>();
 		public bool cacheScripts = true;
 		public bool faceJPG = true;

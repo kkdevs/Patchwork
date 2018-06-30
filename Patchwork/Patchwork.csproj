@@ -34,7 +34,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\Managed\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;GAME_DEBUG;USE_OLD_ABM</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;GAME_DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
     <LangVersion>default</LangVersion>

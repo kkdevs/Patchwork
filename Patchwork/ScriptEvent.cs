@@ -108,7 +108,7 @@ namespace Patchwork
 		/// A category item is being queried.
 		/// </summary>
 		/// <param name="lib">Item entry, can be mutated</param>
-		public virtual void OnGetListInfo(ListInfoBase lib) { }
+		public virtual void OnGetListInfo(ref ListInfoBase lib, int cat, int id) { }
 
 		/// <summary>
 		/// Gets executed "occasionaly", roughly every second.

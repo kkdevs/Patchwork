@@ -250,7 +250,7 @@ namespace Patchwork
 			{
 				if (kv.Value.Count == 0) continue;
 				var m = typeof(ScriptEvents).GetMethod(kv.Key);
-				dispatcher.AppendLine("override " + m.GetSignature());
+				dispatcher.AppendLine("override " + m.GetSignature().Replace("&", ""));
 				dispatcher.AppendLine("{");
 				// early exit?
 				// TODO: support enumerators
@@ -260,7 +260,7 @@ namespace Patchwork
 				// construct the call
 				foreach (var fun in kv.Value)
 				{
-					dispatcher.Append(fun.DeclaringType.Name + "_instance." + fun.GetSignature(true));
+					dispatcher.Append(fun.DeclaringType.Name + "_instance." + fun.GetSignature(true).Replace("&",""));
 					if (isexit && kv.Value.Last() != fun)
 						dispatcher.Append("||");
 					else
