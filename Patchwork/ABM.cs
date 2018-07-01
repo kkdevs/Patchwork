@@ -213,6 +213,7 @@ public class LoadedAssetBundle
 	}
 
 	public static event Action<LoadedAssetBundle, string> beforeLoad;
+	public int pending;
 	public IEnumerator LoadAssetAsync(string name, Type t, Action<UnityEngine.Object> cb)
 	{
 		beforeLoad?.Invoke(this, name);
@@ -221,6 +222,7 @@ public class LoadedAssetBundle
 			//if (name == "p_o_top_swim04")
 			//	Trace.Back("swimslow");
 			Debug.Log($"[ABM] Cache miss {path}/{name}");
+			retry:;
 			if (!Ensure(name))
 			{
 				if (caching)
@@ -238,7 +240,14 @@ public class LoadedAssetBundle
 				cb(null);
 				yield break;
 			}
+			pending++;
 			yield return req;
+			pending--;
+			if (m_AssetBundle == null)
+			{
+				Trace.Log($"[ABM] Something has pulled rug under us while async loading {path}/{name}, trying to recover");
+				goto retry;
+			}
 			if (req.asset != null)
 			{
 				cb(MaybeCache(name, t, req.asset));
@@ -250,8 +259,10 @@ public class LoadedAssetBundle
 				Trace.Error($"[ABM] Async load {path}/{name} failed");
 				Trace.Back("from");
 			}
+			pending--;
 			yield break;
 		}
+		pending--;
 		Debug.Log($"[ABM] Cache hit {path}/{name}");
 		//if (obj != null && obj.GetType() != t)
 		//	Trace.Error($"[ABM] Wrong entry type cached! {obj.GetType().Name} != {t}");
@@ -392,6 +403,10 @@ public class LoadedAssetBundle
 	{
 		if (m_AssetBundle != null)
 		{
+			if (pending > 0)
+			{
+				Trace.Error($"[ABM] Unloading {name}, but it has a pending async operation!");
+			}
 			m_AssetBundle.Unload(false);
 			Debug.Log("[ABM] Unloading " + name);
 		}

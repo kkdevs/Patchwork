@@ -183,6 +183,13 @@ namespace Patchwork
 		public static Dictionary<string, UnityEngine.Object> assetCache = new Dictionary<string, UnityEngine.Object>();
 		public static HashSet<string> nxpng = new HashSet<string>();
 
+		public static string GetFakePath(string bundle, string asset)
+		{
+			if (bundle.EndsWith(".unity3d"))
+				return LoadedAssetBundle.basePath + bundle.Substring(0, bundle.Length - 8) + "/" + asset;
+			else
+				return LoadedAssetBundle.basePath + bundle + "/" + asset;
+		}
 		// Load generic asset. Serializable assets are re-routed to/from CSV.
 		public static UnityEngine.Object Asset(string bundle, string asset, System.Type type, bool nocache = false)
 		{
@@ -194,7 +201,7 @@ namespace Patchwork
 			if (assetCache.TryGetValue(key, out UnityEngine.Object obj))
 				return obj;
 
-			var fakepath = LoadedAssetBundle.basePath + bundle.Substring(0, bundle.Length - 8) + "/" + asset;
+			var fakepath = GetFakePath(bundle, asset);
 			if (type == typeof(Texture2D) && !nxpng.Contains(key))
 			{
 				var pngpath = GetPath(fakepath + ".png");			
@@ -397,6 +404,12 @@ namespace Patchwork
 		}
 #endif
 
+		public static string GetPath(string bundle, string asset, string ext = null)
+		{
+			if (ext != null)
+				asset = Path.GetFileNameWithoutExtension(asset) + ext;
+			return GetPath(GetFakePath(bundle, asset));
+		}
 
 		// Canonizes path
 		public static Dictionary<string, string> pathCache = new Dictionary<string, string>();

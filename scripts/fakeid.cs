@@ -125,10 +125,8 @@ public class FakeID : ScriptEvents
 		}
 	}
 
-	[MessagePackObject(true)]
 	public class GuidMap
 	{
-		[MessagePackObject(true)]
 		public class Item
 		{
 			public string guid;
@@ -247,10 +245,18 @@ public class FakeID : ScriptEvents
 
 	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
-		map = f.dict.Get<GuidMap>("guidmap");
 		tofake = true;
+		map = f.dict.Get<GuidMap>("guidmap");
 		traverse("coordinate",f.coordinate);
 		traverse("custom",f.custom);
+	}
+
+	// Note that this is called only when explicitly saving/loading a coordinate.
+	public override void OnCoordinate(ChaFile f, ChaFileCoordinate co, bool isLoad)
+	{
+		tofake = isLoad;
+		map = f.dict.Get<GuidMap>("guidmap");
+		traverse("coordinate", co);
 	}
 
 	// rewrite our fake ids to the actual real ones again

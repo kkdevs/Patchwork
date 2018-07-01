@@ -89,6 +89,8 @@ namespace Patchwork
 		/// <param name="nopng">nopng, typically means save/load</param>
 		/// <param name="nostatus"></param>
 		public virtual void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus) { }
+		public virtual void BeforeCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus) { }
+		public virtual void OnCoordinate(ChaFile f, ChaFileCoordinate co, bool isLoad) { }
 		/// <summary>
 		/// Called when card is being saved
 		/// </summary>
