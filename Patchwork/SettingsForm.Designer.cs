@@ -113,6 +113,7 @@ namespace Patchwork
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.blackFade = new System.Windows.Forms.CheckBox();
 			this.capJPG = new System.Windows.Forms.CheckBox();
 			this.geass = new System.Windows.Forms.CheckBox();
 			this.unlockH = new System.Windows.Forms.CheckBox();
@@ -238,9 +239,8 @@ namespace Patchwork
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.replInput = new EditLine();
-			this.blackFade = new System.Windows.Forms.CheckBox();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -333,6 +333,7 @@ namespace Patchwork
 			// 
 			// runChara
 			// 
+			this.runChara.Enabled = false;
 			this.runChara.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.runChara.Location = new System.Drawing.Point(484, 409);
 			this.runChara.Name = "runChara";
@@ -1270,6 +1271,17 @@ namespace Patchwork
 			this.groupBox14.TabIndex = 44;
 			this.groupBox14.TabStop = false;
 			this.groupBox14.Text = "General";
+			// 
+			// blackFade
+			// 
+			this.blackFade.AutoSize = true;
+			this.blackFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.blackFade.Location = new System.Drawing.Point(112, 152);
+			this.blackFade.Name = "blackFade";
+			this.blackFade.Size = new System.Drawing.Size(96, 21);
+			this.blackFade.TabIndex = 38;
+			this.blackFade.Text = "Black fade";
+			this.blackFade.UseVisualStyleBackColor = true;
 			// 
 			// capJPG
 			// 
@@ -2645,6 +2657,16 @@ namespace Patchwork
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 503);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 24);
+			this.replInput.TabIndex = 0;
+			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2661,27 +2683,6 @@ namespace Patchwork
 			this.replOutput.TabIndex = 2;
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
-			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 503);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 24);
-			this.replInput.TabIndex = 0;
-			// 
-			// blackFade
-			// 
-			this.blackFade.AutoSize = true;
-			this.blackFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.blackFade.Location = new System.Drawing.Point(112, 152);
-			this.blackFade.Name = "blackFade";
-			this.blackFade.Size = new System.Drawing.Size(96, 21);
-			this.blackFade.TabIndex = 38;
-			this.blackFade.Text = "Black fade";
-			this.blackFade.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
