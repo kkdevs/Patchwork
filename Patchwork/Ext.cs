@@ -30,17 +30,19 @@ namespace Patchwork
 			mi = t.GetMethod(name);
 			return mdict[t] = mi;
 		}
-		public static Dictionary<Type, Type> arrayOf = new Dictionary<Type, Type>();
-		public static bool IsArrayOf<T>(Type t)
+
+		public static Dictionary<MethodInfo, Dictionary<object, object>> predCache = new Dictionary<MethodInfo, Dictionary<object, object>>();
+		public static object Memoize<T>(this T t, Func<T,object> predicate)
 		{
-			if (!arrayOf.TryGetValue(t, out Type oft))
-				if (t.IsArray)
-					oft = arrayOf[t] = t.GetElementType();
-			return oft == typeof(T);
+			if (!predCache.TryGetValue(predicate.Method, out Dictionary<object, object> dict))
+				dict = predCache[predicate.Method] = new Dictionary<object, object>();
+			if (!dict.TryGetValue(t, out object tinfo))
+				dict[t] = tinfo = predicate(t);
+			return tinfo;
 		}
 
 		public static Dictionary<Type, MemberInfo[]> varCache = new Dictionary<Type, MemberInfo[]>();
-		public static IEnumerable<MemberInfo> GetVars(this Type t, bool reversed)
+		public static IEnumerable<MemberInfo> GetVars(this Type t)
 		{
 			MemberInfo[] res;		
 			if (!varCache.TryGetValue(t, out res))
@@ -52,8 +54,6 @@ namespace Patchwork
 					tmp.Add(gs);
 				varCache[t] = res = tmp.ToArray();
 			}
-			if (reversed)
-				return res.Reverse();
 			return res;
 		}
 		public static Dictionary<MemberInfo, Type> memTypeCache = new Dictionary<MemberInfo, Type>();
@@ -74,7 +74,8 @@ namespace Patchwork
 			var p = m as PropertyInfo;
 			if (p != null)
 				return memTypeCache[m] = p.PropertyType;
-			throw new Exception("Invalid member type");
+			return memTypeCache[m] = null;
+			//throw new Exception("Invalid member type");
 		}
 		public static object GetValue(this MemberInfo m, object o)
 		{
@@ -101,21 +102,8 @@ namespace Patchwork
 			if (!attrCache.TryGetValue(typeof(T), out Dictionary<MemberInfo, object> mdict))
 				mdict = attrCache[typeof(T)] = new Dictionary<MemberInfo, object>();
 			if (mdict.TryGetValue(m, out object retval))
-			{
-				ret = retval as T;
-				return ret != null;
-			}
-
-			foreach (var attr in m.GetCustomAttributes(true))
-			{
-				if (attr is T)
-				{
-					ret = attr as T;
-					break;
-				}
-			}
-			mdict[m] = ret;
-			return ret != null;
+				return (ret = (retval ?? ret) as T) != null;
+			return (ret = (mdict[m] = (m.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T) ?? ret) as T) != null;
 		}
 		public static string GetSignature(this MethodInfo method, bool callable = false)
 		{

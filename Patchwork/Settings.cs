@@ -117,7 +117,7 @@ namespace Patchwork
 
 		public bool equality = true;
 
-		public bool bgmAsync = true;
+		public bool bgmAsync = false;
 		public bool assetCache = true;
 		public bool compCache = true;
 		public bool assetAsync = true;

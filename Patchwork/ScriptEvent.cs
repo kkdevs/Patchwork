@@ -134,5 +134,14 @@ namespace Patchwork
 
 			Script.pp(o);
 		}
+
+		/// <summary>
+		/// Called when picking clothes in editor (for current coordinate). Needed for mod interop.
+		/// </summary>
+		/// <param name="ch"></param>
+		/// <param name="cat"></param>
+		/// <param name="ids"></param>
+		/// <returns></returns>
+		public virtual void OnSetClothes(ChaControl ch, int cat, int[] ids) { }
 	}
 }

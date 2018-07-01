@@ -16,37 +16,32 @@ using static ChaListDefine;
 
 public class FakeID : ScriptEvents
 {
+	public struct RealPair
+	{
+		public int cat;
+		public int id;
+		public RealPair(CategoryNo cat, int id = -1)
+		{
+			this.cat = (int)cat;
+			this.id = id;
+		}
+		public RealPair(int cat, int id)
+		{
+			this.cat = cat;
+			this.id = id;
+		}
+	}
 	const int FAKE_BASE = -100;
 	public override void Start()
 	{
 		InitListInfo();
 	}
 
-	// ids to never rewrite as those are treated specially by the game
-	public static bool exempt(CategoryNo cat, int id)
-	{
-		if (cat < 0)
-			return true;
-		if (id == -1)
-			return true;
-		if (id != 0 && id != 1)
-			return false;
-		
-		//unfortunately some mods occupy default id 0/1 slots. you might want to comment out following 2 lines.
-		if ((cat >= CategoryNo.co_top && cat <= CategoryNo.co_shoes))
-			return true;
-
-		if (cat >= CategoryNo.cpo_sailor_a && cat <= CategoryNo.cpo_sailor_c)
-			return true;
-		if (cat >= CategoryNo.cpo_jacket_a && cat <= CategoryNo.cpo_jacket_c)
-			return true;
-		return false;
-	}
-
 	// (re)load the listinfos
 	public static IdMap idMap;
 	public void InitListInfo()
 	{
+		knownGuids.Clear();
 		idMap = new IdMap();
 		if (Manager.Character.Instance != null)
 		{
@@ -55,17 +50,55 @@ public class FakeID : ScriptEvents
 		}
 	}
 
+	public IEnumerable<int> GetFakes(int cat, int id)
+	{
+		if (idMap.real2fake.TryGetValue(new RealPair(cat, id), out List<int> fakes))
+			foreach (var f in fakes)
+				yield return f;
+	}
+
+	public IEnumerable<ListInfoBase> GetInfos(int cat, int fakeid)
+	{
+		foreach (var f in GetFakes(cat, fakeid))
+			yield return idMap.fake2real[f];
+		if (idMap.fake2real.TryGetValue(fakeid, out ListInfoBase lib))
+			yield return lib;
+	}
+
 	public override void OnGetListInfo(ref ListInfoBase lib, int cat, int id)
 	{
-		if (lib != null)
-			return;
-		var realpair = new KeyValuePair<int, int>(cat, id);
-		if (idMap.real2fake.TryGetValue(realpair, out List<int> hints))
-			if (idMap.fake2real.TryGetValue(hints.FirstOrDefault(), out ListInfoBase found))
-				lib = found;
+		lib = lib ?? GetInfos(cat, id).FirstOrDefault();
 	}
+
+	public override void OnSetClothes(ChaControl ch, int cat, int[] ids)
+	{
+		// TODO: maybe other pieces need special handling too
+		if (cat != (int)CategoryNo.co_top)
+			return;
+
+		var lib = GetInfos(cat, ids[0]).FirstOrDefault();
+		if (lib == null) return;
+		if (lib.Kind == 1 || lib.Kind == 2)
+		{
+			int[] def = { 0, 0, 1, 0, 1, 1 };
+			int sub = (int)(lib.Kind == 1 ? CategoryNo.cpo_sailor_a : CategoryNo.cpo_jacket_a);
+			for (int i = 0; i < 3; i++)
+			{
+				// Check if supplied value exists
+				var inf = GetInfos(sub + i, ids[i+1]).FirstOrDefault();
+				if (inf != null && inf.Category == sub + i && ids[i + 1] != 0)
+					continue;
+				// If not, try to pick something
+				int ndef = def[i + (lib.Kind-1)*3];
+				ids[i+1] = GetFakes(sub + i, ndef).FirstOrDefault();
+			}
+		}
+	}
+
+	public HashSet<string> knownGuids = new HashSet<string>();
 	override public void OnSetListInfo(ListInfoBase lib)
 	{
+		knownGuids.Add(lib.Distribution2);
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
 	}
 
@@ -73,22 +106,18 @@ public class FakeID : ScriptEvents
 	{
 		public int counter = FAKE_BASE;
 		// map a real <cat,id> pair to list of fake ids
-		public Dictionary<KeyValuePair<int, int>, List<int>> real2fake = new Dictionary<KeyValuePair<int, int>, List<int>>();
+		public Dictionary<RealPair, List<int>> real2fake = new Dictionary<RealPair, List<int>>();
 		// map one fake id to real <cat,id,dist> (all contained in infobase)
 		public Dictionary<int, ListInfoBase> fake2real = new Dictionary<int, ListInfoBase>();
 		public int NewFake(int cat, int realid, ListInfoBase data)
 		{
-			if (exempt((CategoryNo)cat, realid))
-				return realid;
-			var realpair = new KeyValuePair<int, int>(cat, realid);
+			var realpair = new RealPair(cat, realid);
 			List<int> fakeids;
 			if (!real2fake.TryGetValue(realpair, out fakeids))
 				fakeids = real2fake[realpair] = new List<int>();
-			// already added?
 			foreach (var item in fakeids)
 				if (fake2real[item].Distribution2 == data.Distribution2)
 					return item;
-			// otherwise make a new fake
 			int fakeid = --counter;
 			fakeids.Add(fakeid);
 			fake2real[fakeid] = data;
@@ -113,34 +142,30 @@ public class FakeID : ScriptEvents
 		// if no hint is present, first fake is used
 		public int GetFake(string prop, int cat, int id)
 		{
-			Item item;
-			List<int> candidates;
-			if (exempt((CategoryNo)cat, id) || id < 0)
+			if (cat == (int)CategoryNo.ao_none || id < 0)
 				return id;
-			var realpair = new KeyValuePair<int, int>(cat, id);
-			if (items.TryGetValue(prop, out item))
+			List<int> candidates;
+			var realpair = new RealPair(cat, id);
+			if (items.TryGetValue(prop, out Item item) && idMap.real2fake.TryGetValue(realpair, out candidates))
 			{
-				if (idMap.real2fake.TryGetValue(realpair, out candidates))
-				{
-					var match = candidates.FirstOrDefault((x) => idMap.fake2real[x].Distribution2 == item.guid);
-					if (match != 0)
-						return match;
-				}
+				var match = candidates.FirstOrDefault((x) => idMap.fake2real[x].Distribution2 == item.guid);
+				if (match != 0)
+					return match;
 			}
 			// nothing found via our guid mappings, so default to a first fake we encounter
 			if (idMap.real2fake.TryGetValue(realpair, out candidates))
 				return candidates.FirstOrDefault();
-
 			print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
-
-			return id;// int.MaxValue;
+			return id;
 		}
 
 		// translate fake id to a real one. at the same time, record guid usage.
 		public int GetReal(string prop, int cat, int id)
 		{
 			ListInfoBase lib;
-			if (exempt((CategoryNo)cat, id) || id >= FAKE_BASE)
+			if (cat == (int)CategoryNo.ao_none)
+				return id;
+			if (id >= FAKE_BASE)
 				return id;
 			if (!idMap.fake2real.TryGetValue(id, out lib) || lib.Category != cat)
 			{
@@ -186,7 +211,7 @@ public class FakeID : ScriptEvents
 			return;
 		}
 
-		foreach (var mem in t.GetVars(!tofake))
+		foreach (var mem in (tofake?t.GetVars():t.GetVars().Reverse()))
 		{
 			var mt = mem.GetVarType();
 			if (mt == null) continue;
@@ -207,9 +232,17 @@ public class FakeID : ScriptEvents
 					for (int i = 0; i < arr.Length; i++)
 						arr.SetValue(rewrite($"{prefix}.{name}[{i}]", hint.Next(), (int)arr.GetValue(i), name), i);
 			}
-			else if (name == "parts" || name == "pupil" || mt.CachedGetMethod("SaveBytes") != null || mt.HasAttr<MessagePackObjectAttribute>())
+			else if ((bool)mt.Memoize(IsTraversable))
 				traverse(prefix + "." + name, mem.GetValue(root));
 		}
+	}
+
+	public static object IsTraversable(Type mt)
+	{
+		if (mt.CachedGetMethod("SaveBytes") != null)
+			return true;
+		if (mt.IsArray) mt = mt.GetElementType();
+		return mt.GetCustomAttributes(typeof(MessagePackObjectAttribute), true).Length > 0;
 	}
 
 	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)

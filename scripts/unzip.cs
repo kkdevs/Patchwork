@@ -44,7 +44,7 @@ public class unzip : ScriptEvents
 				{
 					if (!entry.IsFile) continue;
 					var efn = entry.Name;
-					if (efn.ToLower().EndsWith("/manifest.xml"))
+					if (efn.ToLower().EndsWith("manifest.xml"))
 						continue;
 					
 					if (efn.StartsWith("abdata/"))
@@ -55,7 +55,7 @@ public class unzip : ScriptEvents
 					var bytes = entry2bytes(zip, entry);
 
 					// make the cat manifest csv canonical
-					//print(efn);
+					print(efn);
 					if (efn.StartsWith(prefix) && efn.EndsWith(".csv"))
 					{
 						var str = Encoding.UTF8.GetString(bytes);

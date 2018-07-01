@@ -355,7 +355,7 @@ namespace Patchwork
 		// List union of files or directories
 		public static List<string> GetFilesOrDirs(string path, string mask, bool isdirs = false, bool nobase = false, bool recurse = false)
 		{
-			//Debug.Log($"[CACHE] GetFilesOrDirs {path} {mask} {isdirs} {nobase}");
+			Debug.Log($"[CACHE] GetFilesOrDirs {path} {mask} {isdirs} {nobase}");
 			//Debug.Log(dumpdirCanon);
 			//Debug.Log(LoadedAssetBundle.basePathCanon);
 			var key = recurse.ToString() + nobase.ToString() + path;
@@ -389,7 +389,7 @@ namespace Patchwork
 					var npl = np.ToLower();
 					if (dupes.Contains(npl)) continue;
 					dupes.Add(npl);
-					Debug.Log($"[CACHE] Found {np} ({npl}) isdir={isdirs}");
+					Debug.Log($"[CACHE] Found {mod} {np} ({npl}) isdir={isdirs}");
 					res.Add(np);
 				}
 			}

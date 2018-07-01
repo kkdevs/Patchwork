@@ -24,6 +24,7 @@ public class Reloader : ScriptEvents
 				tss[src] = cts;
 				continue;
 			}
+			tss[src] = cts;
 			// this script gets reloaded too, along with tss
 			stop = true;
 			try
