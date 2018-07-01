@@ -381,6 +381,7 @@ namespace BepInEx
 			public abstract class BaseLogger : TextWriter { };
 			public static void SetLogger(BaseLogger logger)
 			{
+				Trace.Back("Somethign is setting logger from");
 			}
 		}
 	}

@@ -36,8 +36,6 @@ namespace Patchwork
 			"texrespatch",
 			"ipaloader",
 			"illusionplugin",
-			"bepinex",
-			"configurationmanager",
 		};
 		public bool blackFade = false;
 		public List<string> scriptDisabled = new List<string>();

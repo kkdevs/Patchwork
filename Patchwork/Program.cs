@@ -390,10 +390,11 @@ namespace Patchwork
 		{
 			AppDomain.CurrentDomain.AssemblyResolve += (o, e) =>
 			{
+				var self = Assembly.GetExecutingAssembly();
 				var fn = new AssemblyName(e.Name).Name;
 				if (settings.scriptBlacklist.Contains(fn.ToLower())) {
 					Debug.Log("Redirecting " + fn);
-					return Assembly.GetExecutingAssembly();
+					return self;
 				}
 				foreach (var p in settings.scriptPath.Split(';')) {
 					Assembly nass = null;
@@ -406,7 +407,7 @@ namespace Patchwork
 					if (nass != null)
 						return nass;
 				}
-				return null;
+				return self.GetTypesSafe().Any((t) => t.Namespace == fn) ? self : null;
 			};
 			DiscoverScripts();
 		}

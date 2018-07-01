@@ -154,7 +154,7 @@ namespace Patchwork
 		public void Add(Assembly ass)
 		{
 			foreach (var t in ass.GetTypesSafe())
-				if (typeof(IllusionPlugin.IPlugin).IsAssignableFrom(t) || typeof(BepInEx.BaseUnityPlugin).IsAssignableFrom(t))
+				if (typeof(IPlugin).IsAssignableFrom(t) || (t.BaseType != null && t.BaseType.Name == "BaseUnityPlugin"))
 					entrypoint.Add(t);
 			if (entrypoint.Count == 0)
 				return;
@@ -323,6 +323,7 @@ namespace Patchwork
 	/// </summary>
 	public partial class Script : InteractiveBase
 	{
+		public static Assembly baseAssembly => Assembly.GetExecutingAssembly();
 		public static ScriptEvents On = new ScriptEvents();
 		public static Dictionary<string, object> regDict = new Dictionary<string, object>();
 		public static T registry<T>(string name) where T : class, new()
