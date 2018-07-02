@@ -61,7 +61,13 @@ namespace Patchwork
 		{
 			Script.On.OnApplicationQuit();
 			foreach (var ip in ipa)
-				ip.OnApplicationQuit();
+			{
+				try
+				{
+					ip.OnApplicationQuit();
+				}
+				catch { };
+			}
 		}
 		public void Awake() { Script.On.Awake(); }
 		public bool first;
@@ -75,17 +81,30 @@ namespace Patchwork
 				first = true;
 				foreach (var ip in ipa)
 				{
-					ip.OnApplicationStart();
-					ip.OnLevelWasInitialized(SceneManager.GetActiveScene().buildIndex);
+					try
+					{
+						ip.OnApplicationStart();
+						ip.OnLevelWasInitialized(SceneManager.GetActiveScene().buildIndex);
+					} catch (Exception ex)
+					{
+						Trace.Error($"Broken IPA plugin {ip.GetType().Name}: {ex.ToString()}");
+					}
 				}
 			}
-			foreach (var ip in ipa)
-				ip.OnUpdate();
+			try
+			{
+				foreach (var ip in ipa)
+					ip.OnUpdate();
+			} catch { };
 		}
 		public void LateUpdate() {
 			Script.On.LateUpdate();
-			foreach (var ip in ipa)
-				(ip as IEnhancedPlugin)?.OnLateUpdate();
+			try
+			{
+				foreach (var ip in ipa)
+					(ip as IEnhancedPlugin)?.OnLateUpdate();
+			}
+			catch { };
 		}
 		public int tick;
 		public void FixedUpdate() {
@@ -96,8 +115,12 @@ namespace Patchwork
 			}
 			
 			Script.On.FixedUpdate();
-			foreach (var ip in ipa)
-				ip.OnFixedUpdate();
+			try
+			{
+				foreach (var ip in ipa)
+					ip.OnFixedUpdate();
+			}
+			catch { };
 		}
 		public void OnDestroy() { Script.On.OnDestroy(); }
 		public void OnDisable() { Script.On.OnDisable(); }
