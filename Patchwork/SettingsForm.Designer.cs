@@ -333,7 +333,6 @@ namespace Patchwork
 			// 
 			// runChara
 			// 
-			this.runChara.Enabled = false;
 			this.runChara.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.runChara.Location = new System.Drawing.Point(484, 409);
 			this.runChara.Name = "runChara";
