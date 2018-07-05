@@ -20,8 +20,8 @@ namespace Patchwork
 	public class Cache
 	{
 		public static SaveFrameAssist saveFrameAssist;
-		public static string dumpdir => UserData.Path + "/csv/";
-		public static string dumpdirCanon => Path.GetFullPath(dumpdir).ToLower();
+		public static string dumpdir => Program.dumppath;
+		public static string modCanon => Path.GetFullPath(Program.modbase).ToLower();
 
 		// Resolve cache folder from bundle name
 		public static string BundleDir(string bundle, bool create = false)
@@ -343,13 +343,16 @@ namespace Patchwork
 		{
 			var pathl = path.ToLower();
 			addy = null;
+			// placed elsewhere
 			if (!pathl.StartsWith(LoadedAssetBundle.basePathCanon))
 			{
 				// eventually there's going to be more than /csv
-				if (pathl.StartsWith(dumpdirCanon))
+				if (pathl.StartsWith(modCanon))
 				{
-					var sb = path.Substring(dumpdirCanon.Length);
-					addy = dumpdirCanon + sb;
+					// strip modbase
+					var sb = path.Substring(modCanon.Length);
+					// and strip one component
+					sb = sb.Substring(sb.IndexOf('\\') + 1);
 					return sb;
 				}
 				return null;
@@ -431,7 +434,7 @@ namespace Patchwork
 				if (File.Exists(nvpath))
 				{
 					vpath = nvpath;
-					break;
+					//break;
 				}
 			}
 			if (!File.Exists(vpath) && !Directory.Exists(vpath))

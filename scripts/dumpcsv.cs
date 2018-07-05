@@ -11,14 +11,14 @@ public partial class ScriptEnv
 	{
 		string[] csvdirs =
 		new string[] {
-			"action/actioncontrol",
+			/*"action/actioncontrol",
 			"adv",
 			"communication",
-			"custom",
+			"custom",*/
 			"h/list",
-			"scene",
+			/*"scene",
 			"list",
-			"map/list",
+			"map/list",*/
 		};
 		var mainass = AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "Assembly-CSharp");
 		var dumpables = mainass.GetExportedTypes().Where(t => typeof(IDumpable).IsAssignableFrom(t));
@@ -40,17 +40,27 @@ public partial class ScriptEnv
 				print($"Dumping {abname}");
 				foreach (var aname in ab.GetAllAssetNames())
 				{
+					
 					var shorted = Path.GetFileNameWithoutExtension(aname);
-					// try to dump lsts speculatively
-					var res = GlobalMethod.LoadAllListText(abname, shorted);
-					if (res == "@garray")
+					if (!shorted.StartsWith("personality"))
 						continue;
+					print(shorted);
+					// try to dump lsts speculatively
+					var res = GlobalMethod.LoadAllListText(Path.GetDirectoryName(abname), shorted);
+					if (res == "@garray")
+					{
+						print("got garray");
+						continue;
+					}
 					// or one of the serializable types
 					foreach (var typ in dumpables) {
 						try
 						{
 							if (Cache.Asset(abname, shorted, typ) != null)
+							{
+								print($"{shorted} {typ}");
 								break;
+							}
 						} catch { };
 					}
 				}

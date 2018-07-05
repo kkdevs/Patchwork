@@ -1,5 +1,5 @@
 ﻿//@INFO: Various workarounds
-//@VER: 1
+//@VER: 2
 
 using System;
 using System.Collections;

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Patchwork
 {
@@ -16,6 +18,7 @@ namespace Patchwork
 	/// </summary>
 	public class ScriptEvents
 	{
+		public static BaseLoader sceneInstance;
 		/// <summary>
 		/// Paused
 		/// </summary>
@@ -30,7 +33,7 @@ namespace Patchwork
 		/// On level change (not scene!)
 		/// </summary>
 		/// <param name="level"></param>
-		public virtual void OnLevelWasLoaded(int level) { }
+		public virtual void OnLevelWasLoaded(Scene scene, LoadSceneMode mode) { }
 
 		/// <summary>
 		/// Called on exit
@@ -145,5 +148,12 @@ namespace Patchwork
 		/// <param name="ids"></param>
 		/// <returns></returns>
 		public virtual void OnSetClothes(ChaControl ch, int cat, int[] ids) { }
+
+		public virtual void OnPlayVoice(LoadVoice v) { }
+
+		public Coroutine StartCoroutine(IEnumerator co)
+		{
+			return MBProxy.instance.StartCoroutine(co);
+		}
 	}
 }

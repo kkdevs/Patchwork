@@ -18,7 +18,7 @@ public class unzip : ScriptEvents
 	[Prio(99999)]
 	public override void Awake()
 	{
-		var target = UserData.Path + "mod/";
+		var target = Program.modbase;
 		print("Unzipping mods into " + Path.GetFullPath(target));
 		var zipdir = Program.BasePath + "/mods";
 		foreach (var zipfn in Directory.GetFiles(zipdir, "*.zip", SearchOption.TopDirectoryOnly))

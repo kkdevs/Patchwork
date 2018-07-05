@@ -45,18 +45,37 @@ namespace Patchwork
 		/// Attach MBProxy to a singleton GameObject
 		/// </summary>
 		public static GameObject go;
+		public static MBProxy instance;
+		public static bool hasScene;
 		public static void Attach()
 		{
 			if (go != null) return;
 			// And wire the dispatcher to monob proxy
 			go = new GameObject("Scripts");
-			go.AddComponent<MBProxy>();
+			instance = go.AddComponent<MBProxy>();
 			DontDestroyOnLoad(go);
+			SceneManager.sceneLoaded += (scene, mode) =>
+			{
+				Debug.Log($"[SCENE] change to {scene.name} {scene.buildIndex}");
+				Script.On.OnLevelWasLoaded(scene, mode);
+				foreach (var ip in ipa)
+				{
+					try
+					{
+						Debug.Log($"Notifying {ip.GetType().Name}");
+						ip.OnLevelWasLoaded(scene.buildIndex);
+					}
+					catch (Exception ex)
+					{
+						print(ex);
+					};
+					hasScene = true;
+				}
+			};
 		}
 
 		public void OnApplicationPause(bool pauseStatus) { Script.On.OnApplicationPause(pauseStatus); }
 		public void OnApplicationFocus(bool focus) { Script.On.OnApplicationFocus(focus); }
-		public void OnLevelWasLoaded(int level) { Script.On.OnLevelWasLoaded(level); }
 		public void OnApplicationQuit()
 		{
 			Script.On.OnApplicationQuit();
@@ -66,25 +85,31 @@ namespace Patchwork
 				{
 					ip.OnApplicationQuit();
 				}
-				catch { };
+				catch (Exception ex)
+				{
+					print(ex);
+				};
 			}
 		}
-		public void Awake() { Script.On.Awake(); }
+		public void Awake() {
+			instance = this;
+			Script.On.Awake();
+		}
 		public bool first;
 		public void Update() {
 			Script.On.Update();
 			if (!first)
 			{
 				// shortcutskoi workaround
-				if (Camera.main == null)
-					return;
+//				if (Camera.main == null)
+//					return;
 				first = true;
 				foreach (var ip in ipa)
 				{
 					try
 					{
 						ip.OnApplicationStart();
-						ip.OnLevelWasInitialized(SceneManager.GetActiveScene().buildIndex);
+						Script.print($"Loaded {ip.GetType().Name}");
 					} catch (Exception ex)
 					{
 						Trace.Error($"Broken IPA plugin {ip.GetType().Name}: {ex.ToString()}");
@@ -96,6 +121,18 @@ namespace Patchwork
 				foreach (var ip in ipa)
 					ip.OnUpdate();
 			} catch { };
+			if (hasScene)
+			{
+				foreach (var ip in ipa)
+				{
+					try
+					{
+						ip.OnLevelWasInitialized(SceneManager.GetActiveScene().buildIndex);
+					}
+					catch { };
+				}
+				hasScene = false;
+			}
 		}
 		public void LateUpdate() {
 			Script.On.LateUpdate();
@@ -241,7 +278,7 @@ namespace Patchwork
 			// collect the methods we'll broadcast to
 			foreach (var t in scriptass.GetTypesSafe())
 			{
-				if (!typeof(ScriptEvents).IsAssignableFrom(t))
+				if (!typeof(ScriptEvents).IsAssignableFrom(t) || t.IsAbstract || t.IsInterface || !t.IsPublic)
 					continue;
 				foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.Instance))
 				{
@@ -329,7 +366,10 @@ namespace Patchwork
 							MBProxy.ipa.Add(ip);
 						}
 						else
+						{
 							MBProxy.go.AddComponent(ep);
+							Script.print($"Loaded {dll.name}");
+						}
 					}
 					catch (Exception ex)
 					{

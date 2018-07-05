@@ -1,6 +1,6 @@
 ﻿//@INFO: Compatibility for Id colliding mods
 //@DESC: Rewrite item ids to fake ones so that broken mods still show up
-//@VER: 1
+//@VER: 2
 //@AFTER: unzip
 
 using System;
@@ -154,7 +154,8 @@ public class FakeID : ScriptEvents
 			// nothing found via our guid mappings, so default to a first fake we encounter
 			if (idMap.real2fake.TryGetValue(realpair, out candidates))
 				return candidates.FirstOrDefault();
-			print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
+			if (cat != 0 && id != 0)
+				print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
 			return id;
 		}
 
@@ -168,7 +169,8 @@ public class FakeID : ScriptEvents
 				return id;
 			if (!idMap.fake2real.TryGetValue(id, out lib) || lib.Category != cat)
 			{
-				print($"Failed to translate fake to real prop={prop} cat({cat}), id={id}");
+				if (cat != 0 && id != 0)
+					print($"Failed to translate fake to real prop={prop} cat({cat}), id={id}");
 				return id;
 			}
 			if (lib.Distribution2.IsNullOrEmpty())

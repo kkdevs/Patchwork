@@ -15,7 +15,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Manager.Scene.Data;
 
-public class GhettoSave : ScriptEvents
+public class GhettoSave : GhettoUI
 {
 	public string datefmt = "MM/dd/yyyy hh:mm:ss";
 	public string scene;
@@ -66,8 +66,6 @@ public class GhettoSave : ScriptEvents
 		return false;
 	}
 	public Vector2 scrollpos;
-	public GUISkin skin;
-	public GUIStyle toleft;
 	public string savedir => Application.dataPath + "/../userdata/save/ghettosave";
 	public string savedir2 => Application.dataPath + "/../userdata/save/game";
 	public override void Start()
@@ -105,49 +103,6 @@ public class GhettoSave : ScriptEvents
 			ask = null;
 		}
 		if (scene == null) return;
-		if (skin == null)
-		{
-			Texture2D tex, tex2, tex3;
-			tex = new Texture2D(1, 1);
-			tex.SetPixel(0, 0, new Color(0, 0, 0, 0.7f));
-			tex.Apply();
-
-			tex2 = new Texture2D(1, 1);
-			tex2.SetPixel(0, 0, new Color(1, 1, 1, 0.5f));
-			tex2.Apply();
-
-			tex3 = new Texture2D(1, 1);
-			tex3.SetPixel(0, 0, new Color(0.7f, 0.7f, 0.7f, 1f));
-			tex3.Apply();
-
-			skin = Object.Instantiate(GUI.skin);
-			var styles = new GUIStyle[] { skin.verticalScrollbar, skin.button };
-			foreach (var s in styles)
-			{
-				s.normal.background = tex;
-				s.hover.background = tex3;
-				s.active.background = tex3;
-				s.focused.background = tex3;
-			}
-
-			var styles2 = new GUIStyle[] { skin.verticalScrollbarThumb, skin.verticalSliderThumb };
-			foreach (var s in styles2)
-			{
-				s.normal.background = tex2;
-				s.hover.background = tex2;
-				s.active.background = tex2;
-				s.focused.background = tex2;
-			}
-			skin.window.normal.background = tex2;
-			skin.button.margin = new RectOffset(0, 0, 0, 0);
-			//skin.button.fixedHeight = 40;
-			skin.button.fontSize = 16;
-			skin.button.padding.top = 8;
-			skin.button.padding.bottom = 8;
-			toleft = new GUIStyle(skin.button);
-			toleft.alignment = TextAnchor.MiddleLeft;
-		}
-		GUI.skin = skin;
 
 		GUILayout.BeginArea(new Rect(Screen.width * 0.25f, Screen.height * 0.25f, Screen.width * 0.5f, Screen.height * 0.5f));
 		GUILayout.FlexibleSpace();
@@ -177,7 +132,7 @@ public class GhettoSave : ScriptEvents
 			foreach (var b in saves)
 			{
 				var bn = b.Value.ToString(datefmt) + " - " + Path.GetFileNameWithoutExtension(b.Key);
-				if (GUILayout.Button(bn, toleft))
+				if (GUILayout.Button(bn, GhettoUI.toleft))
 				{
 					if (scene == "Load")
 					{
@@ -215,6 +170,7 @@ public class GhettoSave : ScriptEvents
 		GUILayout.FlexibleSpace();
 		GUILayout.EndArea();
 	}
+
 	public void doSave(string path = null)
 	{
 		print("Saving game");

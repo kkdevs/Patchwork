@@ -60,6 +60,8 @@
     <Compile Include="dumpcsv.cs" />
     <Compile Include="fixplugins.cs" />
     <Compile Include="ghettosave.cs" />
+    <Compile Include="ghettoui.cs" />
+    <Compile Include="hsubs.cs" />
     <Compile Include="reloader.cs" />
     <Compile Include="fakeid.cs" />
     <Compile Include="fakeidkkex.cs" />

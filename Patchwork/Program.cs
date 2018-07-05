@@ -55,11 +55,11 @@ namespace Patchwork
 
 		public static string BasePath;
 
-		// Don't touch unity in weird places if local
-		public static string cfgpath { get { return BasePath + "UserData/patchwork.xml"; } }
-		public static string historypath { get { return BasePath + "UserData/history.xml"; } }
-		public static string modbase { get { return Path.GetFullPath(BasePath + "UserData/mod/"); } }
-		public static string tempbase { get { return Path.GetFullPath(BasePath + "cache"); } }
+		public static string dumppath { get { return BasePath + "patchwork/mod/!base/"; } }
+		public static string cfgpath { get { return BasePath + "patchwork/config.xml"; } }
+		public static string historypath { get { return BasePath + "patchwork/history.xml"; } }
+		public static string modbase { get { return Path.GetFullPath(BasePath + "patchwork/mod/"); } }
+		public static string tempbase { get { return Path.GetFullPath(BasePath + "patchwork/cache/"); } }
 		public static SettingsForm form;
 		public static Settings _settings;
 		public static Settings settings
@@ -173,6 +173,7 @@ namespace Patchwork
 			LoadConfig();
 			Directory.CreateDirectory(modbase);
 			Directory.CreateDirectory(tempbase);
+			Directory.CreateDirectory(dumppath);
 			Trace.Info("Basepath=" + BasePath);
 		}
 
