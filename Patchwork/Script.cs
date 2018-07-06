@@ -278,8 +278,16 @@ namespace Patchwork
 			// collect the methods we'll broadcast to
 			foreach (var t in scriptass.GetTypesSafe())
 			{
-				if (!typeof(ScriptEvents).IsAssignableFrom(t) || t.IsAbstract || t.IsInterface || !t.IsPublic)
+				if (t.IsAbstract || t.IsInterface || (!t.IsPublic))
+				{
+					Debug.Log($"[SCRIPT] Skipping {t.Name} because it is abstract {t.IsAbstract} {t.IsInterface} {t.IsPublic} {t.BaseType?.Name ?? "no base"} {t?.BaseType?.BaseType?.Name ?? "no 2base"}");
 					continue;
+				}
+				for (var bt = t.BaseType; bt != null && bt != typeof(Object); bt = bt.BaseType)
+					if (bt.Name == "ScriptEvents")
+						goto good;
+				continue;
+				good:
 				foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.Instance))
 				{
 					if (!broadcast.ContainsKey(m.Name))
@@ -460,7 +468,7 @@ namespace Patchwork
 		public static bool reload()
 		{
 			var oldeva = Evaluator;
-			Evaluator = MonoScript.New(new Reporter(), typeof(Script), Program.tempbase);
+			Evaluator = MonoScript.New(new Reporter(), typeof(Script), Program.settings.cacheScripts?Program.tempbase:null);
 			Output = Evaluator.tw;
 			Error = Evaluator.tw;
 			Assembly sass = null;

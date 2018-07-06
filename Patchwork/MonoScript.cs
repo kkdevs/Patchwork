@@ -39,10 +39,17 @@ public class MonoScript : Evaluator
 	public bool pause;
 	void asmLoaded(object sender, AssemblyLoadEventArgs e)
 	{
-		if (pause) return;
-		if (e.LoadedAssembly.FullName.StartsWith("eval-") || e.LoadedAssembly.FullName == "completions")
+		Debug.Log("Referencing assembly " + e.LoadedAssembly.FullName);
+		if (pause)
+		{
+			Debug.Log("Skip because of pause");
 			return;
-		//tw.WriteLine("Referencing assembly " + e.LoadedAssembly.FullName);
+		}
+		if (e.LoadedAssembly.FullName.StartsWith("eval-") || e.LoadedAssembly.FullName == "completions")
+		{
+			Debug.Log("skip blacklist");
+			return;
+		}
 		try
 		{
 			ReferenceAssembly(e.LoadedAssembly);
@@ -74,7 +81,7 @@ public class MonoScript : Evaluator
 		foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
 		{
 			var an = a.GetName().Name;
-			if (IsStdLib(an) || an.StartsWith("eval-") || an.StartsWith("completion") || an.StartsWith(ignore) || unloaded.Contains(an.ToLower()))
+			if (IsStdLib(an) || an == "BepInEx" || an.StartsWith("eval-") || an.StartsWith("completion") || an.StartsWith(ignore) || unloaded.Contains(an.ToLower()))
 			{
 				Debug.Log("Skipping blacklisted reference " + an);
 				continue;
@@ -107,6 +114,7 @@ public class MonoScript : Evaluator
 	/// <returns></returns>
 	public Assembly StaticCompile(IEnumerable<object> sources, string prefix = "compiled_")
 	{
+		Debug.Log($"[SCRIPT] Static compiling {prefix}");
 		pause = true;
 		var ret = DoStaticCompile(sources, prefix);
 		pause = false;

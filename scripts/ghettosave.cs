@@ -15,7 +15,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Manager.Scene.Data;
 
-public class GhettoSave : GhettoUI
+public class Blabla2 : GhettoUI
 {
 	public string datefmt = "MM/dd/yyyy hh:mm:ss";
 	public string scene;

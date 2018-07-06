@@ -8,7 +8,6 @@ using System.IO;
 using UnityEngine;
 using MessagePack;
 
-
 public class HSubs : GhettoUI
 {
 	// change this if you want private tl, replace the '1U0pRyY8e2fIg0E4iBXXRIzpGGDBs5W_g9KfjObS-xI0' part with your shareable-link
@@ -55,12 +54,12 @@ public class HSubs : GhettoUI
 			foreach (var cell in row)
 			{
 				if (idx == 0)
-					sound = cell;
+					sound = cell.ToLower();
 				if (idx == 2)
 					tl = cell;
 				idx++;
 			}
-			if (sound != null && tl != null && tl != "" && sound.Length < 64)
+			if (sound != null && tl != null && sound.Length < 64)
 			{
 				cnt++;
 				dict[sound] = tl;
@@ -81,14 +80,16 @@ public class HSubs : GhettoUI
 		if (audioSource == null || v.audioSource.loop)
 			return;
 		expires = Time.realtimeSinceStartup + audioSource.clip.length - audioSource.time;
-		if (!dict.TryGetValue(v.assetName, out currentLine))
+		if (!dict.TryGetValue(v.assetName.ToLower(), out currentLine))
 			currentLine = v.word;
+		if (Program.settings.enableSpam)
+			print($"[HSUBS] [{v.assetName}] '{v.word}' => '{currentLine}'");
 	}
 	public bool hasUI;
 
 	public override void Occasion()
 	{
-		var can = GameObject.Find("Canvas").GetComponent<Canvas>();
+		var can = GameObject.Find("Canvas")?.GetComponent<Canvas>();
 		hasUI = can == null ? false : can.enabled;
 	}
 	public override void OnGUI()
@@ -107,5 +108,5 @@ public class HSubs : GhettoUI
 // repl command
 public partial class ScriptEnv
 {
-	public static void UpdateSubs() => HSubs.UpdateSubs();
+	//public static void UpdateSubs() => HSubs.UpdateSubs();
 }

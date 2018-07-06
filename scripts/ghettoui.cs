@@ -1,7 +1,7 @@
 ﻿using Patchwork;
 using UnityEngine;
 
-public abstract class GhettoUI : ScriptEvents
+public class GhettoUI : ScriptEvents
 {
 	public static GUISkin skin;
 	public static GUIStyle toleft;
@@ -10,7 +10,6 @@ public abstract class GhettoUI : ScriptEvents
 
 public class GhettoScript : ScriptEvents
 {
-
 	[Prio(9000)]
 	public override void OnGUI()
 	{
