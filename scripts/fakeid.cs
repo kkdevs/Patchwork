@@ -100,6 +100,8 @@ public class FakeID : ScriptEvents
 	{
 		if ((lib.Category < (int)CategoryNo.bo_head) && (lib.Category != (int)CategoryNo.bodypaint_layout && lib.Category != (int)CategoryNo.facepaint_layout))
 			return;
+		if (lib.Category == (int)CategoryNo.mt_ramp)
+			return;
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
 	}
 
