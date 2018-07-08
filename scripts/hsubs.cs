@@ -84,6 +84,7 @@ public class HSubs : GhettoUI
 			currentLine = v.word;
 		if (Program.settings.enableSpam)
 			print($"[HSUBS] [{v.assetName}] '{v.word}' => '{currentLine}'");
+		GUIUtility.systemCopyBuffer = v.word;
 	}
 	public bool hasUI;
 

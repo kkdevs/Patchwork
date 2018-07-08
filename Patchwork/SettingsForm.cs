@@ -110,41 +110,41 @@ namespace Patchwork
 				var li = new ListViewItem(new[] { "a", "b", "c" });
 				scriptList.Items.Add(li);
 			}*/
-			var checkLock = false;
 			scriptList.ItemCheck += (o, e) =>
 			{
-				var script = scriptList.Items[e.Index].Tag as ScriptEntry;
-				if (Program.settings.scriptBlacklist.Contains(script.name))
-				{
-					e.NewValue = CheckState.Unchecked;
-					return;
-				}
-
+				var lv = scriptList.Items[e.Index];
+				var script = lv.Tag as ScriptEntry;
 				if (e.NewValue == CheckState.Checked)
 				{
+					if (script.enabled)
+						return;
 					// enable script's dependencies
 					foreach (var scr in ScriptEntry.list)
 						if (script.deps.Contains(scr.name.ToLower()))
 						{
-							if (scr.listView != null)
-								scr.listView.Checked = true;
 							scr.enabled = true;
+							if (scr.listView != null)
+								scr.listView.Checked = scr.enabled;
 						}
 					script.enabled = true;
-					Program.settings.scriptDisabled.Remove(script.name.ToLower());
+					if (script.enabled)
+						Program.settings.scriptDisabled.Remove(script.name.ToLower());
 					Program.SaveConfig();
 				}  else
 				{
+					if (!script.enabled)
+						return;
 					// disable all scripts depending on this one
 					foreach (var scr in ScriptEntry.list)
 						if (scr.deps.Contains(script.name.ToLower()))
 						{
-							if (scr.listView != null)
-								scr.listView.Checked = false;
 							scr.enabled = false;
+							if (scr.listView != null)
+								scr.listView.Checked = scr.enabled;
 						}
 					script.enabled = false;
-					Program.settings.scriptDisabled.Add(script.name.ToLower());
+					if (!script.enabled)
+						Program.settings.scriptDisabled.Add(script.name.ToLower());
 					Program.SaveConfig();
 				}
 			};

@@ -151,9 +151,16 @@ namespace Patchwork
 
 		public virtual void OnPlayVoice(LoadVoice v) { }
 
+		public virtual void OnLoadFBX(ChaControl ctrl, ref GameObject go, string ab = null, string ass = null, ListInfoBase lib = null) { }
+
 		public Coroutine StartCoroutine(IEnumerator co)
 		{
 			return MBProxy.instance.StartCoroutine(co);
+		}
+
+		public static void Schedule(System.Action cb)
+		{
+			MBProxy.pendingActions.Add(cb);
 		}
 	}
 }

@@ -99,9 +99,12 @@ public class LoadedAssetBundle
 		if (ab == null)
 			ab = new LoadedAssetBundle(name);
 		ab.path = Cache.GetPath(basePath + name);
-		Debug.Log($"[ABM] Path {ab.path}");
 		if (ab.path == null)
+		{
+			Debug.Log($"[ABM] No useable file found for {basePath+name}");
 			return null;
+		}
+		Debug.Log($"[ABM] Path {ab.path}");
 		if (!File.Exists(ab.path))
 			return null;
 		loadedBundles[name] = ab;
@@ -124,10 +127,12 @@ public class LoadedAssetBundle
 				Load(dep)?.Ensure();
 		if (m_AssetBundle == null)
 		{
+			Debug.Log($"[ABM] LOADTRY 1 {path}");
 			m_AssetBundle = AssetBundle.LoadFromFile(path);
 			if (m_AssetBundle == null)
 			{
 				GCBundles();
+				Debug.Log($"[ABM] LOADTRY 2 {path}");
 				m_AssetBundle = AssetBundle.LoadFromFile(path);
 			}
 		}
@@ -135,7 +140,7 @@ public class LoadedAssetBundle
 		if (level == 0)
 			version++;
 		if (m_AssetBundle == null)
-			Debug.Log($"[ABM] Failed to load {path} for {forname}");
+			Trace.Spam($"[ABM] Failed to load {path} for {forname}");
 		return m_AssetBundle != null;
 	}
 

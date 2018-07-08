@@ -41,9 +41,12 @@ namespace Patchwork
 	{
 		public static List<IPlugin> ipa = new List<IPlugin>();
 
+		public static List<Action> pendingActions = new List<Action>();
+
 		/// <summary>
 		/// Attach MBProxy to a singleton GameObject
 		/// </summary>
+		/// 
 		public static GameObject go;
 		public static MBProxy instance;
 		public static bool hasScene;
@@ -98,24 +101,6 @@ namespace Patchwork
 		public bool first;
 		public void Update() {
 			Script.On.Update();
-			if (!first)
-			{
-				// shortcutskoi workaround
-//				if (Camera.main == null)
-//					return;
-				first = true;
-				foreach (var ip in ipa)
-				{
-					try
-					{
-						ip.OnApplicationStart();
-						Script.print($"Loaded {ip.GetType().Name}");
-					} catch (Exception ex)
-					{
-						Trace.Error($"Broken IPA plugin {ip.GetType().Name}: {ex.ToString()}");
-					}
-				}
-			}
 			try
 			{
 				foreach (var ip in ipa)
@@ -158,6 +143,10 @@ namespace Patchwork
 					ip.OnFixedUpdate();
 			}
 			catch { };
+
+			foreach (var cb in pendingActions)
+				cb();
+			pendingActions.Clear();
 		}
 		public void OnDestroy() { Script.On.OnDestroy(); }
 		public void OnDisable() { Script.On.OnDisable(); }
@@ -181,21 +170,68 @@ namespace Patchwork
 		public Assembly ass;
 		public List<string> deps = new List<string>();
 		public ListViewItem listView;
-		public bool enabled;
+
 		public List<Type> entrypoint = new List<Type>();
 
 		public static List<ScriptEntry> list = new List<ScriptEntry>();
 
+		public static bool reloadPending;
+		public bool _enabled;
+		public bool enabled
+		{
+			get
+			{
+				return _enabled;
+			}
+			set
+			{
+				if (!Program.launched)
+				{
+					_enabled = value;
+					return;
+				}
+				
+				if (ass != null)
+				{
+					// DLL can't be disabled
+					if (value == false)
+					{
+						MBProxy.pendingActions.Add(() =>
+						{
+							listView.Checked = true;
+						});
+						return;
+					}
+					_enabled = value;
+					RunDLL();
+					return;
+				}
+
+				_enabled = value;
+				// Otherwise a script, just recompile everything
+				if (!reloadPending)
+				{
+					reloadPending = true;
+					MBProxy.pendingActions.Add(() =>
+					{
+						Script.reload();
+						reloadPending = false;
+					});
+				}
+			}
+		}
+
 		/// <summary>
 		/// Add a script entry to the list
 		/// </summary>
-		public void Add()
+		public bool Add()
 		{
 			if (source.EndsWith(".dll"))
 			{
 				try
 				{
 					Add(Ext.LoadAssembly(source));
+					return true;
 				}
 				catch (Exception ex)
 				{
@@ -204,7 +240,9 @@ namespace Patchwork
 			} else if (source.EndsWith(".cs"))
 			{
 				Add(Ext.LoadTextFile(source));
+				return true;
 			}
+			return false;
 		}
 
 		/// <summary>
@@ -361,28 +399,33 @@ namespace Patchwork
 		{
 			// Fire up the dlls
 			foreach (var dll in list)
+				dll.RunDLL();
+		}
+
+		public void RunDLL()
+		{
+			var dll = this;
+			if (dll.ass == null) return;
+			if (!dll.enabled) return;
+			foreach (var ep in dll.entrypoint)
 			{
-				if (dll.ass == null) continue;
-				if (!dll.enabled) continue;
-				foreach (var ep in dll.entrypoint)
+				try
 				{
-					try
+					if (typeof(IPlugin).IsAssignableFrom(ep))
 					{
-						if (typeof(IPlugin).IsAssignableFrom(ep))
-						{
-							var ip = Activator.CreateInstance(ep) as IPlugin;
-							MBProxy.ipa.Add(ip);
-						}
-						else
-						{
-							MBProxy.go.AddComponent(ep);
-							Script.print($"Loaded {dll.name}");
-						}
+						var ip = Activator.CreateInstance(ep) as IPlugin;
+						MBProxy.ipa.Add(ip);
+						ip.OnApplicationStart();
 					}
-					catch (Exception ex)
+					else
 					{
-						Script.print("{dll.name} failed to load: " + ex.Message);
+						MBProxy.go.AddComponent(ep);
 					}
+					Script.print($"Loaded {dll.name}");
+				}
+				catch (Exception ex)
+				{
+					Script.print("{dll.name} failed to load: " + ex.Message);
 				}
 			}
 		}

@@ -6,10 +6,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Macros : ScriptEvents {
+	public bool first;
 	public override bool OnScene(string name, string subname) 
 	{
+		if (!first)
+			Program.ShowWindow(Program.hwnd, 5);
+		first = true;
 		print($"[SCENE] {name} {subname}");
 		return false;
+	}
+	public override void OnLoadFBX(ChaControl ctrl, ref GameObject go, string ab = null, string ass = null, ListInfoBase lib = null)
+	{
+		if (go == null) return;
+		print($"[FBX] {go.name}");
 	}
 }
 

@@ -2088,7 +2088,7 @@ namespace Patchwork
 			this.scriptReload.Name = "scriptReload";
 			this.scriptReload.Size = new System.Drawing.Size(263, 28);
 			this.scriptReload.TabIndex = 3;
-			this.scriptReload.Text = "Reload";
+			this.scriptReload.Text = "Refresh list";
 			this.scriptReload.UseVisualStyleBackColor = true;
 			// 
 			// label54
@@ -2752,7 +2752,7 @@ namespace Patchwork
 		}
 
 		#endregion
-		private System.Windows.Forms.TabControl tabControl1;
+		public System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.GroupBox groupBox3;
@@ -2950,7 +2950,6 @@ namespace Patchwork
 		private System.Windows.Forms.CheckBox cacheScripts;
 		private System.Windows.Forms.Label label54;
 		private System.Windows.Forms.TextBox scriptPath;
-		private System.Windows.Forms.ListView scriptList;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.ColumnHeader columnHeader2;
 		private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -2965,6 +2964,7 @@ namespace Patchwork
 		public System.Windows.Forms.Button scriptReload;
 		public System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.CheckBox blackFade;
+		public System.Windows.Forms.ListView scriptList;
 	}
 }
 

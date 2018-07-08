@@ -143,9 +143,11 @@ namespace Patchwork
 				Environment.Exit(1);
 			form.launchButton.Enabled = false;
 			form.runChara.Enabled = false;
-			foreach (var c in form.tabPage7.Controls)
-				(c as Control).Enabled = false;
+			//foreach (var c in form.tabPage7.Controls)
+			//	(c as Control).Enabled = false;
+			form.scriptReload.Enabled = false;
 			form.Show();
+			form.tabControl1.SelectedIndex = form.tabControl1.Controls.Count - 1;
 			form.FormClosing += (o, e) =>
 			{
 				//if (e.CloseReason == CloseReason.ApplicationExitCall)
@@ -278,9 +280,19 @@ namespace Patchwork
 				Environment.Exit(1);
 			}
 		}
+
+		static bool blinit;
 		public static void InitBeforeBaseLoader()
 		{
+			if (!blinit)
+			{
+				form?.BringToFront();
+				form?.replOutput?.AppendText("Loading...\n");
+				System.Windows.Forms.Application.DoEvents();
+			}
+			blinit = true;
 		}
+
 		public static System.Timers.Timer timer;
 		public static void PostInit()
 		{
@@ -302,6 +314,7 @@ namespace Patchwork
 			settings.Apply(true);
 			settings.UpdateCamera(null);
 			SaveConfig();
+			form?.BringToFront();
 
 			AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
 			{
@@ -416,29 +429,40 @@ namespace Patchwork
 		public static void DiscoverScripts()
 		{
 			ScriptEntry.list.Clear();
-			Dictionary<string, ScriptEntry> dupes = new Dictionary<string, ScriptEntry>();
+			Dictionary<string, string> dupes = new Dictionary<string, string>();
 			foreach (var f in Ext.GetFilesMulti(settings.scriptPath.Split(';').Select(x => BasePath + x), "*.*")) {
 				var bn = Path.GetFileNameWithoutExtension(f);
-				var bnfl = Path.GetFileName(f).ToLower();
 				var bnl = bn.ToLower();
 				if (settings.scriptBlacklist.Contains(bnl))
 				{
 					Trace.Log($"[SCRIPT] Skipping {bn} because it is blacklisted");
 					continue;
 				}
-				if (dupes.ContainsKey(bnfl))
+				if (dupes.TryGetValue(bnl, out string existing))
 				{
-					Trace.Log($"[SCRIPT] Skipping duplicate {f}, previously seen as {dupes[bnfl].source}");
-					continue;
+					// replace dll with script if same name
+					if (f.EndsWith(".cs") && !existing.EndsWith(".cs"))
+					{
+						Trace.Log($"[SCRIPT] Skipping {existing} in favor of {f}");
+					}
+					else
+					{
+						Trace.Log($"[SCRIPT] Skipping duplicate {f}, previously seen as {dupes[bnl]}");
+						continue;
+					}
 				}
-				
+				dupes[bnl] = f;
+			}
+
+			foreach (var f in dupes.Values)
+			{
+				var bn = Path.GetFileNameWithoutExtension(f);
 				var entry = new ScriptEntry()
 				{
 					name = bn,
 					source = f,
 					enabled = !settings.scriptDisabled.Contains(bn.ToLower()),
 				};
-				dupes[bnl] = entry;
 				entry.Add();
 			}
 		}

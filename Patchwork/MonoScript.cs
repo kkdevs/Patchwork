@@ -81,7 +81,7 @@ public class MonoScript : Evaluator
 		foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
 		{
 			var an = a.GetName().Name;
-			if (IsStdLib(an) || an == "BepInEx" || an.StartsWith("eval-") || an.StartsWith("completion") || an.StartsWith(ignore) || unloaded.Contains(an.ToLower()))
+			if (IsStdLib(an) || /*an == "BepInEx" || */an.StartsWith("eval-") || an.StartsWith("completion") || an.StartsWith(ignore) || unloaded.Contains(an.ToLower()))
 			{
 				Debug.Log("Skipping blacklisted reference " + an);
 				continue;
