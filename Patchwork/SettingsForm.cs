@@ -124,7 +124,11 @@ namespace Patchwork
 						{
 							scr.enabled = true;
 							if (scr.listView != null)
+							{
 								scr.listView.Checked = scr.enabled;
+								if (scr.enabled)
+									Program.settings.scriptDisabled.Remove(scr.name.ToLower());
+							}
 						}
 					script.enabled = true;
 					if (script.enabled)
@@ -140,7 +144,11 @@ namespace Patchwork
 						{
 							scr.enabled = false;
 							if (scr.listView != null)
+							{
 								scr.listView.Checked = scr.enabled;
+								if (!scr.enabled)
+									Program.settings.scriptDisabled.Add(scr.name.ToLower());
+							}
 						}
 					script.enabled = false;
 					if (!script.enabled)
