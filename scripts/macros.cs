@@ -2,6 +2,7 @@
 
 using IllusionUtility.GetUtility;
 using Patchwork;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,15 +16,11 @@ public class Macros : ScriptEvents {
 		print($"[SCENE] {name} {subname}");
 		return false;
 	}
-	public override void OnLoadFBX(ChaControl ctrl, ref GameObject go, string ab = null, string ass = null, ListInfoBase lib = null)
-	{
-		if (go == null) return;
-		print($"[FBX] {go.name}");
-	}
 }
 
 public partial class ScriptEnv
 {
+	public static HSubsConfig hscfg => HSubs.cfg;
 	public static Lookat_dan lookatdan => Object.FindObjectOfType<Lookat_dan>();
 	//public static GameObject female => GameObject.Find("chaF_001");
 	public static GameObject female => SceneManager.GetSceneAt(0).GetRootGameObjects()[0].transform.FindLoop("chaF_001");

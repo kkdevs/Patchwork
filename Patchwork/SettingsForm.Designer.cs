@@ -2158,19 +2158,19 @@ namespace Patchwork
 			this.groupBox9.Controls.Add(this.useBOM);
 			this.groupBox9.Controls.Add(this.fetchAssets);
 			this.groupBox9.Controls.Add(this.dumpAssets);
-			this.groupBox9.Location = new System.Drawing.Point(34, 26);
+			this.groupBox9.Location = new System.Drawing.Point(34, 25);
 			this.groupBox9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox9.Name = "groupBox9";
 			this.groupBox9.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox9.Size = new System.Drawing.Size(300, 154);
+			this.groupBox9.Size = new System.Drawing.Size(300, 126);
 			this.groupBox9.TabIndex = 58;
 			this.groupBox9.TabStop = false;
-			this.groupBox9.Text = "Text assets";
+			this.groupBox9.Text = "Virtualized assets";
 			// 
 			// linkLabel5
 			// 
 			this.linkLabel5.AutoSize = true;
-			this.linkLabel5.Location = new System.Drawing.Point(95, -1);
+			this.linkLabel5.Location = new System.Drawing.Point(121, -1);
 			this.linkLabel5.Name = "linkLabel5";
 			this.linkLabel5.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel5.TabIndex = 70;
@@ -2182,7 +2182,7 @@ namespace Patchwork
 			// 
 			this.useBOM.AutoSize = true;
 			this.useBOM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.useBOM.Location = new System.Drawing.Point(22, 100);
+			this.useBOM.Location = new System.Drawing.Point(22, 98);
 			this.useBOM.Name = "useBOM";
 			this.useBOM.Size = new System.Drawing.Size(139, 21);
 			this.useBOM.TabIndex = 28;
@@ -2204,7 +2204,7 @@ namespace Patchwork
 			// 
 			this.dumpAssets.AutoSize = true;
 			this.dumpAssets.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.dumpAssets.Location = new System.Drawing.Point(22, 69);
+			this.dumpAssets.Location = new System.Drawing.Point(22, 66);
 			this.dumpAssets.Name = "dumpAssets";
 			this.dumpAssets.Size = new System.Drawing.Size(144, 21);
 			this.dumpAssets.TabIndex = 26;
@@ -2660,10 +2660,11 @@ namespace Patchwork
 			// 
 			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 503);
+			this.replInput.Location = new System.Drawing.Point(10, 500);
 			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 24);
+			this.replInput.Size = new System.Drawing.Size(937, 31);
 			this.replInput.TabIndex = 0;
 			// 
 			// replOutput

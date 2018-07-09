@@ -62,6 +62,7 @@
     <Compile Include="ghettosave.cs" />
     <Compile Include="ghettoui.cs" />
     <Compile Include="hsubs.cs" />
+    <Compile Include="matdump.cs" />
     <Compile Include="reloader.cs" />
     <Compile Include="fakeid.cs" />
     <Compile Include="fakeidkkex.cs" />

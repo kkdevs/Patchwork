@@ -22,6 +22,35 @@ using Manager;
 
 namespace Patchwork
 {
+	public static class Dir
+	{
+		public static string _root;
+		public static string root
+		{
+			get
+			{
+				return _root;
+			}
+			set
+			{
+				_root = value;
+				pw = value + "patchwork/";
+				mod = pw + "mod/";
+				modcsv = mod + "!csv/";
+				cache = pw + "cache/";
+				mat = pw + "material/";
+				hist = pw + "history.xml";
+				conf = pw + "config.xml";
+			}
+		}
+		public static string pw;
+		public static string mod;
+		public static string modcsv;
+		public static string cache;
+		public static string mat;
+		public static string hist;
+		public static string conf;
+	}
 	public static partial class Program
 	{
 		public static int version
@@ -55,11 +84,13 @@ namespace Patchwork
 
 		public static string BasePath;
 
+		public static string pwpath { get { return BasePath + "patchwork/"; } }
 		public static string dumppath { get { return BasePath + "patchwork/mod/!base/"; } }
 		public static string cfgpath { get { return BasePath + "patchwork/config.xml"; } }
 		public static string historypath { get { return BasePath + "patchwork/history.xml"; } }
 		public static string modbase { get { return Path.GetFullPath(BasePath + "patchwork/mod/"); } }
 		public static string tempbase { get { return Path.GetFullPath(BasePath + "patchwork/cache/"); } }
+		public static string matpath { get { return Path.GetFullPath(BasePath + "patchwork/material/"); } }
 		public static SettingsForm form;
 		public static Settings _settings;
 		public static Settings settings

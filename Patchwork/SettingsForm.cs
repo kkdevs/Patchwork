@@ -163,12 +163,12 @@ namespace Patchwork
 		public bool updating;
 		public void UpdateForm()
 		{
+			if (Program.launched) return;
 			scriptList.Items.Clear();
 			foreach (var script in ScriptEntry.list)
 			{
 				var item = new ListViewItem(new[] { script.name, script.version, script.ass == null ? "Script" : "DLL", script.info });
 				item.Tag = script;
-				var sn = script.name.ToLower();
 				item.Checked = script.enabled;
 				if (script.ass == null && script.info == "")
 					continue;

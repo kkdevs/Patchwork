@@ -235,7 +235,7 @@ namespace Patchwork
 				}
 				catch (Exception ex)
 				{
-					Trace.Info(ex.ToString());
+					Trace.Info("Assembly add failed: " + ex.ToString());
 				}
 			} else if (source.EndsWith(".cs"))
 			{
@@ -277,9 +277,16 @@ namespace Patchwork
 				if (probe-- < 0) break;
 				var tag = l.Split(' ');
 				var rest = l.Substring(tag[0].Length).Trim();
-				if (tag[0] == "//@INFO:") info = rest;
-				if (tag[0] == "//@VER:") version = rest;
-				if (tag[0] == "//@DEP:") deps = rest.ToLower().Split(' ').ToList();
+				var t = tag[0].Trim();
+				if (t == "//@INFO:") info = rest;
+				if (t == "//@VER:") version = rest;
+				if (t == "//@DEP:") deps = rest.ToLower().Split(' ').ToList();
+				if (t == "//@OFF")
+				{
+					enabled = false; // must be manually enabled
+					if (!Program.settings.scriptDisabled.Contains(name.ToLower()))
+						Program.settings.scriptDisabled.Add(name.ToLower());
+				}
 			}
 			list.Add(this);
 		}

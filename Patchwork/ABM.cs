@@ -48,8 +48,8 @@ public class LoadedAssetBundle
 
 	public static void FlushAllCaches()
 	{
-		ChaCustom.CustomSelectListCtrl.cache.cache.Clear();
-		ChaCustom.CustomPushListCtrl.cache.cache.Clear();
+		ChaCustom.CustomSelectListCtrl.ecache.Clear();
+		ChaCustom.CustomPushListCtrl.ecache.Clear();
 		Cache.dirCache.Clear();
 		System.GC.Collect();
 		System.GC.Collect();

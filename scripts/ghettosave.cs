@@ -15,7 +15,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Manager.Scene.Data;
 
-public class Blabla2 : GhettoUI
+public class GhettoSave : GhettoUI
 {
 	public string datefmt = "MM/dd/yyyy hh:mm:ss";
 	public string scene;
@@ -132,7 +132,7 @@ public class Blabla2 : GhettoUI
 			foreach (var b in saves)
 			{
 				var bn = b.Value.ToString(datefmt) + " - " + Path.GetFileNameWithoutExtension(b.Key);
-				if (GUILayout.Button(bn, GhettoUI.toleft))
+				if (GUILayout.Button(bn, toleft))
 				{
 					if (scene == "Load")
 					{

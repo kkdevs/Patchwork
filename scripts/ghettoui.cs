@@ -1,11 +1,88 @@
-﻿using Patchwork;
+﻿using ParadoxNotion.Serialization.FullSerializer;
+using Patchwork;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
+
+public class GhettoConfig
+{
+	bool locked;
+	fsSerializer json = new fsSerializer();
+	string cfpath => Program.pwpath + GetType().Name + ".json";
+	static bool loading;
+
+	public GhettoConfig()
+	{
+		if (!Load())
+			Save();
+	}
+	public bool Load()
+	{
+		if (loading)
+			return true;
+		if (File.Exists(cfpath))
+		{
+			loading = true;
+			fsData data;
+			var self = this;
+			data = fsJsonParser.Parse(Encoding.UTF8.GetString(File.ReadAllBytes(cfpath)));
+			json.TryDeserialize(data, ref self);
+			loading = false;
+			if (self != this)
+			{
+				Script.print($"WARNING: Failed to load {GetType().Name}.json, probably because of field type mismatch.");
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	public void Save()
+	{
+		fsData data;
+		fsGlobalConfig.SerializeDefaultValues = true;
+		json.TrySerialize(this, out data);
+		File.WriteAllBytes(cfpath, fsJsonPrinter.PrettyJson(data).ToBytes());
+	}
+}
 
 public class GhettoUI : ScriptEvents
 {
 	public static GUISkin skin;
 	public static GUIStyle toleft;
 	public static GUIStyle largebutton;
+	public static Dictionary<string, Event> scuts = new Dictionary<string, Event>();
+	public static bool IsKey(string scut)
+	{
+		if (!scuts.TryGetValue(scut, out Event ev))
+		{
+			ev = Event.KeyboardEvent(scut);
+			ev.type = EventType.KeyDown;
+			scuts[scut] = ev;
+		}
+		return ev.Equals(Event.current);
+	}
+	public static object Config(Type t, bool load = true)
+	{
+		fsSerializer json = new fsSerializer();
+		var owner = t.Name;
+		var cfn = Program.pwpath + owner + ".json";
+		fsData data;
+		var obj = Activator.CreateInstance(t);
+		if (File.Exists(cfn))
+		{
+			data = fsJsonParser.Parse(Encoding.UTF8.GetString(File.ReadAllBytes(cfn)));
+			json.TryDeserialize(data, ref obj);
+			return obj;
+		}
+		fsGlobalConfig.SerializeDefaultValues = true;
+		json.TrySerialize(obj, out data);
+		File.WriteAllBytes(cfn, fsJsonPrinter.PrettyJson(data).ToBytes());
+		return obj;
+	}
+
 }
 
 public class GhettoScript : ScriptEvents
@@ -29,7 +106,7 @@ public class GhettoScript : ScriptEvents
 			tex3.SetPixel(0, 0, new Color(0.7f, 0.7f, 0.7f, 1f));
 			tex3.Apply();
 
-			skin = Object.Instantiate(GUI.skin);
+			skin = UnityEngine.Object.Instantiate(GUI.skin);
 			var styles = new GUIStyle[] { skin.verticalScrollbar, skin.button };
 			foreach (var s in styles)
 			{

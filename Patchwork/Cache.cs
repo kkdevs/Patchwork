@@ -442,6 +442,16 @@ namespace Patchwork
 			return pathCache[opath] = vpath;
 #endif
 		}
+		public static bool GetSprite(string bundle, string name, out Sprite ret)
+		{
+			ret = null;
+			var tex = Cache.Asset(bundle, name, typeof(Texture2D), true) as Texture2D;
+			if (tex == null)
+				return false;
+			ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
+			return true;
+		}
+
 	}
 }
 
