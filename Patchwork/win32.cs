@@ -4,55 +4,50 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Patchwork
+public static partial class Patchwork
 {
-	public static partial class Program
-	{
-		[DllImport("user32", CallingConvention = CallingConvention.Winapi)]
-		[return: System.Runtime.InteropServices.MarshalAs(UnmanagedType.Bool)]
-		public static extern bool ShowScrollBar(IntPtr hwnd, int wBar, [MarshalAs(UnmanagedType.Bool)] bool bShow);
-		[DllImport("kernel32.dll")]
-		public static extern void ExitProcess(uint uExitCode);
+	[DllImport("user32", CallingConvention = CallingConvention.Winapi)]
+	[return: System.Runtime.InteropServices.MarshalAs(UnmanagedType.Bool)]
+	public static extern bool ShowScrollBar(IntPtr hwnd, int wBar, [MarshalAs(UnmanagedType.Bool)] bool bShow);
+	[DllImport("kernel32.dll")]
+	public static extern void ExitProcess(uint uExitCode);
 
-		[DllImport("kernel32.dll", SetLastError = true)]
-		[PreserveSig]
-		public static extern uint GetModuleFileName
-		(
-			[In]
-			IntPtr hModule,
+	[DllImport("kernel32.dll", SetLastError = true)]
+	[PreserveSig]
+	public static extern uint GetModuleFileName
+	(
+		[In]
+		IntPtr hModule,
 
-			[Out]
-			StringBuilder lpFilename,
+		[Out]
+		StringBuilder lpFilename,
 
-			[In]
-			[MarshalAs(UnmanagedType.U4)]
-			int nSize
-		);
-		[DllImport("user32.dll")]
-		public static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
-		[DllImport("kernel32.dll")]
-		public static extern uint GetCurrentThreadId();
-		public delegate bool EnumThreadDelegate(IntPtr Hwnd, IntPtr lParam);
-		[DllImport("user32.dll")]
-		public static extern bool ShowWindow(IntPtr w, int cmd);
-		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-		public static extern bool SetWindowText(IntPtr hwnd, String lpString);
-		[DllImport("user32.dll")]
-		private static extern ulong SetWindowLongPtr(IntPtr hWnd, int nIndex, ulong dwNewLong);
-		[DllImport("user32.dll")]
-		private static extern ulong GetWindowLongPtr(IntPtr hWnd, int nIndex);
-		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-		static extern int GetClassName(IntPtr hWnd, System.Text.StringBuilder lpClassName, int nMaxCount);
-		[DllImport("shell32.dll")]
-		public static extern void DragAcceptFiles(IntPtr hwnd, bool fAccept);
-		public static extern uint DragQueryFile(IntPtr hDrop, uint iFile, System.Text.StringBuilder lpszFile, uint cch);
-		[DllImport("shell32.dll")]
-		public static extern void DragFinish(IntPtr hDrop);
-		[DllImport("shell32.dll")]
-		public static extern void DragQueryPoint(IntPtr hDrop, out POINT pos);
-	}
-
-
+		[In]
+		[MarshalAs(UnmanagedType.U4)]
+		int nSize
+	);
+	[DllImport("user32.dll")]
+	public static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+	[DllImport("kernel32.dll")]
+	public static extern uint GetCurrentThreadId();
+	public delegate bool EnumThreadDelegate(IntPtr Hwnd, IntPtr lParam);
+	[DllImport("user32.dll")]
+	public static extern bool ShowWindow(IntPtr w, int cmd);
+	[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+	public static extern bool SetWindowText(IntPtr hwnd, String lpString);
+	[DllImport("user32.dll")]
+	private static extern ulong SetWindowLongPtr(IntPtr hWnd, int nIndex, ulong dwNewLong);
+	[DllImport("user32.dll")]
+	private static extern ulong GetWindowLongPtr(IntPtr hWnd, int nIndex);
+	[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+	static extern int GetClassName(IntPtr hWnd, System.Text.StringBuilder lpClassName, int nMaxCount);
+	[DllImport("shell32.dll")]
+	public static extern void DragAcceptFiles(IntPtr hwnd, bool fAccept);
+	public static extern uint DragQueryFile(IntPtr hDrop, uint iFile, System.Text.StringBuilder lpszFile, uint cch);
+	[DllImport("shell32.dll")]
+	public static extern void DragFinish(IntPtr hDrop);
+	[DllImport("shell32.dll")]
+	public static extern void DragQueryPoint(IntPtr hDrop, out POINT pos);
 	[StructLayout(LayoutKind.Sequential)]
 	public struct CWPSTRUCT
 	{
@@ -106,3 +101,5 @@ namespace Patchwork
 		}
 	}
 }
+
+

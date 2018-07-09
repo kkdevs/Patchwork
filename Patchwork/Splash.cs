@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Patchwork
+public partial class Splash : Form
 {
-	public partial class Splash : Form
+	public Splash()
 	{
-		public Splash()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }
+

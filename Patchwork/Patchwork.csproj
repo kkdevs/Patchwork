@@ -106,15 +106,15 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ABM.cs" />
     <Compile Include="Bikeshed.cs" />
-    <Compile Include="Cache.cs" />
     <Compile Include="CamEffect.cs" />
     <Compile Include="CSV.cs" />
+    <Compile Include="Debug.cs" />
+    <Compile Include="Dir.cs" />
     <Compile Include="EditLine.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Ext.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="EzHook.cs" />
     <Compile Include="MonoScript.cs" />
     <Compile Include="ScriptEvent.cs" />
@@ -137,6 +137,8 @@
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
     <Compile Include="Trace.cs" />
+    <Compile Include="Version.cs" />
+    <Compile Include="Vfs.cs" />
     <Compile Include="win32.cs" />
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

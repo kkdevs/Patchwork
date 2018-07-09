@@ -1,6 +1,6 @@
 ﻿
 using MessagePack;
-using Patchwork;
+using static Patchwork;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -81,7 +81,7 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 		{
 			GameObject gameObject = new GameObject("AssetBundleManager", typeof(AssetBundleManager));
 			UnityEngine.Object.DontDestroyOnLoad(gameObject);
-			LoadedAssetBundle.Init(basePath);
+//			LoadedAssetBundle.Init(basePath);
 			BaseDownloadingURL = basePath;
 			isInitialized = true;
 			InitAddComponent.AddComponents(gameObject);
@@ -106,7 +106,8 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 
 	public static AssetBundleLoadAssetOperation LoadAsset(string assetBundleName, string assetName, Type type, string manifestAssetBundleName = null)
 	{
-		return Cache.AssetABM(assetBundleName, assetName, type);
+		return new AssetBundleLoadAssetOperationSimulation(LoadedAssetBundle.Load(assetBundleName, assetName)?.LoadAsset(assetName, type));
+//		return Cache.AssetABM(assetBundleName, assetName, type);
 //		if (Cache.AssetABM(assetBundleName, assetName, type, manifestAssetBundleName, out AssetBundleLoadAssetOperation cached))
 //			return cached;
 //		return _LoadAsset(assetBundleName, assetName, type, manifestAssetBundleName);
@@ -119,6 +120,7 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 		return new AssetBundleLoadAssetOperationSimulation(b.LoadAsset(assetName, type));
 	}
 
+	/*
 	public static AssetBundleLoadAssetOperation LoadAssetAsync(AssetBundleData data, Type type)
 	{
 		return LoadAssetAsync(data.bundle, data.asset, type, null);
@@ -132,7 +134,7 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 	public static AssetBundleLoadAssetOperation LoadAssetAsync(string assetBundleName, string assetName, Type type, string manifestAssetBundleName = null)
 	{
 		return new AssetBundleLoadAssetOperationFull(assetBundleName, assetName, type, manifestAssetBundleName);
-	}
+	}*/
 
 
 	public static AssetBundleLoadAssetOperation LoadAllAsset(string assetBundleName, Type type, string manifestAssetBundleName = null)
@@ -264,6 +266,8 @@ public class AssetBundleData
 	}
 	public static List<string> GetAssetBundleNameListFromPath(string path, bool subdirCheck = false)
 	{
+		return Vfs.GetAssetBundleNameListFromPath(path, subdirCheck);
+#if false
 		List<string> result = new List<string>();
 		string basePath = AssetBundleManager.BaseDownloadingURL;
 		string path2 = basePath + path;
@@ -272,6 +276,7 @@ public class AssetBundleData
 		string[] source = (!subdirCheck) ? Directory.GetFiles(path2, "*.unity3d") : Directory.GetFiles(path2, "*.unity3d", SearchOption.AllDirectories);
 		return (from s in source
 				select s.Replace(basePath, string.Empty)).ToList();
+#endif
 	}
 
 	public virtual AssetBundleLoadAssetOperation LoadBundle<T>() where T : UnityEngine.Object
@@ -373,15 +378,14 @@ namespace BepInEx
 			public static void Log(int level, object entry)
 			{
 				if ((level & 15) != 0)
-					Trace.Log(entry.ToString());
+					Debug.Info(entry);
 				else
-					Trace.Spam(entry.ToString());
+					Debug.Spam(entry);
 			}
 
 			public abstract class BaseLogger : TextWriter { };
 			public static void SetLogger(BaseLogger logger)
 			{
-				Trace.Back("Somethign is setting logger from");
 			}
 		}
 	}
@@ -390,9 +394,9 @@ namespace BepInEx
 		public static void Log(string entry, bool show = false)
 		{
 			if (show)
-				Trace.Log(entry);
+				Debug.Info(entry);
 			else
-				Trace.Spam(entry);
+				Debug.Spam(entry);
 
 		}
 		public static void Log(object entry, bool show, ConsoleColor color)

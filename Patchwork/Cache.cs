@@ -463,7 +463,6 @@ public partial class GlobalMethod
 	{
 		if (_strLoadFile.IsNullOrEmpty())
 			return null;
-		Debug.Log($"[CACHE] LoadAllListText {_assetbundleFolder}/*/{_strLoadFile}");
 
 		if (Program.settings.fetchAssets)
 		{
@@ -530,3 +529,4 @@ public class SpriteCache<T>
 #endif
 	}
 }
+

@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using static Patchwork;
 
 public static class Ext
 {
@@ -425,7 +426,7 @@ public static class Ext
 	}
 	public static string AddBOM(this string str)
 	{
-		if (Program.settings.useBOM)
+		if (settings.useBOM)
 		{
 			if (str[0] == '\uFEFF')
 				return str;
@@ -441,14 +442,14 @@ public static class Ext
 			return false;
 		return true;
 	}
-	public static bool IsNullOrWhiteSpace(this String s)
+	/*public static bool IsNullOrWhiteSpace(this String s)
 	{
 		if (s == null)
 			return true;
 		if (s.Trim() == "")
 			return true;
 		return false;
-	}
+	}*/
 }
 
 

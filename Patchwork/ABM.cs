@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#if !USE_OLD_ABM
+#if !USE_OLD_ABMv
 
 public class LoadedAssetBundle
 {

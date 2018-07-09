@@ -1,8 +1,10 @@
-﻿using Manager;
+﻿// todo: move this to script
+
+using Manager;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
 
-namespace Patchwork
+public static partial class Patchwork
 {
 	public partial class Settings
 	{
@@ -23,7 +25,7 @@ namespace Patchwork
 
 		public void DoUpdateCamera(Camera cam, bool fix = false)
 		{
-			if (!Program.initdone)
+			if (!Patchwork.initdone)
 				return;
 			UpdateCamera(cam, fix);
 		}
@@ -40,7 +42,7 @@ namespace Patchwork
 			cam.renderingPath = (RenderingPath)cam_renderingPath;
 			if (Game.Instance?.nowCamera != null)
 				Game.Instance.nowCamera.renderingPath = (RenderingPath)cam_renderingPath;
-			Trace.Spam($"[CAM] Using camera {cam.name}");
+			Debug.Spam($"[CAM] Using camera {cam.name}");
 			/*var e = cam.GetComponent<CameraEffector>();
 			if (e == null)
 			{
@@ -98,7 +100,7 @@ namespace Patchwork
 			foreach (var comp in cam.gameObject.GetComponents<Component>())
 			{
 				var t = comp.GetType();
-				Trace.Spam($"[CAM] {t.Name} : {t.BaseType?.Name}");
+				Debug.Spam($"[CAM] {t.Name} : {t.BaseType?.Name}");
 			}
 		}
 

@@ -7,7 +7,6 @@ using System.Reflection.Emit;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
-using Patchwork;
 
 public class MonoScript : Evaluator
 {

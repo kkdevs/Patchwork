@@ -8,12 +8,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
-using Patchwork;
+using static Patchwork;
 
 // We frequently re-parent game types to those, hence the global NS
 public interface IDumpable
 {
-	bool Unmarshal(string src, string ext);
+	bool Unmarshal(string src, string ext, string name, string path);
 	string Marshal();
 	string GetFileExt();
 }
@@ -24,14 +24,15 @@ public class JSONMarshaller : ScriptableObject
 	{
 		return "json";
 	}
-	public bool Unmarshal(string src, string ext)
+	public bool Unmarshal(string src, string ext, string name, string path)
 	{
 		return false;
 	}
+	public static fsSerializer fsJson = new fsSerializer();
 	public string Marshal()
 	{
 		fsData data = null;
-		Program.fsjson.TrySerialize(this, out data).AssertSuccess();
+		fsJson.TrySerialize(this, out data).AssertSuccess();
 		return fsJsonPrinter.PrettyJson(data);
 	}
 }
@@ -51,7 +52,7 @@ public class CSVMarshaller : ScriptableObject
 		return null;
 	}
 
-	public bool Unmarshal(string src, string ext)
+	public bool Unmarshal(string src, string ext, string name, string path)
 	{
 		var tlist = getParam();
 		var param = tlist.FieldType.GetGenericArguments()[0];

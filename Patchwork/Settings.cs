@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 using UnityStandardAssets.ImageEffects;
 using Manager;
 
-namespace Patchwork
+public static partial class Patchwork
 {
 	// The serialized fields match 1:1 to controls in SettingsForm
 	[Serializable]
@@ -205,15 +205,6 @@ namespace Patchwork
 			{ "blendWeights", new [] {1,2,4 } },
 		};
 
-		public bool CheckComponent(string name)
-		{
-			var f = typeof(Settings).GetField("com_" + name);
-			// not gated
-			if (f == null)
-				return true;
-			return (bool)f.GetValue(this);
-		}
-
 		// Apply a singular setting
 		public void Update(string name, object val)
 		{
@@ -228,10 +219,10 @@ namespace Patchwork
 				f.SetValue(this, val);
 				Apply(name, true);
 				version++;
-				Program.SaveConfig();
+				SaveConfig();
 			} catch (Exception ex)
 			{
-				Trace.Log(ex.ToString());
+				Debug.Log(ex.ToString());
 			}
 		}
 
@@ -239,13 +230,13 @@ namespace Patchwork
 		{
 			if (qualitySelect > 0)
 			{
-				Trace.Log($"Setting quality to {n}");
+				Debug.Log($"Setting quality to {n}");
 				UnityEngine.QualitySettings.SetQualityLevel(n);
 			}
 		}
 		public void Apply(bool setres = false)
 		{
-			if (Program.initdone)
+			if (initdone)
 				DoApply(setres);
 		}
 
@@ -269,7 +260,7 @@ namespace Patchwork
 
 		public void Apply(string name, bool setres = false)
 		{
-			if (Program.initdone)
+			if (initdone)
 				DoApply(name, setres);
 		}
 
@@ -280,7 +271,7 @@ namespace Patchwork
 			switch (name)
 			{
 				case "onTop":
-					Program.form.TopMost = onTop;
+					form.TopMost = onTop;
 					break;
 				case "showFPS":
 					try
@@ -349,7 +340,7 @@ namespace Patchwork
 					}
 					catch (Exception ex)
 					{
-						Trace.Log(ex.ToString());
+						Debug.Error(ex);
 					}
 					break;
 			}
