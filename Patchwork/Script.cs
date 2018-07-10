@@ -317,7 +317,7 @@ public class ScriptEntry
 
 		var dispatcher = new StringBuilder();
 		dispatcher.AppendLine("using System.Collections.Generic;");
-		dispatcher.AppendLine("public class ScriptDispatcher : Patchwork.ScriptEvents {");
+		dispatcher.AppendLine("public class ScriptDispatcher : ScriptEvents {");
 
 		// collect the methods we'll broadcast to
 		foreach (var t in scriptass.GetTypesSafe())

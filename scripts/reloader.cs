@@ -1,7 +1,7 @@
 ﻿//@INFO: Reload scripts on file change
 //@VER: 1
 
-using Patchwork;
+using static Patchwork;
 using System.Collections.Generic;
 using System.IO;
 

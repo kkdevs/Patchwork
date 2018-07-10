@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using ActionGame;
 using Manager;
-using Patchwork;
+using static Patchwork;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;

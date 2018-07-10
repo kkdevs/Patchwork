@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Patchwork;
+using static Patchwork;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

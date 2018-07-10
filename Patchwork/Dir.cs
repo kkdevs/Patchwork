@@ -11,6 +11,7 @@
 	public static string abdata;
 	public static void Init(string path)
 	{
+		path = path.Replace("\\", "/");
 		Debug.Log(path);
 		root = path;
 		pw = root + "patchwork/";

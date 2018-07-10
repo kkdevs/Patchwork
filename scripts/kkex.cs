@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ExtensibleSaveFormat; //bikeshed.cs
-using Patchwork;
+using static Patchwork;
 
 public class KKEx
 {

@@ -5,7 +5,7 @@
 
 using UnityEngine;
 using MessagePack;
-using Patchwork;
+using static Patchwork;
 
 public class FakeIDKKEx : ScriptEvents
 {

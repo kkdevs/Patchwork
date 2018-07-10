@@ -1,4 +1,4 @@
-﻿using Patchwork;
+﻿using static Patchwork;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

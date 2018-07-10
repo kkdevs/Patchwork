@@ -54,12 +54,14 @@ public static partial class Patchwork {
 			return;
 		}
 
+		Debug.Log("Spawning config dialog");
 		form = new SettingsForm(settings);
 		form.Text += mkver;
 
 		form.resolution.Items.AddRange(settings.resolutions);
 		foreach (var n in settings.chardbs)
 			form.chardb.Items.Add(n.Split('|')[0]);
+		Debug.Log("initializing scripts");
 		InitScripts();
 		form.UpdateForm();
 		splash?.Close();
@@ -117,11 +119,11 @@ public static partial class Patchwork {
 			exename = fn.ToString();
 		}
 		Dir.Init(Path.GetDirectoryName(exename) + "/");
-		LoadConfig();
+		settings = LoadConfig();
 		Directory.CreateDirectory(Dir.mod);
 		Directory.CreateDirectory(Dir.cache);
 		Debug.Info(Dir.root);
-		Vfs.Init();
+		//Vfs.Init();
 	}
 
 	public static void FixWindow()

@@ -1,7 +1,7 @@
 ﻿//@INFO: Compatibility for zipmods
 //@VER: 1
 
-using Patchwork;
+using static Patchwork;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Xml;
@@ -20,9 +20,9 @@ public class unzip : ScriptEvents
 	[Prio(99999)]
 	public override void Awake()
 	{
-		var target = Program.modbase;
+		var target = Dir.mod;
 		print("Unzipping mods into " + Path.GetFullPath(target));
-		var zipdir = Program.BasePath + "/mods";
+		var zipdir = Dir.root + "mods";
 		foreach (var zipfn in Directory.GetFiles(zipdir, "*.zip", SearchOption.AllDirectories))
 		{
 			var modname = Path.GetFileNameWithoutExtension(zipfn);
@@ -124,7 +124,7 @@ public class unzip : ScriptEvents
 
 
 					// if it is a hardmod, check that the contents of the bundle fully match the file overriden.
-					var hardab = LoadedAssetBundle.basePath + efn;
+					var hardab = Dir.abdata + efn;
 					var oldefn = efn;
 					int nmissing = 0;
 					efn = target + modname + "/" + efn;

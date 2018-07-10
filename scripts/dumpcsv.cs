@@ -1,5 +1,6 @@
-﻿using ParadoxNotion.Serialization.FullSerializer;
-using Patchwork;
+﻿#if false
+using ParadoxNotion.Serialization.FullSerializer;
+using static Patchwork;
 using System;
 using System.IO;
 using System.Linq;
@@ -22,7 +23,7 @@ public partial class ScriptEnv
 		};
 		var mainass = AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "Assembly-CSharp");
 		var dumpables = mainass.GetExportedTypes().Where(t => typeof(IDumpable).IsAssignableFrom(t));
-		var basedir = LoadedAssetBundle.basePath;
+		var basedir = Dir.abdata;
 		print($"Found {dumpables.Count()} serializable types.");
 		foreach (var dir in csvdirs) {
 			foreach (var f in Directory.GetFiles(basedir + dir, "*.unity3d", SearchOption.AllDirectories))
@@ -69,3 +70,4 @@ public partial class ScriptEnv
 		}
 	}
 }
+#endif

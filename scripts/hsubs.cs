@@ -1,7 +1,7 @@
 ﻿//@INFO: Display subs in h
 //@VER: 2
 
-using Patchwork;
+using static Patchwork;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -74,7 +74,7 @@ public class HSubs : GhettoUI
 	public IEnumerator DownloadSubs()
 	{
 		if (dlpending) yield break;
-		var cache = Program.tempbase + "hsubs2.msgpack";
+		var cache = Dir.cache + "hsubs2.msgpack";
 		if (File.Exists(cache))
 		{
 			dict = LZ4MessagePackSerializer.Deserialize<Dictionary<string, KeyValuePair<int,string>>>(File.ReadAllBytes(cache));
@@ -142,7 +142,7 @@ public class HSubs : GhettoUI
 		expires = Time.realtimeSinceStartup + audioSource.clip.length / Mathf.Abs(audioSource.pitch);
 		KeyValuePair<int, string> currentPair = new KeyValuePair<int, string>(-1, v.word);
 		dict.TryGetValue(v.assetName.ToLower(), out currentPair);
-		if (Program.settings.enableSpam)
+		if (settings.enableSpam)
 			print($"[HSUBS] [{v.assetName}] '{v.word}' => '{currentPair.Value}'");
 		if (!cfg.sheet.IsNullOrEmpty() && currentPair.Key >= 0)
 			editrow = cfg.sheet + "/edit#gid="+cfg.gid+"&range=C" + currentPair.Key;

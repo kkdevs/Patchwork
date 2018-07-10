@@ -1,5 +1,5 @@
 ﻿using ParadoxNotion.Serialization.FullSerializer;
-using Patchwork;
+using static Patchwork;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ public class GhettoConfig
 {
 	bool locked;
 	fsSerializer json = new fsSerializer();
-	string cfpath => Program.pwpath + GetType().Name + ".json";
+	string cfpath => Dir.pw + GetType().Name + ".json";
 	static bool loading;
 
 	public GhettoConfig()
@@ -68,7 +68,7 @@ public class GhettoUI : ScriptEvents
 	{
 		fsSerializer json = new fsSerializer();
 		var owner = t.Name;
-		var cfn = Program.pwpath + owner + ".json";
+		var cfn = Dir.pw + owner + ".json";
 		fsData data;
 		var obj = Activator.CreateInstance(t);
 		if (File.Exists(cfn))

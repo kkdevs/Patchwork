@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using Patchwork;
+using static Patchwork;
 using System.Linq;
 using System.Collections.Generic;
 using MessagePack;

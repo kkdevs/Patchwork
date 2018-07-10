@@ -19,6 +19,7 @@ public static class Vfs
 		"map/waitpoint",
 		"map/list/calcgateinfo",
 		"map/list/navigationinfo",
+
 		"action/list/waitpoint/non",
 		"action/list/fixevent",
 		"action/list/chara",
@@ -27,14 +28,17 @@ public static class Vfs
 		"action/list/event",
 		"action/list/clubinfo",
 		"action/list/event",
-		"etcetra/list/exp",
 		"action/playeraction",
 		"action/actioncontrol",
+		"action/fixchara",
+
+		"etcetra/list/exp",
+		"etcetra/list/config",
 		"etcetra/list/nickname",
+
 		"studio/info",
 		"adv/scenario",
 		"sound/data/systemse/titlecall",
-		"action/fixchara",
 		"sound/data/systemse/brandcall",
 		"communication",
 
@@ -79,16 +83,22 @@ public static class Vfs
 			var ab = AssetBundle.LoadFromFile(man);
 			var fn = man.Substring(Dir.abdata.Length);
 			if (ab == null) continue;
+			Debug.Log("scanning for manifest in ", man);
 			var mf = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
 			if (mf != null)
 			{
-				AssetBundleManager.ManifestBundlePack[fn] = new AssetBundleManager.BundlePack() { AssetBundleManifest = mf };
+				AssetBundleManager.ManifestBundlePack["abdata/"+fn] = new AssetBundleManager.BundlePack() { AssetBundleManifest = mf };
 				foreach (var sab in mf.GetAllAssetBundles())
 				{
-					var abi = LoadedAssetBundle.Make(sab);
-					foreach (var dep in mf.GetAllDependencies(sab))
+					
+					var abi = LoadedAssetBundle.Make(sab.Replace("abdata/",""));
+					foreach (var tdep in mf.GetAllDependencies(sab))
+					{
+						Debug.Log(" =>", sab, " depends on ", tdep);
+						string dep = tdep.Replace("abdata/","");
 						if (!abi.deps.Contains(dep))
 							abi.deps.Add(dep);
+					}
 				}
 			}
 			ab.Unload(true);
@@ -100,49 +110,58 @@ public static class Vfs
 	/// </summary>
 	public static void Rescan()
 	{
+		Debug.Log("VFS: Rescan");
 		string abdata = "abdata/";
 		string inabdata = Dir.root + abdata;
 		dc.abs.Clear();
 		dc.dirLists.Clear();
 		// initially map everything to self
+		Debug.Log("unity3d");
 		foreach (var bundle in Directory.GetFiles(inabdata, "*.unity3d", SearchOption.AllDirectories))
 		{
-			var rel = bundle.Replace("\\","/").Substring(Dir.root.Length);
-			LoadedAssetBundle.Make(rel).realPath = rel;
+			var rel = bundle.Replace("\\","/");
+			LoadedAssetBundle.Make(rel.Substring(Dir.abdata.Length)).realPath = rel.Substring(Dir.root.Length);
 		}
-
+		Debug.Log("dirlists");
 		Dictionary<string,bool> lhash = new Dictionary<string, bool>();
 		// Now scan for listable bundles in abdata
 		foreach (var ld in listable)
 		{
 			var lld = ld.Replace("!", "");
 			lhash[lld] = lld != ld;
-			if (!Directory.Exists(lld)) continue;
+			if (!Directory.Exists(Dir.abdata + lld)) continue;
+			dc.dirLists[lld] = new List<string>();
 			foreach (var blist in Directory.GetFiles(Dir.abdata + lld, "*.unity3d", ld != lld ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories))
-				dc.dirLists[lld].Add(blist.Replace("\\","/").Substring(Dir.root.Length));
+				dc.dirLists[lld].Add(blist.Replace("\\","/").Substring(Dir.abdata.Length));
 		}
-
+		Debug.Log("mods");
 		// now scan mods, those will simply override the tables above
 		foreach (var mod in Directory.GetDirectories(Dir.mod, "*.*", SearchOption.TopDirectoryOnly))
 		{
+			Debug.Log("Processing ", mod);
 			var inmod = mod + "/";
 			foreach (var bundle in Directory.GetFiles(inmod, "*.*", SearchOption.AllDirectories))
 			{
 				var bd = bundle.Replace("\\", "/");
 				var fn = bd.Substring(Dir.root.Length);
+				var ffn = fn;
+//				Debug.Log("modfiles ", bundle, bd, fn);
 
 				// may override original abdata mapping
-				LoadedAssetBundle.Make("abdata/" + bd.Substring(inmod.Length)).realPath = fn;
+				if (bundle.EndsWith(".unity3d"))
+					LoadedAssetBundle.Make(bd.Substring(inmod.Length)).realPath = fn;		
 
 				// keep stripping last path component of the file path until we match
 				// a path which is listable
-				fn = bd.Substring(Dir.abdata.Length);
+				fn = bd.Substring(inmod.Length); // remove modpath -> abesque
 				var ofn = fn;
 				int ind;
 				int stripped = 0;
 				while ((ind = fn.LastIndexOf('/')) >= 0)
 				{
-					fn.Remove(ind);
+					fn = fn.Remove(ind); // is directory now
+					 //	Debug.Log("listable lookup", fn, ofn);
+					var virtab = ofn.Remove(ofn.LastIndexOf('/')) + ".unity3d";
 					// a file inside listable folder was detected, we'll need to inspect the folder
 					if (lhash.TryGetValue(fn, out bool norecurse))
 					{
@@ -155,23 +174,44 @@ public static class Vfs
 						{
 							// a file in a directory. the directory itself then becomes a virtual bundle
 							// if there is no accompanying real one
-							var virtab = ofn.Remove(ofn.LastIndexOf('/')) + ".unity3d";
-
 							// add to dir listings
 							if ((!norecurse || stripped == 0) || !dc.dirLists[fn].Contains(virtab))
 							{
 								dc.dirLists[fn].Add(virtab);
 							}
-							// create a virtual bundle
-							var assname = Path.GetFileName(fn);
-							assname = assname.Remove(assname.LastIndexOf('.'));
-							LoadedAssetBundle.Make(virtab).virtualAssets[assname] = fn;
 						}
+					}
+					if (fn != "" && stripped == 0 && !ofn.EndsWith("*.unity3d"))
+					{
+						// create a virtual bundle
+						var assname = RemoveExt(Path.GetFileName(ofn));
+						var vab = LoadedAssetBundle.Make(virtab);
+						vab.virtualAssets[assname] = ffn;
+						var nvpath = ffn.Remove(ffn.LastIndexOf('/'));
+						Debug.Log(assname, virtab, fn, nvpath, vab.realPath);
+						if (vab.realPath == null && nvpath != vab.realPath)
+							vab.realPath = nvpath;
+						else
+							Debug.Log("Not overriding ", vab.realPath, " with ", nvpath);
 					}
 					stripped++;
 				}
 			}
 		}
+	}
+
+	public static string RemoveExt(string name)
+	{
+		int pos = name.LastIndexOf('.');
+		if (pos < 0) return name;
+		return name.Remove(pos);
+	}
+
+	public static string GetExt(string name)
+	{
+		int pos = name.LastIndexOf('.');
+		if (pos < 0) return null;
+		return name.Substring(pos+1);
 	}
 
 	public static DirCache dc = new DirCache();
@@ -180,11 +220,23 @@ public static class Vfs
 	{
 		Rescan();
 		LoadManifests();
+		var mb = MessagePackSerializer.Serialize(dc);
+		File.WriteAllBytes("dc.json", MessagePackSerializer.ToJson(mb).ToBytes());
 	}
 
+	public static bool initialized;
+	public static void CheckInit()
+	{
+		if (initialized)
+			return;
+		Init();
+		initialized =  true;
+	}
 
 	public static List<string> GetAssetBundleNameListFromPath(string path, bool recurse)
 	{
+		CheckInit();
+		Debug.Log("Asked for bundle list on ", path);
 		if (path.EndsWith("/"))
 			path = path.Remove(path.Length - 1);
 #if GAME_DEBUG
@@ -193,7 +245,10 @@ public static class Vfs
 			Debug.Error("Recurse/norecurse mismatch for ", path);
 		}
 #endif
-		return dc.dirLists[path];
+		if (dc.dirLists.TryGetValue(path, out List<string> list))
+			return list;
+		Debug.Error("Unable to get bundle list from ", path, recurse);
+		return new List<string>();
 	}
 
 	public static bool GetSprite(string bundle, string name, out Sprite ret)
@@ -207,7 +262,7 @@ public static class Vfs
 	}
 }
 
-[MessagePackObject]
+[MessagePackObject(true)]
 public class LoadedAssetBundle
 {
 	[Key(0)]
@@ -221,9 +276,10 @@ public class LoadedAssetBundle
 	[Key(4)]
 	public Dictionary<string, string> virtualAssets = new Dictionary<string, string>();
 
-	[NonSerialized]
+	[IgnoreMember]
 	public AssetBundle m_AssetBundle;
 
+	[IgnoreMember]
 	public bool isVirtual => realPath != null && !realPath.EndsWith(".unity3d") && virtualAssets.Count > 0;
 
 	public static Dictionary<string, LoadedAssetBundle> cache => Vfs.dc.abs;
@@ -249,9 +305,15 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Make(string name)
 	{
+		Debug.Log("Registering", name);
 		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
 			return ab;
 		return cache[name] = new LoadedAssetBundle(name);
+	}
+
+	public static void CheckInit()
+	{
+		Vfs.CheckInit();
 	}
 
 	/// <summary>
@@ -261,6 +323,7 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Get(string name)
 	{
+		CheckInit();
 		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
 			return ab;
 		return null;
@@ -273,33 +336,43 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Load(string name, string forasset = null)
 	{
+		CheckInit();
+		Debug.Log("Loading bundle ", name, "for", forasset);
 		var ab = Get(name);
-		if (ab != null)
-			return ab;
+		if (ab == null)
+		{
+			Debug.Error("Load failed; this bundle is not tracked.");
+			return null;
+		}
 
 		if (ab.realPath == null)
 			return null;
 		return ab;
 	}
 
-	public UnityEngine.Object[] LoadAllAssets(Type typ)
+	public object[] LoadAllAssets(Type typ)
 	{
+		Debug.Stack("Loading all assets of type ", typ, " in ", name);
 		if (!Ensure())
 			return null;
-		List<UnityEngine.Object> allAss = new List<UnityEngine.Object>();
+		List<object> allAss = new List<object>();
 		if (m_AssetBundle != null)
-			allAss.AddRange(m_AssetBundle.LoadAllAssets(typ).ToList());
-		Dictionary<string, UnityEngine.Object> names = new Dictionary<string, UnityEngine.Object>();
-		foreach (var ass in allAss)
-			names[ass.name] = ass;
+			foreach (var obj in m_AssetBundle.LoadAllAssets(TextAsset.Unwrap(typ)).Select(TextAsset.Wrap<UnityEngine.Object>))
+			{
+				// virtuals assets of same name always remove the object from listing.
+				if (obj != null && !virtualAssets.ContainsKey(obj.name))			
+					allAss.Add(obj);
+				else Debug.Log("vanilla", obj.name, " nuked by virtual asset");
+			}
+
+		Debug.Log("Found ", allAss.Count, " base assets");
 		foreach (var n in virtualAssets.Keys)
 		{
 			var virt = LoadVirtualAsset(n, typ);
 			if (virt != null)
 			{
+				Debug.Log("Adding virtual asset", n, typ);
 				// original asset overriden
-				if (names.TryGetValue(n, out UnityEngine.Object over))
-					allAss.Remove(over);
 				allAss.Add(virt);
 			}				
 		}
@@ -309,6 +382,7 @@ public class LoadedAssetBundle
 
 	public string[] GetAllAssetNames()
 	{
+		CheckInit();
 		if (assetNames == null)
 		{
 			if (!Ensure())
@@ -320,9 +394,9 @@ public class LoadedAssetBundle
 
 	public static int version;
 	public static int level;
-	[NonSerialized]
+	[IgnoreMember]
 	public int locked;
-	[NonSerialized]
+	[IgnoreMember]
 	public int pending;
 	/// <summary>
 	/// Ensures that the bundle is actually loaded, kicking out any conflicting bundles in the process if needed.
@@ -342,7 +416,7 @@ public class LoadedAssetBundle
 		if (m_AssetBundle == null)
 		{
 			var abfn = Dir.root + realPath;
-			Debug.Log("Trying to load ", name, realPath);
+			Debug.Log("Trying to load ", name, "real=", realPath);
 			m_AssetBundle = AssetBundle.LoadFromFile(abfn);
 			if (m_AssetBundle == null)
 			{
@@ -378,10 +452,11 @@ public class LoadedAssetBundle
 		m_AssetBundle = null;
 	}
 
-	public UnityEngine.Object LoadVirtualAsset(string name, Type t)
+	public object LoadVirtualAsset(string name, Type t)
 	{
 		if (!virtualAssets.TryGetValue(name, out string virt))
 			return null;
+		Debug.Log("Trying to load virtual asset", name);
 		var path = Dir.root + virt;
 		if (virt.EndsWith(".png") || virt.EndsWith(".jpg"))
 		{
@@ -401,12 +476,11 @@ public class LoadedAssetBundle
 				obj = ScriptableObject.CreateInstance(t) as IDumpable;
 			else
 				obj = Activator.CreateInstance(t) as IDumpable;
-			var ext = virt.Substring(virt.LastIndexOf('.') + 1);
-			if (obj.Unmarshal(Encoding.UTF8.GetString(File.ReadAllBytes(path)).StripBOM(), ext, name, virt))
+			if (obj.Unmarshal(Encoding.UTF8.GetString(File.ReadAllBytes(path)).StripBOM(), Vfs.GetExt(virt), name, virt))
 			{
-				var ret = obj as UnityEngine.Object;
-				ret.name = name;
-				return ret;
+				if (obj is UnityEngine.Object)
+					(obj as UnityEngine.Object).name = name;
+				return obj;
 			}
 		}
 		if (typeof(TextAsset).IsAssignableFrom(t) && (virt.EndsWith(".txt") || virt.EndsWith(".lst")))
@@ -420,49 +494,87 @@ public class LoadedAssetBundle
 		return null;
 	}
 
-	public UnityEngine.Object LoadAsset(string name, Type t)
+	public object LoadAsset(string name, Type t)
 	{
+		Debug.Stack("Loading ", this.name, name, t);
 		var obj = LoadVirtualAsset(name, t);
 		if (obj != null)
 			return obj;
 		if (!Ensure(name))
 			return null;
-		obj = m_AssetBundle.LoadAsset(name, t);
+		obj = LoadAssetWrapped(name, t);
 		return obj;
 	}
 
-	public IEnumerator LoadAssetAsync(string name, Type t, Action<UnityEngine.Object> cb)
+	public object LoadAssetWrapped(string name, Type t)
 	{
+		return TextAsset.Wrap<object>(m_AssetBundle.LoadAsset(name, TextAsset.Unwrap(t)));
+	}
+
+	public IEnumerator LoadAssetAsync(string name, Type t, Action<object> cb)
+	{
+		Debug.Stack("Async Loading ", name, t);
 		var obj = LoadVirtualAsset(name, t);
 		if (obj != null)
 		{
 			cb(obj);
 			yield break;
-		}	
-		do
+		}
+		if (!Ensure(name))
+			goto err;
+		var req = m_AssetBundle.LoadAssetAsync(name, TextAsset.Unwrap(t));
+		if (req == null)
+			goto err;
+		pending++;
+		yield return req;
+		pending--;
+		obj = req.asset;
+		if (obj == null && m_AssetBundle == null)
 		{
-			if (!Ensure(name))
-				break;
-			var req = m_AssetBundle.LoadAssetAsync(name, t);
-			if (req == null)
-				break;
-			pending++;
-			yield return req;
-			pending--;
-		}  while (m_AssetBundle == null);
-		cb(obj);
+			Debug.Log("Falling back to sync load for ", name, " due to pulled rug.");
+			Ensure(name);
+			// fall back to sync
+			obj = m_AssetBundle.LoadAsset(name, TextAsset.Unwrap(t));
+		}
+err:
+		cb(TextAsset.Wrap<object>(obj));
 	}
 }
 
 public class TextAsset : ScriptableObject
 {
 	public string path;
+	public string _text;
 	public string text
 	{
 		get
 		{
-			return Encoding.UTF8.GetString(bytes).StripBOM();
+			if (_text == null)
+				_text = Encoding.UTF8.GetString(bytes).StripBOM();
+			return _text;
 		}
 	}
 	public byte[] bytes { get; set; }
+
+	public static T Wrap<T>(object o) where T: class
+	{
+		if (o == null)
+			return null;
+		var to = o as UnityEngine.TextAsset;
+		if (to != null)
+		{
+			var so = CreateInstance<TextAsset>();
+			so._text = to.text;
+			so.bytes = to.bytes;
+			return so as T;
+		}
+		return o as T;
+	}
+
+	public static Type Unwrap(Type t)
+	{
+		if (t == typeof(TextAsset))
+			return typeof(UnityEngine.TextAsset);
+		return t;
+	}
 }

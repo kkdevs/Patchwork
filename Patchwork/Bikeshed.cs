@@ -279,13 +279,13 @@ public class AssetBundleData
 #endif
 	}
 
-	public virtual AssetBundleLoadAssetOperation LoadBundle<T>() where T : UnityEngine.Object
+	public virtual AssetBundleLoadAssetOperation LoadBundle<T>()
 	{
 		if (!isFile)
 			return null;
 		return request ?? (request = AssetBundleManager.LoadAsset(this, typeof(T)));
 	}
-	public virtual T GetAsset<T>() where T : UnityEngine.Object
+	public virtual T GetAsset<T>() where T : class
 	{
 		if (request == null)
 			request = LoadBundle<T>();
@@ -293,7 +293,7 @@ public class AssetBundleData
 			return (T)null;
 		return request.GetAsset<T>();
 	}
-	public IEnumerator GetAsset<T>(Action<T> act) where T : UnityEngine.Object
+	public IEnumerator GetAsset<T>(Action<T> act) where T : class
 	{
 		if (request == null)
 			request = this.LoadBundle<T>();
@@ -305,7 +305,7 @@ public class AssetBundleData
 		}
 	}
 
-	public virtual T[] GetAllAssets<T>() where T : UnityEngine.Object
+	public virtual T[] GetAllAssets<T>() where T : class
 	{
 		if (request == null)
 			request = LoadAllBundle<T>();
@@ -313,7 +313,7 @@ public class AssetBundleData
 			return null;
 		return request.GetAllAssets<T>();
 	}
-	public virtual AssetBundleLoadAssetOperation LoadAllBundle<T>() where T : UnityEngine.Object
+	public virtual AssetBundleLoadAssetOperation LoadAllBundle<T>() where T : class
 	{
 		if (!isFile)
 			return null;
