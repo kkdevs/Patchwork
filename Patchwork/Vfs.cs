@@ -15,40 +15,41 @@ public static class Vfs
 	// If folders are present in a mod, they masquerade as new asset bundles in the listing, too.
 	public static List<string> listable = new List<string>()
 	{
-		"map/actionpoint",
-		"map/waitpoint",
-		"map/list/calcgateinfo",
-		"map/list/navigationinfo",
-
-		"action/list/waitpoint/non",
-		"action/list/fixevent",
-		"action/list/chara",
-		"action/list/talklookneck",
-		"action/list/talklookbody",
-		"action/list/event",
-		"action/list/clubinfo",
-		"action/list/event",
-		"action/playeraction",
 		"action/actioncontrol",
 		"action/fixchara",
-
-		"etcetra/list/exp",
-		"etcetra/list/config",
-		"etcetra/list/nickname",
-
-		"studio/info",
-		"adv/scenario",
-		"sound/data/systemse/titlecall",
-		"sound/data/systemse/brandcall",
-		"communication",
-
-		// ! - no recursion
-		"!h/list",
+		"action/list/chara",
+		"action/list/clubinfo",
+		"action/list/event",
+		"action/list/fixchara",
+		"action/list/fixevent",
 		"!action/list/sound/bgm",
-		"!map/sound",
-		"!list/characustom",
 		"!action/list/sound/se/action",
+		"!action/list/sound/se/env",
+		"!action/list/sound/se/footstep",
+		"action/list/talklookbody",
+		"action/list/talklookneck",
+		"action/list/waitpoint/non",
+		"action/playeraction",
+		"adv/eventcg",
+		"adv/faceicon/list",
+		"adv/scenario",
+		"communication",
+		"etcetra/list/config",
+		"etcetra/list/exp",
+		"etcetra/list/nickname",
+		"!list/characustom",
+		"map/actionpoint",
+		"map/list/calcgateinfo",
+		"map/list/mapinfo",
+		"map/list/navigationinfo",
+		"!map/sound",
+		"map/waitpoint",
+		"sound/data/systemse/brandcall",
+		"sound/data/systemse/titlecall",
+		"studio/info",
 
+		"!h/list",
+		"!action/list/motionvoice",
 	};
 
 	[MessagePackObject]
@@ -132,7 +133,24 @@ public static class Vfs
 			if (!Directory.Exists(Dir.abdata + lld)) continue;
 			dc.dirLists[lld] = new List<string>();
 			foreach (var blist in Directory.GetFiles(Dir.abdata + lld, "*.unity3d", ld != lld ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories))
-				dc.dirLists[lld].Add(blist.Replace("\\","/").Substring(Dir.abdata.Length));
+			{
+				var fn = blist.Replace("\\", "/").Substring(Dir.abdata.Length);
+				dc.dirLists[lld].Add(fn);
+
+				// if recursive, walk up and populate dirlists
+				int idx = fn.LastIndexOf('/');
+				if (ld == lld && idx >= 0)
+				{
+					string td = fn.Remove(idx);
+					while (td != lld)
+					{
+						if (!dc.dirLists.TryGetValue(td, out List<string> tdl))
+							tdl = dc.dirLists[td] = new List<string>();
+						tdl.Add(fn);
+						td = td.Remove(td.LastIndexOf('/'));
+					}
+				}
+			}
 		}
 		Debug.Log("mods");
 		// now scan mods, those will simply override the tables above
@@ -420,9 +438,35 @@ public class LoadedAssetBundle
 			m_AssetBundle = AssetBundle.LoadFromFile(abfn);
 			if (m_AssetBundle == null)
 			{
-				// something is in the way
-				GCBundles();
-				m_AssetBundle = AssetBundle.LoadFromFile(abfn);
+				if (!abfn.StartsWith(Dir.cache))
+				{
+					var key = Ext.HashToString(realPath.ToBytes()).Substring(0, 12);
+					var alt = Dir.cache + key + ".unity3d";
+					if (!File.Exists(alt))
+					{
+						using (var f = File.OpenRead(abfn))
+						{
+							using (var fo = File.Create(alt))
+							{
+								FixCAB(fo, f, key);
+							}
+						}
+					}
+					Debug.Log("Trying to fix CAB conflict ", abfn, alt);
+					m_AssetBundle = AssetBundle.LoadFromFile(alt);
+					if (m_AssetBundle != null) {
+						realPath = alt.Substring(Dir.cache.Length);
+					} else
+					{
+						Debug.Log("CAB fix failed");
+					}
+				}
+
+				if (m_AssetBundle == null)
+				{
+					GCBundles();
+					m_AssetBundle = AssetBundle.LoadFromFile(abfn);
+				}
 			}
 		}
 		level--;
@@ -438,6 +482,28 @@ public class LoadedAssetBundle
 		foreach (var b in cache.Values)
 			if (b.locked < version)
 				b.Unload();
+	}
+
+	public bool FixCAB(Stream output, Stream input, string key)
+	{
+		var bytes = new byte[256];
+		input.Read(bytes, 0, 256);
+		int pos = -1;
+		for (int i = 0; i < 256; i++)
+			if (bytes[i] == 'C' && bytes[i + 1] == 'A' && bytes[i + 2] == 'B' && bytes[i + 3] == '-')
+			{
+				pos = i;
+				break;
+			}
+		if (pos < 0) return false;
+		var hash = System.Security.Cryptography.MD5.Create();
+		output.Write(bytes, 0, pos + 4); // CAB- + move past
+		var cabstr = string.Join("", hash.ComputeHash(key.ToBytes()).Take(16).Select((x) => x.ToString("x2")).ToArray()).ToBytes();
+		output.Write(cabstr, 0, cabstr.Length);
+		var rem = pos + 4 + cabstr.Length;
+		output.Write(bytes, rem, bytes.Length - rem);
+		input.CopyTo(output);
+		return true;
 	}
 
 	public void Unload()

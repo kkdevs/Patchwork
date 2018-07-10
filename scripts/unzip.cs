@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 public class unzip : ScriptEvents
 {
+	public static bool blacklisting = false;
 	static byte []entry2bytes(ZipFile zf, ZipEntry entry)
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
@@ -159,7 +160,7 @@ public class unzip : ScriptEvents
 					skip2:
 
 					//print(".. Extracted " + efn);
-					if (nmissing == 0)
+					if (nmissing == 0 || !blacklisting)
 						File.WriteAllBytes(efn, bytes);
 					else
 					{

@@ -126,7 +126,6 @@ public class MonoScript : Evaluator
 		var ctx = BuildContext(reporter);
 		ctx.Settings.SourceFiles.Clear();
 		int i = 0;
-		var md5 = SHA1.Create();
 		var allBytes = new MemoryStream();
 		List<Assembly> imports = new List<Assembly>();
 		foreach (var fo in sources)
@@ -160,7 +159,7 @@ public class MonoScript : Evaluator
 		string dllname = prefix + (counter++) + ".dll";
 		if (tempdir != null)
 		{
-			var hash = prefix + Convert.ToBase64String(md5.ComputeHash(allBytes.ToArray())).Replace("/", "").Replace(".", "").Replace("+", "").Substring(0, 12).ToLower() + ".dll";
+			var hash = prefix + Ext.HashToString(allBytes.ToArray()).Substring(0, 12).ToLower() + ".dll";
 			dllname = Path.Combine(tempdir, hash);
 			if (File.Exists(dllname))
 			{

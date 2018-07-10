@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 // Originally illusion class
@@ -28,19 +29,25 @@ public static class Debug
 		DoLog(marker, Format(a));
 	}
 
+	[Conditional("GAME_DEBUG")]
+#if GAME_DEBUG
+	[MethodImpl(MethodImplOptions.NoInlining)]
+#endif
 	public static void Log(params object[] a)
 	{
-		DoLog("DEBUG", a);
+		DoLog(new StackFrame(1, true).GetMethod().Name, a);
 	}
 
 	public static void Spam(params object[] a)
 	{
-		DoLog("SPAM", a);
+		if (Patchwork.settings.enableSpam)
+			DoLog("SPAM", a);
 	}
 
 	public static void Trace(params object[] a)
 	{
-		DoLog("TRACE", a);
+		if (Patchwork.settings.enableTrace)
+			DoLog("TRACE", a);
 	}
 
 	public static void Info(params object[] a)
@@ -51,11 +58,20 @@ public static class Debug
 	public static void Error(params object[] a)
 	{
 		DoLog("ERROR", a);
+		if (Patchwork.settings.enableSpam)
+			DoLog("TRACEBACK", new object[] { Environment.StackTrace });
 	}
+
+	[Conditional("GAME_DEBUG")]
+#if GAME_DEBUG
+	[MethodImpl(MethodImplOptions.NoInlining)]
+#endif
 	public static void Stack(params object[] a)
 	{
-		DoLog("STACK", a);
-		DoLog("TRACEBACK", new object[] { Environment.StackTrace });
+		if (Patchwork.settings.enableTrace)
+			DoLog("STACK", a);
+		if (Patchwork.settings.enableSpam)
+			DoLog("TRACEBACK", new object[] { Environment.StackTrace });
 	}
 
 	public static void Protect(Action a) {

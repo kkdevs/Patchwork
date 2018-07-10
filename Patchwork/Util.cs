@@ -424,6 +424,11 @@ public static class Ext
 		if (plus != null)
 			yield return plus;
 	}
+	public static string HashToString(byte[] allBytes)
+	{
+		var md5 = System.Security.Cryptography.MD5.Create();
+		return Convert.ToBase64String(md5.ComputeHash(allBytes)).Replace("/", "").Replace(".", "").Replace("+", "");
+	}
 	public static string AddBOM(this string str)
 	{
 		if (settings.useBOM)
