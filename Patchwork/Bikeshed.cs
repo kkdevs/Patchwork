@@ -79,6 +79,8 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 	{
 		if (!isInitialized)
 		{
+			Debug.Log("Initializing ABM shim");
+			Vfs.CheckInit();
 			GameObject gameObject = new GameObject("AssetBundleManager", typeof(AssetBundleManager));
 			UnityEngine.Object.DontDestroyOnLoad(gameObject);
 //			LoadedAssetBundle.Init(basePath);

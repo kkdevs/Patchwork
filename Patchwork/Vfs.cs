@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using MessagePack;
+using MessagePack.LZ4;
 using System.Collections;
 using static Patchwork;
 
@@ -77,7 +78,7 @@ public static class Vfs
 	/// <summary>
 	/// Load top level manifests to track dependencies
 	/// </summary>
-	public static void LoadManifests()
+	public static void LoadManifests(bool makedep = true)
 	{
 		foreach (var man in Directory.GetFiles(Dir.abdata, "*.*", SearchOption.TopDirectoryOnly))
 		{
@@ -89,32 +90,35 @@ public static class Vfs
 			if (mf != null)
 			{
 				AssetBundleManager.ManifestBundlePack["abdata/"+fn] = new AssetBundleManager.BundlePack() { AssetBundleManifest = mf };
-				foreach (var sab in mf.GetAllAssetBundles())
+				if (makedep)
 				{
-					
-					var abi = LoadedAssetBundle.Make(sab.Replace("abdata/",""));
-					foreach (var tdep in mf.GetAllDependencies(sab))
+					foreach (var sab in mf.GetAllAssetBundles())
 					{
-						Debug.Log(" =>", sab, " depends on ", tdep);
-						string dep = tdep.Replace("abdata/","");
-						if (!abi.deps.Contains(dep))
-							abi.deps.Add(dep);
+						var abi = LoadedAssetBundle.Make(sab.Replace("abdata/", ""));
+						foreach (var tdep in mf.GetAllDependencies(sab))
+						{
+							Debug.Log(" =>", sab, " depends on ", tdep);
+							string dep = tdep.Replace("abdata/", "");
+							if (!abi.deps.Contains(dep))
+								abi.deps.Add(dep);
+						}
 					}
 				}
 			}
-			ab.Unload(true);
+			ab.Unload(false);
 		}
 	}
 
 	/// <summary>
 	/// Rescan the directory mappings
 	/// </summary>
-	public static void Rescan()
+	public static void Rescan(bool flush = true)
 	{
 		Debug.Log("VFS: Rescan");
 		string abdata = "abdata/";
 		string inabdata = Dir.root + abdata;
-		dc.abs.Clear();
+		if (flush)
+			dc.abs.Clear();
 		dc.dirLists.Clear();
 		// initially map everything to self
 		Debug.Log("unity3d");
@@ -154,68 +158,77 @@ public static class Vfs
 		}
 		Debug.Log("mods");
 		// now scan mods, those will simply override the tables above
-		foreach (var mod in Directory.GetDirectories(Dir.mod, "*.*", SearchOption.TopDirectoryOnly))
-		{
-			Debug.Log("Processing ", mod);
-			var inmod = mod + "/";
-			foreach (var bundle in Directory.GetFiles(inmod, "*.*", SearchOption.AllDirectories))
+		if (settings.loadMods)
+			foreach (var mod in Directory.GetDirectories(Dir.mod, "*.*", SearchOption.TopDirectoryOnly))
 			{
-				var bd = bundle.Replace("\\", "/");
-				var fn = bd.Substring(Dir.root.Length);
-				var ffn = fn;
-//				Debug.Log("modfiles ", bundle, bd, fn);
-
-				// may override original abdata mapping
-				if (bundle.EndsWith(".unity3d"))
-					LoadedAssetBundle.Make(bd.Substring(inmod.Length)).realPath = fn;		
-
-				// keep stripping last path component of the file path until we match
-				// a path which is listable
-				fn = bd.Substring(inmod.Length); // remove modpath -> abesque
-				var ofn = fn;
-				int ind;
-				int stripped = 0;
-				while ((ind = fn.LastIndexOf('/')) >= 0)
+				Debug.Log("Processing ", mod);
+				var inmod = mod + "/";
+				foreach (var bundle in Directory.GetFiles(inmod, "*.*", SearchOption.AllDirectories))
 				{
-					fn = fn.Remove(ind); // is directory now
-					 //	Debug.Log("listable lookup", fn, ofn);
-					var virtab = ofn.Remove(ofn.LastIndexOf('/')) + ".unity3d";
-					// a file inside listable folder was detected, we'll need to inspect the folder
-					if (lhash.TryGetValue(fn, out bool norecurse))
+					var bd = bundle.Replace("\\", "/");
+					var isUnsafe = (bd.IndexOf("+") > bd.LastIndexOf("/")) && bd.EndsWith(".unity3d");
+					if (isUnsafe)
+						Debug.Info(bundle, " is unsafe!");
+					if (isUnsafe && !settings.loadUnsafe)
 					{
-						// an actual bundle, insert it as-is
-						if (ofn.EndsWith(".unity3d"))
+						Debug.Info("skipping");
+						continue;
+					}
+					var fn = bd.Substring(Dir.root.Length);
+					var ffn = fn;
+	//				Debug.Log("modfiles ", bundle, bd, fn);
+
+					// may override original abdata mapping
+					if (bundle.EndsWith(".unity3d"))
+						LoadedAssetBundle.Make(bd.Substring(inmod.Length)).realPath = fn;		
+
+					// keep stripping last path component of the file path until we match
+					// a path which is listable
+					fn = bd.Substring(inmod.Length); // remove modpath -> abesque
+					var ofn = fn;
+					int ind;
+					int stripped = 0;
+					while ((ind = fn.LastIndexOf('/')) >= 0)
+					{
+						fn = fn.Remove(ind); // is directory now
+						 //	Debug.Log("listable lookup", fn, ofn);
+						var virtab = ofn.Remove(ofn.LastIndexOf('/')) + ".unity3d";
+						// a file inside listable folder was detected, we'll need to inspect the folder
+						if (lhash.TryGetValue(fn, out bool norecurse))
 						{
-							if ((!norecurse || stripped == 0) && !dc.dirLists[fn].Contains(ofn))
-								dc.dirLists[fn].Add(ofn);
-						} else
-						{
-							// a file in a directory. the directory itself then becomes a virtual bundle
-							// if there is no accompanying real one
-							// add to dir listings
-							if ((!norecurse || stripped == 0) || !dc.dirLists[fn].Contains(virtab))
+							// an actual bundle, insert it as-is
+							if (ofn.EndsWith(".unity3d"))
 							{
-								dc.dirLists[fn].Add(virtab);
+								if ((!norecurse || stripped == 0) && !dc.dirLists[fn].Contains(ofn))
+									dc.dirLists[fn].Add(ofn.Replace("+",""));
+							} else
+							{
+								// a file in a directory. the directory itself then becomes a virtual bundle
+								// if there is no accompanying real one
+								// add to dir listings
+								if ((!norecurse || stripped == 0) || !dc.dirLists[fn].Contains(virtab))
+								{
+									dc.dirLists[fn].Add(virtab);
+								}
 							}
 						}
+						if (fn != "" && stripped == 0 && !ofn.EndsWith("*.unity3d"))
+						{
+							// create a virtual bundle
+							var assname = RemoveExt(Path.GetFileName(ofn));
+							var vab = LoadedAssetBundle.Make(virtab);
+							vab.virtualAssets[assname] = ffn;
+							var nvpath = ffn.Remove(ffn.LastIndexOf('/'));
+							Debug.Log(assname, virtab, fn, nvpath, vab.realPath);
+							if (vab.realPath == null && nvpath != vab.realPath)
+								vab.realPath = nvpath;
+							else
+								Debug.Log("Not overriding ", vab.realPath, " with ", nvpath);
+						}
+						stripped++;
 					}
-					if (fn != "" && stripped == 0 && !ofn.EndsWith("*.unity3d"))
-					{
-						// create a virtual bundle
-						var assname = RemoveExt(Path.GetFileName(ofn));
-						var vab = LoadedAssetBundle.Make(virtab);
-						vab.virtualAssets[assname] = ffn;
-						var nvpath = ffn.Remove(ffn.LastIndexOf('/'));
-						Debug.Log(assname, virtab, fn, nvpath, vab.realPath);
-						if (vab.realPath == null && nvpath != vab.realPath)
-							vab.realPath = nvpath;
-						else
-							Debug.Log("Not overriding ", vab.realPath, " with ", nvpath);
-					}
-					stripped++;
 				}
 			}
-		}
 	}
 
 	public static string RemoveExt(string name)
@@ -234,12 +247,44 @@ public static class Vfs
 
 	public static DirCache dc = new DirCache();
 
+	public static void Save()
+	{
+		if (!caching) return;
+#if GAME_DEBUG
+		var mb = MessagePackSerializer.Serialize(dc);
+		File.WriteAllBytes(cacheFile, mb);
+		File.WriteAllBytes(cacheFile + ".json", MessagePackSerializer.ToJson(mb).ToBytes());
+#else
+		var mb = LZ4MessagePackSerializer.Serialize(dc);
+		File.WriteAllBytes(cacheFile, mb);
+#endif
+	}
+
+	public static string cacheFile => Dir.cache + "abinfo";
+
+	public static bool Load()
+	{
+		if (File.Exists(cacheFile))
+		{
+			dc = LZ4MessagePackSerializer.Deserialize<DirCache>(File.ReadAllBytes(cacheFile));
+			return true;
+		}
+		else return false;
+	}
+
+	public static bool caching => settings.abinfoCache;
+
 	public static void Init()
 	{
-		Rescan();
-		LoadManifests();
-		var mb = MessagePackSerializer.Serialize(dc);
-		File.WriteAllBytes("dc.json", MessagePackSerializer.ToJson(mb).ToBytes());
+		Debug.Log("Vfs initializing");
+		if (!caching || !Load())
+		{
+			Rescan();
+			LoadManifests();
+			if (caching)
+				Save();
+		}
+		else LoadManifests(false);
 	}
 
 	public static bool initialized;
@@ -269,18 +314,202 @@ public static class Vfs
 		return new List<string>();
 	}
 
+	const int atlasDim = 1024;
+	const int perDim = (atlasDim / 128);
+	const int spriteCount = perDim * perDim;
+	const TextureFormat texFmt = TextureFormat.RGBA32;
+	public static Texture2D[] atlas = new Texture2D[0];
+	public static Sprite[] spritePending = new Sprite[spriteCount];
+	//public static Dictionary<int, Sprite> scache = new Dictionary<int, Sprite>();
+	public static int spriteLen = 0;
+
+	public static IEnumerator GetSpriteAsync(string bundle, string name, Action<Sprite> ret)
+	{
+		var ab = LoadedAssetBundle.Load(bundle);
+		if (ab != null)
+		{
+			yield return ab.LoadAssetAsync(name, typeof(Texture2D), (tex) =>
+			{
+				var t = tex as Texture2D;
+				if (t)
+					ret(Sprite.Create(t, new Rect(0f, 0f, (float)t.width, (float)t.height), new Vector2(0.5f, 0.5f)));
+				else
+					ret(null);
+			});
+		}
+		ret(null);
+	}
+
 	public static bool GetSprite(string bundle, string name, out Sprite ret)
 	{
 		ret = null;
-		var tex = LoadedAssetBundle.Load(bundle)?.LoadAsset(name, typeof(Texture2D)) as Texture2D;
-		if (tex == null)
+		var lab = LoadedAssetBundle.Load(bundle);
+		if (lab == null)
 			return false;
-		ret = Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f));
-		return true;
+		if (!caching)
+		{
+			var t = LoadedAssetBundle.Load(bundle)?.LoadAsset(name, typeof(Texture2D)) as Texture2D;
+			if (t == null)
+				return false;
+			ret = Sprite.Create(t, new Rect(0f, 0f, (float)t.width, (float)t.height), new Vector2(0.5f, 0.5f));
+			return true;
+		}
+		Debug.Log("Trying to get sprite for ", bundle, name);
+		if (lab.cachedSprites.TryGetValue(name, out int idx))
+		{
+			/*if (scache.TryGetValue(idx, out Sprite sc))
+			{
+				if (sc)
+					sc = Sprite.Instantiate(sc);
+				return sc;
+			}*/
+			Debug.Log("potential cache hit at ", idx, atlas.Length);
+			int atlasno = (idx / spriteCount);
+			int off = idx % spriteCount;
+			// load atlases up to that count
+			for (int i = atlas.Length; i <= atlasno; i++)
+			{
+				var atn = Dir.cache + "abinfo" + i;
+				if (File.Exists(atn))
+				{
+#if USE_BC7
+					var fmt = TextureFormat.BC7;
+					var dbuf = new byte[atlasDim * atlasDim];
+#elif USE_DXT
+					var fmt = TextureFormat.DXT5;
+					var dbuf = new byte[atlasDim * atlasDim];
+#else
+					var fmt = TextureFormat.RGBA32;
+					var dbuf = new byte[4 * atlasDim * atlasDim];
+#endif
+					Texture2D at = new Texture2D(atlasDim, atlasDim, fmt, false);
+					at.LoadRawTextureData(LZ4Decompress(File.ReadAllBytes(atn), dbuf));
+					at.Apply(updateMipmaps: false, makeNoLongerReadable: true);
+					if (atlas.Length <= i)
+						Array.Resize(ref atlas, i + 1);
+					Texture2D.DontDestroyOnLoad(at);
+					atlas[i] = at;
+				} else
+				{
+					Debug.Log("This cache index ",idx," doesn't exist but should! (atlasno ",i,")", atn);
+					break;
+				}
+			}
+			if (atlasno < atlas.Length)
+			{
+				Debug.Log("Sprite within atlas range");
+				int x = (off % perDim) * 128;
+				int y = (off / perDim) * 128;
+				var st = Sprite.Create(atlas[atlasno], new Rect(x, y, 128, 128), new Vector2(0.5f, 0.5f));
+				//Sprite.DontDestroyOnLoad(st);
+				//scache[idx] = st;
+				ret = st;// Sprite.Instantiate(st);
+				return true;
+			}
+			if (atlasno == atlas.Length)
+			{
+				if (off < spriteLen)
+				{
+					Debug.Log("Found the sprite in pending set");
+					return spritePending[off] ? Sprite.Instantiate(spritePending[off]) : null;
+				}
+			}
+			Debug.Error("Corrupted sprite cache. This shouldn't happen.",atlasno,atlas.Length,off,spriteLen);
+		}
+		Debug.Log("cache miss. we need to cache the sprite afresh.");
+		var tex = LoadedAssetBundle.Load(bundle)?.LoadAsset(name, typeof(Texture2D)) as Texture2D;
+		int localidx = spriteLen;
+		lab.cachedSprites[name] = localidx + atlas.Length * spriteCount;
+		spriteLen = localidx + 1;
+		if (tex != null)
+		{
+
+		}
+		/*scache[idx] = tex ? Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f)) : null;
+		if (tex != null)
+			Sprite.DontDestroyOnLoad(scache[idx]);
+		spritePending[localidx] = scache[idx];
+		if (tex != null)
+			ret = Sprite.Instantiate(scache[idx]);
+		*/
+		ret = spritePending[localidx] = tex ? Sprite.Create(tex, new Rect(0f, 0f, (float)tex.width, (float)tex.height), new Vector2(0.5f, 0.5f)) : null;
+		if (ret != null)
+			Sprite.DontDestroyOnLoad(ret);
+		// swap out the pending ones into a new texture if full
+		if (spriteLen == spriteCount)
+		{
+			Debug.Log("sprite atlas full, flushing");
+			Texture2D at = new Texture2D(atlasDim, atlasDim, TextureFormat.RGBA32, false);
+
+			RenderTexture tmp = RenderTexture.GetTemporary(128, 128);
+			tmp.filterMode = FilterMode.Point;
+			RenderTexture.active = tmp;
+			for (int off = 0; off < spriteCount; off++)
+			{
+				if (spritePending[off] == null)
+					continue;
+				int x = (off % perDim) * 128;
+				int y = (off / perDim) * 128;
+				Graphics.Blit(spritePending[off].texture, tmp); // blit and stretch the original to our 128x128 render target
+				at.ReadPixels(new Rect(0, 0, 128, 128), x, y);
+				spritePending[off] = null;
+			}
+			at.Apply();
+			RenderTexture.active = null;
+			int atno = atlas.Length;
+			Array.Resize(ref atlas, atno + 1);
+			atlas[atno] = at;
+#if GAME_DEBUG
+			File.WriteAllBytes(Dir.cache + "abinfo" + atno + ".png", at.EncodeToPNG());
+#endif
+
+#if USE_BC7
+			var rawbuf = at.GetRawTextureData();
+			var bc7buf = new byte[rawbuf.Length / 4];
+			unsafe {
+				fixed (byte* pbc7buf = bc7buf)
+				{
+					fixed (byte* prawbuf = rawbuf)
+						bc7_compress(new IntPtr(pbc7buf), new IntPtr(prawbuf), atlasDim, atlasDim);
+				}
+			}
+			rawbuf = bc7buf;
+#elif USE_DXT
+			at.Compress(false);
+			var rawbuf = at.GetRawTextureData();
+#else
+			var rawbuf = at.GetRawTextureData();
+#endif
+			File.WriteAllBytes(Dir.cache + "abinfo" + atno, LZ4Compress(rawbuf));
+
+			spriteLen = 0;
+			Save();
+		}
+		return ret != null;
 	}
+	public static byte[] LZ4Compress(byte[] buf)
+	{
+		//return buf;
+		var outbuf = new byte[LZ4Codec.MaximumOutputLength(buf.Length)];
+		int len = LZ4Codec.Encode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
+		Array.Resize(ref outbuf, len);
+		return outbuf;
+	}
+
+	public static byte[] LZ4Decompress(byte[] buf, byte[] outbuf)
+	{
+		//return buf;
+		LZ4Codec.Decode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
+		return outbuf;
+	}
+
 }
 
+#if GAME_DEBUG
 [MessagePackObject(true)]
+#else
+[MessagePackObject]
+#endif
 public class LoadedAssetBundle
 {
 	[Key(0)]
@@ -293,6 +522,11 @@ public class LoadedAssetBundle
 	public string[] assetNames;
 	[Key(4)]
 	public Dictionary<string, string> virtualAssets = new Dictionary<string, string>();
+	[Key(5)]
+	public Dictionary<string, int> cachedSprites = new Dictionary<string, int>();
+
+	[IgnoreMember]
+	public string altPath;
 
 	[IgnoreMember]
 	public AssetBundle m_AssetBundle;
@@ -323,6 +557,7 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Make(string name)
 	{
+		name = name.Replace("+", "");
 		Debug.Log("Registering", name);
 		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
 			return ab;
@@ -342,8 +577,10 @@ public class LoadedAssetBundle
 	public static LoadedAssetBundle Get(string name)
 	{
 		CheckInit();
+		Debug.Log("Get bundle ", name);
 		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
 			return ab;
+		Debug.Error("Untracked bundle ", name, "requested");
 		return null;
 	}
 
@@ -359,7 +596,7 @@ public class LoadedAssetBundle
 		var ab = Get(name);
 		if (ab == null)
 		{
-			Debug.Error("Load failed; this bundle is not tracked.");
+			Debug.Error("Load failed; the bundle ",name," is not tracked.");
 			return null;
 		}
 
@@ -435,11 +672,21 @@ public class LoadedAssetBundle
 		{
 			var abfn = Dir.root + realPath;
 			Debug.Log("Trying to load ", name, "real=", realPath);
-			m_AssetBundle = AssetBundle.LoadFromFile(abfn);
+			if (altPath != null)
+			{
+				Debug.Log("altpath ", altPath, "found; trying that first");
+				m_AssetBundle = AssetBundle.LoadFromFile(altPath);
+			}
 			if (m_AssetBundle == null)
 			{
-				if (!abfn.StartsWith(Dir.cache))
+				Debug.Log("trying realpath ", abfn);
+				m_AssetBundle = AssetBundle.LoadFromFile(abfn);
+			}
+			if (m_AssetBundle == null)
+			{
+				if (altPath == null)
 				{
+					Debug.Log("no altpath yet; creating one");
 					var key = Ext.HashToString(realPath.ToBytes()).Substring(0, 12);
 					var alt = Dir.cache + key + ".unity3d";
 					if (!File.Exists(alt))
@@ -454,12 +701,7 @@ public class LoadedAssetBundle
 					}
 					Debug.Log("Trying to fix CAB conflict ", abfn, alt);
 					m_AssetBundle = AssetBundle.LoadFromFile(alt);
-					if (m_AssetBundle != null) {
-						realPath = alt.Substring(Dir.cache.Length);
-					} else
-					{
-						Debug.Log("CAB fix failed");
-					}
+					altPath = alt;
 				}
 
 				if (m_AssetBundle == null)

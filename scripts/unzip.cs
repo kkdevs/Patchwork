@@ -13,7 +13,6 @@ using System.Collections.Generic;
 
 public class unzip : ScriptEvents
 {
-	public static bool blacklisting = false;
 	static byte []entry2bytes(ZipFile zf, ZipEntry entry)
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
@@ -24,12 +23,14 @@ public class unzip : ScriptEvents
 		var target = Dir.mod;
 		print("Unzipping mods into " + Path.GetFullPath(target));
 		var zipdir = Dir.root + "mods";
+		bool needRescan = false;
 		foreach (var zipfn in Directory.GetFiles(zipdir, "*.zip", SearchOption.AllDirectories))
 		{
 			var modname = Path.GetFileNameWithoutExtension(zipfn);
 			//print("@ " + modname);
 			if (Directory.Exists(target + modname))
 				continue;
+			needRescan = true;
 			//print(Path.GetFileName(zipfn));
 			using (var fs = File.Open(zipfn, FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
@@ -151,7 +152,7 @@ public class unzip : ScriptEvents
 							var shass = Path.GetFileNameWithoutExtension(ass);
 							if (!abnames.Contains(shass))
 							{
-								print($"WARNING: {Path.GetFileName(efn)}: {shass} is missing but should be there because {oldefn} has it!");
+								print($"WARNING: {Path.GetFileName(efn)}: {shass} is missing {oldefn}");
 								nmissing++;
 							}
 						}
@@ -160,14 +161,21 @@ public class unzip : ScriptEvents
 					skip2:
 
 					//print(".. Extracted " + efn);
-					if (nmissing == 0 || !blacklisting)
+					if (nmissing == 0)
 						File.WriteAllBytes(efn, bytes);
 					else
 					{
-						print($"WARNING: Discarding corrupted {efn} because it is missing {nmissing} assets.");
+						File.WriteAllBytes(Directory.GetParent(efn).FullName+"/+"+Path.GetFileName(efn), bytes);
+						print($"WARNING: {efn} is corrupted (missing {nmissing} assets), marking as unsafe.");
 					}
 				}
 			}
+		}
+		if (needRescan)
+		{
+			print("VFS changed; rescanning");
+			Vfs.Rescan(false);
+			Vfs.Save();
 		}
 		print("Done");
 	}

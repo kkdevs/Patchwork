@@ -69,6 +69,9 @@ public static partial class Patchwork {
 		{
 			form.Show();
 			launched = true;
+			form.launchButton.Enabled = false;
+			form.runChara.Enabled = false;
+			form.scriptReload.Enabled = false;
 			return;
 		}
 		form.scriptReload.Click += (o, e) =>

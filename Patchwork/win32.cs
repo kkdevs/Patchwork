@@ -57,6 +57,9 @@ public static partial class Patchwork
 		public IntPtr hwnd;
 	}
 
+	[DllImport("__Internal")]
+	public static extern bool bc7_compress(IntPtr output, IntPtr input, int width, int height);
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct POINT
 	{

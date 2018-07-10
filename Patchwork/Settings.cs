@@ -37,7 +37,12 @@ public static partial class Patchwork
 			"ipaloader",
 			"illusionplugin",
 		};
-		public bool blackFade = false;
+		public bool loadMods = false;
+		public bool loadUnsafe = false;
+		public bool asyncMaker = true;
+		public bool abinfoCache = false;
+
+		public bool blackFade = true;
 		public List<string> scriptDisabled = new List<string>();
 		public bool cacheScripts = true;
 		public bool faceJPG = true;
@@ -76,7 +81,7 @@ public static partial class Patchwork
 		public string mmFemale = "chara/mm_base";
 		public bool noBustNorm = false;
 		public bool mcChange = true;
-		public bool noFade = false;
+		public bool noFade = true;
 		public bool skipLogo = false;
 		public float rimOverride = -1;
 		public int visTick = 1;

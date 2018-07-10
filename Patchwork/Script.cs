@@ -133,6 +133,7 @@ public class MBProxy : MonoBehaviour
 		{
 			tick = 60;
 			Script.On.Occasion();
+			Patchwork.FixWindow();
 		}
 			
 		Script.On.FixedUpdate();

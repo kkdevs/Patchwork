@@ -8,6 +8,27 @@
 
 #include "bc7enc16.h"
 
+bc7enc16_bool bc7_compress(uint32_t *out, const char *in, int width, int height)
+{
+	bc7enc16_compress_block_params par;
+	bc7enc16_compress_block_params_init(&par);
+	int w4 = width * 4;
+	for (int y = 0; y < height; y += 4)
+	{
+		for (int x = 0; x < w4; x += 16) {
+			char buf[4][16];
+			int k = 0;
+			for (int i = 0; i < 4; i++, k += w4)
+				for (int j = 0; j < 16; j++)
+					buf[i][j] = in[x + j + k];
+			bc7enc16_compress_block(out, buf, &par);
+			out += 4;
+		}
+		in += w4;
+	}
+}
+
+
 #undef assert
 #define assert(x)
 int _fltused;

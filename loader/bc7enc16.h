@@ -51,14 +51,15 @@ inline void bc7enc16_compress_block_params_init(bc7enc16_compress_block_params *
 }
 
 // bc7enc16_compress_block_init() MUST be called before calling bc7enc16_compress_block() (or you'll get artifacts).
-__declspec(dllexport)
-void bc7enc16_compress_block_init();
+static inline void bc7enc16_compress_block_init();
 
 // Packs a single block of 16x16 RGBA pixels (R first in memory) to 128-bit BC7 block pBlock, using either mode 1 and/or 6.
 // Alpha blocks will always use mode 6, and by default opaque blocks will use either modes 1 or 6.
 // Returns BC7ENC16_TRUE if the block had any pixels with alpha < 255, otherwise it return BC7ENC16_FALSE. (This is not an error code - a block is always encoded.)
+static bc7enc16_bool bc7enc16_compress_block(void *pBlock, const void *pPixelsRGBA, const bc7enc16_compress_block_params *pComp_params);
+
 __declspec(dllexport)
-bc7enc16_bool bc7enc16_compress_block(void *pBlock, const void *pPixelsRGBA, const bc7enc16_compress_block_params *pComp_params);
+bc7enc16_bool bc7_compress(uint32_t *out, const char *in, int width, int height);
 
 
 #ifdef __cplusplus

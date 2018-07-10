@@ -102,6 +102,8 @@ public class FakeID : ScriptEvents
 			return;
 		if (lib.Category == (int)CategoryNo.mt_ramp)
 			return;
+		if (((lib.Category >= (int)CategoryNo.ao_none) || (lib.Category <= (int)CategoryNo.ao_kokan)) && lib.Id == 0)
+			return;
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
 	}
 
@@ -157,7 +159,8 @@ public class FakeID : ScriptEvents
 			if (idMap.real2fake.TryGetValue(realpair, out candidates))
 				return candidates.FirstOrDefault();
 			if (cat != 0 && id != 0)
-				print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
+				if (settings.enableSpam)
+					print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
 			return id;
 		}
 
@@ -172,7 +175,8 @@ public class FakeID : ScriptEvents
 			if (!idMap.fake2real.TryGetValue(id, out lib) || lib.Category != cat)
 			{
 				if (cat != 0 && id != 0)
-					print($"Failed to translate fake to real prop={prop} cat({cat}), id={id}");
+					if (settings.enableSpam)
+						print($"Failed to translate fake to real prop={prop} cat({cat}), id={id}");
 				return id;
 			}
 			if (lib.Distribution2.IsNullOrEmpty())

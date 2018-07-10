@@ -359,7 +359,7 @@ namespace Patchwork
 			}
 			return path.Substring(LoadedAssetBundle.basePathCanon.Length);
 		}
-
+	
 		// Expects canonical path!
 		public static Dictionary<string, List<string>> dirCache = new Dictionary<string, List<string>>();
 		// List union of files or directories
