@@ -88,6 +88,8 @@ public class FakeID : ScriptEvents
 				var inf = GetInfos(sub + i, ids[i+1]).FirstOrDefault();
 				if (inf != null && inf.Category == sub + i && ids[i + 1] != 0)
 					continue;
+				if (ids[i + 1] == 0)
+					continue;
 				// If not, try to pick something
 				int ndef = def[i + (lib.Kind-1)*3];
 				ids[i+1] = GetFakes(sub + i, ndef).FirstOrDefault();
@@ -104,6 +106,7 @@ public class FakeID : ScriptEvents
 			return;
 		if (((lib.Category >= (int)CategoryNo.ao_none) || (lib.Category <= (int)CategoryNo.ao_kokan)) && lib.Id == 0)
 			return;
+		if (lib.Id == 0) return;
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
 	}
 
@@ -145,7 +148,7 @@ public class FakeID : ScriptEvents
 		// if no hint is present, first fake is used
 		public int GetFake(string prop, int cat, int id)
 		{
-			if (cat == (int)CategoryNo.ao_none || id < 0)
+			if (cat == (int)CategoryNo.ao_none || id <= 0)
 				return id;
 			List<int> candidates;
 			var realpair = new RealPair(cat, id);
@@ -168,7 +171,7 @@ public class FakeID : ScriptEvents
 		public int GetReal(string prop, int cat, int id)
 		{
 			ListInfoBase lib;
-			if (cat == (int)CategoryNo.ao_none)
+			if (cat == (int)CategoryNo.ao_none || id == 0)
 				return id;
 			if (id >= FAKE_BASE)
 				return id;
