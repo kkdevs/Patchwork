@@ -1,10 +1,22 @@
 This is a fork of the KK engine adding some more features to it
 
-* A bit of performance improvements
-* Exposing (almost) all game serialized metadata as CSV files
-* Various engine internals made configurable
+* Performance improvements
+* Exposing (almost) all game serialized metadata
+* Various engine internals made scriptable/configurable
 * Removal of some arbitrary restrictions
 * a lot of small ad-hoc improvements/bugs introduced to the engine
+
+## No warranty
+
+Patchwork is very far from being ready for end user use, it's move fast and
+break things at the moment. It's meant mainly for advanced users somewhat
+familiar with modding, unity or the predecessors of this engine (PH, HS).
+
+**DO NOT BUNDLE IT IN MODPACKS**. Do not bug other people to fix compatibility
+for patchwork, even if they did that, chances are it would get broken by
+engine change yet again anyway. When mentioning it somewhere, always note
+that this is meant only for experienced users who know how to troubleshoot
+compatibility issues.
 
 ## Card and class save compatibility
 
@@ -46,25 +58,5 @@ the new mark, or trivial toggles added under default-off checkbox.
 
 Marks with high versions tend to be most stable, whereas latest mark is bleeding
 edge and almost inevitably buggy.
-
-## Stability, end user support, contact
-
-Patchwork is very far from being ready for end user use, it's move fast and
-break things at the moment. It's meant mainly for advanced users somewhat
-familiar with modding, unity or the predecessors of this engine (PH, HS).
-
-Public support is exclusively via github tickets. There are better venues to
-get in touch hidden as easter eggs.
-
-## Troubleshooting bugs
-
-Here is how you troubleshoot in general, ordered by complexity:
-
-* Post output log
-* Could be a zipmod. Delete userdata/mod and untick unzip in scripts tab.
-* Could be some other plugin/script. Uncheck all entries in scripts tab so pw runs alone.
-* Could be launcher exe issue, try hardpatch
-* Could be a card issue. Try using non-modded cards only.
-* If its a hardmod collision, try with unmodded abdata
 
 
