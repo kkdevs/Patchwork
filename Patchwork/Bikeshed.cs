@@ -486,3 +486,12 @@ namespace ExtensibleSaveFormat
 		public static event CardEventHandler CardBeingLoaded;
 	}
 }
+
+namespace ResourceRedirector
+{
+	public class ResourceRedirector
+	{
+		public delegate bool AssetHandler(string assetBundleName, string assetName, Type type, string manifestAssetBundleName, out AssetBundleLoadAssetOperation result);
+		public static List<AssetHandler> AssetResolvers = new List<AssetHandler>(); public static Dictionary<string, AssetBundle> EmulatedAssetBundles = new Dictionary<string, AssetBundle>();
+	}
+}

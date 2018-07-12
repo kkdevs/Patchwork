@@ -148,6 +148,9 @@ public class ScriptEvents
 	public virtual void OnSetClothes(ChaControl ch, int cat, int[] ids) { }
 
 	public virtual void OnPlayVoice(LoadVoice v) { }
+	public virtual void OnStopVoice(LoadAudioBase v) { }
+	public virtual void OnRemoveClip(AudioClip c) { }
+	public virtual void OnRegisterClip(AudioClip c) { }
 
 	public virtual void OnLoadFBX(ChaControl ctrl, ref GameObject go, string ab = null, string ass = null, ListInfoBase lib = null) { }
 

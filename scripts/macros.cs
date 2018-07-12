@@ -20,7 +20,7 @@ public class Macros : ScriptEvents {
 
 public partial class ScriptEnv
 {
-	public static HSubsConfig hscfg => HSubs.cfg;
+	//public static HSubsConfig hscfg => HSubs.cfg;
 	public static Lookat_dan lookatdan => Object.FindObjectOfType<Lookat_dan>();
 	//public static GameObject female => GameObject.Find("chaF_001");
 	public static GameObject female => SceneManager.GetSceneAt(0).GetRootGameObjects()[0].transform.FindLoop("chaF_001");

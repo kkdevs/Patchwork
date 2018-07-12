@@ -13,10 +13,16 @@ public class MatDump : ScriptEvents
 	public static Dictionary<string, GameObject> fbx = new Dictionary<string, GameObject>();
 	public static List<string> texNames  = new List<string>()
 		{
+			"liquidmask",
+			"overtex1",
+			"overtex2",
+			"overtex3",
 			"MainTex",
 			"LineMask",
 			"ColorMask",
 			"NormalMap",
+			"NormalMapDetail",
+			"NOrmalMask",
 			"AnotherRamp",
 			"GlassRamp",
 			"MetallicGlossMap",
@@ -41,7 +47,57 @@ public class MatDump : ScriptEvents
 			"rimV",
 			"SrcBlend",
 			"Mode",
+			
+			"node_*", // needs bruteforce
 			// TBD
+			"tex1mask",
+			"swim",
+			"ss_h",
+			"specular",
+			"spec",
+			"rimshift",
+			"rimpower",
+			"rimV",
+			"refpower",
+			"rampshift",
+			"rampcontrast",
+			"outline",
+			"notusetexspecular",
+			"nipsize",
+			"nip_specular",
+			"nip",
+			"liquidftop",
+			"liquidfbot",
+			"liquidface",
+			"liquidbtop",
+			"liquidbbot",
+			"linewidth",
+			"linetexon",
+			"dep",
+			"alpha_a",
+			"alpha_b",
+			"ZWrite",
+			"UVSec",
+			"SrcBlend",
+			"SpecularPowerNail",
+			"SpecularPower",
+			"SpeclarSwitch",
+			"SpeclarPallaxU",
+			"SpeclarPallaxV",
+			"SpeclarHeight",
+			"SpeclarExtend",
+			"OcclusionStrength",
+			"MaskTiling",
+			"MaskPattern",
+			"DstBlend",
+			"DetailNormalMapScale",
+
+
+
+
+
+
+
 	};
 	public static List<string> colorNames = new List<string>()
 	{
@@ -52,6 +108,15 @@ public class MatDump : ScriptEvents
 			"Color4",
 			"Emission",
 			"Shadow",
+			"skinshadow",
+			"overcolor3",
+			"overcolor2",
+			"overcolor1",
+			"linecolor",
+			"Specular",
+			"LiquidTiling",
+			"Line",
+
 			// TBD
 	};
 

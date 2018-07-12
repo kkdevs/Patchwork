@@ -125,7 +125,7 @@ public static class Vfs
 		foreach (var bundle in Directory.GetFiles(inabdata, "*.unity3d", SearchOption.AllDirectories))
 		{
 			var rel = bundle.Replace("\\","/");
-			LoadedAssetBundle.Make(rel.Substring(Dir.abdata.Length)).realPath = rel.Substring(Dir.root.Length);
+			LoadedAssetBundle.Make(rel.Substring(Dir.abdata.Length), rel.Substring(Dir.root.Length));
 		}
 		Debug.Log("dirlists");
 		Dictionary<string,bool> lhash = new Dictionary<string, bool>();
@@ -169,18 +169,18 @@ public static class Vfs
 					var isUnsafe = (bd.IndexOf("+") > bd.LastIndexOf("/")) && bd.EndsWith(".unity3d");
 					if (isUnsafe)
 						Debug.Info(bundle, " is unsafe!");
-					if (isUnsafe && !settings.loadUnsafe)
+					/*if (isUnsafe && !settings.loadUnsafe)
 					{
 						Debug.Info("skipping");
 						continue;
-					}
+					}*/
 					var fn = bd.Substring(Dir.root.Length);
 					var ffn = fn;
-	//				Debug.Log("modfiles ", bundle, bd, fn);
+					//				Debug.Log("modfiles ", bundle, bd, fn);
 
 					// may override original abdata mapping
 					if (bundle.EndsWith(".unity3d"))
-						LoadedAssetBundle.Make(bd.Substring(inmod.Length)).realPath = fn;		
+						LoadedAssetBundle.Make(bd.Substring(inmod.Length), fn);
 
 					// keep stripping last path component of the file path until we match
 					// a path which is listable
@@ -217,6 +217,7 @@ public static class Vfs
 							// create a virtual bundle
 							var assname = RemoveExt(Path.GetFileName(ofn));
 							var vab = LoadedAssetBundle.Make(virtab);
+							Debug.Log("adding virtual asset ", assname, "into", virtab);
 							vab.virtualAssets[assname] = ffn;
 							var nvpath = ffn.Remove(ffn.LastIndexOf('/'));
 							Debug.Log(assname, virtab, fn, nvpath, vab.realPath);
@@ -254,6 +255,7 @@ public static class Vfs
 		var mb = MessagePackSerializer.Serialize(dc);
 		File.WriteAllBytes(cacheFile, mb);
 		File.WriteAllBytes(cacheFile + ".json", MessagePackSerializer.ToJson(mb).ToBytes());
+		//ExitProcess(0);
 #else
 		var mb = LZ4MessagePackSerializer.Serialize(dc);
 		File.WriteAllBytes(cacheFile, mb);
@@ -524,9 +526,11 @@ public class LoadedAssetBundle
 	public Dictionary<string, string> virtualAssets = new Dictionary<string, string>();
 	[Key(5)]
 	public Dictionary<string, int> cachedSprites = new Dictionary<string, int>();
+	[Key(6)]
+	public List<string> virtualBundles = new List<string>();
 
 	[IgnoreMember]
-	public string altPath;
+	public AssetBundle[] loadedVirtualBundles;
 
 	[IgnoreMember]
 	public AssetBundle m_AssetBundle;
@@ -546,6 +550,7 @@ public class LoadedAssetBundle
 	}
 	public static bool FlushAllCaches()
 	{
+		GCBundles();
 		return true;
 	}
 
@@ -555,13 +560,33 @@ public class LoadedAssetBundle
 	/// </summary>
 	/// <param name="name"></param>
 	/// <returns></returns>
-	public static LoadedAssetBundle Make(string name)
+	public static LoadedAssetBundle Make(string name, string real = null)
 	{
-		name = name.Replace("+", "");
-		Debug.Log("Registering", name);
-		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
-			return ab;
-		return cache[name] = new LoadedAssetBundle(name);
+		var abname = name.Replace("+", "");
+		Debug.Log("Registering", name, " as ", abname, real);
+		LoadedAssetBundle ab;
+		if (!cache.TryGetValue(abname, out ab))
+		{
+			ab = new LoadedAssetBundle(abname);
+			ab.realPath = real;
+			cache[abname] = ab;
+			if (abname != name)
+				Debug.Error("First registered name shouldn't be unsafe!",name,real);
+		}
+		else
+		{
+			// virtual
+			if (abname != name)
+			{
+				Debug.Log("adding as virtual, ", real);
+				ab.virtualBundles.Add(real);
+			} else
+			{
+				Debug.Log("already exists", ab.realPath);
+				ab.realPath = real ?? ab.realPath;
+			}
+		}
+		return ab;
 	}
 
 	public static void CheckInit()
@@ -579,7 +604,10 @@ public class LoadedAssetBundle
 		CheckInit();
 		Debug.Log("Get bundle ", name);
 		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
+		{
+			Debug.Log("got ab at ", ab.realPath);
 			return ab;
+		}
 		Debug.Error("Untracked bundle ", name, "requested");
 		return null;
 	}
@@ -601,7 +629,10 @@ public class LoadedAssetBundle
 		}
 
 		if (ab.realPath == null)
+		{
+			Debug.Log("real path missing");
 			return null;
+		}
 		return ab;
 	}
 
@@ -670,45 +701,29 @@ public class LoadedAssetBundle
 			Load(dep)?.Ensure();
 		if (m_AssetBundle == null)
 		{
-			var abfn = Dir.root + realPath;
-			Debug.Log("Trying to load ", name, "real=", realPath);
-			if (altPath != null)
+			m_AssetBundle = TryLoadAB(realPath);
+			if (m_AssetBundle != null)
 			{
-				Debug.Log("altpath ", altPath, "found; trying that first");
-				m_AssetBundle = AssetBundle.LoadFromFile(altPath);
-			}
-			if (m_AssetBundle == null)
-			{
-				Debug.Log("trying realpath ", abfn);
-				m_AssetBundle = AssetBundle.LoadFromFile(abfn);
-			}
-			if (m_AssetBundle == null)
-			{
-				if (altPath == null)
+				loadedVirtualBundles = virtualBundles.Select((x) => TryLoadAB(x)).ToArray();
+				for (int i = 0; i < loadedVirtualBundles.Length; i++)
 				{
-					Debug.Log("no altpath yet; creating one");
-					var key = Ext.HashToString(realPath.ToBytes()).Substring(0, 12);
-					var alt = Dir.cache + key + ".unity3d";
-					if (!File.Exists(alt))
+					var vb = loadedVirtualBundles[i];
+					if (vb == null) continue;
+					foreach (var ass in vb.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x)))
 					{
-						using (var f = File.OpenRead(abfn))
+						if (!virtualAssets.ContainsKey(ass))
 						{
-							using (var fo = File.Create(alt))
-							{
-								FixCAB(fo, f, key);
-							}
+							Debug.Log("@virt asset from bundle ", ass, i);
+							virtualAssets[ass] = "@" + i;
 						}
 					}
-					Debug.Log("Trying to fix CAB conflict ", abfn, alt);
-					m_AssetBundle = AssetBundle.LoadFromFile(alt);
-					altPath = alt;
 				}
-
-				if (m_AssetBundle == null)
-				{
-					GCBundles();
-					m_AssetBundle = AssetBundle.LoadFromFile(abfn);
-				}
+			}
+			else
+			{
+				// last resort
+				GCBundles();
+				m_AssetBundle = TryLoadAB(realPath);
 			}
 		}
 		level--;
@@ -723,7 +738,43 @@ public class LoadedAssetBundle
 	{
 		foreach (var b in cache.Values)
 			if (b.locked < version)
+			{
 				b.Unload();
+			}
+	}
+
+	public AssetBundle TryLoadAB(string path)
+	{
+		Debug.Log("trying to load ", path);
+		var ab = AssetBundle.LoadFromFile(Dir.root + path);
+		if (ab != null)
+			return ab;
+		var key = Ext.HashToString(path.ToBytes()).Substring(0, 12);
+		var alt = Dir.cache + key + ".unity3d";
+
+		ab = AssetBundle.LoadFromFile(alt);
+		if (ab != null)
+			return ab;
+
+
+		if (!File.Exists(alt))
+		{
+			using (var f = File.OpenRead(realPath))
+			{
+				using (var fo = File.Create(alt))
+				{
+					FixCAB(fo, f, key);
+				}
+			}
+		}
+
+		Debug.Log("no dice, trying alternat path at ", alt);
+		var ret = AssetBundle.LoadFromFile(alt);
+		if (ret == null)
+		{
+			Debug.Log("load failed");
+		}
+		return ret;
 	}
 
 	public bool FixCAB(Stream output, Stream input, string key)
@@ -755,9 +806,32 @@ public class LoadedAssetBundle
 			if (pending > 0)
 				Debug.Error($"Unloading", name, "but it has a pending async operation!");
 			m_AssetBundle.Unload(false);
+			foreach (var vab in loadedVirtualBundles)
+				if (vab != null)
+					vab.Unload(false);
 			Debug.Log("Unloading ", name);
 		}
 		m_AssetBundle = null;
+		loadedVirtualBundles = null;
+	}
+
+	public object LoadFromVirtualBundles(string name, Type t)
+	{
+		if (!settings.loadUnsafe)
+			return null;
+		Debug.Log("trying virtual load", name);
+		if (!virtualAssets.TryGetValue(name, out string virt))
+			return null;
+		if (virt.StartsWith("@"))
+		{
+			int idx = int.Parse(virt.Substring(1));
+			if (loadedVirtualBundles[idx] != null)
+			{
+				Debug.Log(name, " loaded from virtual bundle", virtualBundles[idx]);
+				return LoadAssetWrapped(loadedVirtualBundles[idx], name, t);
+			}
+		}
+		return null;
 	}
 
 	public object LoadVirtualAsset(string name, Type t)
@@ -810,13 +884,17 @@ public class LoadedAssetBundle
 			return obj;
 		if (!Ensure(name))
 			return null;
-		obj = LoadAssetWrapped(name, t);
-		return obj;
+		var ass = LoadFromVirtualBundles(name, t) ?? LoadAssetWrapped(m_AssetBundle, name, t);
+		if (ass == null)
+		{
+			Debug.Error("Load of ", this.name, name, "failed");
+		}
+		return ass;
 	}
 
-	public object LoadAssetWrapped(string name, Type t)
+	public static object LoadAssetWrapped(AssetBundle ab, string name, Type t)
 	{
-		return TextAsset.Wrap<object>(m_AssetBundle.LoadAsset(name, TextAsset.Unwrap(t)));
+		return TextAsset.Wrap<object>(ab.LoadAsset(name, TextAsset.Unwrap(t)));
 	}
 
 	public IEnumerator LoadAssetAsync(string name, Type t, Action<object> cb)
@@ -829,10 +907,13 @@ public class LoadedAssetBundle
 			yield break;
 		}
 		if (!Ensure(name))
-			goto err;
+			goto @out;
+		obj = LoadFromVirtualBundles(name, t);
+		if (obj != null)
+			goto @out;
 		var req = m_AssetBundle.LoadAssetAsync(name, TextAsset.Unwrap(t));
 		if (req == null)
-			goto err;
+			goto @out;
 		pending++;
 		yield return req;
 		pending--;
@@ -844,7 +925,7 @@ public class LoadedAssetBundle
 			// fall back to sync
 			obj = m_AssetBundle.LoadAsset(name, TextAsset.Unwrap(t));
 		}
-err:
+@out:
 		cb(TextAsset.Wrap<object>(obj));
 	}
 }
