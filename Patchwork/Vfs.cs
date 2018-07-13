@@ -50,6 +50,7 @@ public static class Vfs
 		"studio/info",
 
 		"!h/list",
+		"!h/common",
 		"!action/list/motionvoice",
 	};
 
