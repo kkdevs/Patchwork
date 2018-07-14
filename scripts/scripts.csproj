@@ -61,6 +61,7 @@
     <Compile Include="fixplugins.cs" />
     <Compile Include="ghettosave.cs" />
     <Compile Include="ghettoui.cs" />
+    <Compile Include="hfaceedit.cs" />
     <Compile Include="hsubs.cs" />
     <Compile Include="matdump.cs" />
     <Compile Include="reloader.cs" />

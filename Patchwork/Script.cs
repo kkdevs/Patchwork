@@ -363,7 +363,7 @@ public class ScriptEntry
 		{
 			if (kv.Value.Count == 0) continue;
 			var m = typeof(ScriptEvents).GetMethod(kv.Key);
-			dispatcher.AppendLine("override " + m.GetSignature().Replace("&", ""));
+			dispatcher.AppendLine("override " + m.GetSignature().Replace("&", "").Replace("+","."));
 			dispatcher.AppendLine("{");
 			// early exit?
 			// TODO: support enumerators

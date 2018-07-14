@@ -674,7 +674,16 @@ public class LoadedAssetBundle
 		{
 			if (!Ensure())
 				return null;
-			assetNames = m_AssetBundle.GetAllAssetNames();
+			List<string> tmp = new List<string>();
+				
+			if (m_AssetBundle != null)
+				tmp = m_AssetBundle.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x)).ToList();
+			foreach (var an in virtualAssets.Keys)
+			{
+				tmp.Remove(an);
+				tmp.Add(an);
+			}
+			assetNames = tmp.ToArray();
 		}
 		return assetNames;
 	}
@@ -895,6 +904,7 @@ public class LoadedAssetBundle
 
 	public static object LoadAssetWrapped(AssetBundle ab, string name, Type t)
 	{
+		if (ab == null) return null;
 		return TextAsset.Wrap<object>(ab.LoadAsset(name, TextAsset.Unwrap(t)));
 	}
 

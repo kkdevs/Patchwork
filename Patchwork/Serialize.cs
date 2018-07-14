@@ -26,7 +26,10 @@ public class JSONMarshaller : ScriptableObject
 	}
 	public bool Unmarshal(string src, string ext, string name, string path)
 	{
-		return false;
+		fsData data = fsJsonParser.Parse(src);
+		var self = this;
+		fsJson.TryDeserialize(data, ref self).AssertSuccess();
+		return self == this;
 	}
 	public static fsSerializer fsJson = new fsSerializer();
 	public string Marshal()

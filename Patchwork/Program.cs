@@ -10,6 +10,7 @@ using MessagePack;
 using System.Text;
 using System.Xml.Serialization;
 using Manager;
+using ParadoxNotion.Serialization.FullSerializer;
 
 public static partial class Patchwork {
 	public static Splash splash;

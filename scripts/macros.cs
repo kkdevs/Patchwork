@@ -5,6 +5,7 @@ using static Patchwork;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ParadoxNotion.Serialization.FullSerializer;
 
 public class Macros : ScriptEvents {
 	public bool first;
@@ -52,3 +53,22 @@ public partial class ScriptEnv
 	}
 }
 
+public static class JSON
+{
+	public static string Serialize(object o)
+	{
+		fsData data;
+		fsSerializer json = new fsSerializer();
+		json.TrySerialize(o, out data);
+		return fsJsonPrinter.PrettyJson(data);
+	}
+
+	public static T Deserialize<T>(string s) where T : class
+	{
+		fsSerializer json = new fsSerializer();
+		fsData data = fsJsonParser.Parse(s);
+		T res = null;
+		json.TryDeserialize(data, ref res);
+		return res;
+	}
+}

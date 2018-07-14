@@ -44,6 +44,7 @@ public class GhettoConfig
 		fsData data;
 		fsGlobalConfig.SerializeDefaultValues = true;
 		json.TrySerialize(this, out data);
+		fsGlobalConfig.SerializeDefaultValues = false;
 		File.WriteAllBytes(cfpath, fsJsonPrinter.PrettyJson(data).ToBytes());
 	}
 }

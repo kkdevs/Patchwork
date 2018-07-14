@@ -154,6 +154,8 @@ public class ScriptEvents
 
 	public virtual void OnLoadFBX(ChaControl ctrl, ref GameObject go, string ab = null, string ass = null, ListInfoBase lib = null) { }
 
+	public virtual void OnSetFace(ChaControl chara, int kind, int action, ref FaceListCtrl.FaceInfo fa) { }
+
 	public Coroutine StartCoroutine(IEnumerator co)
 	{
 		return MBProxy.instance.StartCoroutine(co);

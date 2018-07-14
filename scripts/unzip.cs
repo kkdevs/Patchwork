@@ -31,7 +31,7 @@ public class unzip : ScriptEvents
 			if (Directory.Exists(target + modname))
 				continue;
 			needRescan = true;
-			//print(Path.GetFileName(zipfn));
+			print(Path.GetFileName(zipfn));
 			using (var fs = File.Open(zipfn, FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
 				var zip = new ZipFile(fs);
@@ -152,7 +152,7 @@ public class unzip : ScriptEvents
 							var shass = Path.GetFileNameWithoutExtension(ass);
 							if (!abnames.Contains(shass))
 							{
-								print($"WARNING: {Path.GetFileName(efn)}: {shass} is missing {oldefn}");
+								//print($"WARNING: {Path.GetFileName(efn)}: {shass} is missing {oldefn}");
 								nmissing++;
 							}
 						}
@@ -166,7 +166,7 @@ public class unzip : ScriptEvents
 					else
 					{
 						File.WriteAllBytes(Directory.GetParent(efn).FullName+"/+"+Path.GetFileName(efn), bytes);
-						print($"WARNING: {efn} is corrupted (missing {nmissing} assets), marking as unsafe.");
+						//print($"WARNING: {efn} is corrupted (missing {nmissing} assets), marking as unsafe.");
 					}
 				}
 			}
