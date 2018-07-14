@@ -47,7 +47,7 @@ public class HSubs : GhettoUI
 	public string editrow;
 	public float started;
 	public bool hasUI;
-	public bool showJP;
+	public int showMode; // 0 - en, 1 - jp, 2 - none
 	public string downloading;
 	public static HSubs instance;
 
@@ -187,7 +187,7 @@ public class HSubs : GhettoUI
 	public override void OnGUI()
 	{
 		if (IsKey(cfg.cycleShortcut))
-			showJP = !showJP;
+			showMode = (showMode+1)%3;
 		if (IsKey(cfg.reloadshortcut))
 		{
 			try
@@ -210,8 +210,15 @@ public class HSubs : GhettoUI
 		if (IsKey(cfg.openURLshortcut))
 			System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(editrow));
 
-		var text = downloading ?? (showJP ? currentJPLine : currentLine);
-		if (!cfg.useCanvasRenderer)
+		var text = downloading;
+		if (text == null)
+		{
+			if (showMode == 0)
+				text = currentLine;
+			else if (showMode == 1)
+				text = currentJPLine;
+		}
+		if (!cfg.useCanvasRenderer && !text.IsNullOrEmpty())
 		{
 			GUILayout.BeginArea(new Rect(Screen.width * 0.1f, 0, Screen.width * 0.8f, Screen.height * 0.9f));
 			GUILayout.FlexibleSpace();

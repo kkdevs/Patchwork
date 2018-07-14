@@ -23,6 +23,7 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool asyncAnim = true;
 		public bool fixGuides = false;
 		public string scriptPath = @"bepinex;bepinex\ipa;patchwork\scripts;bepinex\core";
 		public string[] scriptBlacklist = new string[]

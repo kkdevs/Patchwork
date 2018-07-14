@@ -131,3 +131,19 @@ public class CSVMarshaller : ScriptableObject
 	}
 }
 
+public static class JSON
+{
+	public static fsSerializer json = new fsSerializer();
+	public static string Serialize<T>(T o)
+	{
+		fsData data;
+		json.TrySerialize(o, out data);
+		return fsJsonPrinter.PrettyJson(data);
+	}
+	public static T Deserialize<T>(string s, T res = null) where T : class
+	{
+		var data = fsJsonParser.Parse(s);
+		json.TryDeserialize(data, ref res);
+		return res;
+	}
+}

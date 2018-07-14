@@ -219,7 +219,7 @@ public static class Vfs
 							var assname = RemoveExt(Path.GetFileName(ofn));
 							var vab = LoadedAssetBundle.Make(virtab);
 							Debug.Log("adding virtual asset ", assname, "into", virtab);
-							vab.virtualAssets[assname] = ffn;
+							vab.virtualAssets[assname.ToLower()] = ffn;
 							var nvpath = ffn.Remove(ffn.LastIndexOf('/'));
 							Debug.Log(assname, virtab, fn, nvpath, vab.realPath);
 							if (vab.realPath == null && nvpath != vab.realPath)
@@ -674,16 +674,18 @@ public class LoadedAssetBundle
 		{
 			if (!Ensure())
 				return null;
-			List<string> tmp = new List<string>();
-				
+			List<string> tmp = virtualAssets.Keys.ToList();
 			if (m_AssetBundle != null)
-				tmp = m_AssetBundle.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x)).ToList();
-			foreach (var an in virtualAssets.Keys)
+				tmp.AddRange(m_AssetBundle.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x).ToLower()));
+			var tmp2 = tmp.Distinct().ToList();
+			tmp2.Sort();
+			assetNames = tmp2.ToArray();
+			/*foreach (var an in virtualAssets.Keys)
 			{
 				tmp.Remove(an);
 				tmp.Add(an);
 			}
-			assetNames = tmp.ToArray();
+			assetNames = tmp.ToArray();*/
 		}
 		return assetNames;
 	}
@@ -719,7 +721,7 @@ public class LoadedAssetBundle
 				{
 					var vb = loadedVirtualBundles[i];
 					if (vb == null) continue;
-					foreach (var ass in vb.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x)))
+					foreach (var ass in vb.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x).ToLower()))
 					{
 						if (!virtualAssets.ContainsKey(ass))
 						{
@@ -846,7 +848,7 @@ public class LoadedAssetBundle
 
 	public object LoadVirtualAsset(string name, Type t)
 	{
-		if (!virtualAssets.TryGetValue(name, out string virt))
+		if (!virtualAssets.TryGetValue(name.ToLower(), out string virt))
 			return null;
 		Debug.Log("Trying to load virtual asset", name);
 		var path = Dir.root + virt;
