@@ -8,6 +8,7 @@ using MessagePack;
 using MessagePack.LZ4;
 using System.Collections;
 using static Patchwork;
+using System.Security.Cryptography;
 
 public static class Vfs
 {
@@ -386,7 +387,7 @@ public static class Vfs
 					var dbuf = new byte[4 * atlasDim * atlasDim];
 #endif
 					Texture2D at = new Texture2D(atlasDim, atlasDim, fmt, false);
-					at.LoadRawTextureData(LZ4Decompress(File.ReadAllBytes(atn), dbuf));
+					at.LoadRawTextureData(Ext.LZ4Decompress(File.ReadAllBytes(atn), dbuf));
 					at.Apply(updateMipmaps: false, makeNoLongerReadable: true);
 					if (atlas.Length <= i)
 						Array.Resize(ref atlas, i + 1);
@@ -483,27 +484,132 @@ public static class Vfs
 #else
 			var rawbuf = at.GetRawTextureData();
 #endif
-			File.WriteAllBytes(Dir.cache + "abinfo" + atno, LZ4Compress(rawbuf));
+			File.WriteAllBytes(Dir.cache + "abinfo" + atno, Ext.LZ4Compress(rawbuf));
 
 			spriteLen = 0;
 			Save();
 		}
 		return ret != null;
 	}
-	public static byte[] LZ4Compress(byte[] buf)
-	{
-		//return buf;
-		var outbuf = new byte[LZ4Codec.MaximumOutputLength(buf.Length)];
-		int len = LZ4Codec.Encode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
-		Array.Resize(ref outbuf, len);
-		return outbuf;
-	}
 
-	public static byte[] LZ4Decompress(byte[] buf, byte[] outbuf)
+	public static bool Repack(Stream input, Stream output, bool randomize = false, int lz4blockSize = 128 * 1024)
 	{
-		//return buf;
-		LZ4Codec.Decode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
-		return outbuf;
+		var baseStart = output.Position;
+		var r = new BinaryReader(input, Encoding.ASCII);
+		var w = new BinaryWriter(output, Encoding.ASCII);
+
+		var format = r.GetString();
+		if (format != "UnityFS")
+			return false;
+		w.Put(format);
+
+		var gen = r.GetInt();
+		if (gen != 6)
+			return false;
+		w.Put(gen);
+
+		w.Put(r.GetString());
+		w.Put(r.GetString());
+
+		// defer
+		var infoPos = w.BaseStream.Position;
+		w.BaseStream.Position += 16; // bundlesize + metacomp + metauncomp
+
+		var bundleSize = r.GetLong();
+		var metaCompressed = r.GetInt();
+		var metaUncompressed = r.GetInt();
+		var flags = r.GetInt();
+		w.Put(0x43);
+		var dataPos = r.BaseStream.Position;
+
+		if ((flags & 0x80) != 0)
+			r.BaseStream.Position = bundleSize - metaCompressed;
+		else
+			dataPos += metaCompressed;
+
+		byte[] metabuf = null;
+		switch (flags & 0x3f)
+		{
+			case 3:
+			case 2:
+				metabuf = Ext.LZ4Decompress(r.ReadBytes(metaCompressed), 0, metaCompressed, metaUncompressed);
+				break;
+			case 0:
+				metabuf = r.ReadBytes(metaUncompressed);
+				break;
+			default:
+				return false;
+		}
+
+		r.BaseStream.Position = dataPos;
+		var meta = new BinaryReader(new MemoryStream(metabuf), Encoding.ASCII);
+		var newmeta = new BinaryWriter(new MemoryStream(), Encoding.ASCII);
+		newmeta.BaseStream.Position += 16 + 4; // +4 for pending.Length
+		meta.BaseStream.Position += 16;
+		int nblocks = meta.GetInt();
+		List<byte[]> pending = new List<byte[]>();
+		for (var i = 0; i < nblocks; i++)
+		{
+			var origSize = meta.GetInt();
+			var compSize = meta.GetInt();
+			var blockFlags = meta.GetShort();
+			var block = r.ReadBytes(compSize);
+			if (blockFlags == 0x40 || blockFlags == 2 || blockFlags == 3)
+			{
+				if (blockFlags != 0x40)
+					block = Ext.LZ4Decompress(block, 0, compSize, origSize);
+				for (int pos = 0; pos < block.Length; pos += lz4blockSize)
+				{
+					var orig = Math.Min(lz4blockSize, block.Length - pos);
+					var newblock = Ext.LZ4Compress(block, pos, orig);
+					newmeta.Put(orig);
+					newmeta.Put(newblock.Length); ;
+					newmeta.Put((short)3);
+					pending.Add(newblock);
+				}
+			}
+			else
+			{
+				newmeta.Put(origSize);
+				newmeta.Put(compSize);
+				newmeta.Put(blockFlags);
+				pending.Add(block);
+			}
+		}
+
+		//Console.WriteLine(pending.Count);
+		int nfiles = meta.GetInt();
+		newmeta.Put(nfiles);
+		var rng = new RNGCryptoServiceProvider();
+		for (int i = 0; i < nfiles; i++)
+		{
+			newmeta.Put(meta.GetLong());
+			newmeta.Put(meta.GetLong());
+			newmeta.Put(meta.GetInt());
+			var name = meta.GetString();
+			if (randomize)
+			{
+				var rnbuf = new byte[16];
+				rng.GetBytes(rnbuf);
+				name = "CAB-" + string.Concat(rnbuf.Select((x) => ((int)x).ToString("X2")).ToArray()).ToLower();
+			}
+			newmeta.Put(name);
+		}
+		newmeta.BaseStream.Position = 16;
+		newmeta.Put(pending.Count);
+		var newmetabuf = (newmeta.BaseStream as MemoryStream).ToArray();
+		var newmetabufc = Ext.LZ4Compress(newmetabuf, 0, newmetabuf.Length);
+		w.Write(newmetabufc);
+		foreach (var buf in pending)
+			w.Write(buf);
+		var endpos = w.BaseStream.Position;
+		var bundlesize = endpos - baseStart;
+		w.BaseStream.Position = infoPos;
+		w.Put(bundlesize);
+		w.Put(newmetabufc.Length);
+		w.Put(newmetabuf.Length);
+		output.Position = endpos;
+		return true;
 	}
 
 }
@@ -775,7 +881,7 @@ public class LoadedAssetBundle
 			{
 				using (var fo = File.Create(alt))
 				{
-					FixCAB(fo, f, key);
+					Vfs.Repack(f, fo, true);
 				}
 			}
 		}

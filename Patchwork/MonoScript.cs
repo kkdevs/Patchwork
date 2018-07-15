@@ -44,7 +44,7 @@ public class MonoScript : Evaluator
 			Debug.Log("Skip because of pause");
 			return;
 		}
-		if (e.LoadedAssembly.FullName.StartsWith("eval-") || e.LoadedAssembly.FullName == "completions")
+		if (/*e.LoadedAssembly.FullName.StartsWith("eval-") || */e.LoadedAssembly.FullName == "completions")
 		{
 			Debug.Log("skip blacklist");
 			return;

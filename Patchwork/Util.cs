@@ -8,10 +8,71 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using MessagePack.LZ4;
 using static Patchwork;
 
 public static class Ext
 {
+	public static byte[] LZ4Compress(byte[] buf)
+	{
+		//return buf;
+		var outbuf = new byte[LZ4Codec.MaximumOutputLength(buf.Length)];
+		int len = LZ4Codec.Encode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
+		Array.Resize(ref outbuf, len);
+		return outbuf;
+	}
+
+	public static byte[] LZ4Decompress(byte[] buf, byte[] outbuf)
+	{
+		//return buf;
+		LZ4Codec.Decode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
+		return outbuf;
+	}
+
+	public static byte[] LZ4Decompress(byte[] input, int inoff, int inlen, int outlen)
+	{
+		var outbuf = new byte[outlen];
+		LZ4Codec.Decode(input, inoff, inlen, outbuf, 0, outlen);
+		return outbuf;
+	}
+
+	public static byte[] LZ4Compress(byte[] input, int inoff, int inlen)
+	{
+		var outbuf = new byte[LZ4Codec.MaximumOutputLength(inlen)];
+		int olen = LZ4Codec.Encode(input, inoff, inlen, outbuf, 0, outbuf.Length);
+		Array.Resize(ref outbuf, olen);
+		return outbuf;
+	}
+	public static uint bswap(uint x)
+	{
+		x = (x >> 16) | (x << 16);
+		return ((x & 0xFF00FF00) >> 8) | ((x & 0x00FF00FF) << 8);
+	}
+	public static ulong bswap(ulong x)
+	{
+		x = (x >> 32) | (x << 32);
+		x = ((x & 0xFFFF0000FFFF0000) >> 16) | ((x & 0x0000FFFF0000FFFF) << 16);
+		return ((x & 0xFF00FF00FF00FF00) >> 8) | ((x & 0x00FF00FF00FF00FF) << 8);
+	}
+	public static void Put(this BinaryWriter w, string s)
+	{
+		w.Write(Encoding.UTF8.GetBytes(s));
+		w.Write((byte)0);
+	}
+	public static string GetString(this BinaryReader r)
+	{
+		var sb = new StringBuilder();
+		char c;
+		while ((c = r.ReadChar()) != 0)
+			sb.Append(c);
+		return sb.ToString();
+	}
+	public static void Put(this BinaryWriter w, int v) => w.Write(bswap((uint)v));
+	public static void Put(this BinaryWriter w, long v) => w.Write(bswap((ulong)v));
+	public static void Put(this BinaryWriter w, short v) => w.Write((short)(bswap((uint)v) >> 16));
+	public static int GetInt(this BinaryReader r) => (int)bswap(r.ReadUInt32());
+	public static short GetShort(this BinaryReader r) => (short)(bswap(r.ReadUInt16()) >> 16);
+	public static long GetLong(this BinaryReader r) => (long)bswap(r.ReadUInt64());
 	public static MethodInfo GetMethod<T>(string name)
 	{
 		foreach (var n in typeof(T).GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))

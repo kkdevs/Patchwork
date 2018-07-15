@@ -24,6 +24,7 @@ public class unzip : ScriptEvents
 		print("Unzipping mods into " + Path.GetFullPath(target));
 		var zipdir = Dir.root + "mods";
 		bool needRescan = false;
+		LoadedAssetBundle.GCBundles();
 		foreach (var zipfn in Directory.GetFiles(zipdir, "*.zip", SearchOption.AllDirectories))
 		{
 			var modname = Path.GetFileNameWithoutExtension(zipfn);
@@ -31,7 +32,7 @@ public class unzip : ScriptEvents
 			if (Directory.Exists(target + modname))
 				continue;
 			needRescan = true;
-			print(Path.GetFileName(zipfn));
+			print("Extracting " + Path.GetFileName(zipfn));
 			using (var fs = File.Open(zipfn, FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
 				var zip = new ZipFile(fs);
@@ -98,32 +99,6 @@ public class unzip : ScriptEvents
 						efn = $"{prefix}{dist:D2}_{guid}/{cat}_{basename}.csv";
 						bytes = ex.Marshal().AddBOM().ToBytes();
 					}
-					if (efn.EndsWith(".unity3d"))
-					{
-						// match sideloader behavior and replace cab guid with some junk
-						int pos = -1;
-						for (int i = 0; i < 256; i++)
-							if (bytes[i] == 'C' && bytes[i + 1] == 'A' && bytes[i + 2] == 'B' && bytes[i + 3] == '-')
-							{
-								pos = i;
-								break;
-							}
-						if (pos == -1)
-						{
-							print($"WARNING: Unable to rewrite cab guid for {efn}");
-							goto skip;
-						}
-						var ms = new MemoryStream();
-						var hash = MD5.Create();
-						ms.Write(bytes, 0, pos + 4); // CAB- + move past
-						var cabstr = string.Join("", hash.ComputeHash((guid + efn).ToBytes()).Take(16).Select((x) => x.ToString("x2")).ToArray()).ToBytes();
-						ms.Write(cabstr, 0, cabstr.Length);
-						var rem = pos + 4 + cabstr.Length;
-						ms.Write(bytes, rem, bytes.Length - rem);
-						bytes = ms.ToArray();
-					}
-					skip:
-
 
 					// if it is a hardmod, check that the contents of the bundle fully match the file overriden.
 					var hardab = Dir.abdata + efn;
@@ -136,7 +111,7 @@ public class unzip : ScriptEvents
 						var ab = AssetBundle.LoadFromMemory(bytes);
 						if (ab == null)
 						{
-							print("WARNING: {efn} failed to load, skipping.");
+							print($"WARNING: {efn} failed to load, skipping.");
 							continue;
 						}
 						var abnames = new HashSet<string>(ab.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x)).ToList());
@@ -161,13 +136,14 @@ public class unzip : ScriptEvents
 					skip2:
 
 					//print(".. Extracted " + efn);
-					if (nmissing == 0)
+					if (nmissing != 0)
+						efn = Directory.GetParent(efn).FullName + "/+" + Path.GetFileName(efn);
+					if (efn.EndsWith(".unity3d"))
+						using (var fo = File.Create(efn))
+							if (Vfs.Repack(new MemoryStream(bytes), fo, true))
+								bytes = null;
+					if (bytes != null)
 						File.WriteAllBytes(efn, bytes);
-					else
-					{
-						File.WriteAllBytes(Directory.GetParent(efn).FullName+"/+"+Path.GetFileName(efn), bytes);
-						//print($"WARNING: {efn} is corrupted (missing {nmissing} assets), marking as unsafe.");
-					}
 				}
 			}
 		}

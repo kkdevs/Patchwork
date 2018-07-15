@@ -199,6 +199,7 @@ partial class SettingsForm
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.asyncMaker = new System.Windows.Forms.CheckBox();
 			this.cacheScripts = new System.Windows.Forms.CheckBox();
 			this.bgmAsync = new System.Windows.Forms.CheckBox();
 			this.abinfoCache = new System.Windows.Forms.CheckBox();
@@ -234,9 +235,9 @@ partial class SettingsForm
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.asyncMaker = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.asyncAnim = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -2232,6 +2233,7 @@ partial class SettingsForm
 			// 
 			// groupBox7
 			// 
+			this.groupBox7.Controls.Add(this.asyncAnim);
 			this.groupBox7.Controls.Add(this.asyncMaker);
 			this.groupBox7.Controls.Add(this.cacheScripts);
 			this.groupBox7.Controls.Add(this.bgmAsync);
@@ -2247,11 +2249,22 @@ partial class SettingsForm
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Performance";
 			// 
+			// asyncMaker
+			// 
+			this.asyncMaker.AutoSize = true;
+			this.asyncMaker.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.asyncMaker.Location = new System.Drawing.Point(8, 85);
+			this.asyncMaker.Name = "asyncMaker";
+			this.asyncMaker.Size = new System.Drawing.Size(201, 21);
+			this.asyncMaker.TabIndex = 58;
+			this.asyncMaker.Text = "Async chara maker loading";
+			this.asyncMaker.UseVisualStyleBackColor = true;
+			// 
 			// cacheScripts
 			// 
 			this.cacheScripts.AutoSize = true;
 			this.cacheScripts.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cacheScripts.Location = new System.Drawing.Point(8, 142);
+			this.cacheScripts.Location = new System.Drawing.Point(8, 168);
 			this.cacheScripts.Name = "cacheScripts";
 			this.cacheScripts.Size = new System.Drawing.Size(160, 21);
 			this.cacheScripts.TabIndex = 57;
@@ -2262,7 +2275,7 @@ partial class SettingsForm
 			// 
 			this.bgmAsync.AutoSize = true;
 			this.bgmAsync.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bgmAsync.Location = new System.Drawing.Point(8, 172);
+			this.bgmAsync.Location = new System.Drawing.Point(8, 198);
 			this.bgmAsync.Name = "bgmAsync";
 			this.bgmAsync.Size = new System.Drawing.Size(145, 21);
 			this.bgmAsync.TabIndex = 56;
@@ -2273,7 +2286,7 @@ partial class SettingsForm
 			// 
 			this.abinfoCache.AutoSize = true;
 			this.abinfoCache.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.abinfoCache.Location = new System.Drawing.Point(8, 112);
+			this.abinfoCache.Location = new System.Drawing.Point(8, 138);
 			this.abinfoCache.Name = "abinfoCache";
 			this.abinfoCache.Size = new System.Drawing.Size(164, 21);
 			this.abinfoCache.TabIndex = 55;
@@ -2617,6 +2630,17 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 500);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 31);
+			this.replInput.TabIndex = 0;
+			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2634,27 +2658,16 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// asyncMaker
+			// asyncAnim
 			// 
-			this.asyncMaker.AutoSize = true;
-			this.asyncMaker.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.asyncMaker.Location = new System.Drawing.Point(8, 85);
-			this.asyncMaker.Name = "asyncMaker";
-			this.asyncMaker.Size = new System.Drawing.Size(201, 21);
-			this.asyncMaker.TabIndex = 58;
-			this.asyncMaker.Text = "Async chara maker loading";
-			this.asyncMaker.UseVisualStyleBackColor = true;
-			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 500);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 31);
-			this.replInput.TabIndex = 0;
+			this.asyncAnim.AutoSize = true;
+			this.asyncAnim.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.asyncAnim.Location = new System.Drawing.Point(8, 112);
+			this.asyncAnim.Name = "asyncAnim";
+			this.asyncAnim.Size = new System.Drawing.Size(183, 21);
+			this.asyncAnim.TabIndex = 59;
+			this.asyncAnim.Text = "Async animation loading";
+			this.asyncAnim.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -2936,5 +2949,6 @@ partial class SettingsForm
 	private System.Windows.Forms.CheckBox blackFade;
 	public System.Windows.Forms.ListView scriptList;
 	private System.Windows.Forms.CheckBox asyncMaker;
+	private System.Windows.Forms.CheckBox asyncAnim;
 }
 
