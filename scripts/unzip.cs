@@ -20,6 +20,7 @@ public class unzip : ScriptEvents
 	[Prio(99999)]
 	public override void Awake()
 	{
+		if (!settings.loadMods) return;
 		var target = Dir.mod;
 		print("Unzipping mods into " + Path.GetFullPath(target));
 		var zipdir = Dir.root + "mods";
@@ -106,8 +107,11 @@ public class unzip : ScriptEvents
 					int nmissing = 0;
 					efn = target + modname + "/" + efn;
 					Directory.CreateDirectory(Path.GetDirectoryName(efn));
+					bool nukecab = true;
 					if (efn.EndsWith(".unity3d") && File.Exists(hardab))
 					{
+						// if it overwrites in its entirety, do not nuke the cab as deps will point to it
+						nukecab = false;
 						var ab = AssetBundle.LoadFromMemory(bytes);
 						if (ab == null)
 						{
@@ -132,6 +136,10 @@ public class unzip : ScriptEvents
 							}
 						}
 						origab.Unload(true);
+
+						// missing assets; nuke cab
+						if (nmissing > 0)
+							nukecab = true;
 					}
 					skip2:
 
@@ -140,7 +148,7 @@ public class unzip : ScriptEvents
 						efn = Directory.GetParent(efn).FullName + "/+" + Path.GetFileName(efn);
 					if (efn.EndsWith(".unity3d"))
 						using (var fo = File.Create(efn))
-							if (Vfs.Repack(new MemoryStream(bytes), fo, true))
+							if (Vfs.Repack(new MemoryStream(bytes), fo, nukecab))
 								bytes = null;
 					if (bytes != null)
 						File.WriteAllBytes(efn, bytes);

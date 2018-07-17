@@ -165,28 +165,20 @@ public static class Vfs
 			{
 				Debug.Log("Processing ", mod);
 				var inmod = mod + "/";
-				foreach (var bundle in Directory.GetFiles(inmod, "*.*", SearchOption.AllDirectories))
+				foreach (var tmpfn in Directory.GetFiles(inmod, "*.*", SearchOption.AllDirectories))
 				{
-					var bd = bundle.Replace("\\", "/");
-					var isUnsafe = (bd.IndexOf("+") > bd.LastIndexOf("/")) && bd.EndsWith(".unity3d");
-					if (isUnsafe)
-						Debug.Info(bundle, " is unsafe!");
-					/*if (isUnsafe && !settings.loadUnsafe)
-					{
-						Debug.Info("skipping");
-						continue;
-					}*/
-					var fn = bd.Substring(Dir.root.Length);
-					var ffn = fn;
-					//				Debug.Log("modfiles ", bundle, bd, fn);
+					var currentfn = tmpfn.Replace("\\", "/");
+					var realFn = currentfn.Substring(Dir.root.Length); // real path relative to root
+					var fn = currentfn.Substring(inmod.Length); // virtualpath
+					if (fn.ToLower().StartsWith("abdata/"))
+						fn = fn.Substring(7);
 
 					// may override original abdata mapping
-					if (bundle.EndsWith(".unity3d"))
-						LoadedAssetBundle.Make(bd.Substring(inmod.Length), fn);
+					if (fn.EndsWith(".unity3d"))
+						LoadedAssetBundle.Make(fn, realFn);
 
 					// keep stripping last path component of the file path until we match
 					// a path which is listable
-					fn = bd.Substring(inmod.Length); // remove modpath -> abesque
 					var ofn = fn;
 					int ind;
 					int stripped = 0;
@@ -220,8 +212,8 @@ public static class Vfs
 							var assname = RemoveExt(Path.GetFileName(ofn));
 							var vab = LoadedAssetBundle.Make(virtab);
 							Debug.Log("adding virtual asset ", assname, "into", virtab);
-							vab.virtualAssets[assname.ToLower()] = ffn;
-							var nvpath = ffn.Remove(ffn.LastIndexOf('/'));
+							vab.virtualAssets[assname.ToLower()] = realFn;
+							var nvpath = realFn.Remove(realFn.LastIndexOf('/'));
 							Debug.Log(assname, virtab, fn, nvpath, vab.realPath);
 							if (vab.realPath == null && nvpath != vab.realPath)
 								vab.realPath = nvpath;
