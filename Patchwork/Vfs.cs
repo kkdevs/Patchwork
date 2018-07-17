@@ -937,9 +937,12 @@ public class LoadedAssetBundle
 	{
 		if (!settings.loadUnsafe)
 			return null;
-		Debug.Log("trying virtual load", name);
+		Debug.Log("trying virtual load from", this.name, name);
 		if (!virtualAssets.TryGetValue(name, out string virt))
+		{
+			Debug.Log("Virtual asset doesn't exist");
 			return null;
+		}
 		if (virt.StartsWith("@"))
 		{
 			int idx = int.Parse(virt.Substring(1));
@@ -949,6 +952,7 @@ public class LoadedAssetBundle
 				return LoadAssetWrapped(loadedVirtualBundles[idx], name, t);
 			}
 		}
+		Debug.Log("no virtual asset");
 		return null;
 	}
 
@@ -956,7 +960,7 @@ public class LoadedAssetBundle
 	{
 		if (!virtualAssets.TryGetValue(name.ToLower(), out string virt))
 			return null;
-		Debug.Log("Trying to load virtual asset", name);
+		Debug.Log("Trying to load virtual asset from ", this.name, name, virt);
 		var path = Dir.root + virt;
 		if (virt.EndsWith(".png") || virt.EndsWith(".jpg"))
 		{
@@ -991,6 +995,7 @@ public class LoadedAssetBundle
 			txt.bytes = File.ReadAllBytes(path);
 			return txt;
 		}
+		Debug.Log("No virtual asset loaded");
 		return null;
 	}
 

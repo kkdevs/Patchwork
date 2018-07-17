@@ -518,7 +518,7 @@ public partial class Script : InteractiveBase
 	public static bool reload()
 	{
 		var oldeva = Evaluator;
-		Evaluator = MonoScript.New(new Reporter(), typeof(Script), Patchwork.settings.cacheScripts?Dir.cache:null);
+		Evaluator = MonoScript.New(new Reporter(), typeof(Script), (oldeva==null&&Patchwork.settings.cacheScripts)?Dir.cache:null);
 		Output = Evaluator.tw;
 		Error = Evaluator.tw;
 		Assembly sass = null;

@@ -55,6 +55,7 @@ public class HSubs : GhettoUI
 
 	public override void Start()
 	{
+		print("Starting h subs");
 		instance = this;
 		if (cfg.updateOnStart)
 			UpdateSubs();
