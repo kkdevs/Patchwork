@@ -132,7 +132,6 @@ partial class SettingsForm
 			this.sliderMin = new System.Windows.Forms.TextBox();
 			this.label33 = new System.Windows.Forms.Label();
 			this.sliderMax = new System.Windows.Forms.TextBox();
-			this.useLR = new System.Windows.Forms.CheckBox();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.spectateH = new System.Windows.Forms.CheckBox();
 			this.spectateADV = new System.Windows.Forms.CheckBox();
@@ -199,6 +198,7 @@ partial class SettingsForm
 			this.enableTrace = new System.Windows.Forms.CheckBox();
 			this.enableSpam = new System.Windows.Forms.CheckBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.asyncAnim = new System.Windows.Forms.CheckBox();
 			this.asyncMaker = new System.Windows.Forms.CheckBox();
 			this.cacheScripts = new System.Windows.Forms.CheckBox();
 			this.bgmAsync = new System.Windows.Forms.CheckBox();
@@ -235,9 +235,12 @@ partial class SettingsForm
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.asyncAnim = new System.Windows.Forms.CheckBox();
+			this.linkLabel8 = new System.Windows.Forms.LinkLabel();
+			this.linkLabel9 = new System.Windows.Forms.LinkLabel();
+			this.linkLabel10 = new System.Windows.Forms.LinkLabel();
+			this.linkLabel11 = new System.Windows.Forms.LinkLabel();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -941,23 +944,23 @@ partial class SettingsForm
 			// linkLabel7
 			// 
 			this.linkLabel7.AutoSize = true;
-			this.linkLabel7.Location = new System.Drawing.Point(687, 11);
+			this.linkLabel7.Location = new System.Drawing.Point(674, 11);
 			this.linkLabel7.Name = "linkLabel7";
 			this.linkLabel7.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel7.TabIndex = 72;
 			this.linkLabel7.TabStop = true;
-			this.linkLabel7.Tag = "hairShadowColor";
+			this.linkLabel7.Tag = "override-hair-shadows";
 			this.linkLabel7.Text = "[?]";
 			// 
 			// linkLabel6
 			// 
 			this.linkLabel6.AutoSize = true;
-			this.linkLabel6.Location = new System.Drawing.Point(274, 10);
+			this.linkLabel6.Location = new System.Drawing.Point(248, 10);
 			this.linkLabel6.Name = "linkLabel6";
 			this.linkLabel6.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel6.TabIndex = 71;
 			this.linkLabel6.TabStop = true;
-			this.linkLabel6.Tag = "postProc";
+			this.linkLabel6.Tag = "override-postprocessing";
 			this.linkLabel6.Text = "[?]";
 			// 
 			// shadowOverride
@@ -1103,9 +1106,9 @@ partial class SettingsForm
 			this.label45.Location = new System.Drawing.Point(207, 66);
 			this.label45.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label45.Name = "label45";
-			this.label45.Size = new System.Drawing.Size(67, 17);
+			this.label45.Size = new System.Drawing.Size(73, 17);
 			this.label45.TabIndex = 36;
-			this.label45.Text = "Exposure";
+			this.label45.Text = "Saturation";
 			this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// cam_amplColorExposure
@@ -1451,7 +1454,6 @@ partial class SettingsForm
 			this.groupBox12.Controls.Add(this.sliderMin);
 			this.groupBox12.Controls.Add(this.label33);
 			this.groupBox12.Controls.Add(this.sliderMax);
-			this.groupBox12.Controls.Add(this.useLR);
 			this.groupBox12.Location = new System.Drawing.Point(706, 352);
 			this.groupBox12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox12.Name = "groupBox12";
@@ -1459,7 +1461,7 @@ partial class SettingsForm
 			this.groupBox12.Size = new System.Drawing.Size(231, 154);
 			this.groupBox12.TabIndex = 42;
 			this.groupBox12.TabStop = false;
-			this.groupBox12.Text = "Slider";
+			this.groupBox12.Text = "Other";
 			// 
 			// label32
 			// 
@@ -1497,19 +1499,9 @@ partial class SettingsForm
 			this.sliderMax.Size = new System.Drawing.Size(58, 23);
 			this.sliderMax.TabIndex = 20;
 			// 
-			// useLR
-			// 
-			this.useLR.AutoSize = true;
-			this.useLR.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.useLR.Location = new System.Drawing.Point(12, 29);
-			this.useLR.Name = "useLR";
-			this.useLR.Size = new System.Drawing.Size(97, 21);
-			this.useLR.TabIndex = 21;
-			this.useLR.Text = "L/R sliders";
-			this.useLR.UseVisualStyleBackColor = true;
-			// 
 			// groupBox11
 			// 
+			this.groupBox11.Controls.Add(this.linkLabel11);
 			this.groupBox11.Controls.Add(this.spectateH);
 			this.groupBox11.Controls.Add(this.spectateADV);
 			this.groupBox11.Controls.Add(this.lowPolyADV);
@@ -1662,11 +1654,12 @@ partial class SettingsForm
 			this.linkLabel1.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel1.TabIndex = 67;
 			this.linkLabel1.TabStop = true;
-			this.linkLabel1.Tag = "clipMask";
+			this.linkLabel1.Tag = "clip-masking";
 			this.linkLabel1.Text = "[?]";
 			// 
 			// groupBox15
 			// 
+			this.groupBox15.Controls.Add(this.linkLabel10);
 			this.groupBox15.Controls.Add(this.fixPenis);
 			this.groupBox15.Controls.Add(this.fixVagina);
 			this.groupBox15.Controls.Add(this.hideMoz);
@@ -1759,12 +1752,12 @@ partial class SettingsForm
 			// linkLabel2
 			// 
 			this.linkLabel2.AutoSize = true;
-			this.linkLabel2.Location = new System.Drawing.Point(137, 1);
+			this.linkLabel2.Location = new System.Drawing.Point(122, -2);
 			this.linkLabel2.Name = "linkLabel2";
 			this.linkLabel2.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel2.TabIndex = 68;
 			this.linkLabel2.TabStop = true;
-			this.linkLabel2.Tag = "customBody";
+			this.linkLabel2.Tag = "custom-uncensor";
 			this.linkLabel2.Text = "[?]";
 			// 
 			// ooMale
@@ -2025,6 +2018,7 @@ partial class SettingsForm
 			// 
 			// tabPage7
 			// 
+			this.tabPage7.Controls.Add(this.linkLabel9);
 			this.tabPage7.Controls.Add(this.scriptList);
 			this.tabPage7.Controls.Add(this.scriptReload);
 			this.tabPage7.Controls.Add(this.label54);
@@ -2135,7 +2129,7 @@ partial class SettingsForm
 			this.linkLabel3.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel3.TabIndex = 68;
 			this.linkLabel3.TabStop = true;
-			this.linkLabel3.Tag = "perf";
+			this.linkLabel3.Tag = "performance";
 			this.linkLabel3.Text = "[?]";
 			// 
 			// noBustNorm
@@ -2166,12 +2160,12 @@ partial class SettingsForm
 			// linkLabel5
 			// 
 			this.linkLabel5.AutoSize = true;
-			this.linkLabel5.Location = new System.Drawing.Point(121, -1);
+			this.linkLabel5.Location = new System.Drawing.Point(48, -1);
 			this.linkLabel5.Name = "linkLabel5";
 			this.linkLabel5.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel5.TabIndex = 70;
 			this.linkLabel5.TabStop = true;
-			this.linkLabel5.Tag = "textAss";
+			this.linkLabel5.Tag = "mods";
 			this.linkLabel5.Text = "[?]";
 			// 
 			// loadMods
@@ -2198,6 +2192,7 @@ partial class SettingsForm
 			// 
 			// groupBox8
 			// 
+			this.groupBox8.Controls.Add(this.linkLabel8);
 			this.groupBox8.Controls.Add(this.enableTrace);
 			this.groupBox8.Controls.Add(this.enableSpam);
 			this.groupBox8.Location = new System.Drawing.Point(34, 195);
@@ -2249,6 +2244,17 @@ partial class SettingsForm
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Performance";
 			// 
+			// asyncAnim
+			// 
+			this.asyncAnim.AutoSize = true;
+			this.asyncAnim.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.asyncAnim.Location = new System.Drawing.Point(8, 112);
+			this.asyncAnim.Name = "asyncAnim";
+			this.asyncAnim.Size = new System.Drawing.Size(183, 21);
+			this.asyncAnim.TabIndex = 59;
+			this.asyncAnim.Text = "Async animation loading";
+			this.asyncAnim.UseVisualStyleBackColor = true;
+			// 
 			// asyncMaker
 			// 
 			this.asyncMaker.AutoSize = true;
@@ -2264,7 +2270,7 @@ partial class SettingsForm
 			// 
 			this.cacheScripts.AutoSize = true;
 			this.cacheScripts.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cacheScripts.Location = new System.Drawing.Point(8, 168);
+			this.cacheScripts.Location = new System.Drawing.Point(8, 170);
 			this.cacheScripts.Name = "cacheScripts";
 			this.cacheScripts.Size = new System.Drawing.Size(160, 21);
 			this.cacheScripts.TabIndex = 57;
@@ -2275,18 +2281,18 @@ partial class SettingsForm
 			// 
 			this.bgmAsync.AutoSize = true;
 			this.bgmAsync.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bgmAsync.Location = new System.Drawing.Point(8, 198);
+			this.bgmAsync.Location = new System.Drawing.Point(8, 143);
 			this.bgmAsync.Name = "bgmAsync";
-			this.bgmAsync.Size = new System.Drawing.Size(145, 21);
+			this.bgmAsync.Size = new System.Drawing.Size(153, 21);
 			this.bgmAsync.TabIndex = 56;
-			this.bgmAsync.Text = "Lazy BGM loading";
+			this.bgmAsync.Text = "Async BGM loading";
 			this.bgmAsync.UseVisualStyleBackColor = true;
 			// 
 			// abinfoCache
 			// 
 			this.abinfoCache.AutoSize = true;
 			this.abinfoCache.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.abinfoCache.Location = new System.Drawing.Point(8, 138);
+			this.abinfoCache.Location = new System.Drawing.Point(8, 197);
 			this.abinfoCache.Name = "abinfoCache";
 			this.abinfoCache.Size = new System.Drawing.Size(164, 21);
 			this.abinfoCache.TabIndex = 55;
@@ -2451,7 +2457,7 @@ partial class SettingsForm
 			this.linkLabel4.Size = new System.Drawing.Size(24, 17);
 			this.linkLabel4.TabIndex = 69;
 			this.linkLabel4.TabStop = true;
-			this.linkLabel4.Tag = "paintSizes";
+			this.linkLabel4.Tag = "painted-texture-sizes";
 			this.linkLabel4.Text = "[?]";
 			// 
 			// bodyHiPoly
@@ -2630,17 +2636,6 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 500);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 31);
-			this.replInput.TabIndex = 0;
-			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2658,16 +2653,60 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// asyncAnim
+			// linkLabel8
 			// 
-			this.asyncAnim.AutoSize = true;
-			this.asyncAnim.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.asyncAnim.Location = new System.Drawing.Point(8, 112);
-			this.asyncAnim.Name = "asyncAnim";
-			this.asyncAnim.Size = new System.Drawing.Size(183, 21);
-			this.asyncAnim.TabIndex = 59;
-			this.asyncAnim.Text = "Async animation loading";
-			this.asyncAnim.UseVisualStyleBackColor = true;
+			this.linkLabel8.AutoSize = true;
+			this.linkLabel8.Location = new System.Drawing.Point(65, 0);
+			this.linkLabel8.Name = "linkLabel8";
+			this.linkLabel8.Size = new System.Drawing.Size(24, 17);
+			this.linkLabel8.TabIndex = 71;
+			this.linkLabel8.TabStop = true;
+			this.linkLabel8.Tag = "logging";
+			this.linkLabel8.Text = "[?]";
+			// 
+			// linkLabel9
+			// 
+			this.linkLabel9.AutoSize = true;
+			this.linkLabel9.Location = new System.Drawing.Point(205, 505);
+			this.linkLabel9.Name = "linkLabel9";
+			this.linkLabel9.Size = new System.Drawing.Size(24, 17);
+			this.linkLabel9.TabIndex = 71;
+			this.linkLabel9.TabStop = true;
+			this.linkLabel9.Tag = "scripts";
+			this.linkLabel9.Text = "[?]";
+			// 
+			// linkLabel10
+			// 
+			this.linkLabel10.AutoSize = true;
+			this.linkLabel10.Location = new System.Drawing.Point(87, 1);
+			this.linkLabel10.Name = "linkLabel10";
+			this.linkLabel10.Size = new System.Drawing.Size(24, 17);
+			this.linkLabel10.TabIndex = 68;
+			this.linkLabel10.TabStop = true;
+			this.linkLabel10.Tag = "h-rendering";
+			this.linkLabel10.Text = "[?]";
+			// 
+			// linkLabel11
+			// 
+			this.linkLabel11.AutoSize = true;
+			this.linkLabel11.Location = new System.Drawing.Point(143, 28);
+			this.linkLabel11.Name = "linkLabel11";
+			this.linkLabel11.Size = new System.Drawing.Size(24, 17);
+			this.linkLabel11.TabIndex = 68;
+			this.linkLabel11.TabStop = true;
+			this.linkLabel11.Tag = "hipoly-overworld";
+			this.linkLabel11.Text = "[?]";
+			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 500);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 31);
+			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 
@@ -2820,7 +2859,6 @@ partial class SettingsForm
 	private System.Windows.Forms.TextBox sliderMin;
 	private System.Windows.Forms.TextBox sliderMax;
 	private System.Windows.Forms.Label label33;
-	private System.Windows.Forms.CheckBox useLR;
 	public System.Windows.Forms.CheckBox showFPS;
 	private System.Windows.Forms.CheckBox bothMC;
 	private System.Windows.Forms.CheckBox tumblr;
@@ -2950,5 +2988,9 @@ partial class SettingsForm
 	public System.Windows.Forms.ListView scriptList;
 	private System.Windows.Forms.CheckBox asyncMaker;
 	private System.Windows.Forms.CheckBox asyncAnim;
+	private System.Windows.Forms.LinkLabel linkLabel11;
+	private System.Windows.Forms.LinkLabel linkLabel10;
+	private System.Windows.Forms.LinkLabel linkLabel9;
+	private System.Windows.Forms.LinkLabel linkLabel8;
 }
 

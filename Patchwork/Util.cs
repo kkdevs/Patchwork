@@ -10,9 +10,18 @@ using System.Text;
 using UnityEngine;
 using MessagePack.LZ4;
 using static Patchwork;
+using System.Windows.Forms;
 
 public static class Ext
 {
+	public static IEnumerable<Control> GetAll(this Control control, Type type)
+	{
+		var controls = control.Controls.Cast<Control>();
+
+		return controls.SelectMany(ctrl => ctrl.GetAll(type))
+								  .Concat(controls)
+								  .Where(c => c.GetType() == type);
+	}
 	public static byte[] LZ4Compress(byte[] buf)
 	{
 		//return buf;

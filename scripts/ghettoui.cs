@@ -25,10 +25,7 @@ public class GhettoConfig
 		if (File.Exists(cfpath))
 		{
 			loading = true;
-			fsData data;
-			var self = this;
-			data = fsJsonParser.Parse(Encoding.UTF8.GetString(File.ReadAllBytes(cfpath)));
-			json.TryDeserialize(data, ref self);
+			var self = JSON.Deserialize(Encoding.UTF8.GetString(File.ReadAllBytes(cfpath)), this);
 			loading = false;
 			if (self != this)
 			{
@@ -41,11 +38,7 @@ public class GhettoConfig
 	}
 	public void Save()
 	{
-		fsData data;
-		fsGlobalConfig.SerializeDefaultValues = true;
-		json.TrySerialize(this, out data);
-		fsGlobalConfig.SerializeDefaultValues = false;
-		File.WriteAllBytes(cfpath, fsJsonPrinter.PrettyJson(data).ToBytes());
+		File.WriteAllBytes(cfpath, JSON.Serialize(this, true, true).ToBytes());
 	}
 }
 

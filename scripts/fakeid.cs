@@ -222,7 +222,8 @@ public class FakeID : ScriptEvents
 
 	public class GuidMap
 	{
-		public string baseprefix = "";
+		[NonSerialized]
+		public string baseprefix;
 		public class Item
 		{
 			public string guid;
@@ -264,7 +265,7 @@ public class FakeID : ScriptEvents
 		{
 			ListInfoBase lib;
 			if (baseprefix != null)
-				prop += baseprefix + prop;
+				prop = baseprefix + prop;
 			if (cat == (int)CategoryNo.ao_none || id == 0)
 				return id;
 			if (id >= FAKE_BASE)
@@ -334,6 +335,7 @@ public class FakeID : ScriptEvents
 	{
 		var map = f.dict.Get<GuidMap>("guidmap");
 		map.items.Clear();
+		map.baseprefix = null;
 		coordRewriter.map = map;
 		customRewriter.map = map;
 		foreach (var b in blocks)
