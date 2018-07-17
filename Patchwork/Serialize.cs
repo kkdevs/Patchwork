@@ -134,21 +134,17 @@ public class CSVMarshaller : ScriptableObject
 public static class JSON
 {
 	public static fsSerializer json = new fsSerializer();
-	public static string Serialize<T>(T o, bool pretty = false, bool defaults = false)
+	public static string Serialize<T>(T o, bool pretty = false)
 	{
 		fsData data;
-		json.TrySerialize(o, out data);
-		if (defaults)
-			fsGlobalConfig.SerializeDefaultValues = true;
-		var res = pretty ? fsJsonPrinter.PrettyJson(data) : fsJsonPrinter.CompressedJson(data);
-		if (defaults)
-			fsGlobalConfig.SerializeDefaultValues = false;
-		return res;
+		json.TrySerialize(o, out data).AssertSuccess();
+		return pretty ? fsJsonPrinter.PrettyJson(data) : fsJsonPrinter.CompressedJson(data);
 	}
 	public static T Deserialize<T>(string s, T res = null) where T : class
 	{
+		fsSerializer json = new fsSerializer();
 		var data = fsJsonParser.Parse(s);
-		json.TryDeserialize(data, ref res);
+		json.TryDeserialize(data, ref res).AssertSuccess();
 		return res;
 	}
 }

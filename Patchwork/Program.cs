@@ -214,6 +214,7 @@ public static partial class Patchwork {
 
 	public static void PostInit()
 	{
+		fsGlobalConfig.SerializeDefaultValues = false;
 		earlydone = true;
 		if (!initConfig)
 		{

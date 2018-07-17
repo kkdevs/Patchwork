@@ -9,12 +9,12 @@ using UnityEngine;
 public class GhettoConfig
 {
 	bool locked;
-	fsSerializer json = new fsSerializer();
 	string cfpath => Dir.pw + GetType().Name + ".json";
 	static bool loading;
 
 	public GhettoConfig()
 	{
+		if (loading) return;
 		if (!Load())
 			Save();
 	}
@@ -38,7 +38,11 @@ public class GhettoConfig
 	}
 	public void Save()
 	{
-		File.WriteAllBytes(cfpath, JSON.Serialize(this, true, true).ToBytes());
+		loading = true;
+		fsGlobalConfig.SerializeDefaultValues = true;
+		File.WriteAllBytes(cfpath, JSON.Serialize(this, true).ToBytes());
+		fsGlobalConfig.SerializeDefaultValues = false;
+		loading = false;
 	}
 }
 
