@@ -1,6 +1,7 @@
 ﻿
 
 public class HFaceEdit : ScriptEvents {
+	// expressions to be customized programatically
 	public override void OnSetFace(ChaControl chara, int kind, int action, ref FaceListCtrl.FaceInfo fa)
 	{
 		print($"[SetFace] chara: {chara.name} kind: {kind} action: {action}");
