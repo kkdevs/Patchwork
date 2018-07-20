@@ -38,6 +38,7 @@ public static partial class Patchwork
 			"ipaloader",
 			"illusionplugin",
 		};
+		public bool withoutManifest = false;
 		public bool loadMods = false;
 		public bool loadUnsafe = false;
 		public bool asyncMaker = true;

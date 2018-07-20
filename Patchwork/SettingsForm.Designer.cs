@@ -241,6 +241,7 @@ partial class SettingsForm
 			this.linkLabel10 = new System.Windows.Forms.LinkLabel();
 			this.linkLabel11 = new System.Windows.Forms.LinkLabel();
 			this.replInput = new EditLine();
+			this.withoutManifest = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -2145,6 +2146,7 @@ partial class SettingsForm
 			// 
 			// groupBox9
 			// 
+			this.groupBox9.Controls.Add(this.withoutManifest);
 			this.groupBox9.Controls.Add(this.linkLabel5);
 			this.groupBox9.Controls.Add(this.loadMods);
 			this.groupBox9.Controls.Add(this.loadUnsafe);
@@ -2152,7 +2154,7 @@ partial class SettingsForm
 			this.groupBox9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox9.Name = "groupBox9";
 			this.groupBox9.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox9.Size = new System.Drawing.Size(300, 107);
+			this.groupBox9.Size = new System.Drawing.Size(300, 134);
 			this.groupBox9.TabIndex = 58;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Mods";
@@ -2183,7 +2185,7 @@ partial class SettingsForm
 			// 
 			this.loadUnsafe.AutoSize = true;
 			this.loadUnsafe.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.loadUnsafe.Location = new System.Drawing.Point(22, 66);
+			this.loadUnsafe.Location = new System.Drawing.Point(22, 88);
 			this.loadUnsafe.Name = "loadUnsafe";
 			this.loadUnsafe.Size = new System.Drawing.Size(147, 21);
 			this.loadUnsafe.TabIndex = 26;
@@ -2708,6 +2710,17 @@ partial class SettingsForm
 			this.replInput.Size = new System.Drawing.Size(937, 31);
 			this.replInput.TabIndex = 0;
 			// 
+			// withoutManifest
+			// 
+			this.withoutManifest.AutoSize = true;
+			this.withoutManifest.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.withoutManifest.Location = new System.Drawing.Point(22, 61);
+			this.withoutManifest.Name = "withoutManifest";
+			this.withoutManifest.Size = new System.Drawing.Size(184, 21);
+			this.withoutManifest.TabIndex = 71;
+			this.withoutManifest.Text = "Load mods from abdata/";
+			this.withoutManifest.UseVisualStyleBackColor = true;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -2992,5 +3005,6 @@ partial class SettingsForm
 	private System.Windows.Forms.LinkLabel linkLabel10;
 	private System.Windows.Forms.LinkLabel linkLabel9;
 	private System.Windows.Forms.LinkLabel linkLabel8;
+	private System.Windows.Forms.CheckBox withoutManifest;
 }
 

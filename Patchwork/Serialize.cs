@@ -131,9 +131,51 @@ public class CSVMarshaller : ScriptableObject
 	}
 }
 
+public class MultiArrayConverter<T> : fsConverter
+{
+	public override bool CanProcess(Type type)
+	{
+		return type == typeof(T[,]);
+	}
+
+	public override bool RequestInheritanceSupport(Type storageType)
+	{
+		return false;
+	}
+
+	public override fsResult TrySerialize(object instance, out fsData serialized, Type storageType)
+	{
+		var arr = instance as T[,];
+		var arrc = new T[arr.GetLength(1)][];
+		for (int i = 0; i < arrc.Length; i++)
+		{
+			arrc[i] = new T[arr.GetLength(0)];
+			for (int j = 0; j < arr.GetLength(0); j++)
+				arrc[i][j] = arr[i, j];
+		}
+		return JSON.json.TrySerialize(arrc, out serialized);
+	}
+
+	public override fsResult TryDeserialize(fsData data, ref object instance, Type storageType)
+	{
+		T[][] arrc = null;
+		JSON.json.TryDeserialize(data, ref arrc);
+		var arr = instance as T[,];
+		for (int i = 0; i < arrc.Length; i++)
+			for (int j = 0; j < arrc[0].Length; j++)
+				arr[i, j] = arrc[i][j];
+		return fsResult.Success;
+	}
+}
+
+
 public static class JSON
 {
-	public static fsSerializer json = new fsSerializer();
+	public static fsSerializer json;
+	public static void Init()
+	{
+		json = new fsSerializer();
+	}
 	public static string Serialize<T>(T o, bool pretty = false)
 	{
 		fsData data;
@@ -142,7 +184,6 @@ public static class JSON
 	}
 	public static T Deserialize<T>(string s, T res = null) where T : class
 	{
-		fsSerializer json = new fsSerializer();
 		var data = fsJsonParser.Parse(s);
 		json.TryDeserialize(data, ref res).AssertSuccess();
 		return res;

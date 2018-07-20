@@ -96,7 +96,14 @@ public static class Vfs
 				{
 					foreach (var sab in mf.GetAllAssetBundles())
 					{
-						var abi = LoadedAssetBundle.Make(sab.Replace("abdata/", ""));
+						var rpath = sab.Replace("abdata/", "");
+						if (!File.Exists(Dir.abdata + rpath))
+						{
+							Debug.Error("Nonexistent ", rpath, " announced in manifest ", man);
+							continue;
+						}
+						var abi = LoadedAssetBundle.Make(rpath);
+						abi.hasManifest = true;
 						foreach (var tdep in mf.GetAllDependencies(sab))
 						{
 							Debug.Log(" =>", sab, " depends on ", tdep);
@@ -120,7 +127,10 @@ public static class Vfs
 		string abdata = "abdata/";
 		string inabdata = Dir.root + abdata;
 		if (flush)
+		{
 			dc.abs.Clear();
+			LoadManifests();
+		}
 		dc.dirLists.Clear();
 		// initially map everything to self
 		Debug.Log("unity3d");
@@ -141,6 +151,13 @@ public static class Vfs
 			foreach (var blist in Directory.GetFiles(Dir.abdata + lld, "*.unity3d", ld != lld ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories))
 			{
 				var fn = blist.Replace("\\", "/").Substring(Dir.abdata.Length);
+
+				// no manifest; skip it
+				if (!settings.withoutManifest && !fn.ToLower().StartsWith("sound/")  && (!dc.abs.TryGetValue(fn.ToLower(), out LoadedAssetBundle mab) || !mab.hasManifest))
+				{
+					Debug.Log("skipping ", fn, " without manifest");
+					continue;
+				}
 				dc.dirLists[lld].Add(fn);
 
 				// if recursive, walk up and populate dirlists
@@ -276,7 +293,6 @@ public static class Vfs
 		if (!caching || !Load())
 		{
 			Rescan();
-			LoadManifests();
 			if (caching)
 				Save();
 		}
@@ -629,6 +645,9 @@ public class LoadedAssetBundle
 	public List<string> virtualBundles = new List<string>();
 
 	[IgnoreMember]
+	public bool hasManifest;
+
+	[IgnoreMember]
 	public AssetBundle[] loadedVirtualBundles;
 
 	[IgnoreMember]
@@ -685,6 +704,9 @@ public class LoadedAssetBundle
 				ab.realPath = real ?? ab.realPath;
 			}
 		}
+		// if this is a mod and mod loading is enabled, fake having a manifest
+		if (settings.loadMods && !settings.withoutManifest && (Dir.root + ab.realPath).StartsWith(Dir.mod))
+			ab.hasManifest = true;
 		return ab;
 	}
 
@@ -726,7 +748,11 @@ public class LoadedAssetBundle
 			Debug.Error("Load failed; the bundle ",name," is not tracked.");
 			return null;
 		}
-
+		if (!settings.withoutManifest && !ab.hasManifest && !name.ToLower().StartsWith("sound/"))
+		{
+			Debug.Log("not loading ", name, " as it lacks manifests");
+			return null;
+		}
 		if (ab.realPath == null)
 		{
 			Debug.Log("real path missing");
@@ -840,7 +866,7 @@ public class LoadedAssetBundle
 		if (level == 0)
 			version++;
 		if (m_AssetBundle == null)
-			Debug.Error("Failed to load ", name, realPath);
+			Debug.Error("Bundle load (try 2) failed ", name, realPath);
 		return m_AssetBundle != null;
 	}
 
@@ -862,10 +888,6 @@ public class LoadedAssetBundle
 		var key = Ext.HashToString(path.ToBytes()).Substring(0, 12);
 		var alt = Dir.cache + key + ".unity3d";
 
-		ab = AssetBundle.LoadFromFile(alt);
-		if (ab != null)
-			return ab;
-
 
 		if (!File.Exists(alt))
 		{
@@ -882,7 +904,7 @@ public class LoadedAssetBundle
 		var ret = AssetBundle.LoadFromFile(alt);
 		if (ret == null)
 		{
-			Debug.Log("load failed");
+			Debug.Error("Bundle load (try 1) failed ", path);
 		}
 		return ret;
 	}

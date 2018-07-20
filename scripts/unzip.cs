@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 public class unzip : ScriptEvents
 {
+	public bool sideloader_bugs_compat = true;
 	static byte []entry2bytes(ZipFile zf, ZipEntry entry)
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
@@ -148,7 +149,7 @@ public class unzip : ScriptEvents
 						efn = Directory.GetParent(efn).FullName + "/+" + Path.GetFileName(efn);
 					if (efn.EndsWith(".unity3d"))
 						using (var fo = File.Create(efn))
-							if (Vfs.Repack(new MemoryStream(bytes), fo, nukecab))
+							if (Vfs.Repack(new MemoryStream(bytes), fo, nukecab | sideloader_bugs_compat))
 								bytes = null;
 					if (bytes != null)
 						File.WriteAllBytes(efn, bytes);

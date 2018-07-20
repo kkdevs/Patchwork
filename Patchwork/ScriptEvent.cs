@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ChaCustom;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -165,5 +166,9 @@ public class ScriptEvents
 	{
 		MBProxy.pendingActions.Add(cb);
 	}
+
+	public virtual void OnCustom(CustomBase c) { }
+
+	public virtual void OnSingleton(MonoBehaviour o, bool isnew) { }
 }
 

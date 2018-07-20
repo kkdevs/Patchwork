@@ -395,6 +395,14 @@ public class ScriptEntry
 			Script.On.Awake();
 			Script.On.Start();
 		}
+		var newlist = new Dictionary<MonoBehaviour, ScriptEvents>();
+		foreach (var kv in SingletonList.singletons)
+		{
+			if (kv.Value != Script.On)
+				Script.On.OnSingleton(kv.Key, false);
+			newlist[kv.Key] = Script.On;
+		}
+		SingletonList.singletons = newlist;
 		MonoScript.Unload(dispAss);
 		return scriptass;
 	}
@@ -531,6 +539,7 @@ public partial class Script : InteractiveBase
 		}
 		if (sass == null)
 		{
+			print("Script reload failed; trying to retain old script base.");
 			Evaluator.Dispose();
 			Evaluator = oldeva;
 			return false;
