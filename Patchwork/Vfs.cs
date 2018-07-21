@@ -228,6 +228,7 @@ public static class Vfs
 							// create a virtual bundle
 							var assname = RemoveExt(Path.GetFileName(ofn));
 							var vab = LoadedAssetBundle.Make(virtab);
+							vab.hasManifest = true;
 							Debug.Log("adding virtual asset ", assname, "into", virtab);
 							vab.virtualAssets[assname.ToLower()] = realFn;
 							var nvpath = realFn.Remove(realFn.LastIndexOf('/'));
@@ -706,7 +707,10 @@ public class LoadedAssetBundle
 		}
 		// if this is a mod and mod loading is enabled, fake having a manifest
 		if (settings.loadMods && !settings.withoutManifest && (Dir.root + ab.realPath).StartsWith(Dir.mod))
+		{
+			Debug.Log("faking manifest for ", Dir.root, ab.realPath);
 			ab.hasManifest = true;
+		}
 		return ab;
 	}
 
