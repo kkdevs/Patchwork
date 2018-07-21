@@ -64,10 +64,11 @@ public static partial class Patchwork
 		public float noscopeAlphaX = 0.3f;
 		public float noscopeAlphaXEnd = 0.3f;
 		public float noscopeAlphaY = -0.15f;
-		public float noscopeAlphaYEnd = 0.3f;
+		public float noscopeAlphaYEnd = 0.43f;
 		public float noscopeAlphaClamp = 0;
-		public float noscopeAlphaClampEnd = 1f;
+		public float noscopeAlphaClampEnd = 0.65f;
 		public bool noscopeSim = false;
+		public bool noscopeSimGomu = false;
 		public byte noscopeAlphaMode;
 		public bool onTop = false;
 		public bool geass = false;

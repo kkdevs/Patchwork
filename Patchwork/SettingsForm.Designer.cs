@@ -240,9 +240,9 @@ partial class SettingsForm
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.nukeMat = new System.Windows.Forms.CheckBox();
+			this.noscopeSimGomu = new System.Windows.Forms.CheckBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1672,7 +1672,6 @@ partial class SettingsForm
 			// 
 			// groupBox15
 			// 
-			this.groupBox15.Controls.Add(this.nukeMat);
 			this.groupBox15.Controls.Add(this.linkLabel10);
 			this.groupBox15.Controls.Add(this.fixPenis);
 			this.groupBox15.Controls.Add(this.fixVagina);
@@ -1859,6 +1858,7 @@ partial class SettingsForm
 			// 
 			// enabler_noscopeClipMask
 			// 
+			this.enabler_noscopeClipMask.Controls.Add(this.noscopeSimGomu);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeHead);
 			this.enabler_noscopeClipMask.Controls.Add(this.label52);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaClampEnd);
@@ -1888,7 +1888,7 @@ partial class SettingsForm
 			// 
 			this.noscopeHead.AutoSize = true;
 			this.noscopeHead.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.noscopeHead.Location = new System.Drawing.Point(190, 189);
+			this.noscopeHead.Location = new System.Drawing.Point(268, 189);
 			this.noscopeHead.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeHead.Name = "noscopeHead";
 			this.noscopeHead.Size = new System.Drawing.Size(130, 17);
@@ -1938,7 +1938,7 @@ partial class SettingsForm
 			// 
 			this.noscopeSim.AutoSize = true;
 			this.noscopeSim.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.noscopeSim.Location = new System.Drawing.Point(272, 154);
+			this.noscopeSim.Location = new System.Drawing.Point(268, 153);
 			this.noscopeSim.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeSim.Name = "noscopeSim";
 			this.noscopeSim.Size = new System.Drawing.Size(66, 17);
@@ -2695,17 +2695,6 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 503);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 27);
-			this.replInput.TabIndex = 0;
-			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2723,16 +2712,28 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// nukeMat
+			// noscopeSimGomu
 			// 
-			this.nukeMat.AutoSize = true;
-			this.nukeMat.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.nukeMat.Location = new System.Drawing.Point(190, 115);
-			this.nukeMat.Name = "nukeMat";
-			this.nukeMat.Size = new System.Drawing.Size(148, 17);
-			this.nukeMat.TabIndex = 69;
-			this.nukeMat.Text = "Nuke secondary materials";
-			this.nukeMat.UseVisualStyleBackColor = true;
+			this.noscopeSimGomu.AutoSize = true;
+			this.noscopeSimGomu.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.noscopeSimGomu.Location = new System.Drawing.Point(344, 153);
+			this.noscopeSimGomu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.noscopeSimGomu.Name = "noscopeSimGomu";
+			this.noscopeSimGomu.Size = new System.Drawing.Size(54, 17);
+			this.noscopeSimGomu.TabIndex = 79;
+			this.noscopeSimGomu.Text = "Gomu";
+			this.noscopeSimGomu.UseVisualStyleBackColor = true;
+			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 503);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 27);
+			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 
@@ -3019,6 +3020,6 @@ partial class SettingsForm
 	private System.Windows.Forms.LinkLabel linkLabel9;
 	private System.Windows.Forms.LinkLabel linkLabel8;
 	private System.Windows.Forms.CheckBox withoutManifest;
-	private System.Windows.Forms.CheckBox nukeMat;
+	private System.Windows.Forms.CheckBox noscopeSimGomu;
 }
 

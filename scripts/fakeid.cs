@@ -15,10 +15,6 @@ using System.Text;
 
 public class FakeID : ScriptEvents
 {
-	// workaround various bugged cards
-	public static bool workarounds = true;
-
-
 	public Rewriter customRewriter;
 	public Rewriter coordRewriter;
 	public override void Start()
@@ -270,10 +266,6 @@ public class FakeID : ScriptEvents
 			ListInfoBase lib;
 			if (baseprefix != null)
 				prop = baseprefix + prop;
-			if (cat == 403)
-			{
-				print("Getreal lip " + id + " prop " + prop);
-			}
 			if (cat == (int)CategoryNo.ao_none || id == 0)
 				return id;
 			if (id >= FAKE_BASE)
@@ -316,12 +308,9 @@ public class FakeID : ScriptEvents
 	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
 		var map = f.dict.Get<GuidMap>("guidmap");
-		//if (workarounds)
-		//	fixMakeup(f.custom.face.baseMakeup, f.coordinate[0].makeup);
 		coordRewriter.map = map;
 		customRewriter.map = map;
 		for (int i = 0; i < f.coordinate.Length; i++) {
-			print("Coorde " + i + " " + f.coordinate[0].makeup.lipId);
 			map.baseprefix = "coordinate[" + i + "]";
 			coordRewriter.ToFake(f.coordinate[i]);
 		}
@@ -365,20 +354,4 @@ public class FakeID : ScriptEvents
 		}
 	}
 
-	/*
-	public int fixMakeup(int id, int backup)
-	{
-		if (id >= 100000000 && id <= 100050000) {
-			print($"WARNING: Corrupted base makeup id {id} detected; trying to restore from first coordinate id={backup}");
-			return backup;
-		}
-		return id;
-	}
-	public void fixMakeup(ChaFileMakeup o, ChaFileMakeup fix)
-	{
-		o.cheekId = fixMakeup(o.cheekId, fix.cheekId);
-		o.lipId = fixMakeup(o.lipId, fix.lipId);
-		o.paintId[0] = fixMakeup(o.paintId[0], fix.paintId[0]);
-		o.paintId[1] = fixMakeup(o.paintId[1], fix.paintId[1]);
-	}*/
 }
