@@ -235,7 +235,9 @@ public static partial class Patchwork {
 		settings.UpdateCamera(null);
 		SaveConfig();
 		form?.BringToFront();
+	}
 
+	public static void LateInit() {
 		AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
 		{
 			var shortname = new System.Reflection.AssemblyName(args.Name).Name;
