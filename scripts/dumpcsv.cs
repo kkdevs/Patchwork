@@ -9,6 +9,7 @@ using System.Collections.Generic;
 
 public partial class ScriptEnv
 {
+	public static string subdir = "";
 	public static void dumpassets()
 	{
 		print("Dumping all text serializable assets");
@@ -18,7 +19,7 @@ public partial class ScriptEnv
 		var basedir = Dir.abdata;
 		print($"Found {dumpables.Count()} types.");
 		LoadedAssetBundle.GCBundles();
-		foreach (var bpath in Directory.GetFiles(Dir.abdata + "uppervolta/", "*.unity3d", SearchOption.AllDirectories))
+		foreach (var bpath in Directory.GetFiles(Dir.abdata + subdir, "*.unity3d", SearchOption.AllDirectories))
 		{
 			var bundle = bpath.Replace("\\", "/");
 			var abname = bundle.Substring(Dir.abdata.Length);

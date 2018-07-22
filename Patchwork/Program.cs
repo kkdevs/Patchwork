@@ -127,7 +127,6 @@ public static partial class Patchwork {
 		Directory.CreateDirectory(Dir.mod);
 		Directory.CreateDirectory(Dir.cache);
 		Debug.Info(Dir.root);
-		//Vfs.Init();
 	}
 
 	public static void FixWindow()
@@ -212,8 +211,16 @@ public static partial class Patchwork {
 		blinit = true;
 	}
 
+	static bool isInitialized;
+	public static void CheckInit()
+	{
+		if (!isInitialized)
+			PostInit();
+	}
+
 	public static void PostInit()
 	{
+		isInitialized = true;
 		fsGlobalConfig.SerializeDefaultValues = false;
 		JSON.Init();
 		earlydone = true;
@@ -222,6 +229,7 @@ public static partial class Patchwork {
 			InitConfig(); // If we're running standalone
 			ConfigDialog();
 		}
+		Vfs.CheckInit();
 		initdone = true;
 		settings.Apply(true);
 		settings.UpdateCamera(null);

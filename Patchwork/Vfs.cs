@@ -772,8 +772,9 @@ public class LoadedAssetBundle
 			return null;
 		List<object> allAss = new List<object>();
 		if (m_AssetBundle != null)
-			foreach (var obj in m_AssetBundle.LoadAllAssets(TextAsset.Unwrap(typ)).Select(TextAsset.Wrap<UnityEngine.Object>))
+			foreach (var tobj in m_AssetBundle.LoadAllAssets(TextAsset.Unwrap(typ)).Select(TextAsset.Wrap<UnityEngine.Object>))
 			{
+				var obj = TextAsset.Wrap<UnityEngine.Object>(tobj);
 				// virtuals assets of same name always remove the object from listing.
 				if (obj != null && !virtualAssets.ContainsKey(obj.name))			
 					allAss.Add(obj);
@@ -1095,6 +1096,7 @@ public class TextAsset : ScriptableObject
 		if (to != null)
 		{
 			var so = CreateInstance<TextAsset>();
+			so.name = to.name;
 			so._text = to.text;
 			so.bytes = to.bytes;
 			return so as T;
