@@ -61,21 +61,27 @@ public class CSVMarshaller : ScriptableObject
 		var param = tlist.FieldType.GetGenericArguments()[0];
 		var add = tlist.FieldType.GetMethod("Add");
 		var listref = tlist.GetValue(this);
-		var first = true;
+		List<FieldInfo> fields = null;
+		var flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
 		foreach (var row in CSV.Parse(src, ext))
 		{
-			// Skip header for anything but excel
-			if (first && (!(this is ExcelData)))
+			// Skip header for anything but excel.
+			if (fields == null)
 			{
-				first = false;
-				continue;
+				fields = new List<FieldInfo>();
+				if (!(this is ExcelData))
+				{
+					foreach (var col in row)
+						fields.Add(param.GetField(col, flags));
+					continue;
+				}
+				// for excel, we have one explicit "column", and no heading, data follows immediately
+				fields.Add(param.GetField("list", flags));
 			}
-			// XXX TODO: This usage of reflection is fairly slow. Check if we're not slowing something too much.
 			var rowo = System.Activator.CreateInstance(param);
 			var rowe = row.GetEnumerator();
-			foreach (var f in param.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+			foreach (var f in fields)
 			{
-				var str = rowe.Current;
 				// XXX presumes either array or list of strings
 				if (f.FieldType.IsArray || f.FieldType.IsList())
 				{
@@ -85,10 +91,28 @@ public class CSVMarshaller : ScriptableObject
 					f.SetValue(rowo, f.FieldType.IsList()?(object)strl:(object)strl.ToArray());
 					break; // this is always last one
 				}
-				rowe.MoveNext();
+				if (!rowe.MoveNext())
+				{
+					Debug.Error("Row terminated prematurely");
+					break;
+				}
+
+				// XXX cache converter too?
 				var conv = TypeDescriptor.GetConverter(f.FieldType);
-				//f.SetValue(rowo, System.Convert.ChangeType(rowe.Current, f.FieldType));
-				f.SetValue(rowo, conv.ConvertFromInvariantString(rowe.Current));
+				var cur = rowe.Current;
+
+				if (f.FieldType == typeof(bool) || f.FieldType == typeof(System.Boolean))
+				{
+					if (cur == "1" || cur == "TRUE") cur = "True";
+					else if (cur == "0" || cur == "FALSE") cur = "False";
+				}
+				try
+				{
+					f.SetValue(rowo, conv.ConvertFromInvariantString(cur));
+				} catch
+				{
+					Debug.Error($"Corrupted field value '{cur}' for {f.DeclaringType}.{f.Name} of type {f.FieldType}, skipping");
+				}
 			}
 			add.Invoke(listref, new[] { rowo });
 		}

@@ -164,6 +164,7 @@ partial class SettingsForm
 			this.label43 = new System.Windows.Forms.Label();
 			this.mmFemale = new System.Windows.Forms.TextBox();
 			this.enabler_noscopeClipMask = new System.Windows.Forms.GroupBox();
+			this.noscopeSimGomu = new System.Windows.Forms.CheckBox();
 			this.noscopeHead = new System.Windows.Forms.CheckBox();
 			this.label52 = new System.Windows.Forms.Label();
 			this.noscopeAlphaClampEnd = new System.Windows.Forms.TextBox();
@@ -240,9 +241,8 @@ partial class SettingsForm
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.noscopeSimGomu = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1884,6 +1884,18 @@ partial class SettingsForm
 			this.enabler_noscopeClipMask.TabStop = false;
 			this.enabler_noscopeClipMask.Enter += new System.EventHandler(this.enabler_noTelescope_Enter);
 			// 
+			// noscopeSimGomu
+			// 
+			this.noscopeSimGomu.AutoSize = true;
+			this.noscopeSimGomu.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.noscopeSimGomu.Location = new System.Drawing.Point(344, 153);
+			this.noscopeSimGomu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.noscopeSimGomu.Name = "noscopeSimGomu";
+			this.noscopeSimGomu.Size = new System.Drawing.Size(54, 17);
+			this.noscopeSimGomu.TabIndex = 79;
+			this.noscopeSimGomu.Text = "Gomu";
+			this.noscopeSimGomu.UseVisualStyleBackColor = true;
+			// 
 			// noscopeHead
 			// 
 			this.noscopeHead.AutoSize = true;
@@ -2058,6 +2070,7 @@ partial class SettingsForm
 			// 
 			// linkLabel9
 			// 
+			this.linkLabel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.linkLabel9.AutoSize = true;
 			this.linkLabel9.Location = new System.Drawing.Point(205, 505);
 			this.linkLabel9.Name = "linkLabel9";
@@ -2695,6 +2708,17 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 503);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 27);
+			this.replInput.TabIndex = 0;
+			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2711,29 +2735,6 @@ partial class SettingsForm
 			this.replOutput.TabIndex = 2;
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
-			// 
-			// noscopeSimGomu
-			// 
-			this.noscopeSimGomu.AutoSize = true;
-			this.noscopeSimGomu.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.noscopeSimGomu.Location = new System.Drawing.Point(344, 153);
-			this.noscopeSimGomu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.noscopeSimGomu.Name = "noscopeSimGomu";
-			this.noscopeSimGomu.Size = new System.Drawing.Size(54, 17);
-			this.noscopeSimGomu.TabIndex = 79;
-			this.noscopeSimGomu.Text = "Gomu";
-			this.noscopeSimGomu.UseVisualStyleBackColor = true;
-			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 503);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 27);
-			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 

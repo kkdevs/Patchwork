@@ -137,7 +137,13 @@ public static class Vfs
 		foreach (var bundle in Directory.GetFiles(inabdata, "*.unity3d", SearchOption.AllDirectories))
 		{
 			var rel = bundle.Replace("\\","/");
-			LoadedAssetBundle.Make(rel.Substring(Dir.abdata.Length), rel.Substring(Dir.root.Length));
+			var name = rel.Substring(Dir.abdata.Length);
+			if (!settings.withoutManifest && !name.ToLower().StartsWith("sound/") && (!dc.abs.TryGetValue(name.ToLower(), out LoadedAssetBundle mab) || !mab.hasManifest))
+			{
+				Debug.Info("Skipping mod ", rel, " as it is not in any manifest and mod loading from abdata is not enabled.");
+				continue;
+			}
+			LoadedAssetBundle.Make(name, rel.Substring(Dir.root.Length));
 		}
 		Debug.Log("dirlists");
 		Dictionary<string,bool> lhash = new Dictionary<string, bool>();
@@ -152,12 +158,14 @@ public static class Vfs
 			{
 				var fn = blist.Replace("\\", "/").Substring(Dir.abdata.Length);
 
+				Debug.Log("processing", fn);
 				// no manifest; skip it
 				if (!settings.withoutManifest && !fn.ToLower().StartsWith("sound/")  && (!dc.abs.TryGetValue(fn.ToLower(), out LoadedAssetBundle mab) || !mab.hasManifest))
 				{
-					Debug.Log("skipping ", fn, " without manifest");
+					Debug.Info("Skipping mod ", fn, " as it is not in any manifest and mod loading from abdata is not enabled.");
 					continue;
 				}
+				Debug.Log("added to dirlist");
 				dc.dirLists[lld].Add(fn);
 
 				// if recursive, walk up and populate dirlists
