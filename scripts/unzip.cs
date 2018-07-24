@@ -1,5 +1,18 @@
-﻿//@INFO: Compatibility for zipmods
-//@VER: 2
+﻿//@INFO: Compatibility for mods
+//@VER: 3
+
+// Patchwork completely replaces game subsystems for loading data, mainly for performance
+// (for ABs) and extensibility (csvs) reasons.
+//
+// The loader (Vfs.cs) still uses canonical format both for all asset bundles as well as csv metadata,
+// retaining the original structure as virtual filesystem tree and via reflection respectively.
+//
+// The way bepinex inserts mod data is different - it has limited set of special-cased hooks for
+// various mod data injected and frequently uses ad-hoc, manually written serializers and bundle handlers
+// unrelated to the original structure at hand.
+//
+// Instead of special-casing every little thing this way in our asset loading code, we can convert from the
+// ad-hoc bepinex format back to canonical representation in here so as to keep the actual loader code generic.
 
 using static Patchwork;
 using System.IO;
@@ -13,7 +26,7 @@ using System.Collections.Generic;
 
 public class unzip : ScriptEvents
 {
-	public bool sideloader_bugs_compat = true;
+	public bool sideloader_compat = true;
 	static byte []entry2bytes(ZipFile zf, ZipEntry entry)
 	{
 		return new BinaryReader(zf.GetInputStream(entry)).ReadBytes((int)entry.Size);
@@ -22,6 +35,83 @@ public class unzip : ScriptEvents
 	public override void Awake()
 	{
 		if (!settings.loadMods) return;
+		var needRescan = false;
+		needRescan |= CanonizeZip();
+		needRescan |= CanonizeCsv();
+		needRescan |= CopyABdata();
+		if (needRescan)
+		{
+			print("VFS changed; rescanning");
+			Vfs.Rescan(false);
+			Vfs.Save();
+		}
+	}
+
+	public bool CopyABdata()
+	{
+		if (settings.withoutManifest) return false;
+		var target = Dir.mod + "abdata/";
+		bool res = false;
+		foreach (var sfn in Directory.GetFiles(Dir.abdata, "*.unity3d", SearchOption.AllDirectories))
+		{
+			var fn = sfn.Replace("\\", "/").Substring(Dir.abdata.Length);
+			if (LoadedAssetBundle.cache.TryGetValue(fn, out LoadedAssetBundle ab))
+			{
+				if (ab.hasRealManifest) continue;
+				if (ab.name.StartsWith("sound/")) continue;
+			}
+
+			var fout = target + fn;
+			if (File.Exists(fout)) continue;
+			Directory.CreateDirectory(target + fn.Remove(fn.LastIndexOf('/')));
+			var fin = Dir.abdata + fn;
+			if (Vfs.Repack(fin, fout, true))
+			{
+				res = true;
+				print($"Moved {fn}");
+			}
+			else
+			{
+				print($"Failed to move {fn}");
+				File.Delete(fout);
+			}
+		}	
+		return res;
+	}
+
+	public bool CanonizeCsv()
+	{
+		var ret = false;
+		var source = Dir.root + "bepinex/translation/scenario/";
+		var target = Dir.mod + "translation/adv/scenario/";
+		if (Directory.Exists(source) && !Directory.Exists(target))
+		{
+			ret = true;
+			Directory.CreateDirectory(target);
+			foreach (var csv in Directory.GetFiles(source, "*.csv", SearchOption.AllDirectories))
+			{
+				var dir = csv.Remove(csv.Replace("\\","/").LastIndexOf('/'));
+				if (!dir.EndsWith("/00"))
+					dir += "/00";
+				dir = target + dir.Substring(source.Length);
+				Directory.CreateDirectory(dir);
+				var data = "_hash,_version,_command,_multi,_args\n" + Encoding.UTF8.GetString(File.ReadAllBytes(csv)).StripBOM();
+				File.WriteAllBytes(dir + "/" + Path.GetFileName(csv), data.ToBytes());
+			}
+		}
+		source = Dir.root + "bepinex/translation/communication/";
+		target = Dir.mod + "translation/communication/info_99/";
+		if (Directory.Exists(source) && !Directory.Exists(target))
+		{
+			ret = true;
+			Directory.CreateDirectory(target);
+			foreach (var csv in Directory.GetFiles(source, "*.csv", SearchOption.AllDirectories))
+				File.Copy(csv, target + Path.GetFileName(csv), true);
+		}
+		return ret;
+	}
+
+	public bool CanonizeZip() {
 		var target = Dir.mod;
 		print("Unzipping mods into " + Path.GetFullPath(target));
 		var zipdir = Dir.root + "mods";
@@ -111,7 +201,7 @@ public class unzip : ScriptEvents
 					bool nukecab = true;
 					if (efn.EndsWith(".unity3d") && File.Exists(hardab))
 					{
-						// if it overwrites in its entirety, do not nuke the cab as deps will point to it
+						// if it overwrites in its entirety, do not nuke the cab as deps amy point to it
 						nukecab = false;
 						var ab = AssetBundle.LoadFromMemory(bytes);
 						if (ab == null)
@@ -149,19 +239,14 @@ public class unzip : ScriptEvents
 						efn = Directory.GetParent(efn).FullName + "/+" + Path.GetFileName(efn);
 					if (efn.EndsWith(".unity3d"))
 						using (var fo = File.Create(efn))
-							if (Vfs.Repack(new MemoryStream(bytes), fo, nukecab | sideloader_bugs_compat))
+							if (Vfs.Repack(new MemoryStream(bytes), fo, nukecab | sideloader_compat))
 								bytes = null;
 					if (bytes != null)
 						File.WriteAllBytes(efn, bytes);
 				}
 			}
 		}
-		if (needRescan)
-		{
-			print("VFS changed; rescanning");
-			Vfs.Rescan(false);
-			Vfs.Save();
-		}
 		print("Done");
+		return needRescan;
 	}
 }

@@ -104,6 +104,7 @@ public static class Vfs
 						}
 						var abi = LoadedAssetBundle.Make(rpath);
 						abi.hasManifest = true;
+						abi.hasRealManifest = true;
 						foreach (var tdep in mf.GetAllDependencies(sab))
 						{
 							Debug.Log(" =>", sab, " depends on ", tdep);
@@ -138,7 +139,7 @@ public static class Vfs
 		{
 			var rel = bundle.Replace("\\","/");
 			var name = rel.Substring(Dir.abdata.Length);
-			if (!settings.withoutManifest && !name.ToLower().StartsWith("sound/") && (!dc.abs.TryGetValue(name.ToLower(), out LoadedAssetBundle mab) || !mab.hasManifest))
+			if (!settings.withoutManifest && !name.ToLower().StartsWith("sound/") && (!dc.abs.TryGetValue(name, out LoadedAssetBundle mab) || !mab.hasManifest))
 			{
 				Debug.Info("Skipping mod ", rel, " as it is not in any manifest and mod loading from abdata is not enabled.");
 				continue;
@@ -160,7 +161,7 @@ public static class Vfs
 
 				Debug.Log("processing", fn);
 				// no manifest; skip it
-				if (!settings.withoutManifest && !fn.ToLower().StartsWith("sound/")  && (!dc.abs.TryGetValue(fn.ToLower(), out LoadedAssetBundle mab) || !mab.hasManifest))
+				if (!settings.withoutManifest && !fn.ToLower().StartsWith("sound/")  && (!dc.abs.TryGetValue(fn, out LoadedAssetBundle mab) || !mab.hasManifest))
 				{
 					Debug.Info("Skipping mod ", fn, " as it is not in any manifest and mod loading from abdata is not enabled.");
 					continue;
@@ -509,6 +510,21 @@ public static class Vfs
 		return ret != null;
 	}
 
+	public static bool Repack(string realPath, string alt, bool randomize = false, int lz4blockSize = 128 * 1024)
+	{
+		if (!File.Exists(alt))
+		{
+			using (var f = File.OpenRead(realPath))
+			{
+				using (var fo = File.Create(alt))
+				{
+					return Vfs.Repack(f, fo, randomize, lz4blockSize);
+				}
+			}
+		}
+		return true;
+	}
+
 	public static bool Repack(Stream input, Stream output, bool randomize = false, int lz4blockSize = 128 * 1024)
 	{
 		var baseStart = output.Position;
@@ -655,6 +671,9 @@ public class LoadedAssetBundle
 
 	[IgnoreMember]
 	public bool hasManifest;
+
+	[IgnoreMember]
+	public bool hasRealManifest;
 
 	[IgnoreMember]
 	public AssetBundle[] loadedVirtualBundles;
@@ -902,16 +921,7 @@ public class LoadedAssetBundle
 		var alt = Dir.cache + key + ".unity3d";
 
 
-		if (!File.Exists(alt))
-		{
-			using (var f = File.OpenRead(realPath))
-			{
-				using (var fo = File.Create(alt))
-				{
-					Vfs.Repack(f, fo, true);
-				}
-			}
-		}
+		Vfs.Repack(realPath, alt, true);
 
 		Debug.Log("no dice, trying alternat path at ", alt);
 		var ret = AssetBundle.LoadFromFile(alt);

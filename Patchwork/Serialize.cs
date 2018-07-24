@@ -63,8 +63,10 @@ public class CSVMarshaller : ScriptableObject
 		var listref = tlist.GetValue(this);
 		List<FieldInfo> fields = null;
 		var flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
+		int rownum = 0;
 		foreach (var row in CSV.Parse(src, ext))
 		{
+			rownum++;
 			// Skip header for anything but excel.
 			if (fields == null)
 			{
@@ -88,13 +90,16 @@ public class CSVMarshaller : ScriptableObject
 					var strl = new List<string>();
 					while (rowe.MoveNext())
 						strl.Add(rowe.Current);
+					// XXX is this a right thing to do?
+					while (strl.LastOrDefault() == "")
+						strl.RemoveAt(strl.Count - 1);
 					f.SetValue(rowo, f.FieldType.IsList()?(object)strl:(object)strl.ToArray());
 					break; // this is always last one
 				}
 				if (!rowe.MoveNext())
 				{
-					Debug.Error("Row terminated prematurely");
-					break;
+					Debug.Error(src,":",rownum," is corrupted: row terminates prematurely; skipping");
+					goto skipRow;
 				}
 
 				// XXX cache converter too?
@@ -111,10 +116,13 @@ public class CSVMarshaller : ScriptableObject
 					f.SetValue(rowo, conv.ConvertFromInvariantString(cur));
 				} catch
 				{
-					Debug.Error($"Corrupted field value '{cur}' for {f.DeclaringType}.{f.Name} of type {f.FieldType}, skipping");
+					Debug.Error(src, ":", rownum, $"is corrupted, field value '{cur}' doesn't represent {f.DeclaringType}.{f.Name} of type {f.FieldType}, skipping row");
+					while (rowe.MoveNext()) ;
+					goto skipRow;
 				}
 			}
 			add.Invoke(listref, new[] { rowo });
+			skipRow:;
 		}
 		return true;
 	}
