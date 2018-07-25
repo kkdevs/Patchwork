@@ -49,8 +49,9 @@ public class unzip : ScriptEvents
 
 	public bool CopyABdata()
 	{
-		if (settings.withoutManifest) return false;
+		
 		var target = Dir.mod + "abdata/";
+		if (!settings.withoutManifest && Directory.Exists(target)) return false;
 		bool res = false;
 		foreach (var sfn in Directory.GetFiles(Dir.abdata, "*.unity3d", SearchOption.AllDirectories))
 		{
