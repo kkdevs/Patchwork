@@ -243,8 +243,8 @@ partial class SettingsForm
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.boneRoot = new System.Windows.Forms.CheckBox();
-			this.replInput = new EditLine();
 			this.studioBase = new System.Windows.Forms.CheckBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -337,6 +337,7 @@ partial class SettingsForm
 			// 
 			// runChara
 			// 
+			this.runChara.Enabled = false;
 			this.runChara.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.runChara.Location = new System.Drawing.Point(484, 409);
 			this.runChara.Name = "runChara";
@@ -2740,17 +2741,6 @@ partial class SettingsForm
 			this.boneRoot.Text = "Set dyn bone root";
 			this.boneRoot.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 503);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 27);
-			this.replInput.TabIndex = 0;
-			// 
 			// studioBase
 			// 
 			this.studioBase.AutoSize = true;
@@ -2761,6 +2751,17 @@ partial class SettingsForm
 			this.studioBase.TabIndex = 69;
 			this.studioBase.Text = "Use these for studio characters";
 			this.studioBase.UseVisualStyleBackColor = true;
+			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 503);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 27);
+			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 
