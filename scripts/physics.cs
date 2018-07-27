@@ -1,5 +1,9 @@
-﻿//@INFO: Additional DBs+colliders (eroigame.net)
-//@VER: 1
+﻿/*
+
+this doesnt work reliably yet
+
+x//@INFO: Additional DBs+colliders (eroigame.net)
+x//@VER: 1
 
 // Physics tweaks as described in http://eroigame.net/archives/1387
 // Done programatically, so it works on any skeleton
@@ -67,10 +71,16 @@ public class FixColliders : ScriptEvents {
 		var hitbone = bone + "_hit";
 		var bo = fa.GetObjectFromName(hitbone);
 		if (bo != null)
+		{
+			print("no object found");
 			return null;
+		}
 		var parent = fa.GetObjectFromName(bone);
 		if (parent == null)
+		{
+			print("no parent found");
 			return null;
+		}
 		var nb = new GameObject(hitbone);
 		var col = nb.AddComponent<DynamicBoneCollider>();
 		col.m_Radius = 0.1f;
@@ -79,7 +89,9 @@ public class FixColliders : ScriptEvents {
 		nb.transform.localScale = new Vector3(sx, sy, sz);
 		nb.transform.localEulerAngles = r;
 		nb.transform.localPosition = t;
-		nb.layer = 12;
+		//nb.layer = 12;
 		return col;
 	}
 }
+
+*/
