@@ -18,8 +18,12 @@ public class FixPlugins : ScriptEvents
 		var exename = isStudio ? "CharaStudio.exe" : "Koikatu.exe";
 		var bepin = Assembly.Load("BepInEx");
 		if (bepin == null || bepin == Script.baseAssembly)
+		{
+			if (bepin != null)
+				print("No working bepinex found; using shim");
 			return;
-		print("Trying to revive bepin logger");
+		}
+		print("Using " + bepin.FullName);
 		try
 		{
 			var paths = bepin.GetType("BepInEx.Paths");
@@ -29,7 +33,10 @@ public class FixPlugins : ScriptEvents
 			paths.GetProperty("BepInExAssemblyDirectory", flags).SetValue(null, Dir.root + "bepinex/core");
 			paths.GetProperty("BepInExAssemblyPath", flags).SetValue(null, Dir.root + "bepinex/core/bepinex.dll");
 		}
-		catch { };
+		catch (Exception ex)
+		{
+			print(ex);
+		}
 		try
 		{
 			var logger = bepin.GetType("BepInEx.Logger");

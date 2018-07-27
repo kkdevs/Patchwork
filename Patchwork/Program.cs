@@ -421,6 +421,7 @@ public static partial class Patchwork {
 
 	public static void SetRange(Slider sl)
 	{
+		if (sl == null) return;
 		//if (sl.maxValue != 100) return;
 		sl.maxValue = settings.sliderMax;
 		sl.minValue = settings.sliderMin;

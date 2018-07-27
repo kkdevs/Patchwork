@@ -717,7 +717,7 @@ public class LoadedAssetBundle
 			ab.realPath = real;
 			cache[abname] = ab;
 			if (abname != name)
-				Debug.Error("First registered name shouldn't be unsafe!",name,real);
+				Debug.Spam("First registered name shouldn't be unsafe!",name,real);
 		}
 		else
 		{
@@ -760,7 +760,7 @@ public class LoadedAssetBundle
 			Debug.Log("got ab at ", ab.realPath);
 			return ab;
 		}
-		Debug.Error("Untracked bundle ", name, "requested");
+		Debug.Spam("Untracked bundle ", name, "requested");
 		return null;
 	}
 
@@ -776,7 +776,7 @@ public class LoadedAssetBundle
 		var ab = Get(name);
 		if (ab == null)
 		{
-			Debug.Error("Load failed; the bundle ",name," is not tracked.");
+			Debug.Spam("Load failed; the bundle ",name," is not tracked.");
 			return null;
 		}
 		if (!settings.withoutManifest && !ab.hasManifest && !name.ToLower().StartsWith("sound/"))
@@ -876,7 +876,11 @@ public class LoadedAssetBundle
 				for (int i = 0; i < loadedVirtualBundles.Length; i++)
 				{
 					var vb = loadedVirtualBundles[i];
-					if (vb == null) continue;
+					if (vb == null)
+					{
+						Debug.Error("Failed to load virtual bundle ", i);
+						continue;
+					}
 					foreach (var ass in vb.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x).ToLower()))
 					{
 						if (!virtualAssets.ContainsKey(ass))
@@ -983,10 +987,15 @@ public class LoadedAssetBundle
 		if (virt.StartsWith("@"))
 		{
 			int idx = int.Parse(virt.Substring(1));
+			if (loadedVirtualBundles[idx] == null)
+				loadedVirtualBundles[idx] = TryLoadAB(virtualBundles[idx]);
 			if (loadedVirtualBundles[idx] != null)
 			{
 				Debug.Log(name, " loaded from virtual bundle", virtualBundles[idx]);
 				return LoadAssetWrapped(loadedVirtualBundles[idx], name, t);
+			} else
+			{
+				Debug.Error("Virtual asset ",name," failed to load");
 			}
 		}
 		Debug.Log("no virtual asset");
@@ -1047,7 +1056,7 @@ public class LoadedAssetBundle
 		var ass = LoadFromVirtualBundles(name, t) ?? LoadAssetWrapped(m_AssetBundle, name, t);
 		if (ass == null)
 		{
-			Debug.Error("Load of ", this.name, name, "failed");
+			Debug.Spam("Load of ", this.name, name, "failed");
 		}
 		return ass;
 	}

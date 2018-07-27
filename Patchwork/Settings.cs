@@ -39,7 +39,7 @@ public static partial class Patchwork
 			"ipaloader",
 			"illusionplugin",
 		};
-		public bool studioBase = false;
+		public bool studioBase = true;
 		public bool nukeMat = false;
 		public bool withoutManifest = false;
 		public bool loadMods = false;
