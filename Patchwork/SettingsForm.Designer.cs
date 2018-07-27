@@ -241,8 +241,10 @@ partial class SettingsForm
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.boneRoot = new System.Windows.Forms.CheckBox();
+			this.replInput = new EditLine();
+			this.studioBase = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1755,6 +1757,7 @@ partial class SettingsForm
 			// 
 			// groupBox10
 			// 
+			this.groupBox10.Controls.Add(this.studioBase);
 			this.groupBox10.Controls.Add(this.linkLabel2);
 			this.groupBox10.Controls.Add(this.ooMale);
 			this.groupBox10.Controls.Add(this.label42);
@@ -1768,7 +1771,7 @@ partial class SettingsForm
 			this.groupBox10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox10.Name = "groupBox10";
 			this.groupBox10.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox10.Size = new System.Drawing.Size(396, 169);
+			this.groupBox10.Size = new System.Drawing.Size(396, 198);
 			this.groupBox10.TabIndex = 65;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Custom uncensor";
@@ -2396,6 +2399,7 @@ partial class SettingsForm
 			// 
 			// groupBox6
 			// 
+			this.groupBox6.Controls.Add(this.boneRoot);
 			this.groupBox6.Controls.Add(this.physDivisor);
 			this.groupBox6.Controls.Add(this.physLoopCount);
 			this.groupBox6.Controls.Add(this.physReflectSpeed);
@@ -2708,17 +2712,6 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 503);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 27);
-			this.replInput.TabIndex = 0;
-			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2735,6 +2728,39 @@ partial class SettingsForm
 			this.replOutput.TabIndex = 2;
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
+			// 
+			// boneRoot
+			// 
+			this.boneRoot.AutoSize = true;
+			this.boneRoot.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.boneRoot.Location = new System.Drawing.Point(33, 207);
+			this.boneRoot.Name = "boneRoot";
+			this.boneRoot.Size = new System.Drawing.Size(110, 17);
+			this.boneRoot.TabIndex = 60;
+			this.boneRoot.Text = "Set dyn bone root";
+			this.boneRoot.UseVisualStyleBackColor = true;
+			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(10, 503);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(937, 27);
+			this.replInput.TabIndex = 0;
+			// 
+			// studioBase
+			// 
+			this.studioBase.AutoSize = true;
+			this.studioBase.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.studioBase.Location = new System.Drawing.Point(12, 160);
+			this.studioBase.Name = "studioBase";
+			this.studioBase.Size = new System.Drawing.Size(173, 17);
+			this.studioBase.TabIndex = 69;
+			this.studioBase.Text = "Use these for studio characters";
+			this.studioBase.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -3022,5 +3048,7 @@ partial class SettingsForm
 	private System.Windows.Forms.LinkLabel linkLabel8;
 	private System.Windows.Forms.CheckBox withoutManifest;
 	private System.Windows.Forms.CheckBox noscopeSimGomu;
+	private System.Windows.Forms.CheckBox boneRoot;
+	private System.Windows.Forms.CheckBox studioBase;
 }
 

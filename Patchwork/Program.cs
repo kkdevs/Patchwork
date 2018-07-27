@@ -11,6 +11,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Manager;
 using ParadoxNotion.Serialization.FullSerializer;
+using UnityEngine.UI;
 
 public static partial class Patchwork {
 	public static Splash splash;
@@ -412,6 +413,17 @@ public static partial class Patchwork {
 	{
 		GC(caller.GetType().Name, true, false, caller);
 	}
+	public static void SetRange(Slider[] sliders)
+	{
+		foreach (var sl in sliders)
+			SetRange(sl);
+	}
 
+	public static void SetRange(Slider sl)
+	{
+		//if (sl.maxValue != 100) return;
+		sl.maxValue = settings.sliderMax;
+		sl.minValue = settings.sliderMin;
+	}
 
 }

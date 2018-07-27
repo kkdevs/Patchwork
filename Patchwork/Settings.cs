@@ -23,6 +23,7 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool boneRoot = false;
 		public bool asyncAnim = true;
 		public bool fixGuides = false;
 		public string scriptPath = @"bepinex;bepinex\ipa;patchwork\scripts;bepinex\core";
@@ -38,6 +39,7 @@ public static partial class Patchwork
 			"ipaloader",
 			"illusionplugin",
 		};
+		public bool studioBase = false;
 		public bool nukeMat = false;
 		public bool withoutManifest = false;
 		public bool loadMods = false;

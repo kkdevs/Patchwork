@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dumpcsv.cs" />
+    <Compile Include="physics.cs" />
     <Compile Include="fixplugins.cs" />
     <Compile Include="ghettosave.cs" />
     <Compile Include="ghettoui.cs" />
