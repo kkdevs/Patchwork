@@ -35,7 +35,6 @@ public class FixPlugins : ScriptEvents
 		}
 		catch (Exception ex)
 		{
-			print(ex);
 		}
 		try
 		{

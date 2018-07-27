@@ -42,7 +42,8 @@ public class unzip : ScriptEvents
 		if (needRescan)
 		{
 			print("VFS changed; rescanning");
-			Vfs.Rescan(false);
+			LoadedAssetBundle.GCBundles();
+			Vfs.Rescan(true);
 			Vfs.Save();
 		}
 	}
