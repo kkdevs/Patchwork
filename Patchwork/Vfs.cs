@@ -753,6 +753,10 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Get(string name)
 	{
+		// dummy
+		if (name.StartsWith(Dir.map))
+			return new LoadedAssetBundle(name);
+
 		CheckInit();
 		Debug.Log("Get bundle ", name);
 		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
@@ -771,6 +775,14 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Load(string name, string forasset = null)
 	{
+		if (name.StartsWith(Dir.map))
+		{
+			if (AssetBundle.LoadFromFile(name) == null)
+			{
+				Debug.Error("Map file ", name, "load failed");
+			}
+			return null;
+		}
 		CheckInit();
 		Debug.Log("Loading bundle ", name, "for", forasset);
 		var ab = Get(name);
