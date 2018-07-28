@@ -363,7 +363,7 @@ public class ScriptEntry
 		{
 			if (kv.Value.Count == 0) continue;
 			var m = typeof(ScriptEvents).GetMethod(kv.Key);
-			dispatcher.AppendLine("override " + m.GetSignature().Replace("&", ""));
+			dispatcher.AppendLine("override " + m.GetSignature().Replace("&", "").Replace("+","."));
 			dispatcher.AppendLine("{");
 			// early exit?
 			// TODO: support enumerators
@@ -395,6 +395,14 @@ public class ScriptEntry
 			Script.On.Awake();
 			Script.On.Start();
 		}
+		var newlist = new Dictionary<MonoBehaviour, ScriptEvents>();
+		foreach (var kv in SingletonList.singletons)
+		{
+			if (kv.Value != Script.On)
+				Script.On.OnSingleton(kv.Key, false);
+			newlist[kv.Key] = Script.On;
+		}
+		SingletonList.singletons = newlist;
 		MonoScript.Unload(dispAss);
 		return scriptass;
 	}
@@ -518,7 +526,7 @@ public partial class Script : InteractiveBase
 	public static bool reload()
 	{
 		var oldeva = Evaluator;
-		Evaluator = MonoScript.New(new Reporter(), typeof(Script), Patchwork.settings.cacheScripts?Dir.cache:null);
+		Evaluator = MonoScript.New(new Reporter(), typeof(Script), (oldeva==null&&Patchwork.settings.cacheScripts)?Dir.cache:null);
 		Output = Evaluator.tw;
 		Error = Evaluator.tw;
 		Assembly sass = null;
@@ -531,6 +539,7 @@ public partial class Script : InteractiveBase
 		}
 		if (sass == null)
 		{
+			print("Script reload failed; trying to retain old script base.");
 			Evaluator.Dispose();
 			Evaluator = oldeva;
 			return false;

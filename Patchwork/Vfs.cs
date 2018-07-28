@@ -8,6 +8,7 @@ using MessagePack;
 using MessagePack.LZ4;
 using System.Collections;
 using static Patchwork;
+using System.Security.Cryptography;
 
 public static class Vfs
 {
@@ -50,6 +51,7 @@ public static class Vfs
 		"studio/info",
 
 		"!h/list",
+		"!h/common",
 		"!action/list/motionvoice",
 	};
 
@@ -94,7 +96,15 @@ public static class Vfs
 				{
 					foreach (var sab in mf.GetAllAssetBundles())
 					{
-						var abi = LoadedAssetBundle.Make(sab.Replace("abdata/", ""));
+						var rpath = sab.Replace("abdata/", "");
+						if (!File.Exists(Dir.abdata + rpath))
+						{
+							Debug.Error("Nonexistent ", rpath, " announced in manifest ", man);
+							continue;
+						}
+						var abi = LoadedAssetBundle.Make(rpath);
+						abi.hasManifest = true;
+						abi.hasRealManifest = true;
 						foreach (var tdep in mf.GetAllDependencies(sab))
 						{
 							Debug.Log(" =>", sab, " depends on ", tdep);
@@ -118,14 +128,23 @@ public static class Vfs
 		string abdata = "abdata/";
 		string inabdata = Dir.root + abdata;
 		if (flush)
+		{
 			dc.abs.Clear();
+			LoadManifests();
+		}
 		dc.dirLists.Clear();
 		// initially map everything to self
 		Debug.Log("unity3d");
 		foreach (var bundle in Directory.GetFiles(inabdata, "*.unity3d", SearchOption.AllDirectories))
 		{
 			var rel = bundle.Replace("\\","/");
-			LoadedAssetBundle.Make(rel.Substring(Dir.abdata.Length)).realPath = rel.Substring(Dir.root.Length);
+			var name = rel.Substring(Dir.abdata.Length);
+			if (!settings.withoutManifest && !name.ToLower().StartsWith("sound/") && (!dc.abs.TryGetValue(name, out LoadedAssetBundle mab) || !mab.hasManifest))
+			{
+				Debug.Info("Skipping mod ", rel, " as it is not in any manifest and mod loading from abdata is not enabled.");
+				continue;
+			}
+			LoadedAssetBundle.Make(name, rel.Substring(Dir.root.Length));
 		}
 		Debug.Log("dirlists");
 		Dictionary<string,bool> lhash = new Dictionary<string, bool>();
@@ -139,6 +158,15 @@ public static class Vfs
 			foreach (var blist in Directory.GetFiles(Dir.abdata + lld, "*.unity3d", ld != lld ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories))
 			{
 				var fn = blist.Replace("\\", "/").Substring(Dir.abdata.Length);
+
+				Debug.Log("processing", fn);
+				// no manifest; skip it
+				if (!settings.withoutManifest && !fn.ToLower().StartsWith("sound/")  && (!dc.abs.TryGetValue(fn, out LoadedAssetBundle mab) || !mab.hasManifest))
+				{
+					Debug.Info("Skipping mod ", fn, " as it is not in any manifest and mod loading from abdata is not enabled.");
+					continue;
+				}
+				Debug.Log("added to dirlist");
 				dc.dirLists[lld].Add(fn);
 
 				// if recursive, walk up and populate dirlists
@@ -163,28 +191,20 @@ public static class Vfs
 			{
 				Debug.Log("Processing ", mod);
 				var inmod = mod + "/";
-				foreach (var bundle in Directory.GetFiles(inmod, "*.*", SearchOption.AllDirectories))
+				foreach (var tmpfn in Directory.GetFiles(inmod, "*.*", SearchOption.AllDirectories))
 				{
-					var bd = bundle.Replace("\\", "/");
-					var isUnsafe = (bd.IndexOf("+") > bd.LastIndexOf("/")) && bd.EndsWith(".unity3d");
-					if (isUnsafe)
-						Debug.Info(bundle, " is unsafe!");
-					if (isUnsafe && !settings.loadUnsafe)
-					{
-						Debug.Info("skipping");
-						continue;
-					}
-					var fn = bd.Substring(Dir.root.Length);
-					var ffn = fn;
-	//				Debug.Log("modfiles ", bundle, bd, fn);
+					var currentfn = tmpfn.Replace("\\", "/");
+					var realFn = currentfn.Substring(Dir.root.Length); // real path relative to root
+					var fn = currentfn.Substring(inmod.Length); // virtualpath
+					if (fn.ToLower().StartsWith("abdata/"))
+						fn = fn.Substring(7);
 
 					// may override original abdata mapping
-					if (bundle.EndsWith(".unity3d"))
-						LoadedAssetBundle.Make(bd.Substring(inmod.Length)).realPath = fn;		
+					if (fn.EndsWith(".unity3d"))
+						LoadedAssetBundle.Make(fn, realFn);
 
 					// keep stripping last path component of the file path until we match
 					// a path which is listable
-					fn = bd.Substring(inmod.Length); // remove modpath -> abesque
 					var ofn = fn;
 					int ind;
 					int stripped = 0;
@@ -217,8 +237,10 @@ public static class Vfs
 							// create a virtual bundle
 							var assname = RemoveExt(Path.GetFileName(ofn));
 							var vab = LoadedAssetBundle.Make(virtab);
-							vab.virtualAssets[assname] = ffn;
-							var nvpath = ffn.Remove(ffn.LastIndexOf('/'));
+							vab.hasManifest = true;
+							Debug.Log("adding virtual asset ", assname, "into", virtab);
+							vab.virtualAssets[assname.ToLower()] = realFn;
+							var nvpath = realFn.Remove(realFn.LastIndexOf('/'));
 							Debug.Log(assname, virtab, fn, nvpath, vab.realPath);
 							if (vab.realPath == null && nvpath != vab.realPath)
 								vab.realPath = nvpath;
@@ -254,6 +276,7 @@ public static class Vfs
 		var mb = MessagePackSerializer.Serialize(dc);
 		File.WriteAllBytes(cacheFile, mb);
 		File.WriteAllBytes(cacheFile + ".json", MessagePackSerializer.ToJson(mb).ToBytes());
+		//ExitProcess(0);
 #else
 		var mb = LZ4MessagePackSerializer.Serialize(dc);
 		File.WriteAllBytes(cacheFile, mb);
@@ -280,7 +303,6 @@ public static class Vfs
 		if (!caching || !Load())
 		{
 			Rescan();
-			LoadManifests();
 			if (caching)
 				Save();
 		}
@@ -383,7 +405,7 @@ public static class Vfs
 					var dbuf = new byte[4 * atlasDim * atlasDim];
 #endif
 					Texture2D at = new Texture2D(atlasDim, atlasDim, fmt, false);
-					at.LoadRawTextureData(LZ4Decompress(File.ReadAllBytes(atn), dbuf));
+					at.LoadRawTextureData(Ext.LZ4Decompress(File.ReadAllBytes(atn), dbuf));
 					at.Apply(updateMipmaps: false, makeNoLongerReadable: true);
 					if (atlas.Length <= i)
 						Array.Resize(ref atlas, i + 1);
@@ -480,27 +502,147 @@ public static class Vfs
 #else
 			var rawbuf = at.GetRawTextureData();
 #endif
-			File.WriteAllBytes(Dir.cache + "abinfo" + atno, LZ4Compress(rawbuf));
+			File.WriteAllBytes(Dir.cache + "abinfo" + atno, Ext.LZ4Compress(rawbuf));
 
 			spriteLen = 0;
 			Save();
 		}
 		return ret != null;
 	}
-	public static byte[] LZ4Compress(byte[] buf)
+
+	public static bool Repack(string realPath, string alt, bool randomize = false, int lz4blockSize = 128 * 1024)
 	{
-		//return buf;
-		var outbuf = new byte[LZ4Codec.MaximumOutputLength(buf.Length)];
-		int len = LZ4Codec.Encode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
-		Array.Resize(ref outbuf, len);
-		return outbuf;
+		if (!File.Exists(alt))
+		{
+			using (var f = File.OpenRead(realPath))
+			{
+				using (var fo = File.Create(alt))
+				{
+					return Vfs.Repack(f, fo, randomize, lz4blockSize);
+				}
+			}
+		}
+		return true;
 	}
 
-	public static byte[] LZ4Decompress(byte[] buf, byte[] outbuf)
+	public static bool Repack(Stream input, Stream output, bool randomize = false, int lz4blockSize = 128 * 1024)
 	{
-		//return buf;
-		LZ4Codec.Decode(buf, 0, buf.Length, outbuf, 0, outbuf.Length);
-		return outbuf;
+		var baseStart = output.Position;
+		var r = new BinaryReader(input, Encoding.ASCII);
+		var w = new BinaryWriter(output, Encoding.ASCII);
+
+		var format = r.GetString();
+		if (format != "UnityFS")
+			return false;
+		w.Put(format);
+
+		var gen = r.GetInt();
+		if (gen != 6)
+			return false;
+		w.Put(gen);
+
+		w.Put(r.GetString());
+		w.Put(r.GetString());
+
+		// defer
+		var infoPos = w.BaseStream.Position;
+		w.BaseStream.Position += 16; // bundlesize + metacomp + metauncomp
+
+		var bundleSize = r.GetLong();
+		var metaCompressed = r.GetInt();
+		var metaUncompressed = r.GetInt();
+		var flags = r.GetInt();
+		w.Put(0x43);
+		var dataPos = r.BaseStream.Position;
+
+		if ((flags & 0x80) != 0)
+			r.BaseStream.Position = bundleSize - metaCompressed;
+		else
+			dataPos += metaCompressed;
+
+		byte[] metabuf = null;
+		switch (flags & 0x3f)
+		{
+			case 3:
+			case 2:
+				metabuf = Ext.LZ4Decompress(r.ReadBytes(metaCompressed), 0, metaCompressed, metaUncompressed);
+				break;
+			case 0:
+				metabuf = r.ReadBytes(metaUncompressed);
+				break;
+			default:
+				return false;
+		}
+
+		r.BaseStream.Position = dataPos;
+		var meta = new BinaryReader(new MemoryStream(metabuf), Encoding.ASCII);
+		var newmeta = new BinaryWriter(new MemoryStream(), Encoding.ASCII);
+		newmeta.BaseStream.Position += 16 + 4; // +4 for pending.Length
+		meta.BaseStream.Position += 16;
+		int nblocks = meta.GetInt();
+		List<byte[]> pending = new List<byte[]>();
+		for (var i = 0; i < nblocks; i++)
+		{
+			var origSize = meta.GetInt();
+			var compSize = meta.GetInt();
+			var blockFlags = meta.GetShort();
+			var block = r.ReadBytes(compSize);
+			if (blockFlags == 0x40 || blockFlags == 2 || blockFlags == 3)
+			{
+				if (blockFlags != 0x40)
+					block = Ext.LZ4Decompress(block, 0, compSize, origSize);
+				for (int pos = 0; pos < block.Length; pos += lz4blockSize)
+				{
+					var orig = Math.Min(lz4blockSize, block.Length - pos);
+					var newblock = Ext.LZ4Compress(block, pos, orig);
+					newmeta.Put(orig);
+					newmeta.Put(newblock.Length); ;
+					newmeta.Put((short)3);
+					pending.Add(newblock);
+				}
+			}
+			else
+			{
+				newmeta.Put(origSize);
+				newmeta.Put(compSize);
+				newmeta.Put(blockFlags);
+				pending.Add(block);
+			}
+		}
+
+		//Console.WriteLine(pending.Count);
+		int nfiles = meta.GetInt();
+		newmeta.Put(nfiles);
+		var rng = new RNGCryptoServiceProvider();
+		for (int i = 0; i < nfiles; i++)
+		{
+			newmeta.Put(meta.GetLong());
+			newmeta.Put(meta.GetLong());
+			newmeta.Put(meta.GetInt());
+			var name = meta.GetString();
+			if (randomize)
+			{
+				var rnbuf = new byte[16];
+				rng.GetBytes(rnbuf);
+				name = "CAB-" + string.Concat(rnbuf.Select((x) => ((int)x).ToString("X2")).ToArray()).ToLower();
+			}
+			newmeta.Put(name);
+		}
+		newmeta.BaseStream.Position = 16;
+		newmeta.Put(pending.Count);
+		var newmetabuf = (newmeta.BaseStream as MemoryStream).ToArray();
+		var newmetabufc = Ext.LZ4Compress(newmetabuf, 0, newmetabuf.Length);
+		w.Write(newmetabufc);
+		foreach (var buf in pending)
+			w.Write(buf);
+		var endpos = w.BaseStream.Position;
+		var bundlesize = endpos - baseStart;
+		w.BaseStream.Position = infoPos;
+		w.Put(bundlesize);
+		w.Put(newmetabufc.Length);
+		w.Put(newmetabuf.Length);
+		output.Position = endpos;
+		return true;
 	}
 
 }
@@ -524,9 +666,17 @@ public class LoadedAssetBundle
 	public Dictionary<string, string> virtualAssets = new Dictionary<string, string>();
 	[Key(5)]
 	public Dictionary<string, int> cachedSprites = new Dictionary<string, int>();
+	[Key(6)]
+	public List<string> virtualBundles = new List<string>();
 
 	[IgnoreMember]
-	public string altPath;
+	public bool hasManifest;
+
+	[IgnoreMember]
+	public bool hasRealManifest;
+
+	[IgnoreMember]
+	public AssetBundle[] loadedVirtualBundles;
 
 	[IgnoreMember]
 	public AssetBundle m_AssetBundle;
@@ -546,6 +696,7 @@ public class LoadedAssetBundle
 	}
 	public static bool FlushAllCaches()
 	{
+		GCBundles();
 		return true;
 	}
 
@@ -555,13 +706,39 @@ public class LoadedAssetBundle
 	/// </summary>
 	/// <param name="name"></param>
 	/// <returns></returns>
-	public static LoadedAssetBundle Make(string name)
+	public static LoadedAssetBundle Make(string name, string real = null)
 	{
-		name = name.Replace("+", "");
-		Debug.Log("Registering", name);
-		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
-			return ab;
-		return cache[name] = new LoadedAssetBundle(name);
+		var abname = name.Replace("+", "");
+		Debug.Log("Registering", name, " as ", abname, real);
+		LoadedAssetBundle ab;
+		if (!cache.TryGetValue(abname, out ab))
+		{
+			ab = new LoadedAssetBundle(abname);
+			ab.realPath = real;
+			cache[abname] = ab;
+			if (abname != name)
+				Debug.Spam("First registered name shouldn't be unsafe!",name,real);
+		}
+		else
+		{
+			// virtual
+			if (abname != name)
+			{
+				Debug.Log("adding as virtual, ", real);
+				ab.virtualBundles.Add(real);
+			} else
+			{
+				Debug.Log("already exists", ab.realPath);
+				ab.realPath = real ?? ab.realPath;
+			}
+		}
+		// if this is a mod and mod loading is enabled, fake having a manifest
+		if (settings.loadMods && !settings.withoutManifest && (Dir.root + ab.realPath).StartsWith(Dir.mod))
+		{
+			Debug.Log("faking manifest for ", Dir.root, ab.realPath);
+			ab.hasManifest = true;
+		}
+		return ab;
 	}
 
 	public static void CheckInit()
@@ -576,11 +753,18 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Get(string name)
 	{
+		// dummy
+		if (name.StartsWith(Dir.map))
+			return new LoadedAssetBundle(name);
+
 		CheckInit();
 		Debug.Log("Get bundle ", name);
 		if (cache.TryGetValue(name, out LoadedAssetBundle ab))
+		{
+			Debug.Log("got ab at ", ab.realPath);
 			return ab;
-		Debug.Error("Untracked bundle ", name, "requested");
+		}
+		Debug.Spam("Untracked bundle ", name, "requested");
 		return null;
 	}
 
@@ -591,17 +775,32 @@ public class LoadedAssetBundle
 	/// <returns></returns>
 	public static LoadedAssetBundle Load(string name, string forasset = null)
 	{
+		if (name.StartsWith(Dir.map))
+		{
+			if (AssetBundle.LoadFromFile(name) == null)
+			{
+				Debug.Error("Map file ", name, "load failed");
+			}
+			return null;
+		}
 		CheckInit();
 		Debug.Log("Loading bundle ", name, "for", forasset);
 		var ab = Get(name);
 		if (ab == null)
 		{
-			Debug.Error("Load failed; the bundle ",name," is not tracked.");
+			Debug.Spam("Load failed; the bundle ",name," is not tracked.");
 			return null;
 		}
-
-		if (ab.realPath == null)
+		if (!settings.withoutManifest && !ab.hasManifest && !name.ToLower().StartsWith("sound/"))
+		{
+			Debug.Log("not loading ", name, " as it lacks manifests");
 			return null;
+		}
+		if (ab.realPath == null)
+		{
+			Debug.Log("real path missing");
+			return null;
+		}
 		return ab;
 	}
 
@@ -612,8 +811,9 @@ public class LoadedAssetBundle
 			return null;
 		List<object> allAss = new List<object>();
 		if (m_AssetBundle != null)
-			foreach (var obj in m_AssetBundle.LoadAllAssets(TextAsset.Unwrap(typ)).Select(TextAsset.Wrap<UnityEngine.Object>))
+			foreach (var tobj in m_AssetBundle.LoadAllAssets(TextAsset.Unwrap(typ)).Select(TextAsset.Wrap<UnityEngine.Object>))
 			{
+				var obj = TextAsset.Wrap<UnityEngine.Object>(tobj);
 				// virtuals assets of same name always remove the object from listing.
 				if (obj != null && !virtualAssets.ContainsKey(obj.name))			
 					allAss.Add(obj);
@@ -642,7 +842,18 @@ public class LoadedAssetBundle
 		{
 			if (!Ensure())
 				return null;
-			assetNames = m_AssetBundle.GetAllAssetNames();
+			List<string> tmp = virtualAssets.Keys.ToList();
+			if (m_AssetBundle != null)
+				tmp.AddRange(m_AssetBundle.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x).ToLower()));
+			var tmp2 = tmp.Distinct().ToList();
+			tmp2.Sort();
+			assetNames = tmp2.ToArray();
+			/*foreach (var an in virtualAssets.Keys)
+			{
+				tmp.Remove(an);
+				tmp.Add(an);
+			}
+			assetNames = tmp.ToArray();*/
 		}
 		return assetNames;
 	}
@@ -670,52 +881,40 @@ public class LoadedAssetBundle
 			Load(dep)?.Ensure();
 		if (m_AssetBundle == null)
 		{
-			var abfn = Dir.root + realPath;
-			Debug.Log("Trying to load ", name, "real=", realPath);
-			if (altPath != null)
+			m_AssetBundle = TryLoadAB(realPath);
+			if (m_AssetBundle != null)
 			{
-				Debug.Log("altpath ", altPath, "found; trying that first");
-				m_AssetBundle = AssetBundle.LoadFromFile(altPath);
-			}
-			if (m_AssetBundle == null)
-			{
-				Debug.Log("trying realpath ", abfn);
-				m_AssetBundle = AssetBundle.LoadFromFile(abfn);
-			}
-			if (m_AssetBundle == null)
-			{
-				if (altPath == null)
+				loadedVirtualBundles = virtualBundles.Select((x) => TryLoadAB(x)).ToArray();
+				for (int i = 0; i < loadedVirtualBundles.Length; i++)
 				{
-					Debug.Log("no altpath yet; creating one");
-					var key = Ext.HashToString(realPath.ToBytes()).Substring(0, 12);
-					var alt = Dir.cache + key + ".unity3d";
-					if (!File.Exists(alt))
+					var vb = loadedVirtualBundles[i];
+					if (vb == null)
 					{
-						using (var f = File.OpenRead(abfn))
+						Debug.Error("Failed to load virtual bundle ", i);
+						continue;
+					}
+					foreach (var ass in vb.GetAllAssetNames().Select((x) => Path.GetFileNameWithoutExtension(x).ToLower()))
+					{
+						if (!virtualAssets.ContainsKey(ass))
 						{
-							using (var fo = File.Create(alt))
-							{
-								FixCAB(fo, f, key);
-							}
+							Debug.Log("@virt asset from bundle ", ass, i);
+							virtualAssets[ass] = "@" + i;
 						}
 					}
-					Debug.Log("Trying to fix CAB conflict ", abfn, alt);
-					m_AssetBundle = AssetBundle.LoadFromFile(alt);
-					altPath = alt;
 				}
-
-				if (m_AssetBundle == null)
-				{
-					GCBundles();
-					m_AssetBundle = AssetBundle.LoadFromFile(abfn);
-				}
+			}
+			else
+			{
+				// last resort
+				GCBundles();
+				m_AssetBundle = TryLoadAB(realPath);
 			}
 		}
 		level--;
 		if (level == 0)
 			version++;
 		if (m_AssetBundle == null)
-			Debug.Error("Failed to load ", name, realPath);
+			Debug.Error("Bundle load (try 2) failed ", name, realPath);
 		return m_AssetBundle != null;
 	}
 
@@ -723,7 +922,30 @@ public class LoadedAssetBundle
 	{
 		foreach (var b in cache.Values)
 			if (b.locked < version)
+			{
 				b.Unload();
+			}
+	}
+
+	public AssetBundle TryLoadAB(string path)
+	{
+		Debug.Log("trying to load ", path);
+		var ab = AssetBundle.LoadFromFile(Dir.root + path);
+		if (ab != null)
+			return ab;
+		var key = Ext.HashToString(path.ToBytes()).Substring(0, 12);
+		var alt = Dir.cache + key + ".unity3d";
+
+
+		Vfs.Repack(realPath, alt, true);
+
+		Debug.Log("no dice, trying alternat path at ", alt);
+		var ret = AssetBundle.LoadFromFile(alt);
+		if (ret == null)
+		{
+			Debug.Error("Bundle load (try 1) failed ", path);
+		}
+		return ret;
 	}
 
 	public bool FixCAB(Stream output, Stream input, string key)
@@ -755,16 +977,48 @@ public class LoadedAssetBundle
 			if (pending > 0)
 				Debug.Error($"Unloading", name, "but it has a pending async operation!");
 			m_AssetBundle.Unload(false);
+			foreach (var vab in loadedVirtualBundles)
+				if (vab != null)
+					vab.Unload(false);
 			Debug.Log("Unloading ", name);
 		}
 		m_AssetBundle = null;
+		loadedVirtualBundles = null;
+	}
+
+	public object LoadFromVirtualBundles(string name, Type t)
+	{
+		if (!settings.loadUnsafe)
+			return null;
+		Debug.Log("trying virtual load from", this.name, name);
+		if (!virtualAssets.TryGetValue(name, out string virt))
+		{
+			Debug.Log("Virtual asset doesn't exist");
+			return null;
+		}
+		if (virt.StartsWith("@"))
+		{
+			int idx = int.Parse(virt.Substring(1));
+			if (loadedVirtualBundles[idx] == null)
+				loadedVirtualBundles[idx] = TryLoadAB(virtualBundles[idx]);
+			if (loadedVirtualBundles[idx] != null)
+			{
+				Debug.Log(name, " loaded from virtual bundle", virtualBundles[idx]);
+				return LoadAssetWrapped(loadedVirtualBundles[idx], name, t);
+			} else
+			{
+				Debug.Error("Virtual asset ",name," failed to load");
+			}
+		}
+		Debug.Log("no virtual asset");
+		return null;
 	}
 
 	public object LoadVirtualAsset(string name, Type t)
 	{
-		if (!virtualAssets.TryGetValue(name, out string virt))
+		if (!virtualAssets.TryGetValue(name.ToLower(), out string virt))
 			return null;
-		Debug.Log("Trying to load virtual asset", name);
+		Debug.Log("Trying to load virtual asset from ", this.name, name, virt);
 		var path = Dir.root + virt;
 		if (virt.EndsWith(".png") || virt.EndsWith(".jpg"))
 		{
@@ -799,6 +1053,7 @@ public class LoadedAssetBundle
 			txt.bytes = File.ReadAllBytes(path);
 			return txt;
 		}
+		Debug.Log("No virtual asset loaded");
 		return null;
 	}
 
@@ -810,13 +1065,18 @@ public class LoadedAssetBundle
 			return obj;
 		if (!Ensure(name))
 			return null;
-		obj = LoadAssetWrapped(name, t);
-		return obj;
+		var ass = LoadFromVirtualBundles(name, t) ?? LoadAssetWrapped(m_AssetBundle, name, t);
+		if (ass == null)
+		{
+			Debug.Spam("Load of ", this.name, name, "failed");
+		}
+		return ass;
 	}
 
-	public object LoadAssetWrapped(string name, Type t)
+	public static object LoadAssetWrapped(AssetBundle ab, string name, Type t)
 	{
-		return TextAsset.Wrap<object>(m_AssetBundle.LoadAsset(name, TextAsset.Unwrap(t)));
+		if (ab == null) return null;
+		return TextAsset.Wrap<object>(ab.LoadAsset(name, TextAsset.Unwrap(t)));
 	}
 
 	public IEnumerator LoadAssetAsync(string name, Type t, Action<object> cb)
@@ -829,10 +1089,13 @@ public class LoadedAssetBundle
 			yield break;
 		}
 		if (!Ensure(name))
-			goto err;
+			goto @out;
+		obj = LoadFromVirtualBundles(name, t);
+		if (obj != null)
+			goto @out;
 		var req = m_AssetBundle.LoadAssetAsync(name, TextAsset.Unwrap(t));
 		if (req == null)
-			goto err;
+			goto @out;
 		pending++;
 		yield return req;
 		pending--;
@@ -844,7 +1107,7 @@ public class LoadedAssetBundle
 			// fall back to sync
 			obj = m_AssetBundle.LoadAsset(name, TextAsset.Unwrap(t));
 		}
-err:
+@out:
 		cb(TextAsset.Wrap<object>(obj));
 	}
 }
@@ -872,6 +1135,7 @@ public class TextAsset : ScriptableObject
 		if (to != null)
 		{
 			var so = CreateInstance<TextAsset>();
+			so.name = to.name;
 			so._text = to.text;
 			so.bytes = to.bytes;
 			return so as T;

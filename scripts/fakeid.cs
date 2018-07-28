@@ -1,7 +1,6 @@
 ﻿//@INFO: Compatibility for Id colliding mods
 //@DESC: Rewrite item ids to fake ones so that broken mods still show up
-//@VER: 2
-//@AFTER: unzip
+//@VER: 3
 
 using System;
 using System.IO;
@@ -12,10 +11,102 @@ using System.Linq;
 using System.Collections.Generic;
 using MessagePack;
 using static ChaListDefine;
-
+using System.Text;
 
 public class FakeID : ScriptEvents
 {
+	public Rewriter customRewriter;
+	public Rewriter coordRewriter;
+	public override void Start()
+	{
+		InitListInfo();
+		var custom = BuildRewriterScript(new ChaFileCustom());
+		var coord = BuildRewriterScript(new ChaFileCoordinate());
+		var ass = Script.Evaluator.StaticCompile(new object[] { custom.ToBytes(), coord.ToBytes() }, "fakeid_");
+		customRewriter = Activator.CreateInstance(ass.GetType("FakeIDRewriterChaFileCustom")) as Rewriter;
+		coordRewriter = Activator.CreateInstance(ass.GetType("FakeIDRewriterChaFileCoordinate")) as Rewriter;
+	}
+
+	public abstract class Rewriter
+	{
+		public GuidMap map;
+		public abstract void ToFake(object o);
+		public abstract void FromFake(object o);
+	}
+
+	// Emit the script we eval() on each card load for a given type chaobj
+	public string BuildRewriterScript(object chaobj)
+	{
+		List<string> target = new List<string>();
+		Action<string, object, int> traverse = null;
+		traverse = (prefix, root, curridx) =>
+		{
+			if (root == null) return;
+			var t = root.GetType();
+
+			if (t.IsArray)
+			{
+				var arr = root as Array;
+				int idx = 0;
+				if (arr != null && !t.GetElementType().IsBasic())
+					foreach (var sub in arr)
+						traverse($"{prefix}[{idx}]", sub, idx++);
+				return;
+			}
+
+			foreach (var mem in t.GetVars())
+			{
+				var mt = mem.GetVarType();
+				if (mt == null) continue;
+				var name = mem.GetName();
+
+				if (name == "pattern" || name == "id" || name.EndsWith("Id"))
+				{
+					CatHint hint = null;
+					if (!mem.GetAttr(ref hint))
+						continue;
+					var arr = mem.GetValue(root) as Array;
+					int count = 1;
+					if (arr != null)
+					{
+						if (mt.GetElementType() != typeof(int))
+							continue;
+						count = arr.Length;
+					}
+					var line = "{ var obj = root" + prefix + ";\n";
+					line += "int cat = ";
+					if (hint.isDynamic)
+						line += "(int)obj." + name + $"_cat({curridx});\n";
+					else
+						line += hint.cat + ";\n";
+					var tname = name;
+					for (int i = 0; i < count; i++)
+					{
+						if (arr != null)
+						{
+							tname = $"{name}[{i}]";
+						}
+						line += "obj." + tname + " = ACTION(\"" + prefix + "." + tname + "\", cat, obj." + tname + ");\n";
+						if (hint.isAscending && i + 1 < count)
+							line += "cat++;\n";
+					}
+					line += "}\n";
+					target.Add(line);
+				}
+				else if ((bool)IsTraversable(mt))
+					traverse(prefix + "." + name, mem.GetValue(root), 0);
+			}
+		};
+		traverse("", chaobj, 0);
+		var typname = chaobj.GetType().Name;
+		return "public class FakeIDRewriter" + typname + " : FakeID.Rewriter {\n" +
+			"public override void ToFake(object o) { var root = o as " + typname + ";\n" +
+			string.Concat(target.ToArray()).Replace("ACTION", "map.GetFake") +
+			"}\npublic override void FromFake(object o) { var root = o as " + typname + ";\n" +
+			string.Concat(target.AsEnumerable().Reverse().ToArray()).Replace("ACTION", "map.GetReal") +
+			"}\n}\n";
+	}
+
 	public struct RealPair
 	{
 		public int cat;
@@ -32,10 +123,6 @@ public class FakeID : ScriptEvents
 		}
 	}
 	const int FAKE_BASE = -100;
-	public override void Start()
-	{
-		InitListInfo();
-	}
 
 	// (re)load the listinfos
 	public static IdMap idMap;
@@ -88,6 +175,8 @@ public class FakeID : ScriptEvents
 				var inf = GetInfos(sub + i, ids[i+1]).FirstOrDefault();
 				if (inf != null && inf.Category == sub + i && ids[i + 1] != 0)
 					continue;
+				if (ids[i + 1] == 0)
+					continue;
 				// If not, try to pick something
 				int ndef = def[i + (lib.Kind-1)*3];
 				ids[i+1] = GetFakes(sub + i, ndef).FirstOrDefault();
@@ -104,6 +193,7 @@ public class FakeID : ScriptEvents
 			return;
 		if (((lib.Category >= (int)CategoryNo.ao_none) || (lib.Category <= (int)CategoryNo.ao_kokan)) && lib.Id == 0)
 			return;
+		if (lib.Id == 0) return;
 		lib.Id = idMap.NewFake(lib.Category, lib.Id, lib.Clone());
 	}
 
@@ -132,6 +222,8 @@ public class FakeID : ScriptEvents
 
 	public class GuidMap
 	{
+		[NonSerialized]
+		public string baseprefix;
 		public class Item
 		{
 			public string guid;
@@ -145,22 +237,26 @@ public class FakeID : ScriptEvents
 		// if no hint is present, first fake is used
 		public int GetFake(string prop, int cat, int id)
 		{
-			if (cat == (int)CategoryNo.ao_none || id < 0)
+			if (cat == (int)CategoryNo.ao_none || id <= 0)
 				return id;
 			List<int> candidates;
 			var realpair = new RealPair(cat, id);
-			if (items.TryGetValue(prop, out Item item) && idMap.real2fake.TryGetValue(realpair, out candidates))
+			if (baseprefix != null)
 			{
-				var match = candidates.FirstOrDefault((x) => idMap.fake2real[x].Distribution2 == item.guid);
-				if (match != 0)
-					return match;
+				prop = baseprefix + prop;
+				if (items.TryGetValue(prop, out Item item) && idMap.real2fake.TryGetValue(realpair, out candidates))
+				{
+					var match = candidates.FirstOrDefault((x) => idMap.fake2real[x].Distribution2 == item.guid);
+					if (match != 0)
+						return match;
+				}
 			}
 			// nothing found via our guid mappings, so default to a first fake we encounter
 			if (idMap.real2fake.TryGetValue(realpair, out candidates))
 				return candidates.FirstOrDefault();
 			if (cat != 0 && id != 0)
-				if (settings.enableSpam)
-					print($"Failed to translate real to fake prop={prop} cat={cat} id={id}");
+				if (settings.enableSpam && baseprefix != null)
+					print($"WARNING: {prop} cat={(CategoryNo)cat}({cat}) id={id} not found.");
 			return id;
 		}
 
@@ -168,7 +264,9 @@ public class FakeID : ScriptEvents
 		public int GetReal(string prop, int cat, int id)
 		{
 			ListInfoBase lib;
-			if (cat == (int)CategoryNo.ao_none)
+			if (baseprefix != null)
+				prop = baseprefix + prop;
+			if (cat == (int)CategoryNo.ao_none || id == 0)
 				return id;
 			if (id >= FAKE_BASE)
 				return id;
@@ -179,6 +277,8 @@ public class FakeID : ScriptEvents
 						print($"Failed to translate fake to real prop={prop} cat({cat}), id={id}");
 				return id;
 			}
+			if (baseprefix == null)
+				return lib.Id;
 			if (lib.Distribution2.IsNullOrEmpty())
 			{ // if no guid now, nuke the mapping
 				items.Remove(prop);
@@ -197,53 +297,6 @@ public class FakeID : ScriptEvents
 		}
 	}
 
-	public GuidMap map;
-	public bool tofake;
-	public int rewrite(string prefix, int cat, int id, string name) => tofake ? map.GetFake(prefix, cat, id) : map.GetReal(prefix, cat, id);
-
-
-	// traverse object and rewrite ids
-	public void traverse(string prefix, object root, int currIdx = 0)
-	{
-		if (root == null) return;
-		var t = root.GetType();
-
-		if (t.IsArray)
-		{
-			var arr = root as Array;
-			int idx = 0;
-			if (arr != null && !t.GetElementType().IsBasic())
-				foreach (var sub in arr)
-					traverse($"{prefix}[{idx}]", sub, idx++);
-			return;
-		}
-
-		foreach (var mem in (tofake?t.GetVars():t.GetVars().Reverse()))
-		{
-			var mt = mem.GetVarType();
-			if (mt == null) continue;
-			var name = mem.GetName();
-
-			if (name == "pattern" || name == "id" || name.EndsWith("Id"))
-			{
-				CatHint hint = null;
-				if (!mem.GetAttr(ref hint))
-					continue;
-				hint.Reset();
-				var cat = hint.Get(root, mem, currIdx);
-				var val = mem.GetValue(root);
-				var arr = val as Array;
-				if (mt == typeof(int))
-					mem.SetValue(root, rewrite(prefix + "." + name, cat, (int)val, name));
-				else if (arr != null && mt.GetElementType() == typeof(int))
-					for (int i = 0; i < arr.Length; i++)
-						arr.SetValue(rewrite($"{prefix}.{name}[{i}]", hint.Next(), (int)arr.GetValue(i), name), i);
-			}
-			else if ((bool)mt.Memoize(IsTraversable))
-				traverse(prefix + "." + name, mem.GetValue(root));
-		}
-	}
-
 	public static object IsTraversable(Type mt)
 	{
 		if (mt.CachedGetMethod("SaveBytes") != null)
@@ -254,36 +307,51 @@ public class FakeID : ScriptEvents
 
 	public override void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus)
 	{
-		tofake = true;
-		map = f.dict.Get<GuidMap>("guidmap");
-		traverse("coordinate",f.coordinate);
-		traverse("custom",f.custom);
+		var map = f.dict.Get<GuidMap>("guidmap");
+		coordRewriter.map = map;
+		customRewriter.map = map;
+		for (int i = 0; i < f.coordinate.Length; i++) {
+			map.baseprefix = "coordinate[" + i + "]";
+			coordRewriter.ToFake(f.coordinate[i]);
+		}
+		map.baseprefix = "custom";
+		customRewriter.ToFake(f.custom);
 	}
 
 	// Note that this is called only when explicitly saving/loading a coordinate.
 	public override void OnCoordinate(ChaFile f, ChaFileCoordinate co, bool isLoad)
 	{
-		tofake = isLoad;
-		map = f.dict.Get<GuidMap>("guidmap");
-		traverse("coordinate", co);
+		var map = f.dict.Get<GuidMap>("guidmap");
+		map.baseprefix = null;
+		coordRewriter.map = map;
+		if (isLoad)
+			coordRewriter.ToFake(co);
+		else
+			coordRewriter.FromFake(co);
 	}
 
 	// rewrite our fake ids to the actual real ones again
 	public override void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng)
 	{
-		if (f.dict == null)
-			Debug.Log("dict is null");
-		map = f.dict.Get<GuidMap>("guidmap");
-		if (map == null)
-			Debug.Log("map is null");
-		map.items.Clear(); // guid mappings will be be-regenerated
-		tofake = false;
+		var map = f.dict.Get<GuidMap>("guidmap");
+		map.items.Clear();
+		map.baseprefix = null;
+		coordRewriter.map = map;
+		customRewriter.map = map;
 		foreach (var b in blocks)
 		{
-			if ((b is Array) && b.GetType().GetElementType() == typeof(ChaFileCoordinate))
-				traverse("coordinate", b);
-			else if (b is ChaFileCustom)
-				traverse("custom", b);
+			var coords = b as ChaFileCoordinate[];
+			if (coords != null)
+				for (int i = 0; i < coords.Length; i++)
+				{
+					map.baseprefix = "coordinate[" + i + "]";
+					coordRewriter.FromFake(coords[i]);
+				}
+			else if (b is ChaFileCustom) {
+				map.baseprefix = "custom";
+				customRewriter.FromFake(b);
+			}
 		}
 	}
+
 }

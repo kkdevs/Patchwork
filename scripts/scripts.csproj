@@ -58,11 +58,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dumpcsv.cs" />
+    <Compile Include="physics.cs" />
     <Compile Include="fixplugins.cs" />
     <Compile Include="ghettosave.cs" />
     <Compile Include="ghettoui.cs" />
+    <Compile Include="hfaceedit.cs" />
     <Compile Include="hsubs.cs" />
     <Compile Include="matdump.cs" />
+    <Compile Include="moreacs.cs" />
     <Compile Include="reloader.cs" />
     <Compile Include="fakeid.cs" />
     <Compile Include="fakeidkkex.cs" />

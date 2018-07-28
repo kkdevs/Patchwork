@@ -80,7 +80,7 @@ public class AssetBundleManager : Singleton<AssetBundleManager>
 		if (!isInitialized)
 		{
 			Debug.Log("Initializing ABM shim");
-			Vfs.CheckInit();
+			CheckInit();
 			GameObject gameObject = new GameObject("AssetBundleManager", typeof(AssetBundleManager));
 			UnityEngine.Object.DontDestroyOnLoad(gameObject);
 //			LoadedAssetBundle.Init(basePath);
@@ -439,6 +439,19 @@ namespace BepInEx
 
 namespace IllusionPlugin
 {
+	public static class ModPrefs
+	{
+		public static string GetString(string section, string name, string defaultValue = "", bool autoSave = false) => defaultValue;
+		public static int GetInt(string section, string name, int defaultValue = 0, bool autoSave = false) => defaultValue;
+		public static float GetFloat(string section, string name, float defaultValue = 0f, bool autoSave = false) => defaultValue;
+		public static bool GetBool(string section, string name, bool defaultValue = false, bool autoSave = false) => defaultValue;
+		public static bool HasKey(string section, string name) => false;
+		public static void SetFloat(string section, string name, float value) { }
+		public static void SetInt(string section, string name, int value) { }
+		public static void SetString(string section, string name, string value) { }
+		public static void SetBool(string section, string name, bool value) { }
+	}
+
 	public interface IPlugin
 	{
 		string Name { get; }
@@ -484,5 +497,14 @@ namespace ExtensibleSaveFormat
 		public delegate void CardEventHandler(ChaFile file);
 		public static event CardEventHandler CardBeingSaved;
 		public static event CardEventHandler CardBeingLoaded;
+	}
+}
+
+namespace ResourceRedirector
+{
+	public class ResourceRedirector
+	{
+		public delegate bool AssetHandler(string assetBundleName, string assetName, Type type, string manifestAssetBundleName, out AssetBundleLoadAssetOperation result);
+		public static List<AssetHandler> AssetResolvers = new List<AssetHandler>(); public static Dictionary<string, AssetBundle> EmulatedAssetBundles = new Dictionary<string, AssetBundle>();
 	}
 }

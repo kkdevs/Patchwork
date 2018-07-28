@@ -26,7 +26,7 @@ public class MonoScript : Evaluator
 		return ms;
 	}
 
-	public static List<string> unloaded = new List<string>();
+	public static HashSet<string> unloaded = new HashSet<string>();
 	public static void Unload(Assembly n)
 	{
 		if (n == null) return;
@@ -44,7 +44,7 @@ public class MonoScript : Evaluator
 			Debug.Log("Skip because of pause");
 			return;
 		}
-		if (e.LoadedAssembly.FullName.StartsWith("eval-") || e.LoadedAssembly.FullName == "completions")
+		if (/*e.LoadedAssembly.FullName.StartsWith("eval-") || */e.LoadedAssembly.FullName == "completions")
 		{
 			Debug.Log("skip blacklist");
 			return;
@@ -119,6 +119,8 @@ public class MonoScript : Evaluator
 		pause = false;
 		return ret;
 	}
+
+	public string hashkey = null;
 	public Assembly DoStaticCompile(IEnumerable<object> sources, string prefix = "compiled_")
 	{
 		reporter.Reset();
@@ -159,7 +161,16 @@ public class MonoScript : Evaluator
 		string dllname = prefix + (counter++) + ".dll";
 		if (tempdir != null)
 		{
+			if (hashkey != null)
+			{
+				var hb = hashkey.ToBytes();
+				allBytes.Write(hb, 0, hb.Length);
+			}
+
 			var hash = prefix + Ext.HashToString(allBytes.ToArray()).Substring(0, 12).ToLower() + ".dll";
+			if (hashkey == null)
+				hashkey = hash;
+
 			dllname = Path.Combine(tempdir, hash);
 			if (File.Exists(dllname))
 			{

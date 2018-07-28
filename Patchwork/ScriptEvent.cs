@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ChaCustom;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -148,8 +149,13 @@ public class ScriptEvents
 	public virtual void OnSetClothes(ChaControl ch, int cat, int[] ids) { }
 
 	public virtual void OnPlayVoice(LoadVoice v) { }
+	public virtual void OnStopVoice(LoadAudioBase v) { }
+	public virtual void OnRemoveClip(AudioClip c) { }
+	public virtual void OnRegisterClip(AudioClip c) { }
 
 	public virtual void OnLoadFBX(ChaControl ctrl, ref GameObject go, string ab = null, string ass = null, ListInfoBase lib = null) { }
+
+	public virtual void OnSetFace(ChaControl chara, int kind, int action, ref FaceListCtrl.FaceInfo fa) { }
 
 	public Coroutine StartCoroutine(IEnumerator co)
 	{
@@ -160,5 +166,9 @@ public class ScriptEvents
 	{
 		MBProxy.pendingActions.Add(cb);
 	}
+
+	public virtual void OnCustom(CustomBase c) { }
+
+	public virtual void OnSingleton(MonoBehaviour o, bool isnew) { }
 }
 

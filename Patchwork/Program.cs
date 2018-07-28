@@ -10,6 +10,8 @@ using MessagePack;
 using System.Text;
 using System.Xml.Serialization;
 using Manager;
+using ParadoxNotion.Serialization.FullSerializer;
+using UnityEngine.UI;
 
 public static partial class Patchwork {
 	public static Splash splash;
@@ -126,7 +128,6 @@ public static partial class Patchwork {
 		Directory.CreateDirectory(Dir.mod);
 		Directory.CreateDirectory(Dir.cache);
 		Debug.Info(Dir.root);
-		//Vfs.Init();
 	}
 
 	public static void FixWindow()
@@ -211,20 +212,33 @@ public static partial class Patchwork {
 		blinit = true;
 	}
 
+	static bool isInitialized;
+	public static void CheckInit()
+	{
+		if (!isInitialized)
+			PostInit();
+	}
+
 	public static void PostInit()
 	{
+		isInitialized = true;
+		fsGlobalConfig.SerializeDefaultValues = false;
+		JSON.Init();
 		earlydone = true;
 		if (!initConfig)
 		{
 			InitConfig(); // If we're running standalone
 			ConfigDialog();
 		}
+		Vfs.CheckInit();
 		initdone = true;
 		settings.Apply(true);
 		settings.UpdateCamera(null);
 		SaveConfig();
 		form?.BringToFront();
+	}
 
+	public static void LateInit() {
 		AppDomain.CurrentDomain.AssemblyResolve += (s, args) =>
 		{
 			var shortname = new System.Reflection.AssemblyName(args.Name).Name;
@@ -399,6 +413,18 @@ public static partial class Patchwork {
 	{
 		GC(caller.GetType().Name, true, false, caller);
 	}
+	public static void SetRange(Slider[] sliders)
+	{
+		foreach (var sl in sliders)
+			SetRange(sl);
+	}
 
+	public static void SetRange(Slider sl)
+	{
+		if (sl == null) return;
+		//if (sl.maxValue != 100) return;
+		sl.maxValue = settings.sliderMax;
+		sl.minValue = settings.sliderMin;
+	}
 
 }

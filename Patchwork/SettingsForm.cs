@@ -92,6 +92,16 @@ public partial class SettingsForm : Form
 			ProcessStartInfo sInfo = new ProcessStartInfo(linkUnityDoc.Text);
 			Process.Start(sInfo);
 		};
+		foreach (var tlabel in this.GetAll(typeof(LinkLabel)))
+		{
+			var label = tlabel;
+			if (label.Tag == null || label.Text != "[?]") continue;
+			label.Click += (o, e) =>
+			{
+				ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/kkdevs/Patchwork/wiki/Launcher#" + (label.Tag as string));
+				Process.Start(sInfo);
+			};
+		}
 		tabPage1.Enter += (o, e) =>
 		{
 			launchButton.Focus();

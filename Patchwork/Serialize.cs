@@ -26,7 +26,10 @@ public class JSONMarshaller : ScriptableObject
 	}
 	public bool Unmarshal(string src, string ext, string name, string path)
 	{
-		return false;
+		fsData data = fsJsonParser.Parse(src);
+		var self = this;
+		fsJson.TryDeserialize(data, ref self).AssertSuccess();
+		return self == this;
 	}
 	public static fsSerializer fsJson = new fsSerializer();
 	public string Marshal()
@@ -58,36 +61,68 @@ public class CSVMarshaller : ScriptableObject
 		var param = tlist.FieldType.GetGenericArguments()[0];
 		var add = tlist.FieldType.GetMethod("Add");
 		var listref = tlist.GetValue(this);
-		var first = true;
+		List<FieldInfo> fields = null;
+		var flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
+		int rownum = 0;
 		foreach (var row in CSV.Parse(src, ext))
 		{
-			// Skip header for anything but excel
-			if (first && (!(this is ExcelData)))
+			rownum++;
+			// Skip header for anything but excel.
+			if (fields == null)
 			{
-				first = false;
-				continue;
+				fields = new List<FieldInfo>();
+				if (!(this is ExcelData))
+				{
+					foreach (var col in row)
+						fields.Add(param.GetField(col, flags));
+					continue;
+				}
+				// for excel, we have one explicit "column", and no heading, data follows immediately
+				fields.Add(param.GetField("list", flags));
 			}
-			// XXX TODO: This usage of reflection is fairly slow. Check if we're not slowing something too much.
 			var rowo = System.Activator.CreateInstance(param);
 			var rowe = row.GetEnumerator();
-			foreach (var f in param.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+			foreach (var f in fields)
 			{
-				var str = rowe.Current;
 				// XXX presumes either array or list of strings
 				if (f.FieldType.IsArray || f.FieldType.IsList())
 				{
 					var strl = new List<string>();
 					while (rowe.MoveNext())
 						strl.Add(rowe.Current);
+					// XXX is this a right thing to do?
+					while (strl.LastOrDefault() == "")
+						strl.RemoveAt(strl.Count - 1);
 					f.SetValue(rowo, f.FieldType.IsList()?(object)strl:(object)strl.ToArray());
 					break; // this is always last one
 				}
-				rowe.MoveNext();
+				if (!rowe.MoveNext())
+				{
+					Debug.Error(src,":",rownum," is corrupted: row terminates prematurely; skipping");
+					goto skipRow;
+				}
+
+				// XXX cache converter too?
 				var conv = TypeDescriptor.GetConverter(f.FieldType);
-				//f.SetValue(rowo, System.Convert.ChangeType(rowe.Current, f.FieldType));
-				f.SetValue(rowo, conv.ConvertFromInvariantString(rowe.Current));
+				var cur = rowe.Current;
+
+				if (f.FieldType == typeof(bool) || f.FieldType == typeof(System.Boolean))
+				{
+					if (cur == "1" || cur == "TRUE") cur = "True";
+					else if (cur == "0" || cur == "FALSE") cur = "False";
+				}
+				try
+				{
+					f.SetValue(rowo, conv.ConvertFromInvariantString(cur));
+				} catch
+				{
+					Debug.Error(src, ":", rownum, $"is corrupted, field value '{cur}' doesn't represent {f.DeclaringType}.{f.Name} of type {f.FieldType}, skipping row");
+					while (rowe.MoveNext()) ;
+					goto skipRow;
+				}
 			}
 			add.Invoke(listref, new[] { rowo });
+			skipRow:;
 		}
 		return true;
 	}
@@ -128,3 +163,61 @@ public class CSVMarshaller : ScriptableObject
 	}
 }
 
+public class MultiArrayConverter<T> : fsConverter
+{
+	public override bool CanProcess(Type type)
+	{
+		return type == typeof(T[,]);
+	}
+
+	public override bool RequestInheritanceSupport(Type storageType)
+	{
+		return false;
+	}
+
+	public override fsResult TrySerialize(object instance, out fsData serialized, Type storageType)
+	{
+		var arr = instance as T[,];
+		var arrc = new T[arr.GetLength(1)][];
+		for (int i = 0; i < arrc.Length; i++)
+		{
+			arrc[i] = new T[arr.GetLength(0)];
+			for (int j = 0; j < arr.GetLength(0); j++)
+				arrc[i][j] = arr[i, j];
+		}
+		return JSON.json.TrySerialize(arrc, out serialized);
+	}
+
+	public override fsResult TryDeserialize(fsData data, ref object instance, Type storageType)
+	{
+		T[][] arrc = null;
+		JSON.json.TryDeserialize(data, ref arrc);
+		var arr = instance as T[,];
+		for (int i = 0; i < arrc.Length; i++)
+			for (int j = 0; j < arrc[0].Length; j++)
+				arr[i, j] = arrc[i][j];
+		return fsResult.Success;
+	}
+}
+
+
+public static class JSON
+{
+	public static fsSerializer json;
+	public static void Init()
+	{
+		json = new fsSerializer();
+	}
+	public static string Serialize<T>(T o, bool pretty = false)
+	{
+		fsData data;
+		json.TrySerialize(o, out data).AssertSuccess();
+		return pretty ? fsJsonPrinter.PrettyJson(data) : fsJsonPrinter.CompressedJson(data);
+	}
+	public static T Deserialize<T>(string s, T res = null) where T : class
+	{
+		var data = fsJsonParser.Parse(s);
+		json.TryDeserialize(data, ref res).AssertSuccess();
+		return res;
+	}
+}

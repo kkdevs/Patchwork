@@ -23,6 +23,8 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool boneRoot = false;
+		public bool asyncAnim = true;
 		public bool fixGuides = false;
 		public string scriptPath = @"bepinex;bepinex\ipa;patchwork\scripts;bepinex\core";
 		public string[] scriptBlacklist = new string[]
@@ -37,6 +39,9 @@ public static partial class Patchwork
 			"ipaloader",
 			"illusionplugin",
 		};
+		public bool studioBase = false;
+		public bool nukeMat = false;
+		public bool withoutManifest = false;
 		public bool loadMods = false;
 		public bool loadUnsafe = false;
 		public bool asyncMaker = true;
@@ -61,10 +66,11 @@ public static partial class Patchwork
 		public float noscopeAlphaX = 0.3f;
 		public float noscopeAlphaXEnd = 0.3f;
 		public float noscopeAlphaY = -0.15f;
-		public float noscopeAlphaYEnd = 0.3f;
+		public float noscopeAlphaYEnd = 0.43f;
 		public float noscopeAlphaClamp = 0;
-		public float noscopeAlphaClampEnd = 1f;
+		public float noscopeAlphaClampEnd = 0.65f;
 		public bool noscopeSim = false;
+		public bool noscopeSimGomu = false;
 		public byte noscopeAlphaMode;
 		public bool onTop = false;
 		public bool geass = false;

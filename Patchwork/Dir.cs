@@ -9,6 +9,7 @@
 	public static string hist;
 	public static string conf;
 	public static string abdata;
+	public static string map;
 	public static void Init(string path)
 	{
 		path = path.Replace("\\", "/");
@@ -21,6 +22,7 @@
 		mat = pw + "material/";
 		hist = pw + "history.xml";
 		conf = pw + "config.xml";
+		map = pw + "map/";
 		abdata = root + "abdata/";
 	}
 }
