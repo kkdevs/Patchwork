@@ -63,6 +63,7 @@ Each mark has actual versions - these are always fixes for bugs introduced by
 the new mark, or trivial toggles added under default-off checkbox.
 
 Marks with high versions tend to be most stable, whereas latest mark is bleeding
-edge and almost inevitably buggy.
+edge and almost inevitably buggy. Beware that older versions typically don't work
+with latest game DLC.
 
 
