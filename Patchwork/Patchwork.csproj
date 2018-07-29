@@ -247,9 +247,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assembly-CSharp.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\kksrc-fp\Assembly-CSharp-firstpass.csproj">
       <Project>{3b09d220-e6e6-470a-84d7-c1d736f49485}</Project>
       <Name>Assembly-CSharp-firstpass</Name>

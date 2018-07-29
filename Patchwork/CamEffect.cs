@@ -42,7 +42,7 @@ public static partial class Patchwork
 			cam.renderingPath = (RenderingPath)cam_renderingPath;
 			if (Game.Instance?.nowCamera != null)
 				Game.Instance.nowCamera.renderingPath = (RenderingPath)cam_renderingPath;
-			Debug.Spam($"[CAM] Using camera {cam.name}");
+			Debug.Log($"[CAM] Using camera {cam.name}");
 			/*var e = cam.GetComponent<CameraEffector>();
 			if (e == null)
 			{
