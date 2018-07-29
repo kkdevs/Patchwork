@@ -8,8 +8,10 @@ This is a fork of the KK engine adding some more features to it
 
 ## Please keep up to date
 
-If you update game to latest DLC, you'll need to use latest release of pw as well.
-You'll also need to watch out for fix releases prior to DLC update.
+If you update game to latest DLC, you'll need to use latest release of pw as well,
+as patchwork versions released *before* the DLC date *will not* work with newer DLC.
+
+You'll also need to watch out for bugfix releases, especially following a DLC update.
 You can track it via RSS - https://github.com/kkdevs/Patchwork/releases.atom
 
 ## No warranty
