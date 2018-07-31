@@ -1,6 +1,8 @@
 ﻿public static class Dir
 {
 	public static string root;
+	public static string exe => root + (Patchwork.isStudio ? "CharaStudio.exe" : "Koikatu.exe");
+	public static string data => root + (Patchwork.isStudio ? "CharaStudio_Data" : "Koikatu_Data");
 	public static string pw;
 	public static string mod;
 	public static string modcsv;

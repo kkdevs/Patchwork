@@ -17,6 +17,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ScriptEvents
 {
+	public virtual void OnPostRender() { }
+	public virtual void OnChaControlInit(ChaControl c) { }
+	public virtual void OnCardUpdated(ChaFileControl c) { }
 	public static BaseLoader sceneInstance;
 	/// <summary>
 	/// Paused

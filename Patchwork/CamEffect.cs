@@ -29,6 +29,9 @@ public static partial class Patchwork
 				return;
 			UpdateCamera(cam, fix);
 		}
+	}
+	public partial class Settings
+	{
 		public void UpdateCamera(Camera cam, bool fix = false)
 		{
 			if (cam == null)
@@ -43,6 +46,8 @@ public static partial class Patchwork
 			if (Game.Instance?.nowCamera != null)
 				Game.Instance.nowCamera.renderingPath = (RenderingPath)cam_renderingPath;
 			Debug.Log($"[CAM] Using camera {cam.name}");
+			if (cam.GetComponent<MyCam>() == null)
+				cam.GetOrAddComponent<MyCam>();
 			/*var e = cam.GetComponent<CameraEffector>();
 			if (e == null)
 			{
@@ -103,6 +108,17 @@ public static partial class Patchwork
 				Debug.Spam($"[CAM] {t.Name} : {t.BaseType?.Name}");
 			}
 		}
+	}
+}
 
+public class MyCam : MonoBehaviour
+{
+	public void Start()
+	{
+		Debug.Log("Adding camera self-component");
+	}
+	public void OnPostRender()
+	{
+		Script.On.OnPostRender();
 	}
 }

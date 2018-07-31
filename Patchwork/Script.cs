@@ -54,6 +54,7 @@ public class MBProxy : MonoBehaviour
 		if (go != null) return;
 		// And wire the dispatcher to monob proxy
 		go = new GameObject("Scripts");
+		//go = Camera.main.gameObject;
 		instance = go.AddComponent<MBProxy>();
 		DontDestroyOnLoad(go);
 		SceneManager.sceneLoaded += (scene, mode) =>

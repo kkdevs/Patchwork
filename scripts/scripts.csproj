@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="shapeshift.cs" />
     <Compile Include="dumpcsv.cs" />
     <Compile Include="physics.cs" />
     <Compile Include="fixplugins.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="prettyprint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="unzip.cs" />
+    <Compile Include="xray.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Patchwork\Patchwork.csproj">

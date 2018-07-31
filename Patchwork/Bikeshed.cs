@@ -333,6 +333,19 @@ public class AssetBundleData
 
 namespace BepInEx
 {
+	public static class Paths
+	{
+		public static string BepInExAssemblyDirectory => Dir.root + "bepinex/core/";
+		public static string BepInExAssemblyPath => BepInExAssemblyDirectory + "bepinex.dll";
+		[EzHook.DontMirror]
+		public static string ExecutablePath => Dir.exe;
+		public static string GameRootPath => Dir.data;
+		public static string ManagedPath => Dir.data + "Managed/";
+		public static string PatcherPluginPath => Dir.root + "bepinex/patchers/";
+		public static string PluginPath => Dir.root + "bepinex/";
+		public static string ProcessName => isStudio ? "CharaStudio" : "Koikatu";
+
+	}
 	public class BaseUnityPlugin : MonoBehaviour { }
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 	public class BepInPlugin : Attribute
@@ -375,21 +388,34 @@ namespace BepInEx
 			Debug = 32,
 			All = Fatal | Error | Warning | Message | Info | Debug
 		}
-		public static class Logger
-		{
-			public static void Log(int level, object entry)
+		public class BaseLogger : TextWriter {
+			public override Encoding Encoding { get; } = new UTF8Encoding(true);
+			public event EntryLoggedEventHandler EntryLogged;
+			public LogLevel DisplayedLevels { get; set; } = LogLevel.All;
+			public delegate void EntryLoggedEventHandler(LogLevel level, object entry);
+			public virtual void Log(LogLevel level, object entry)
 			{
-				if ((level & 15) != 0)
+				if (((int)level & 3) != 0)
+					Debug.Error(entry);
+				else if (((int)level & 15) != 0)
 					Debug.Info(entry);
 				else
 					Debug.Spam(entry);
 			}
-
-			public abstract class BaseLogger : TextWriter { };
-			public static void SetLogger(BaseLogger logger)
+			public virtual void Log(object entry)
 			{
+				Log(LogLevel.Message, entry);
 			}
-		}
+		};
+		public delegate void EntryLoggedEventHandler(LogLevel level, object entry);
+	}
+	public static class Logger
+	{
+		[EzHook.DontHook]
+		public static Logging.BaseLogger CurrentLogger { get; set; } = new Logging.BaseLogger();
+		[EzHook.DontHook]
+		public static void SetLogger(Logging.BaseLogger logger) => CurrentLogger = logger;
+		public static void Log(Logging.LogLevel level, object entry) => CurrentLogger?.Log(level, entry);
 	}
 	public static class BepInLogger
 	{
@@ -414,6 +440,7 @@ namespace BepInEx
 			EntryLogged?.Invoke(entry, show);
 		}
 		public delegate void EntryLoggedEventHandler(string entry, bool show = false);
+		[EzHook.DontHook]
 		public static event EntryLoggedEventHandler EntryLogged;
 	}
 	namespace Common
@@ -428,12 +455,33 @@ namespace BepInEx
 	{
 		public T Value { get; set; }
 		public ConfigWrapper(string name, BaseUnityPlugin o, T val) { Value = val; }
+		public ConfigWrapper(string name, BaseUnityPlugin o, Func<string,T> decode, Func<T,string> encode, T val) { Value = val; }
+		public ConfigWrapper(string name, string o, Func<string, T> decode, Func<T, string> encode, T val) { Value = val; }
 		public ConfigWrapper(string name, object o, T val) { Value = val; }
+		public ConfigWrapper(string name, string o, T val) { Value = val; }
 		public ConfigWrapper(string name, T val) { Value = val; }
 
-
+		[EzHook.DontHook]
 		public event EventHandler SettingChanged;
 		public void Clear() { }
+	}
+
+	public static class Config
+	{
+		private static void RaiseConfigReloaded() => ConfigReloaded?.Invoke();
+		public static event Action ConfigReloaded;
+		public static bool SaveOnConfigSet { get; set; } = true;
+		static Config() { }
+		public static string GetEntry(string key, string defaultValue = "", string section = "") => defaultValue;
+		public static void ReloadConfig() { }
+		public static void SaveConfig() { }
+		public static void SetEntry(string key, string value, string section = "") { }
+		public static bool HasEntry(string key, string section = "") => false;
+		public static bool UnsetEntry(string key, string section = "") => false;
+		public static string Sanitize(string text) => text;
+		public static string GetEntry(this BaseUnityPlugin plugin, string key, string defaultValue = "") => GetEntry(key, defaultValue);
+		public static void SetEntry(this BaseUnityPlugin plugin, string key, string value) => SetEntry(key, value);
+		public static bool HasEntry(this BaseUnityPlugin plugin, string key) => HasEntry(key);
 	}
 }
 
@@ -508,3 +556,4 @@ namespace ResourceRedirector
 		public static List<AssetHandler> AssetResolvers = new List<AssetHandler>(); public static Dictionary<string, AssetBundle> EmulatedAssetBundles = new Dictionary<string, AssetBundle>();
 	}
 }
+

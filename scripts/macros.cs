@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using ParadoxNotion.Serialization.FullSerializer;
 
+
 public class Macros : ScriptEvents {
 	public bool first;
 	public override bool OnScene(string name, string subname) 
