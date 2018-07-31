@@ -22,6 +22,7 @@ public class HSubsConfig : GhettoConfig
 	public string reloadshortcut = "^R";
 	public string cycleShortcut = "^N";
 	public bool updateOnStart = true;
+	public int showMode = 1; // 0 - en, 1 - jp, 2 - none
 
 	// negative number is percent of screen height
 	public float fontSize = -5;
@@ -47,7 +48,6 @@ public class HSubs : GhettoUI
 	public string editrow;
 	public float started;
 	public bool hasUI;
-	public int showMode; // 0 - en, 1 - jp, 2 - none
 	public string downloading;
 	public static HSubs instance;
 
@@ -133,19 +133,19 @@ public class HSubs : GhettoUI
 
 	public override void OnStopVoice(LoadAudioBase v)
 	{
-		if (v != currentVoice) return;
+		if (v == null || currentVoice == null || v != currentVoice) return;
 		currentLine = null;
 		currentJPLine = null;
-		if (cfg.useCanvasRenderer)
+		if (cfg.useCanvasRenderer && subtitleText != null)
 			subtitleText.text = "";
 	}
 
 	public override void OnRemoveClip(AudioClip c)
 	{
-		if (currentVoice?.clip != c) return;
+		if (c == null || currentVoice == null || currentVoice.clip != c) return;
 		currentLine = null;
 		currentJPLine = null;
-		if (cfg.useCanvasRenderer)
+		if (cfg.useCanvasRenderer && subtitleText != null)
 			subtitleText.text = "";
 	}
 
@@ -188,7 +188,10 @@ public class HSubs : GhettoUI
 	public override void OnGUI()
 	{
 		if (IsKey(cfg.cycleShortcut))
-			showMode = (showMode+1)%3;
+		{
+			cfg.showMode = (cfg.showMode + 1) % 3;
+			cfg.Save();
+		}
 		if (IsKey(cfg.reloadshortcut))
 		{
 			try
@@ -214,9 +217,9 @@ public class HSubs : GhettoUI
 		var text = downloading;
 		if (text == null)
 		{
-			if (showMode == 0)
+			if (cfg.showMode == 0)
 				text = currentLine;
-			else if (showMode == 1)
+			else if (cfg.showMode == 1)
 				text = currentJPLine;
 		}
 		if (!cfg.useCanvasRenderer && !text.IsNullOrEmpty())
