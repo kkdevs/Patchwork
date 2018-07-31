@@ -6,6 +6,14 @@ This is a fork of the KK engine adding some more features to it
 * Removal of some arbitrary restrictions
 * a lot of small ad-hoc improvements/bugs introduced to the engine
 
+## Please keep up to date
+
+If you update game to latest DLC, you'll need to use latest release of pw as well,
+as patchwork versions released *before* the DLC date *will not* work with newer DLC.
+
+You'll also need to watch out for bugfix releases, especially following a DLC update.
+You can track it via RSS - https://github.com/kkdevs/Patchwork/releases.atom
+
 ## No warranty
 
 Patchwork is very far from being ready for end user use, it's move fast and
@@ -57,6 +65,7 @@ Each mark has actual versions - these are always fixes for bugs introduced by
 the new mark, or trivial toggles added under default-off checkbox.
 
 Marks with high versions tend to be most stable, whereas latest mark is bleeding
-edge and almost inevitably buggy.
+edge and almost inevitably buggy. Beware that older versions typically don't work
+with latest game DLC.
 
 
