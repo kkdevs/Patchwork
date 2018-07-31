@@ -1,11 +1,12 @@
 ﻿//@INFO: Support for loading cards with bepinex ExtendedSave
 //@DESC: UAR<->fakeid interop
 //@DEP: kkex fakeid
-//@VER: 1
+//@VER: 2
 
 using UnityEngine;
 using MessagePack;
 using static Patchwork;
+using System.IO;
 
 public class FakeIDKKEx : ScriptEvents
 {
@@ -122,5 +123,21 @@ public class FakeIDKKEx : ScriptEvents
 				guid = e.ModID
 			};
 		}
+	}
+
+	public override void OnCoordinateRead(ChaFileCoordinate co, BinaryReader br)
+	{
+		try
+		{
+			if (br.ReadString() == "KKEx")
+			{
+				br.ReadInt32();
+				var map = new FakeID.GuidMap();
+				var kkex = new KKEx();
+				kkex.LoadBytes(br.ReadBytes(br.ReadInt32()), null);
+				TryImport(kkex, map);
+				FakeID.coordRewriter.map = map;
+			}
+		} catch { };
 	}
 }

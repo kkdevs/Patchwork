@@ -96,6 +96,8 @@ public class ScriptEvents
 	public virtual void OnCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus) { }
 	public virtual void BeforeCardLoad(ChaFile f, BlockHeader bh, bool nopng, bool nostatus) { }
 	public virtual void OnCoordinate(ChaFile f, ChaFileCoordinate co, bool isLoad) { }
+	public virtual void OnCoordinateRead(ChaFileCoordinate co, BinaryReader br) { }
+	public virtual void OnCoordinateWrite(ChaFileCoordinate co, BinaryWriter br) { }
 	/// <summary>
 	/// Called when card is being saved
 	/// </summary>

@@ -15,8 +15,8 @@ using System.Text;
 
 public class FakeID : ScriptEvents
 {
-	public Rewriter customRewriter;
-	public Rewriter coordRewriter;
+	public static Rewriter customRewriter;
+	public static Rewriter coordRewriter;
 	public override void Start()
 	{
 		InitListInfo();
@@ -316,18 +316,20 @@ public class FakeID : ScriptEvents
 		}
 		map.baseprefix = "custom";
 		customRewriter.ToFake(f.custom);
+		coordRewriter.map = null;
 	}
 
 	// Note that this is called only when explicitly saving/loading a coordinate.
 	public override void OnCoordinate(ChaFile f, ChaFileCoordinate co, bool isLoad)
 	{
-		var map = f.dict.Get<GuidMap>("guidmap");
-		map.baseprefix = null;
-		coordRewriter.map = map;
+		if (coordRewriter.map == null)
+			return;
+		coordRewriter.map.baseprefix = null;
 		if (isLoad)
 			coordRewriter.ToFake(co);
 		else
 			coordRewriter.FromFake(co);
+		coordRewriter.map = null;
 	}
 
 	// rewrite our fake ids to the actual real ones again
@@ -352,6 +354,7 @@ public class FakeID : ScriptEvents
 				customRewriter.FromFake(b);
 			}
 		}
+		coordRewriter.map = null;
 	}
 
 }
