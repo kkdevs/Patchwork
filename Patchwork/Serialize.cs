@@ -87,14 +87,24 @@ public class CSVMarshaller : ScriptableObject
 				// XXX presumes either array or list of strings
 				if (f.FieldType.IsArray || f.FieldType.IsList())
 				{
-					var strl = new List<string>();
-					while (rowe.MoveNext())
-						strl.Add(rowe.Current);
-					// XXX is this a right thing to do?
-					while (strl.LastOrDefault() == "")
-						strl.RemoveAt(strl.Count - 1);
-					f.SetValue(rowo, f.FieldType.IsList()?(object)strl:(object)strl.ToArray());
-					break; // this is always last one
+					if (fields.Last() == f)
+					{
+						var strl = new List<string>();
+						while (rowe.MoveNext())
+							strl.Add(rowe.Current);
+						// XXX is this a right thing to do?
+						while (strl.LastOrDefault() == "")
+							strl.RemoveAt(strl.Count - 1);
+						f.SetValue(rowo, f.FieldType.IsList() ? (object)strl : (object)strl.ToArray());
+						break; // this is always last one
+					} else
+					{
+						if (!rowe.MoveNext())
+							break;
+						var flist = rowe.Current.Split(' ').Select(x => float.Parse(x)).ToArray();
+						f.SetValue(rowo, flist);
+						continue;
+					}
 				}
 				if (!rowe.MoveNext())
 				{
@@ -150,11 +160,22 @@ public class CSVMarshaller : ScriptableObject
 				first = false;
 				row.Clear();
 			}
-			foreach (var f in item.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+			var fields = item.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+			foreach (var f in fields)
 			{
 				if (f.FieldType.IsArray || f.FieldType.IsList())
-					foreach (var s in f.GetValue(item) as IEnumerable)
-						row.Add(s as string);
+				{
+					if (fields.Last() == f) {
+						foreach (var s in f.GetValue(item) as IEnumerable)
+							row.Add(s as string);
+					} else
+					{
+						var tb = new List<string>();
+						foreach (var s in f.GetValue(item) as float[])
+							tb.Add(s.ToString());
+						row.Add(string.Join(" ", tb.ToArray()));
+					}
+				}
 				else
 					row.Add(f.GetValue(item).ToString());
 			}
