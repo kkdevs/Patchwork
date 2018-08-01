@@ -367,4 +367,9 @@ public partial class SettingsForm : Form
 	{
 
 	}
+
+	private void label33_Click(object sender, EventArgs e)
+	{
+
+	}
 }

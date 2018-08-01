@@ -67,22 +67,8 @@ partial class SettingsForm
 			this.shadows = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.f_qualitySelect = new System.Windows.Forms.ComboBox();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.fullscreen = new System.Windows.Forms.CheckBox();
 			this.resizable = new System.Windows.Forms.CheckBox();
-			this.label20 = new System.Windows.Forms.Label();
-			this.cam_renderingPath = new System.Windows.Forms.ComboBox();
-			this.softParticles = new System.Windows.Forms.CheckBox();
-			this.pixelLightCount = new System.Windows.Forms.TextBox();
-			this.label8 = new System.Windows.Forms.Label();
-			this.resolution = new System.Windows.Forms.ComboBox();
-			this.label7 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.anisotropicFiltering = new System.Windows.Forms.ComboBox();
-			this.label6 = new System.Windows.Forms.Label();
-			this.masterTextureLimit = new System.Windows.Forms.ComboBox();
-			this.antiAliasing = new System.Windows.Forms.ComboBox();
-			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.linkLabel7 = new System.Windows.Forms.LinkLabel();
 			this.linkLabel6 = new System.Windows.Forms.LinkLabel();
@@ -153,13 +139,10 @@ partial class SettingsForm
 			this.enabler_noscopeClipMask = new System.Windows.Forms.GroupBox();
 			this.noscopeSimGomu = new System.Windows.Forms.CheckBox();
 			this.noscopeHead = new System.Windows.Forms.CheckBox();
-			this.label52 = new System.Windows.Forms.Label();
 			this.noscopeAlphaClampEnd = new System.Windows.Forms.TextBox();
 			this.label53 = new System.Windows.Forms.Label();
 			this.noscopeAlphaClamp = new System.Windows.Forms.TextBox();
 			this.noscopeSim = new System.Windows.Forms.CheckBox();
-			this.label51 = new System.Windows.Forms.Label();
-			this.label25 = new System.Windows.Forms.Label();
 			this.noscopeAlphaYEnd = new System.Windows.Forms.TextBox();
 			this.noscopeAlphaXEnd = new System.Windows.Forms.TextBox();
 			this.label50 = new System.Windows.Forms.Label();
@@ -242,12 +225,25 @@ partial class SettingsForm
 			this.cam_aoeRadius = new System.Windows.Forms.TextBox();
 			this.label46 = new System.Windows.Forms.Label();
 			this.enabler_cam_ppOverride = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.antiAliasing = new System.Windows.Forms.ComboBox();
+			this.masterTextureLimit = new System.Windows.Forms.ComboBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.anisotropicFiltering = new System.Windows.Forms.ComboBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.resolution = new System.Windows.Forms.ComboBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.pixelLightCount = new System.Windows.Forms.TextBox();
+			this.softParticles = new System.Windows.Forms.CheckBox();
+			this.cam_renderingPath = new System.Windows.Forms.ComboBox();
+			this.label20 = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.setRes = new System.Windows.Forms.Button();
 			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			this.groupBox1.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.enabler_shadowOverride.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -270,6 +266,7 @@ partial class SettingsForm
 			this.groupBox4.SuspendLayout();
 			this.tabPage6.SuspendLayout();
 			this.enabler_cam_ppOverride.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -298,16 +295,19 @@ partial class SettingsForm
 			this.tabControl1.Location = new System.Drawing.Point(8, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(966, 568);
+			this.tabControl1.Size = new System.Drawing.Size(879, 471);
 			this.tabControl1.TabIndex = 4;
 			this.tabControl1.TabStop = false;
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.setRes);
+			this.tabPage1.Controls.Add(this.fullscreen);
 			this.tabPage1.Controls.Add(this.showFPS);
 			this.tabPage1.Controls.Add(this.resizable);
 			this.tabPage1.Controls.Add(this.runChara);
 			this.tabPage1.Controls.Add(this.linkUnityDoc);
+			this.tabPage1.Controls.Add(this.resolution);
 			this.tabPage1.Controls.Add(this.launchButton);
 			this.tabPage1.Controls.Add(this.label22);
 			this.tabPage1.Controls.Add(this.groupBox3);
@@ -317,7 +317,7 @@ partial class SettingsForm
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(958, 542);
+			this.tabPage1.Size = new System.Drawing.Size(871, 445);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = " Graphics ";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -326,7 +326,7 @@ partial class SettingsForm
 			// 
 			this.showFPS.AutoSize = true;
 			this.showFPS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.showFPS.Location = new System.Drawing.Point(106, 44);
+			this.showFPS.Location = new System.Drawing.Point(90, 43);
 			this.showFPS.Name = "showFPS";
 			this.showFPS.Size = new System.Drawing.Size(76, 17);
 			this.showFPS.TabIndex = 33;
@@ -348,7 +348,7 @@ partial class SettingsForm
 			// 
 			this.linkUnityDoc.AutoSize = true;
 			this.linkUnityDoc.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.linkUnityDoc.Location = new System.Drawing.Point(471, 25);
+			this.linkUnityDoc.Location = new System.Drawing.Point(452, 30);
 			this.linkUnityDoc.Name = "linkUnityDoc";
 			this.linkUnityDoc.Size = new System.Drawing.Size(290, 13);
 			this.linkUnityDoc.TabIndex = 34;
@@ -402,7 +402,7 @@ partial class SettingsForm
 			// 
 			this.label14.AutoSize = true;
 			this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label14.Location = new System.Drawing.Point(6, 89);
+			this.label14.Location = new System.Drawing.Point(10, 86);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(79, 13);
 			this.label14.TabIndex = 39;
@@ -413,7 +413,7 @@ partial class SettingsForm
 			// 
 			this.label19.AutoSize = true;
 			this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label19.Location = new System.Drawing.Point(10, 217);
+			this.label19.Location = new System.Drawing.Point(10, 213);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(72, 13);
 			this.label19.TabIndex = 37;
@@ -424,7 +424,7 @@ partial class SettingsForm
 			// 
 			this.label18.AutoSize = true;
 			this.label18.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label18.Location = new System.Drawing.Point(3, 191);
+			this.label18.Location = new System.Drawing.Point(10, 187);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(84, 13);
 			this.label18.TabIndex = 36;
@@ -449,7 +449,7 @@ partial class SettingsForm
 			// 
 			this.label17.AutoSize = true;
 			this.label17.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label17.Location = new System.Drawing.Point(10, 165);
+			this.label17.Location = new System.Drawing.Point(10, 161);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(79, 13);
 			this.label17.TabIndex = 33;
@@ -467,7 +467,7 @@ partial class SettingsForm
 			// 
 			this.label16.AutoSize = true;
 			this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label16.Location = new System.Drawing.Point(8, 138);
+			this.label16.Location = new System.Drawing.Point(10, 137);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(52, 13);
 			this.label16.TabIndex = 32;
@@ -485,7 +485,7 @@ partial class SettingsForm
 			// 
 			this.label15.AutoSize = true;
 			this.label15.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label15.Location = new System.Drawing.Point(14, 116);
+			this.label15.Location = new System.Drawing.Point(10, 108);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(51, 13);
 			this.label15.TabIndex = 30;
@@ -503,7 +503,7 @@ partial class SettingsForm
 			// 
 			this.vsyncText.AutoSize = true;
 			this.vsyncText.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.vsyncText.Location = new System.Drawing.Point(14, 57);
+			this.vsyncText.Location = new System.Drawing.Point(10, 59);
 			this.vsyncText.Name = "vsyncText";
 			this.vsyncText.Size = new System.Drawing.Size(41, 13);
 			this.vsyncText.TabIndex = 29;
@@ -542,7 +542,7 @@ partial class SettingsForm
 			// 
 			this.label13.AutoSize = true;
 			this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label13.Location = new System.Drawing.Point(9, 30);
+			this.label13.Location = new System.Drawing.Point(10, 30);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(73, 13);
 			this.label13.TabIndex = 28;
@@ -585,7 +585,7 @@ partial class SettingsForm
 			// 
 			this.label12.AutoSize = true;
 			this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label12.Location = new System.Drawing.Point(15, 187);
+			this.label12.Location = new System.Drawing.Point(10, 185);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(78, 13);
 			this.label12.TabIndex = 28;
@@ -621,10 +621,11 @@ partial class SettingsForm
 			// 
 			// realtimeReflectionProbes
 			// 
+			this.realtimeReflectionProbes.AutoSize = true;
 			this.realtimeReflectionProbes.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.realtimeReflectionProbes.Location = new System.Drawing.Point(18, 205);
+			this.realtimeReflectionProbes.Location = new System.Drawing.Point(12, 210);
 			this.realtimeReflectionProbes.Name = "realtimeReflectionProbes";
-			this.realtimeReflectionProbes.Size = new System.Drawing.Size(115, 26);
+			this.realtimeReflectionProbes.Size = new System.Drawing.Size(109, 17);
 			this.realtimeReflectionProbes.TabIndex = 12;
 			this.realtimeReflectionProbes.Text = "Reflection probes";
 			this.realtimeReflectionProbes.UseVisualStyleBackColor = true;
@@ -659,7 +660,7 @@ partial class SettingsForm
 			// 
 			this.label11.AutoSize = true;
 			this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label11.Location = new System.Drawing.Point(10, 157);
+			this.label11.Location = new System.Drawing.Point(10, 163);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(54, 13);
 			this.label11.TabIndex = 20;
@@ -681,7 +682,7 @@ partial class SettingsForm
 			// 
 			this.label9.AutoSize = true;
 			this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label9.Location = new System.Drawing.Point(15, 115);
+			this.label9.Location = new System.Drawing.Point(10, 113);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(49, 13);
 			this.label9.TabIndex = 18;
@@ -692,7 +693,7 @@ partial class SettingsForm
 			// 
 			this.label5.AutoSize = true;
 			this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label5.Location = new System.Drawing.Point(15, 86);
+			this.label5.Location = new System.Drawing.Point(10, 86);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(54, 13);
 			this.label5.TabIndex = 17;
@@ -727,7 +728,7 @@ partial class SettingsForm
 			// 
 			this.label2.AutoSize = true;
 			this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label2.Location = new System.Drawing.Point(5, 25);
+			this.label2.Location = new System.Drawing.Point(10, 30);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(93, 13);
 			this.label2.TabIndex = 14;
@@ -745,201 +746,30 @@ partial class SettingsForm
             "Mode 2"});
 			this.f_qualitySelect.Location = new System.Drawing.Point(55, 12);
 			this.f_qualitySelect.Name = "f_qualitySelect";
-			this.f_qualitySelect.Size = new System.Drawing.Size(136, 21);
+			this.f_qualitySelect.Size = new System.Drawing.Size(235, 21);
 			this.f_qualitySelect.TabIndex = 0;
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this.fullscreen);
-			this.groupBox1.Controls.Add(this.label20);
-			this.groupBox1.Controls.Add(this.cam_renderingPath);
-			this.groupBox1.Controls.Add(this.softParticles);
-			this.groupBox1.Controls.Add(this.pixelLightCount);
-			this.groupBox1.Controls.Add(this.label8);
-			this.groupBox1.Controls.Add(this.resolution);
-			this.groupBox1.Controls.Add(this.label7);
-			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Controls.Add(this.anisotropicFiltering);
-			this.groupBox1.Controls.Add(this.label6);
-			this.groupBox1.Controls.Add(this.masterTextureLimit);
-			this.groupBox1.Controls.Add(this.antiAliasing);
-			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Location = new System.Drawing.Point(10, 71);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(280, 253);
-			this.groupBox1.TabIndex = 4;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Rendering";
 			// 
 			// fullscreen
 			// 
+			this.fullscreen.AutoSize = true;
 			this.fullscreen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.fullscreen.Location = new System.Drawing.Point(12, 205);
+			this.fullscreen.Location = new System.Drawing.Point(177, 43);
 			this.fullscreen.Name = "fullscreen";
-			this.fullscreen.Size = new System.Drawing.Size(84, 26);
+			this.fullscreen.Size = new System.Drawing.Size(74, 17);
 			this.fullscreen.TabIndex = 13;
 			this.fullscreen.Text = "Fullscreen";
 			this.fullscreen.UseVisualStyleBackColor = true;
 			// 
 			// resizable
 			// 
+			this.resizable.AutoSize = true;
 			this.resizable.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.resizable.Location = new System.Drawing.Point(13, 39);
+			this.resizable.Location = new System.Drawing.Point(13, 43);
 			this.resizable.Name = "resizable";
-			this.resizable.Size = new System.Drawing.Size(87, 26);
+			this.resizable.Size = new System.Drawing.Size(72, 17);
 			this.resizable.TabIndex = 33;
 			this.resizable.Text = "Resizable";
 			this.resizable.UseVisualStyleBackColor = true;
-			// 
-			// label20
-			// 
-			this.label20.AutoSize = true;
-			this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label20.Location = new System.Drawing.Point(10, 30);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(80, 13);
-			this.label20.TabIndex = 32;
-			this.label20.Text = "Rendering path";
-			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cam_renderingPath
-			// 
-			this.cam_renderingPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cam_renderingPath.FormattingEnabled = true;
-			this.cam_renderingPath.Items.AddRange(new object[] {
-            "Vertex lit",
-            "Forward",
-            "Deferred lighting",
-            "Deferred shadows"});
-			this.cam_renderingPath.Location = new System.Drawing.Point(125, 22);
-			this.cam_renderingPath.Name = "cam_renderingPath";
-			this.cam_renderingPath.Size = new System.Drawing.Size(136, 21);
-			this.cam_renderingPath.TabIndex = 30;
-			// 
-			// softParticles
-			// 
-			this.softParticles.AutoSize = true;
-			this.softParticles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.softParticles.Location = new System.Drawing.Point(12, 186);
-			this.softParticles.Name = "softParticles";
-			this.softParticles.Size = new System.Drawing.Size(87, 17);
-			this.softParticles.TabIndex = 31;
-			this.softParticles.Text = "Soft particles";
-			this.softParticles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.softParticles.UseVisualStyleBackColor = true;
-			// 
-			// pixelLightCount
-			// 
-			this.pixelLightCount.Location = new System.Drawing.Point(125, 75);
-			this.pixelLightCount.Name = "pixelLightCount";
-			this.pixelLightCount.Size = new System.Drawing.Size(136, 20);
-			this.pixelLightCount.TabIndex = 28;
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label8.Location = new System.Drawing.Point(10, 105);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(76, 13);
-			this.label8.TabIndex = 11;
-			this.label8.Text = "Texture quality";
-			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// resolution
-			// 
-			this.resolution.FormattingEnabled = true;
-			this.resolution.Location = new System.Drawing.Point(125, 50);
-			this.resolution.Name = "resolution";
-			this.resolution.Size = new System.Drawing.Size(136, 21);
-			this.resolution.TabIndex = 3;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label7.Location = new System.Drawing.Point(10, 78);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(81, 13);
-			this.label7.TabIndex = 10;
-			this.label7.Text = "Pixel light count";
-			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label1.Location = new System.Drawing.Point(10, 54);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(89, 13);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "Screen resolution";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// anisotropicFiltering
-			// 
-			this.anisotropicFiltering.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.anisotropicFiltering.FormattingEnabled = true;
-			this.anisotropicFiltering.Items.AddRange(new object[] {
-            "Disable",
-            "Auto",
-            "Forced"});
-			this.anisotropicFiltering.Location = new System.Drawing.Point(125, 131);
-			this.anisotropicFiltering.Name = "anisotropicFiltering";
-			this.anisotropicFiltering.Size = new System.Drawing.Size(136, 21);
-			this.anisotropicFiltering.TabIndex = 9;
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label6.Location = new System.Drawing.Point(10, 131);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(81, 13);
-			this.label6.TabIndex = 8;
-			this.label6.Text = "Anisotropic filter";
-			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// masterTextureLimit
-			// 
-			this.masterTextureLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.masterTextureLimit.FormattingEnabled = true;
-			this.masterTextureLimit.Items.AddRange(new object[] {
-            "Full res",
-            "1/2 res",
-            "1/4 res",
-            "1/8 res"});
-			this.masterTextureLimit.Location = new System.Drawing.Point(125, 101);
-			this.masterTextureLimit.Name = "masterTextureLimit";
-			this.masterTextureLimit.Size = new System.Drawing.Size(136, 21);
-			this.masterTextureLimit.TabIndex = 7;
-			// 
-			// antiAliasing
-			// 
-			this.antiAliasing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.antiAliasing.FormattingEnabled = true;
-			this.antiAliasing.Items.AddRange(new object[] {
-            "None",
-            "2x",
-            "4x",
-            "8x",
-            "16x",
-            "32x"});
-			this.antiAliasing.Location = new System.Drawing.Point(125, 161);
-			this.antiAliasing.Name = "antiAliasing";
-			this.antiAliasing.Size = new System.Drawing.Size(136, 21);
-			this.antiAliasing.TabIndex = 5;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label3.Location = new System.Drawing.Point(14, 162);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(49, 13);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "(MS?)AA";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// tabPage4
 			// 
@@ -953,7 +783,7 @@ partial class SettingsForm
 			this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage4.Size = new System.Drawing.Size(958, 542);
+			this.tabPage4.Size = new System.Drawing.Size(871, 445);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Shaders";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -1087,7 +917,7 @@ partial class SettingsForm
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(958, 542);
+			this.tabPage2.Size = new System.Drawing.Size(871, 445);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = " Game ";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -1095,6 +925,7 @@ partial class SettingsForm
 			// 
 			// groupBox14
 			// 
+			this.groupBox14.AutoSize = true;
 			this.groupBox14.Controls.Add(this.blackFade);
 			this.groupBox14.Controls.Add(this.capJPG);
 			this.groupBox14.Controls.Add(this.geass);
@@ -1107,7 +938,7 @@ partial class SettingsForm
 			this.groupBox14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox14.Name = "groupBox14";
 			this.groupBox14.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox14.Size = new System.Drawing.Size(507, 258);
+			this.groupBox14.Size = new System.Drawing.Size(336, 216);
 			this.groupBox14.TabIndex = 44;
 			this.groupBox14.TabStop = false;
 			this.groupBox14.Text = "General";
@@ -1116,7 +947,7 @@ partial class SettingsForm
 			// 
 			this.blackFade.AutoSize = true;
 			this.blackFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.blackFade.Location = new System.Drawing.Point(112, 152);
+			this.blackFade.Location = new System.Drawing.Point(7, 132);
 			this.blackFade.Name = "blackFade";
 			this.blackFade.Size = new System.Drawing.Size(77, 17);
 			this.blackFade.TabIndex = 38;
@@ -1127,7 +958,7 @@ partial class SettingsForm
 			// 
 			this.capJPG.AutoSize = true;
 			this.capJPG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.capJPG.Location = new System.Drawing.Point(22, 220);
+			this.capJPG.Location = new System.Drawing.Point(7, 178);
 			this.capJPG.Name = "capJPG";
 			this.capJPG.Size = new System.Drawing.Size(148, 17);
 			this.capJPG.TabIndex = 37;
@@ -1138,7 +969,7 @@ partial class SettingsForm
 			// 
 			this.geass.AutoSize = true;
 			this.geass.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.geass.Location = new System.Drawing.Point(22, 55);
+			this.geass.Location = new System.Drawing.Point(7, 43);
 			this.geass.Name = "geass";
 			this.geass.Size = new System.Drawing.Size(304, 17);
 			this.geass.TabIndex = 36;
@@ -1149,7 +980,7 @@ partial class SettingsForm
 			// 
 			this.unlockH.AutoSize = true;
 			this.unlockH.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.unlockH.Location = new System.Drawing.Point(22, 23);
+			this.unlockH.Location = new System.Drawing.Point(7, 20);
 			this.unlockH.Name = "unlockH";
 			this.unlockH.Size = new System.Drawing.Size(121, 17);
 			this.unlockH.TabIndex = 0;
@@ -1160,7 +991,7 @@ partial class SettingsForm
 			// 
 			this.watchFolder.AutoSize = true;
 			this.watchFolder.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.watchFolder.Location = new System.Drawing.Point(22, 120);
+			this.watchFolder.Location = new System.Drawing.Point(7, 89);
 			this.watchFolder.Name = "watchFolder";
 			this.watchFolder.Size = new System.Drawing.Size(276, 17);
 			this.watchFolder.TabIndex = 2;
@@ -1171,7 +1002,7 @@ partial class SettingsForm
 			// 
 			this.equality.AutoSize = true;
 			this.equality.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.equality.Location = new System.Drawing.Point(22, 88);
+			this.equality.Location = new System.Drawing.Point(7, 66);
 			this.equality.Name = "equality";
 			this.equality.Size = new System.Drawing.Size(237, 17);
 			this.equality.TabIndex = 8;
@@ -1182,7 +1013,7 @@ partial class SettingsForm
 			// 
 			this.skipLogo.AutoSize = true;
 			this.skipLogo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.skipLogo.Location = new System.Drawing.Point(22, 186);
+			this.skipLogo.Location = new System.Drawing.Point(7, 155);
 			this.skipLogo.Name = "skipLogo";
 			this.skipLogo.Size = new System.Drawing.Size(177, 17);
 			this.skipLogo.TabIndex = 29;
@@ -1193,7 +1024,7 @@ partial class SettingsForm
 			// 
 			this.noFade.AutoSize = true;
 			this.noFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.noFade.Location = new System.Drawing.Point(22, 152);
+			this.noFade.Location = new System.Drawing.Point(7, 109);
 			this.noFade.Name = "noFade";
 			this.noFade.Size = new System.Drawing.Size(64, 17);
 			this.noFade.TabIndex = 30;
@@ -1202,24 +1033,25 @@ partial class SettingsForm
 			// 
 			// groupBox13
 			// 
+			this.groupBox13.AutoSize = true;
 			this.groupBox13.Controls.Add(this.cardFmt);
 			this.groupBox13.Controls.Add(this.chardb);
 			this.groupBox13.Controls.Add(this.label35);
 			this.groupBox13.Controls.Add(this.faceJPG);
 			this.groupBox13.Controls.Add(this.label47);
 			this.groupBox13.Controls.Add(this.label48);
-			this.groupBox13.Location = new System.Drawing.Point(526, 15);
+			this.groupBox13.Location = new System.Drawing.Point(354, 15);
 			this.groupBox13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox13.Name = "groupBox13";
 			this.groupBox13.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox13.Size = new System.Drawing.Size(411, 275);
+			this.groupBox13.Size = new System.Drawing.Size(343, 216);
 			this.groupBox13.TabIndex = 43;
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Card data";
 			// 
 			// cardFmt
 			// 
-			this.cardFmt.Location = new System.Drawing.Point(147, 60);
+			this.cardFmt.Location = new System.Drawing.Point(85, 43);
 			this.cardFmt.Name = "cardFmt";
 			this.cardFmt.Size = new System.Drawing.Size(244, 20);
 			this.cardFmt.TabIndex = 32;
@@ -1228,7 +1060,7 @@ partial class SettingsForm
 			// 
 			this.chardb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.chardb.FormattingEnabled = true;
-			this.chardb.Location = new System.Drawing.Point(147, 20);
+			this.chardb.Location = new System.Drawing.Point(85, 16);
 			this.chardb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.chardb.Name = "chardb";
 			this.chardb.Size = new System.Drawing.Size(244, 21);
@@ -1238,7 +1070,7 @@ partial class SettingsForm
 			// 
 			this.label35.AutoSize = true;
 			this.label35.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label35.Location = new System.Drawing.Point(52, 28);
+			this.label35.Location = new System.Drawing.Point(8, 20);
 			this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label35.Name = "label35";
 			this.label35.Size = new System.Drawing.Size(53, 13);
@@ -1249,7 +1081,7 @@ partial class SettingsForm
 			// 
 			this.faceJPG.AutoSize = true;
 			this.faceJPG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.faceJPG.Location = new System.Drawing.Point(172, 220);
+			this.faceJPG.Location = new System.Drawing.Point(11, 155);
 			this.faceJPG.Name = "faceJPG";
 			this.faceJPG.Size = new System.Drawing.Size(124, 17);
 			this.faceJPG.TabIndex = 41;
@@ -1260,7 +1092,7 @@ partial class SettingsForm
 			// 
 			this.label47.AutoSize = true;
 			this.label47.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label47.Location = new System.Drawing.Point(38, 66);
+			this.label47.Location = new System.Drawing.Point(8, 44);
 			this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label47.Name = "label47";
 			this.label47.Size = new System.Drawing.Size(65, 13);
@@ -1271,7 +1103,7 @@ partial class SettingsForm
 			// 
 			this.label48.AutoSize = true;
 			this.label48.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label48.Location = new System.Drawing.Point(168, 109);
+			this.label48.Location = new System.Drawing.Point(82, 84);
 			this.label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label48.Name = "label48";
 			this.label48.Size = new System.Drawing.Size(131, 65);
@@ -1282,7 +1114,7 @@ partial class SettingsForm
 			// 
 			this.tumblr.AutoSize = true;
 			this.tumblr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.tumblr.Location = new System.Drawing.Point(28, 303);
+			this.tumblr.Location = new System.Drawing.Point(24, 235);
 			this.tumblr.Name = "tumblr";
 			this.tumblr.Size = new System.Drawing.Size(131, 17);
 			this.tumblr.TabIndex = 23;
@@ -1295,11 +1127,11 @@ partial class SettingsForm
 			this.groupBox12.Controls.Add(this.sliderMin);
 			this.groupBox12.Controls.Add(this.label33);
 			this.groupBox12.Controls.Add(this.sliderMax);
-			this.groupBox12.Location = new System.Drawing.Point(706, 352);
+			this.groupBox12.Location = new System.Drawing.Point(431, 241);
 			this.groupBox12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox12.Name = "groupBox12";
 			this.groupBox12.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox12.Size = new System.Drawing.Size(231, 154);
+			this.groupBox12.Size = new System.Drawing.Size(262, 147);
 			this.groupBox12.TabIndex = 42;
 			this.groupBox12.TabStop = false;
 			this.groupBox12.Text = "Other";
@@ -1308,7 +1140,7 @@ partial class SettingsForm
 			// 
 			this.label32.AutoSize = true;
 			this.label32.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label32.Location = new System.Drawing.Point(9, 62);
+			this.label32.Location = new System.Drawing.Point(8, 24);
 			this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(52, 13);
@@ -1317,7 +1149,7 @@ partial class SettingsForm
 			// 
 			// sliderMin
 			// 
-			this.sliderMin.Location = new System.Drawing.Point(105, 57);
+			this.sliderMin.Location = new System.Drawing.Point(67, 21);
 			this.sliderMin.Name = "sliderMin";
 			this.sliderMin.Size = new System.Drawing.Size(58, 20);
 			this.sliderMin.TabIndex = 17;
@@ -1326,16 +1158,17 @@ partial class SettingsForm
 			// 
 			this.label33.AutoSize = true;
 			this.label33.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label33.Location = new System.Drawing.Point(9, 94);
+			this.label33.Location = new System.Drawing.Point(8, 47);
 			this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label33.Name = "label33";
 			this.label33.Size = new System.Drawing.Size(55, 13);
 			this.label33.TabIndex = 19;
 			this.label33.Text = "Slider max";
+			this.label33.Click += new System.EventHandler(this.label33_Click);
 			// 
 			// sliderMax
 			// 
-			this.sliderMax.Location = new System.Drawing.Point(105, 92);
+			this.sliderMax.Location = new System.Drawing.Point(67, 47);
 			this.sliderMax.Name = "sliderMax";
 			this.sliderMax.Size = new System.Drawing.Size(58, 20);
 			this.sliderMax.TabIndex = 20;
@@ -1347,11 +1180,11 @@ partial class SettingsForm
 			this.groupBox11.Controls.Add(this.spectateADV);
 			this.groupBox11.Controls.Add(this.lowPolyADV);
 			this.groupBox11.Controls.Add(this.hiPoly);
-			this.groupBox11.Location = new System.Drawing.Point(302, 309);
+			this.groupBox11.Location = new System.Drawing.Point(189, 241);
 			this.groupBox11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox11.Name = "groupBox11";
 			this.groupBox11.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox11.Size = new System.Drawing.Size(386, 197);
+			this.groupBox11.Size = new System.Drawing.Size(234, 147);
 			this.groupBox11.TabIndex = 40;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Character rendering";
@@ -1371,7 +1204,7 @@ partial class SettingsForm
 			// 
 			this.spectateH.AutoSize = true;
 			this.spectateH.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.spectateH.Location = new System.Drawing.Point(10, 126);
+			this.spectateH.Location = new System.Drawing.Point(7, 86);
 			this.spectateH.Name = "spectateH";
 			this.spectateH.Size = new System.Drawing.Size(103, 17);
 			this.spectateH.TabIndex = 56;
@@ -1382,7 +1215,7 @@ partial class SettingsForm
 			// 
 			this.spectateADV.AutoSize = true;
 			this.spectateADV.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.spectateADV.Location = new System.Drawing.Point(10, 94);
+			this.spectateADV.Location = new System.Drawing.Point(7, 63);
 			this.spectateADV.Name = "spectateADV";
 			this.spectateADV.Size = new System.Drawing.Size(205, 17);
 			this.spectateADV.TabIndex = 55;
@@ -1393,7 +1226,7 @@ partial class SettingsForm
 			// 
 			this.lowPolyADV.AutoSize = true;
 			this.lowPolyADV.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.lowPolyADV.Location = new System.Drawing.Point(10, 60);
+			this.lowPolyADV.Location = new System.Drawing.Point(7, 40);
 			this.lowPolyADV.Name = "lowPolyADV";
 			this.lowPolyADV.Size = new System.Drawing.Size(123, 17);
 			this.lowPolyADV.TabIndex = 54;
@@ -1404,7 +1237,7 @@ partial class SettingsForm
 			// 
 			this.hiPoly.AutoSize = true;
 			this.hiPoly.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.hiPoly.Location = new System.Drawing.Point(10, 28);
+			this.hiPoly.Location = new System.Drawing.Point(7, 17);
 			this.hiPoly.Name = "hiPoly";
 			this.hiPoly.Size = new System.Drawing.Size(105, 17);
 			this.hiPoly.TabIndex = 53;
@@ -1413,16 +1246,17 @@ partial class SettingsForm
 			// 
 			// enabler_tumblr
 			// 
+			this.enabler_tumblr.AutoSize = true;
 			this.enabler_tumblr.Controls.Add(this.bothFreeH);
 			this.enabler_tumblr.Controls.Add(this.benderClothes);
 			this.enabler_tumblr.Controls.Add(this.bothEdit);
 			this.enabler_tumblr.Controls.Add(this.bothClass);
 			this.enabler_tumblr.Controls.Add(this.bothMC);
-			this.enabler_tumblr.Location = new System.Drawing.Point(14, 309);
+			this.enabler_tumblr.Location = new System.Drawing.Point(10, 241);
 			this.enabler_tumblr.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.enabler_tumblr.Name = "enabler_tumblr";
 			this.enabler_tumblr.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.enabler_tumblr.Size = new System.Drawing.Size(270, 197);
+			this.enabler_tumblr.Size = new System.Drawing.Size(171, 147);
 			this.enabler_tumblr.TabIndex = 39;
 			this.enabler_tumblr.TabStop = false;
 			// 
@@ -1430,7 +1264,7 @@ partial class SettingsForm
 			// 
 			this.bothFreeH.AutoSize = true;
 			this.bothFreeH.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bothFreeH.Location = new System.Drawing.Point(15, 60);
+			this.bothFreeH.Location = new System.Drawing.Point(7, 40);
 			this.bothFreeH.Name = "bothFreeH";
 			this.bothFreeH.Size = new System.Drawing.Size(121, 17);
 			this.bothFreeH.TabIndex = 1;
@@ -1441,7 +1275,7 @@ partial class SettingsForm
 			// 
 			this.benderClothes.AutoSize = true;
 			this.benderClothes.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.benderClothes.Location = new System.Drawing.Point(15, 29);
+			this.benderClothes.Location = new System.Drawing.Point(7, 17);
 			this.benderClothes.Name = "benderClothes";
 			this.benderClothes.Size = new System.Drawing.Size(131, 17);
 			this.benderClothes.TabIndex = 38;
@@ -1453,7 +1287,7 @@ partial class SettingsForm
 			// 
 			this.bothEdit.AutoSize = true;
 			this.bothEdit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bothEdit.Location = new System.Drawing.Point(15, 92);
+			this.bothEdit.Location = new System.Drawing.Point(7, 63);
 			this.bothEdit.Name = "bothEdit";
 			this.bothEdit.Size = new System.Drawing.Size(149, 17);
 			this.bothEdit.TabIndex = 6;
@@ -1464,7 +1298,7 @@ partial class SettingsForm
 			// 
 			this.bothClass.AutoSize = true;
 			this.bothClass.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bothClass.Location = new System.Drawing.Point(15, 125);
+			this.bothClass.Location = new System.Drawing.Point(7, 86);
 			this.bothClass.Name = "bothClass";
 			this.bothClass.Size = new System.Drawing.Size(144, 17);
 			this.bothClass.TabIndex = 7;
@@ -1475,7 +1309,7 @@ partial class SettingsForm
 			// 
 			this.bothMC.AutoSize = true;
 			this.bothMC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bothMC.Location = new System.Drawing.Point(15, 157);
+			this.bothMC.Location = new System.Drawing.Point(7, 109);
 			this.bothMC.Name = "bothMC";
 			this.bothMC.Size = new System.Drawing.Size(111, 17);
 			this.bothMC.TabIndex = 22;
@@ -1493,7 +1327,7 @@ partial class SettingsForm
 			this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage5.Size = new System.Drawing.Size(958, 542);
+			this.tabPage5.Size = new System.Drawing.Size(871, 445);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = " H config ";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -1610,7 +1444,7 @@ partial class SettingsForm
 			this.groupBox10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox10.Name = "groupBox10";
 			this.groupBox10.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox10.Size = new System.Drawing.Size(396, 135);
+			this.groupBox10.Size = new System.Drawing.Size(404, 137);
 			this.groupBox10.TabIndex = 65;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Custom uncensor";
@@ -1619,11 +1453,11 @@ partial class SettingsForm
 			// 
 			this.studioBase.AutoSize = true;
 			this.studioBase.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.studioBase.Location = new System.Drawing.Point(12, 97);
+			this.studioBase.Location = new System.Drawing.Point(12, 99);
 			this.studioBase.Name = "studioBase";
-			this.studioBase.Size = new System.Drawing.Size(159, 17);
+			this.studioBase.Size = new System.Drawing.Size(313, 17);
 			this.studioBase.TabIndex = 69;
-			this.studioBase.Text = "Use game skeleton in studio";
+			this.studioBase.Text = "Use this game skeleton in studio (instead of base/00.unity3d)";
 			this.studioBase.UseVisualStyleBackColor = true;
 			// 
 			// linkLabel2
@@ -1714,13 +1548,10 @@ partial class SettingsForm
 			this.enabler_noscopeClipMask.AutoSize = true;
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeSimGomu);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeHead);
-			this.enabler_noscopeClipMask.Controls.Add(this.label52);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaClampEnd);
 			this.enabler_noscopeClipMask.Controls.Add(this.label53);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaClamp);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeSim);
-			this.enabler_noscopeClipMask.Controls.Add(this.label51);
-			this.enabler_noscopeClipMask.Controls.Add(this.label25);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaYEnd);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaXEnd);
 			this.enabler_noscopeClipMask.Controls.Add(this.label50);
@@ -1762,17 +1593,6 @@ partial class SettingsForm
 			this.noscopeHead.Text = "For head positions too";
 			this.noscopeHead.UseVisualStyleBackColor = true;
 			// 
-			// label52
-			// 
-			this.label52.AutoSize = true;
-			this.label52.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label52.Location = new System.Drawing.Point(187, 104);
-			this.label52.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label52.Name = "label52";
-			this.label52.Size = new System.Drawing.Size(16, 13);
-			this.label52.TabIndex = 77;
-			this.label52.Text = "...";
-			// 
 			// noscopeAlphaClampEnd
 			// 
 			this.noscopeAlphaClampEnd.Location = new System.Drawing.Point(183, 84);
@@ -1785,7 +1605,7 @@ partial class SettingsForm
 			// 
 			this.label53.AutoSize = true;
 			this.label53.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label53.Location = new System.Drawing.Point(17, 84);
+			this.label53.Location = new System.Drawing.Point(17, 85);
 			this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label53.Name = "label53";
 			this.label53.Size = new System.Drawing.Size(36, 13);
@@ -1811,28 +1631,6 @@ partial class SettingsForm
 			this.noscopeSim.TabIndex = 73;
 			this.noscopeSim.Text = "Simulate";
 			this.noscopeSim.UseVisualStyleBackColor = true;
-			// 
-			// label51
-			// 
-			this.label51.AutoSize = true;
-			this.label51.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label51.Location = new System.Drawing.Point(187, 64);
-			this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label51.Name = "label51";
-			this.label51.Size = new System.Drawing.Size(16, 13);
-			this.label51.TabIndex = 72;
-			this.label51.Text = "...";
-			// 
-			// label25
-			// 
-			this.label25.AutoSize = true;
-			this.label25.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label25.Location = new System.Drawing.Point(187, 29);
-			this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(16, 13);
-			this.label25.TabIndex = 71;
-			this.label25.Text = "...";
 			// 
 			// noscopeAlphaYEnd
 			// 
@@ -1885,7 +1683,7 @@ partial class SettingsForm
 			// 
 			// noscopeScale
 			// 
-			this.noscopeScale.Location = new System.Drawing.Point(63, 114);
+			this.noscopeScale.Location = new System.Drawing.Point(64, 113);
 			this.noscopeScale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.noscopeScale.Name = "noscopeScale";
 			this.noscopeScale.Size = new System.Drawing.Size(112, 20);
@@ -1917,7 +1715,7 @@ partial class SettingsForm
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
 			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage7.Size = new System.Drawing.Size(958, 542);
+			this.tabPage7.Size = new System.Drawing.Size(871, 445);
 			this.tabPage7.TabIndex = 6;
 			this.tabPage7.Text = "Scripts";
 			this.tabPage7.UseVisualStyleBackColor = true;
@@ -1926,7 +1724,7 @@ partial class SettingsForm
 			// 
 			this.linkLabel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.linkLabel9.AutoSize = true;
-			this.linkLabel9.Location = new System.Drawing.Point(205, 508);
+			this.linkLabel9.Location = new System.Drawing.Point(117, 412);
 			this.linkLabel9.Name = "linkLabel9";
 			this.linkLabel9.Size = new System.Drawing.Size(19, 13);
 			this.linkLabel9.TabIndex = 71;
@@ -1949,7 +1747,7 @@ partial class SettingsForm
 			this.scriptList.LabelWrap = false;
 			this.scriptList.Location = new System.Drawing.Point(16, 18);
 			this.scriptList.Name = "scriptList";
-			this.scriptList.Size = new System.Drawing.Size(924, 479);
+			this.scriptList.Size = new System.Drawing.Size(841, 382);
 			this.scriptList.TabIndex = 5;
 			this.scriptList.UseCompatibleStateImageBehavior = false;
 			this.scriptList.View = System.Windows.Forms.View.Details;
@@ -1978,7 +1776,7 @@ partial class SettingsForm
 			// 
 			this.scriptReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.scriptReload.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.scriptReload.Location = new System.Drawing.Point(677, 505);
+			this.scriptReload.Location = new System.Drawing.Point(594, 407);
 			this.scriptReload.Name = "scriptReload";
 			this.scriptReload.Size = new System.Drawing.Size(263, 28);
 			this.scriptReload.TabIndex = 3;
@@ -1990,16 +1788,16 @@ partial class SettingsForm
 			this.label54.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label54.AutoSize = true;
 			this.label54.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label54.Location = new System.Drawing.Point(12, 508);
+			this.label54.Location = new System.Drawing.Point(7, 412);
 			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(148, 13);
+			this.label54.Size = new System.Drawing.Size(86, 13);
 			this.label54.TabIndex = 2;
-			this.label54.Text = "Search locations (; separated)";
+			this.label54.Text = "Search locations";
 			// 
 			// scriptPath
 			// 
 			this.scriptPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.scriptPath.Location = new System.Drawing.Point(244, 506);
+			this.scriptPath.Location = new System.Drawing.Point(161, 409);
 			this.scriptPath.Name = "scriptPath";
 			this.scriptPath.Size = new System.Drawing.Size(423, 20);
 			this.scriptPath.TabIndex = 1;
@@ -2018,7 +1816,7 @@ partial class SettingsForm
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(958, 542);
+			this.tabPage3.Size = new System.Drawing.Size(871, 445);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = " Advanced ";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -2209,7 +2007,7 @@ partial class SettingsForm
 			// 
 			this.bgmAsync.AutoSize = true;
 			this.bgmAsync.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bgmAsync.Location = new System.Drawing.Point(15, 117);
+			this.bgmAsync.Location = new System.Drawing.Point(16, 117);
 			this.bgmAsync.Name = "bgmAsync";
 			this.bgmAsync.Size = new System.Drawing.Size(119, 17);
 			this.bgmAsync.TabIndex = 56;
@@ -2232,7 +2030,7 @@ partial class SettingsForm
 			// 
 			this.lazyGC.AutoSize = true;
 			this.lazyGC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.lazyGC.Location = new System.Drawing.Point(15, 48);
+			this.lazyGC.Location = new System.Drawing.Point(16, 48);
 			this.lazyGC.Name = "lazyGC";
 			this.lazyGC.Size = new System.Drawing.Size(66, 17);
 			this.lazyGC.TabIndex = 53;
@@ -2261,7 +2059,7 @@ partial class SettingsForm
 			this.groupBox6.Controls.Add(this.label38);
 			this.groupBox6.Controls.Add(this.physRate);
 			this.groupBox6.Controls.Add(this.label39);
-			this.groupBox6.Location = new System.Drawing.Point(749, 361);
+			this.groupBox6.Location = new System.Drawing.Point(668, 269);
 			this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox6.Name = "groupBox6";
 			this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2368,7 +2166,7 @@ partial class SettingsForm
 			this.groupBox5.Controls.Add(this.label29);
 			this.groupBox5.Controls.Add(this.label30);
 			this.groupBox5.Controls.Add(this.label31);
-			this.groupBox5.Location = new System.Drawing.Point(615, 15);
+			this.groupBox5.Location = new System.Drawing.Point(401, 15);
 			this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2549,7 +2347,7 @@ partial class SettingsForm
 			this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage6.Size = new System.Drawing.Size(958, 542);
+			this.tabPage6.Size = new System.Drawing.Size(871, 445);
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -2566,7 +2364,7 @@ partial class SettingsForm
 			this.replOutput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.replOutput.Name = "replOutput";
 			this.replOutput.ReadOnly = true;
-			this.replOutput.Size = new System.Drawing.Size(937, 489);
+			this.replOutput.Size = new System.Drawing.Size(853, 393);
 			this.replOutput.TabIndex = 2;
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
@@ -2743,24 +2541,191 @@ partial class SettingsForm
 			this.enabler_cam_ppOverride.TabIndex = 0;
 			this.enabler_cam_ppOverride.TabStop = false;
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label3.Location = new System.Drawing.Point(10, 133);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(49, 13);
+			this.label3.TabIndex = 2;
+			this.label3.Text = "(MS?)AA";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// antiAliasing
+			// 
+			this.antiAliasing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.antiAliasing.FormattingEnabled = true;
+			this.antiAliasing.Items.AddRange(new object[] {
+            "None",
+            "2x",
+            "4x",
+            "8x",
+            "16x",
+            "32x"});
+			this.antiAliasing.Location = new System.Drawing.Point(125, 130);
+			this.antiAliasing.Name = "antiAliasing";
+			this.antiAliasing.Size = new System.Drawing.Size(136, 21);
+			this.antiAliasing.TabIndex = 5;
+			// 
+			// masterTextureLimit
+			// 
+			this.masterTextureLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.masterTextureLimit.FormattingEnabled = true;
+			this.masterTextureLimit.Items.AddRange(new object[] {
+            "Full res",
+            "1/2 res",
+            "1/4 res",
+            "1/8 res"});
+			this.masterTextureLimit.Location = new System.Drawing.Point(125, 77);
+			this.masterTextureLimit.Name = "masterTextureLimit";
+			this.masterTextureLimit.Size = new System.Drawing.Size(136, 21);
+			this.masterTextureLimit.TabIndex = 7;
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label6.Location = new System.Drawing.Point(10, 104);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(81, 13);
+			this.label6.TabIndex = 8;
+			this.label6.Text = "Anisotropic filter";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// anisotropicFiltering
+			// 
+			this.anisotropicFiltering.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.anisotropicFiltering.FormattingEnabled = true;
+			this.anisotropicFiltering.Items.AddRange(new object[] {
+            "Disable",
+            "Auto",
+            "Forced"});
+			this.anisotropicFiltering.Location = new System.Drawing.Point(125, 102);
+			this.anisotropicFiltering.Name = "anisotropicFiltering";
+			this.anisotropicFiltering.Size = new System.Drawing.Size(136, 21);
+			this.anisotropicFiltering.TabIndex = 9;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label7.Location = new System.Drawing.Point(9, 54);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(81, 13);
+			this.label7.TabIndex = 10;
+			this.label7.Text = "Pixel light count";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// resolution
+			// 
+			this.resolution.FormattingEnabled = true;
+			this.resolution.Location = new System.Drawing.Point(13, 72);
+			this.resolution.Name = "resolution";
+			this.resolution.Size = new System.Drawing.Size(193, 21);
+			this.resolution.TabIndex = 3;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label8.Location = new System.Drawing.Point(10, 80);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(76, 13);
+			this.label8.TabIndex = 11;
+			this.label8.Text = "Texture quality";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// pixelLightCount
+			// 
+			this.pixelLightCount.Location = new System.Drawing.Point(125, 52);
+			this.pixelLightCount.Name = "pixelLightCount";
+			this.pixelLightCount.Size = new System.Drawing.Size(136, 20);
+			this.pixelLightCount.TabIndex = 28;
+			// 
+			// softParticles
+			// 
+			this.softParticles.AutoSize = true;
+			this.softParticles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.softParticles.Location = new System.Drawing.Point(12, 160);
+			this.softParticles.Name = "softParticles";
+			this.softParticles.Size = new System.Drawing.Size(87, 17);
+			this.softParticles.TabIndex = 31;
+			this.softParticles.Text = "Soft particles";
+			this.softParticles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.softParticles.UseVisualStyleBackColor = true;
+			// 
+			// cam_renderingPath
+			// 
+			this.cam_renderingPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cam_renderingPath.FormattingEnabled = true;
+			this.cam_renderingPath.Items.AddRange(new object[] {
+            "Vertex lit",
+            "Forward",
+            "Deferred lighting",
+            "Deferred shadows"});
+			this.cam_renderingPath.Location = new System.Drawing.Point(125, 22);
+			this.cam_renderingPath.Name = "cam_renderingPath";
+			this.cam_renderingPath.Size = new System.Drawing.Size(136, 21);
+			this.cam_renderingPath.TabIndex = 30;
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label20.Location = new System.Drawing.Point(10, 30);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(80, 13);
+			this.label20.TabIndex = 32;
+			this.label20.Text = "Rendering path";
+			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.label20);
+			this.groupBox1.Controls.Add(this.cam_renderingPath);
+			this.groupBox1.Controls.Add(this.softParticles);
+			this.groupBox1.Controls.Add(this.pixelLightCount);
+			this.groupBox1.Controls.Add(this.label8);
+			this.groupBox1.Controls.Add(this.label7);
+			this.groupBox1.Controls.Add(this.anisotropicFiltering);
+			this.groupBox1.Controls.Add(this.label6);
+			this.groupBox1.Controls.Add(this.masterTextureLimit);
+			this.groupBox1.Controls.Add(this.antiAliasing);
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Location = new System.Drawing.Point(10, 101);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(280, 223);
+			this.groupBox1.TabIndex = 4;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Rendering";
+			// 
+			// setRes
+			// 
+			this.setRes.Location = new System.Drawing.Point(213, 71);
+			this.setRes.Name = "setRes";
+			this.setRes.Size = new System.Drawing.Size(75, 23);
+			this.setRes.TabIndex = 35;
+			this.setRes.Text = "Apply";
+			this.setRes.UseVisualStyleBackColor = true;
+			// 
 			// replInput
 			// 
 			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(10, 503);
+			this.replInput.Location = new System.Drawing.Point(7, 410);
 			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(937, 27);
+			this.replInput.Size = new System.Drawing.Size(857, 27);
 			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
 			this.AutoSize = true;
-			this.ClientSize = new System.Drawing.Size(982, 592);
+			this.ClientSize = new System.Drawing.Size(899, 495);
 			this.Controls.Add(this.tabControl1);
-			this.MinimumSize = new System.Drawing.Size(996, 622);
 			this.Name = "SettingsForm";
 			this.ShowIcon = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -2773,8 +2738,6 @@ partial class SettingsForm
 			this.groupBox3.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
 			this.enabler_shadowOverride.ResumeLayout(false);
@@ -2818,6 +2781,8 @@ partial class SettingsForm
 			this.tabPage6.ResumeLayout(false);
 			this.enabler_cam_ppOverride.ResumeLayout(false);
 			this.enabler_cam_ppOverride.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 
 	}
@@ -2853,26 +2818,12 @@ partial class SettingsForm
 	private System.Windows.Forms.Label label4;
 	private System.Windows.Forms.ComboBox shadows;
 	private System.Windows.Forms.Label label2;
-	private System.Windows.Forms.GroupBox groupBox1;
-	private System.Windows.Forms.TextBox pixelLightCount;
-	private System.Windows.Forms.Label label8;
-	private System.Windows.Forms.Label label7;
-	private System.Windows.Forms.Label label1;
-	private System.Windows.Forms.ComboBox anisotropicFiltering;
-	private System.Windows.Forms.Label label6;
-	private System.Windows.Forms.ComboBox masterTextureLimit;
-	private System.Windows.Forms.Label label3;
 	public System.Windows.Forms.CheckBox fullscreen;
-	public System.Windows.Forms.ComboBox resolution;
 	public System.Windows.Forms.ComboBox f_qualitySelect;
-	public System.Windows.Forms.ComboBox antiAliasing;
 	public System.Windows.Forms.Button launchButton;
 	private System.Windows.Forms.TextBox shadowCascade2Split;
 	private System.Windows.Forms.Label label12;
 	private System.Windows.Forms.Label label14;
-	private System.Windows.Forms.CheckBox softParticles;
-	private System.Windows.Forms.Label label20;
-	private System.Windows.Forms.ComboBox cam_renderingPath;
 	private System.Windows.Forms.TextBox maxQueuedFrames;
 	private System.Windows.Forms.ComboBox blendWeights;
 	private System.Windows.Forms.LinkLabel linkUnityDoc;
@@ -2963,13 +2914,10 @@ partial class SettingsForm
 	private System.Windows.Forms.TextBox noscopeScale;
 	private System.Windows.Forms.Label label50;
 	private System.Windows.Forms.Label label24;
-	private System.Windows.Forms.Label label52;
 	private System.Windows.Forms.TextBox noscopeAlphaClampEnd;
 	private System.Windows.Forms.Label label53;
 	private System.Windows.Forms.TextBox noscopeAlphaClamp;
 	private System.Windows.Forms.CheckBox noscopeSim;
-	private System.Windows.Forms.Label label51;
-	private System.Windows.Forms.Label label25;
 	private System.Windows.Forms.TextBox noscopeAlphaYEnd;
 	private System.Windows.Forms.TextBox noscopeAlphaXEnd;
 	private System.Windows.Forms.CheckBox noscopeClipMask;
@@ -3040,5 +2988,19 @@ partial class SettingsForm
 	private System.Windows.Forms.CheckBox cam_useAmplifyOcclus;
 	private System.Windows.Forms.CheckBox cam_useAmplifyColor;
 	private System.Windows.Forms.CheckBox cam_useFog;
+	public System.Windows.Forms.ComboBox resolution;
+	private System.Windows.Forms.GroupBox groupBox1;
+	private System.Windows.Forms.Label label20;
+	private System.Windows.Forms.ComboBox cam_renderingPath;
+	private System.Windows.Forms.CheckBox softParticles;
+	private System.Windows.Forms.TextBox pixelLightCount;
+	private System.Windows.Forms.Label label8;
+	private System.Windows.Forms.Label label7;
+	private System.Windows.Forms.ComboBox anisotropicFiltering;
+	private System.Windows.Forms.Label label6;
+	private System.Windows.Forms.ComboBox masterTextureLimit;
+	public System.Windows.Forms.ComboBox antiAliasing;
+	private System.Windows.Forms.Label label3;
+	private System.Windows.Forms.Button setRes;
 }
 
