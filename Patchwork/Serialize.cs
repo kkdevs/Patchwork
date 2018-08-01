@@ -61,6 +61,14 @@ public class CSVMarshaller : ScriptableObject
 		var param = tlist.FieldType.GetGenericArguments()[0];
 		var add = tlist.FieldType.GetMethod("Add");
 		var listref = tlist.GetValue(this);
+
+		/*
+		if (listref == null)
+		{
+			listref = Activator.CreateInstance(tlist.FieldType);
+			tlist.SetValue(this, listref);
+		}*/
+
 		List<FieldInfo> fields = null;
 		var flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
 		int rownum = 0;
@@ -74,7 +82,12 @@ public class CSVMarshaller : ScriptableObject
 				if (!(this is ExcelData))
 				{
 					foreach (var col in row)
-						fields.Add(param.GetField(col, flags));
+					{
+						var fl = param.GetField(col, flags);
+						if (fl == null)
+							throw new Exception("unknown CSV field " + fl);
+						fields.Add(fl);
+					}
 					continue;
 				}
 				// for excel, we have one explicit "column", and no heading, data follows immediately
@@ -92,8 +105,8 @@ public class CSVMarshaller : ScriptableObject
 						var strl = new List<string>();
 						while (rowe.MoveNext())
 							strl.Add(rowe.Current);
-						// XXX is this a right thing to do?
-						while (strl.LastOrDefault() == "")
+						// keep trimming the array until first non-empty string
+						while (strl.Count > 0 && strl.Last() == "")
 							strl.RemoveAt(strl.Count - 1);
 						f.SetValue(rowo, f.FieldType.IsList() ? (object)strl : (object)strl.ToArray());
 						break; // this is always last one
@@ -101,8 +114,14 @@ public class CSVMarshaller : ScriptableObject
 					{
 						if (!rowe.MoveNext())
 							break;
-						var flist = rowe.Current.Split(' ').Select(x => float.Parse(x)).ToArray();
-						f.SetValue(rowo, flist);
+						try
+						{
+							var flist = rowe.Current==""?new float[0]:rowe.Current.Split(' ').Select(x => float.Parse(x)).ToArray();
+							f.SetValue(rowo, flist);
+						} catch (Exception ex)
+						{
+							Debug.Error("float.Parse",rowe.Current,ex);
+						}
 						continue;
 					}
 				}
@@ -131,9 +150,14 @@ public class CSVMarshaller : ScriptableObject
 					goto skipRow;
 				}
 			}
+			add:;
 			add.Invoke(listref, new[] { rowo });
 			skipRow:;
 		}
+#if GAME_DEBUG
+		fsGlobalConfig.SerializeDefaultValues = true;
+		File.WriteAllText("debug/" + Path.GetFileNameWithoutExtension(name) + ".json", JSON.Serialize(this, true));
+#endif
 		return true;
 	}
 
@@ -166,8 +190,15 @@ public class CSVMarshaller : ScriptableObject
 				if (f.FieldType.IsArray || f.FieldType.IsList())
 				{
 					if (fields.Last() == f) {
+						int ngot = 0;
 						foreach (var s in f.GetValue(item) as IEnumerable)
+						{
+							ngot++;
 							row.Add(s as string);
+						}
+						// empty terminator
+						if (ngot == 0)
+							row.Add("");
 					} else
 					{
 						var tb = new List<string>();

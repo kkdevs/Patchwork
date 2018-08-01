@@ -29,9 +29,13 @@ partial class SettingsForm
 			this.launchButton = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.setRes = new System.Windows.Forms.Button();
+			this.fullscreen = new System.Windows.Forms.CheckBox();
 			this.showFPS = new System.Windows.Forms.CheckBox();
+			this.resizable = new System.Windows.Forms.CheckBox();
 			this.runChara = new System.Windows.Forms.Button();
 			this.linkUnityDoc = new System.Windows.Forms.LinkLabel();
+			this.resolution = new System.Windows.Forms.ComboBox();
 			this.label22 = new System.Windows.Forms.Label();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.maxQueuedFrames = new System.Windows.Forms.TextBox();
@@ -67,8 +71,18 @@ partial class SettingsForm
 			this.shadows = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.f_qualitySelect = new System.Windows.Forms.ComboBox();
-			this.fullscreen = new System.Windows.Forms.CheckBox();
-			this.resizable = new System.Windows.Forms.CheckBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label20 = new System.Windows.Forms.Label();
+			this.cam_renderingPath = new System.Windows.Forms.ComboBox();
+			this.softParticles = new System.Windows.Forms.CheckBox();
+			this.pixelLightCount = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.anisotropicFiltering = new System.Windows.Forms.ComboBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.masterTextureLimit = new System.Windows.Forms.ComboBox();
+			this.antiAliasing = new System.Windows.Forms.ComboBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.linkLabel7 = new System.Windows.Forms.LinkLabel();
 			this.linkLabel6 = new System.Windows.Forms.LinkLabel();
@@ -81,6 +95,20 @@ partial class SettingsForm
 			this.label23 = new System.Windows.Forms.Label();
 			this.customShadowStrengthTarget = new System.Windows.Forms.TextBox();
 			this.cam_ppOverride = new System.Windows.Forms.CheckBox();
+			this.enabler_cam_ppOverride = new System.Windows.Forms.GroupBox();
+			this.label46 = new System.Windows.Forms.Label();
+			this.cam_aoeRadius = new System.Windows.Forms.TextBox();
+			this.label45 = new System.Windows.Forms.Label();
+			this.cam_amplColorExposure = new System.Windows.Forms.TextBox();
+			this.cam_useSepia = new System.Windows.Forms.CheckBox();
+			this.cam_useBlur = new System.Windows.Forms.CheckBox();
+			this.cam_useDOF = new System.Windows.Forms.CheckBox();
+			this.cam_useVignette = new System.Windows.Forms.CheckBox();
+			this.cam_useSunShafts = new System.Windows.Forms.CheckBox();
+			this.cam_useBloom = new System.Windows.Forms.CheckBox();
+			this.cam_useAmplifyOcclus = new System.Windows.Forms.CheckBox();
+			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
+			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
 			this.blackFade = new System.Windows.Forms.CheckBox();
@@ -163,7 +191,6 @@ partial class SettingsForm
 			this.scriptPath = new System.Windows.Forms.TextBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.groupBox9 = new System.Windows.Forms.GroupBox();
 			this.withoutManifest = new System.Windows.Forms.CheckBox();
 			this.linkLabel5 = new System.Windows.Forms.LinkLabel();
@@ -207,45 +234,25 @@ partial class SettingsForm
 			this.label31 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.noFrillsExit = new System.Windows.Forms.CheckBox();
+			this.noBustNorm = new System.Windows.Forms.CheckBox();
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.cam_useFog = new System.Windows.Forms.CheckBox();
-			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
-			this.cam_useAmplifyOcclus = new System.Windows.Forms.CheckBox();
-			this.cam_useBloom = new System.Windows.Forms.CheckBox();
-			this.cam_useSunShafts = new System.Windows.Forms.CheckBox();
-			this.cam_useVignette = new System.Windows.Forms.CheckBox();
-			this.cam_useDOF = new System.Windows.Forms.CheckBox();
-			this.cam_useBlur = new System.Windows.Forms.CheckBox();
-			this.cam_useSepia = new System.Windows.Forms.CheckBox();
-			this.cam_amplColorExposure = new System.Windows.Forms.TextBox();
-			this.label45 = new System.Windows.Forms.Label();
-			this.cam_aoeRadius = new System.Windows.Forms.TextBox();
-			this.label46 = new System.Windows.Forms.Label();
-			this.enabler_cam_ppOverride = new System.Windows.Forms.GroupBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.antiAliasing = new System.Windows.Forms.ComboBox();
-			this.masterTextureLimit = new System.Windows.Forms.ComboBox();
-			this.label6 = new System.Windows.Forms.Label();
-			this.anisotropicFiltering = new System.Windows.Forms.ComboBox();
-			this.label7 = new System.Windows.Forms.Label();
-			this.resolution = new System.Windows.Forms.ComboBox();
-			this.label8 = new System.Windows.Forms.Label();
-			this.pixelLightCount = new System.Windows.Forms.TextBox();
-			this.softParticles = new System.Windows.Forms.CheckBox();
-			this.cam_renderingPath = new System.Windows.Forms.ComboBox();
-			this.label20 = new System.Windows.Forms.Label();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.setRes = new System.Windows.Forms.Button();
 			this.replInput = new EditLine();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.groupBox16 = new System.Windows.Forms.GroupBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.cumMult = new System.Windows.Forms.TextBox();
+			this.cumLimit = new System.Windows.Forms.TextBox();
+			this.label25 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.enabler_shadowOverride.SuspendLayout();
+			this.enabler_cam_ppOverride.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.groupBox14.SuspendLayout();
 			this.groupBox13.SuspendLayout();
@@ -265,8 +272,7 @@ partial class SettingsForm
 			this.groupBox5.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.tabPage6.SuspendLayout();
-			this.enabler_cam_ppOverride.SuspendLayout();
-			this.groupBox1.SuspendLayout();
+			this.groupBox16.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -322,6 +328,26 @@ partial class SettingsForm
 			this.tabPage1.Text = " Graphics ";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
+			// setRes
+			// 
+			this.setRes.Location = new System.Drawing.Point(213, 71);
+			this.setRes.Name = "setRes";
+			this.setRes.Size = new System.Drawing.Size(75, 23);
+			this.setRes.TabIndex = 35;
+			this.setRes.Text = "Apply";
+			this.setRes.UseVisualStyleBackColor = true;
+			// 
+			// fullscreen
+			// 
+			this.fullscreen.AutoSize = true;
+			this.fullscreen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.fullscreen.Location = new System.Drawing.Point(177, 43);
+			this.fullscreen.Name = "fullscreen";
+			this.fullscreen.Size = new System.Drawing.Size(74, 17);
+			this.fullscreen.TabIndex = 13;
+			this.fullscreen.Text = "Fullscreen";
+			this.fullscreen.UseVisualStyleBackColor = true;
+			// 
 			// showFPS
 			// 
 			this.showFPS.AutoSize = true;
@@ -332,6 +358,17 @@ partial class SettingsForm
 			this.showFPS.TabIndex = 33;
 			this.showFPS.Text = "Show FPS";
 			this.showFPS.UseVisualStyleBackColor = true;
+			// 
+			// resizable
+			// 
+			this.resizable.AutoSize = true;
+			this.resizable.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.resizable.Location = new System.Drawing.Point(13, 43);
+			this.resizable.Name = "resizable";
+			this.resizable.Size = new System.Drawing.Size(72, 17);
+			this.resizable.TabIndex = 33;
+			this.resizable.Text = "Resizable";
+			this.resizable.UseVisualStyleBackColor = true;
 			// 
 			// runChara
 			// 
@@ -354,6 +391,14 @@ partial class SettingsForm
 			this.linkUnityDoc.TabIndex = 34;
 			this.linkUnityDoc.TabStop = true;
 			this.linkUnityDoc.Text = "https://docs.unity3d.com/Manual/class-QualitySettings.html";
+			// 
+			// resolution
+			// 
+			this.resolution.FormattingEnabled = true;
+			this.resolution.Location = new System.Drawing.Point(13, 72);
+			this.resolution.Name = "resolution";
+			this.resolution.Size = new System.Drawing.Size(193, 21);
+			this.resolution.TabIndex = 3;
 			// 
 			// label22
 			// 
@@ -749,27 +794,156 @@ partial class SettingsForm
 			this.f_qualitySelect.Size = new System.Drawing.Size(235, 21);
 			this.f_qualitySelect.TabIndex = 0;
 			// 
-			// fullscreen
+			// groupBox1
 			// 
-			this.fullscreen.AutoSize = true;
-			this.fullscreen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.fullscreen.Location = new System.Drawing.Point(177, 43);
-			this.fullscreen.Name = "fullscreen";
-			this.fullscreen.Size = new System.Drawing.Size(74, 17);
-			this.fullscreen.TabIndex = 13;
-			this.fullscreen.Text = "Fullscreen";
-			this.fullscreen.UseVisualStyleBackColor = true;
+			this.groupBox1.Controls.Add(this.label20);
+			this.groupBox1.Controls.Add(this.cam_renderingPath);
+			this.groupBox1.Controls.Add(this.softParticles);
+			this.groupBox1.Controls.Add(this.pixelLightCount);
+			this.groupBox1.Controls.Add(this.label8);
+			this.groupBox1.Controls.Add(this.label7);
+			this.groupBox1.Controls.Add(this.anisotropicFiltering);
+			this.groupBox1.Controls.Add(this.label6);
+			this.groupBox1.Controls.Add(this.masterTextureLimit);
+			this.groupBox1.Controls.Add(this.antiAliasing);
+			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Location = new System.Drawing.Point(10, 101);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(280, 223);
+			this.groupBox1.TabIndex = 4;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Rendering";
 			// 
-			// resizable
+			// label20
 			// 
-			this.resizable.AutoSize = true;
-			this.resizable.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.resizable.Location = new System.Drawing.Point(13, 43);
-			this.resizable.Name = "resizable";
-			this.resizable.Size = new System.Drawing.Size(72, 17);
-			this.resizable.TabIndex = 33;
-			this.resizable.Text = "Resizable";
-			this.resizable.UseVisualStyleBackColor = true;
+			this.label20.AutoSize = true;
+			this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label20.Location = new System.Drawing.Point(10, 30);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(80, 13);
+			this.label20.TabIndex = 32;
+			this.label20.Text = "Rendering path";
+			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cam_renderingPath
+			// 
+			this.cam_renderingPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cam_renderingPath.FormattingEnabled = true;
+			this.cam_renderingPath.Items.AddRange(new object[] {
+            "Vertex lit",
+            "Forward",
+            "Deferred lighting",
+            "Deferred shadows"});
+			this.cam_renderingPath.Location = new System.Drawing.Point(125, 22);
+			this.cam_renderingPath.Name = "cam_renderingPath";
+			this.cam_renderingPath.Size = new System.Drawing.Size(136, 21);
+			this.cam_renderingPath.TabIndex = 30;
+			// 
+			// softParticles
+			// 
+			this.softParticles.AutoSize = true;
+			this.softParticles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.softParticles.Location = new System.Drawing.Point(12, 160);
+			this.softParticles.Name = "softParticles";
+			this.softParticles.Size = new System.Drawing.Size(87, 17);
+			this.softParticles.TabIndex = 31;
+			this.softParticles.Text = "Soft particles";
+			this.softParticles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.softParticles.UseVisualStyleBackColor = true;
+			// 
+			// pixelLightCount
+			// 
+			this.pixelLightCount.Location = new System.Drawing.Point(125, 52);
+			this.pixelLightCount.Name = "pixelLightCount";
+			this.pixelLightCount.Size = new System.Drawing.Size(136, 20);
+			this.pixelLightCount.TabIndex = 28;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label8.Location = new System.Drawing.Point(10, 80);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(76, 13);
+			this.label8.TabIndex = 11;
+			this.label8.Text = "Texture quality";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label7.Location = new System.Drawing.Point(9, 54);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(81, 13);
+			this.label7.TabIndex = 10;
+			this.label7.Text = "Pixel light count";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// anisotropicFiltering
+			// 
+			this.anisotropicFiltering.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.anisotropicFiltering.FormattingEnabled = true;
+			this.anisotropicFiltering.Items.AddRange(new object[] {
+            "Disable",
+            "Auto",
+            "Forced"});
+			this.anisotropicFiltering.Location = new System.Drawing.Point(125, 102);
+			this.anisotropicFiltering.Name = "anisotropicFiltering";
+			this.anisotropicFiltering.Size = new System.Drawing.Size(136, 21);
+			this.anisotropicFiltering.TabIndex = 9;
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label6.Location = new System.Drawing.Point(10, 104);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(81, 13);
+			this.label6.TabIndex = 8;
+			this.label6.Text = "Anisotropic filter";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// masterTextureLimit
+			// 
+			this.masterTextureLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.masterTextureLimit.FormattingEnabled = true;
+			this.masterTextureLimit.Items.AddRange(new object[] {
+            "Full res",
+            "1/2 res",
+            "1/4 res",
+            "1/8 res"});
+			this.masterTextureLimit.Location = new System.Drawing.Point(125, 77);
+			this.masterTextureLimit.Name = "masterTextureLimit";
+			this.masterTextureLimit.Size = new System.Drawing.Size(136, 21);
+			this.masterTextureLimit.TabIndex = 7;
+			// 
+			// antiAliasing
+			// 
+			this.antiAliasing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.antiAliasing.FormattingEnabled = true;
+			this.antiAliasing.Items.AddRange(new object[] {
+            "None",
+            "2x",
+            "4x",
+            "8x",
+            "16x",
+            "32x"});
+			this.antiAliasing.Location = new System.Drawing.Point(125, 130);
+			this.antiAliasing.Name = "antiAliasing";
+			this.antiAliasing.Size = new System.Drawing.Size(136, 21);
+			this.antiAliasing.TabIndex = 5;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label3.Location = new System.Drawing.Point(10, 133);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(49, 13);
+			this.label3.TabIndex = 2;
+			this.label3.Text = "(MS?)AA";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// tabPage4
 			// 
@@ -905,6 +1079,178 @@ partial class SettingsForm
 			this.cam_ppOverride.TabIndex = 1;
 			this.cam_ppOverride.Text = "Override post-processing filters";
 			this.cam_ppOverride.UseVisualStyleBackColor = true;
+			// 
+			// enabler_cam_ppOverride
+			// 
+			this.enabler_cam_ppOverride.AutoSize = true;
+			this.enabler_cam_ppOverride.Controls.Add(this.label46);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_aoeRadius);
+			this.enabler_cam_ppOverride.Controls.Add(this.label45);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_amplColorExposure);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useSepia);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useBlur);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useDOF);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useVignette);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useSunShafts);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useBloom);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useAmplifyOcclus);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useAmplifyColor);
+			this.enabler_cam_ppOverride.Controls.Add(this.cam_useFog);
+			this.enabler_cam_ppOverride.Location = new System.Drawing.Point(10, 15);
+			this.enabler_cam_ppOverride.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.enabler_cam_ppOverride.Name = "enabler_cam_ppOverride";
+			this.enabler_cam_ppOverride.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.enabler_cam_ppOverride.Size = new System.Drawing.Size(272, 284);
+			this.enabler_cam_ppOverride.TabIndex = 0;
+			this.enabler_cam_ppOverride.TabStop = false;
+			// 
+			// label46
+			// 
+			this.label46.AutoSize = true;
+			this.label46.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label46.Location = new System.Drawing.Point(131, 83);
+			this.label46.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label46.Name = "label46";
+			this.label46.Size = new System.Drawing.Size(40, 13);
+			this.label46.TabIndex = 37;
+			this.label46.Text = "Radius";
+			this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.label46.Click += new System.EventHandler(this.label46_Click);
+			// 
+			// cam_aoeRadius
+			// 
+			this.cam_aoeRadius.Location = new System.Drawing.Point(192, 79);
+			this.cam_aoeRadius.Name = "cam_aoeRadius";
+			this.cam_aoeRadius.Size = new System.Drawing.Size(55, 20);
+			this.cam_aoeRadius.TabIndex = 38;
+			// 
+			// label45
+			// 
+			this.label45.AutoSize = true;
+			this.label45.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label45.Location = new System.Drawing.Point(130, 56);
+			this.label45.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label45.Name = "label45";
+			this.label45.Size = new System.Drawing.Size(55, 13);
+			this.label45.TabIndex = 36;
+			this.label45.Text = "Saturation";
+			this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cam_amplColorExposure
+			// 
+			this.cam_amplColorExposure.Location = new System.Drawing.Point(192, 52);
+			this.cam_amplColorExposure.Name = "cam_amplColorExposure";
+			this.cam_amplColorExposure.Size = new System.Drawing.Size(55, 20);
+			this.cam_amplColorExposure.TabIndex = 36;
+			// 
+			// cam_useSepia
+			// 
+			this.cam_useSepia.AutoSize = true;
+			this.cam_useSepia.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useSepia.Location = new System.Drawing.Point(16, 244);
+			this.cam_useSepia.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useSepia.Name = "cam_useSepia";
+			this.cam_useSepia.Size = new System.Drawing.Size(53, 17);
+			this.cam_useSepia.TabIndex = 8;
+			this.cam_useSepia.Text = "Sepia";
+			this.cam_useSepia.UseVisualStyleBackColor = true;
+			// 
+			// cam_useBlur
+			// 
+			this.cam_useBlur.AutoSize = true;
+			this.cam_useBlur.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useBlur.Location = new System.Drawing.Point(16, 217);
+			this.cam_useBlur.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useBlur.Name = "cam_useBlur";
+			this.cam_useBlur.Size = new System.Drawing.Size(44, 17);
+			this.cam_useBlur.TabIndex = 7;
+			this.cam_useBlur.Text = "Blur";
+			this.cam_useBlur.UseVisualStyleBackColor = true;
+			// 
+			// cam_useDOF
+			// 
+			this.cam_useDOF.AutoSize = true;
+			this.cam_useDOF.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useDOF.Location = new System.Drawing.Point(16, 190);
+			this.cam_useDOF.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useDOF.Name = "cam_useDOF";
+			this.cam_useDOF.Size = new System.Drawing.Size(89, 17);
+			this.cam_useDOF.TabIndex = 6;
+			this.cam_useDOF.Text = "Depth of field";
+			this.cam_useDOF.UseVisualStyleBackColor = true;
+			// 
+			// cam_useVignette
+			// 
+			this.cam_useVignette.AutoSize = true;
+			this.cam_useVignette.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useVignette.Location = new System.Drawing.Point(16, 163);
+			this.cam_useVignette.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useVignette.Name = "cam_useVignette";
+			this.cam_useVignette.Size = new System.Drawing.Size(65, 17);
+			this.cam_useVignette.TabIndex = 5;
+			this.cam_useVignette.Text = "Vignette";
+			this.cam_useVignette.UseVisualStyleBackColor = true;
+			// 
+			// cam_useSunShafts
+			// 
+			this.cam_useSunShafts.AutoSize = true;
+			this.cam_useSunShafts.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useSunShafts.Location = new System.Drawing.Point(16, 136);
+			this.cam_useSunShafts.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useSunShafts.Name = "cam_useSunShafts";
+			this.cam_useSunShafts.Size = new System.Drawing.Size(73, 17);
+			this.cam_useSunShafts.TabIndex = 4;
+			this.cam_useSunShafts.Text = "Sunshafts";
+			this.cam_useSunShafts.UseVisualStyleBackColor = true;
+			this.cam_useSunShafts.CheckedChanged += new System.EventHandler(this.cam_useSunShafts_CheckedChanged);
+			// 
+			// cam_useBloom
+			// 
+			this.cam_useBloom.AutoSize = true;
+			this.cam_useBloom.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useBloom.Location = new System.Drawing.Point(16, 109);
+			this.cam_useBloom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useBloom.Name = "cam_useBloom";
+			this.cam_useBloom.Size = new System.Drawing.Size(55, 17);
+			this.cam_useBloom.TabIndex = 3;
+			this.cam_useBloom.Text = "Bloom";
+			this.cam_useBloom.UseVisualStyleBackColor = true;
+			// 
+			// cam_useAmplifyOcclus
+			// 
+			this.cam_useAmplifyOcclus.AutoSize = true;
+			this.cam_useAmplifyOcclus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useAmplifyOcclus.Location = new System.Drawing.Point(16, 82);
+			this.cam_useAmplifyOcclus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useAmplifyOcclus.Name = "cam_useAmplifyOcclus";
+			this.cam_useAmplifyOcclus.Size = new System.Drawing.Size(112, 17);
+			this.cam_useAmplifyOcclus.TabIndex = 2;
+			this.cam_useAmplifyOcclus.Text = "Ambient occlusion";
+			this.cam_useAmplifyOcclus.UseVisualStyleBackColor = true;
+			// 
+			// cam_useAmplifyColor
+			// 
+			this.cam_useAmplifyColor.AutoSize = true;
+			this.cam_useAmplifyColor.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useAmplifyColor.Location = new System.Drawing.Point(16, 55);
+			this.cam_useAmplifyColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useAmplifyColor.Name = "cam_useAmplifyColor";
+			this.cam_useAmplifyColor.Size = new System.Drawing.Size(85, 17);
+			this.cam_useAmplifyColor.TabIndex = 1;
+			this.cam_useAmplifyColor.Text = "Amplify color";
+			this.cam_useAmplifyColor.UseVisualStyleBackColor = true;
+			// 
+			// cam_useFog
+			// 
+			this.cam_useFog.AutoSize = true;
+			this.cam_useFog.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.cam_useFog.Location = new System.Drawing.Point(16, 28);
+			this.cam_useFog.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cam_useFog.Name = "cam_useFog";
+			this.cam_useFog.Size = new System.Drawing.Size(44, 17);
+			this.cam_useFog.TabIndex = 0;
+			this.cam_useFog.Text = "Fog";
+			this.cam_useFog.UseVisualStyleBackColor = true;
 			// 
 			// tabPage2
 			// 
@@ -1318,6 +1664,7 @@ partial class SettingsForm
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.groupBox16);
 			this.tabPage5.Controls.Add(this.linkLabel1);
 			this.tabPage5.Controls.Add(this.groupBox15);
 			this.tabPage5.Controls.Add(this.noscopeClipMask);
@@ -1832,17 +2179,6 @@ partial class SettingsForm
 			this.linkLabel3.Tag = "performance";
 			this.linkLabel3.Text = "[?]";
 			// 
-			// noBustNorm
-			// 
-			this.noBustNorm.AutoSize = true;
-			this.noBustNorm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.noBustNorm.Location = new System.Drawing.Point(15, 72);
-			this.noBustNorm.Name = "noBustNorm";
-			this.noBustNorm.Size = new System.Drawing.Size(123, 17);
-			this.noBustNorm.TabIndex = 59;
-			this.noBustNorm.Text = "Disable bust normals";
-			this.noBustNorm.UseVisualStyleBackColor = true;
-			// 
 			// groupBox9
 			// 
 			this.groupBox9.AutoSize = true;
@@ -2316,6 +2652,17 @@ partial class SettingsForm
 			this.noFrillsExit.Text = "Fast exit";
 			this.noFrillsExit.UseVisualStyleBackColor = true;
 			// 
+			// noBustNorm
+			// 
+			this.noBustNorm.AutoSize = true;
+			this.noBustNorm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.noBustNorm.Location = new System.Drawing.Point(15, 72);
+			this.noBustNorm.Name = "noBustNorm";
+			this.noBustNorm.Size = new System.Drawing.Size(123, 17);
+			this.noBustNorm.TabIndex = 59;
+			this.noBustNorm.Text = "Disable bust normals";
+			this.noBustNorm.UseVisualStyleBackColor = true;
+			// 
 			// dontshow
 			// 
 			this.dontshow.AutoSize = true;
@@ -2352,6 +2699,17 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(7, 410);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(857, 27);
+			this.replInput.TabIndex = 0;
+			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2369,356 +2727,56 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// cam_useFog
+			// groupBox16
 			// 
-			this.cam_useFog.AutoSize = true;
-			this.cam_useFog.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useFog.Location = new System.Drawing.Point(16, 28);
-			this.cam_useFog.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useFog.Name = "cam_useFog";
-			this.cam_useFog.Size = new System.Drawing.Size(44, 17);
-			this.cam_useFog.TabIndex = 0;
-			this.cam_useFog.Text = "Fog";
-			this.cam_useFog.UseVisualStyleBackColor = true;
+			this.groupBox16.Controls.Add(this.cumLimit);
+			this.groupBox16.Controls.Add(this.label25);
+			this.groupBox16.Controls.Add(this.cumMult);
+			this.groupBox16.Controls.Add(this.label1);
+			this.groupBox16.Location = new System.Drawing.Point(343, 161);
+			this.groupBox16.Name = "groupBox16";
+			this.groupBox16.Size = new System.Drawing.Size(200, 100);
+			this.groupBox16.TabIndex = 68;
+			this.groupBox16.TabStop = false;
+			this.groupBox16.Text = "Cum";
 			// 
-			// cam_useAmplifyColor
+			// label1
 			// 
-			this.cam_useAmplifyColor.AutoSize = true;
-			this.cam_useAmplifyColor.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useAmplifyColor.Location = new System.Drawing.Point(16, 55);
-			this.cam_useAmplifyColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useAmplifyColor.Name = "cam_useAmplifyColor";
-			this.cam_useAmplifyColor.Size = new System.Drawing.Size(85, 17);
-			this.cam_useAmplifyColor.TabIndex = 1;
-			this.cam_useAmplifyColor.Text = "Amplify color";
-			this.cam_useAmplifyColor.UseVisualStyleBackColor = true;
+			this.label1.AutoSize = true;
+			this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label1.Location = new System.Drawing.Point(10, 18);
+			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(48, 13);
+			this.label1.TabIndex = 80;
+			this.label1.Text = "Multiplier";
 			// 
-			// cam_useAmplifyOcclus
+			// cumMult
 			// 
-			this.cam_useAmplifyOcclus.AutoSize = true;
-			this.cam_useAmplifyOcclus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useAmplifyOcclus.Location = new System.Drawing.Point(16, 82);
-			this.cam_useAmplifyOcclus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useAmplifyOcclus.Name = "cam_useAmplifyOcclus";
-			this.cam_useAmplifyOcclus.Size = new System.Drawing.Size(112, 17);
-			this.cam_useAmplifyOcclus.TabIndex = 2;
-			this.cam_useAmplifyOcclus.Text = "Ambient occlusion";
-			this.cam_useAmplifyOcclus.UseVisualStyleBackColor = true;
+			this.cumMult.Location = new System.Drawing.Point(73, 14);
+			this.cumMult.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cumMult.Name = "cumMult";
+			this.cumMult.Size = new System.Drawing.Size(112, 20);
+			this.cumMult.TabIndex = 80;
 			// 
-			// cam_useBloom
+			// cumLimit
 			// 
-			this.cam_useBloom.AutoSize = true;
-			this.cam_useBloom.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useBloom.Location = new System.Drawing.Point(16, 109);
-			this.cam_useBloom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useBloom.Name = "cam_useBloom";
-			this.cam_useBloom.Size = new System.Drawing.Size(55, 17);
-			this.cam_useBloom.TabIndex = 3;
-			this.cam_useBloom.Text = "Bloom";
-			this.cam_useBloom.UseVisualStyleBackColor = true;
+			this.cumLimit.Location = new System.Drawing.Point(73, 44);
+			this.cumLimit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cumLimit.Name = "cumLimit";
+			this.cumLimit.Size = new System.Drawing.Size(112, 20);
+			this.cumLimit.TabIndex = 81;
 			// 
-			// cam_useSunShafts
+			// label25
 			// 
-			this.cam_useSunShafts.AutoSize = true;
-			this.cam_useSunShafts.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useSunShafts.Location = new System.Drawing.Point(16, 136);
-			this.cam_useSunShafts.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useSunShafts.Name = "cam_useSunShafts";
-			this.cam_useSunShafts.Size = new System.Drawing.Size(73, 17);
-			this.cam_useSunShafts.TabIndex = 4;
-			this.cam_useSunShafts.Text = "Sunshafts";
-			this.cam_useSunShafts.UseVisualStyleBackColor = true;
-			this.cam_useSunShafts.CheckedChanged += new System.EventHandler(this.cam_useSunShafts_CheckedChanged);
-			// 
-			// cam_useVignette
-			// 
-			this.cam_useVignette.AutoSize = true;
-			this.cam_useVignette.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useVignette.Location = new System.Drawing.Point(16, 163);
-			this.cam_useVignette.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useVignette.Name = "cam_useVignette";
-			this.cam_useVignette.Size = new System.Drawing.Size(65, 17);
-			this.cam_useVignette.TabIndex = 5;
-			this.cam_useVignette.Text = "Vignette";
-			this.cam_useVignette.UseVisualStyleBackColor = true;
-			// 
-			// cam_useDOF
-			// 
-			this.cam_useDOF.AutoSize = true;
-			this.cam_useDOF.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useDOF.Location = new System.Drawing.Point(16, 190);
-			this.cam_useDOF.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useDOF.Name = "cam_useDOF";
-			this.cam_useDOF.Size = new System.Drawing.Size(89, 17);
-			this.cam_useDOF.TabIndex = 6;
-			this.cam_useDOF.Text = "Depth of field";
-			this.cam_useDOF.UseVisualStyleBackColor = true;
-			// 
-			// cam_useBlur
-			// 
-			this.cam_useBlur.AutoSize = true;
-			this.cam_useBlur.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useBlur.Location = new System.Drawing.Point(16, 217);
-			this.cam_useBlur.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useBlur.Name = "cam_useBlur";
-			this.cam_useBlur.Size = new System.Drawing.Size(44, 17);
-			this.cam_useBlur.TabIndex = 7;
-			this.cam_useBlur.Text = "Blur";
-			this.cam_useBlur.UseVisualStyleBackColor = true;
-			// 
-			// cam_useSepia
-			// 
-			this.cam_useSepia.AutoSize = true;
-			this.cam_useSepia.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.cam_useSepia.Location = new System.Drawing.Point(16, 244);
-			this.cam_useSepia.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cam_useSepia.Name = "cam_useSepia";
-			this.cam_useSepia.Size = new System.Drawing.Size(53, 17);
-			this.cam_useSepia.TabIndex = 8;
-			this.cam_useSepia.Text = "Sepia";
-			this.cam_useSepia.UseVisualStyleBackColor = true;
-			// 
-			// cam_amplColorExposure
-			// 
-			this.cam_amplColorExposure.Location = new System.Drawing.Point(192, 52);
-			this.cam_amplColorExposure.Name = "cam_amplColorExposure";
-			this.cam_amplColorExposure.Size = new System.Drawing.Size(55, 20);
-			this.cam_amplColorExposure.TabIndex = 36;
-			// 
-			// label45
-			// 
-			this.label45.AutoSize = true;
-			this.label45.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label45.Location = new System.Drawing.Point(130, 56);
-			this.label45.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label45.Name = "label45";
-			this.label45.Size = new System.Drawing.Size(55, 13);
-			this.label45.TabIndex = 36;
-			this.label45.Text = "Saturation";
-			this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cam_aoeRadius
-			// 
-			this.cam_aoeRadius.Location = new System.Drawing.Point(192, 79);
-			this.cam_aoeRadius.Name = "cam_aoeRadius";
-			this.cam_aoeRadius.Size = new System.Drawing.Size(55, 20);
-			this.cam_aoeRadius.TabIndex = 38;
-			// 
-			// label46
-			// 
-			this.label46.AutoSize = true;
-			this.label46.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label46.Location = new System.Drawing.Point(131, 83);
-			this.label46.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label46.Name = "label46";
-			this.label46.Size = new System.Drawing.Size(40, 13);
-			this.label46.TabIndex = 37;
-			this.label46.Text = "Radius";
-			this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.label46.Click += new System.EventHandler(this.label46_Click);
-			// 
-			// enabler_cam_ppOverride
-			// 
-			this.enabler_cam_ppOverride.AutoSize = true;
-			this.enabler_cam_ppOverride.Controls.Add(this.label46);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_aoeRadius);
-			this.enabler_cam_ppOverride.Controls.Add(this.label45);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_amplColorExposure);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useSepia);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useBlur);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useDOF);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useVignette);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useSunShafts);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useBloom);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useAmplifyOcclus);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useAmplifyColor);
-			this.enabler_cam_ppOverride.Controls.Add(this.cam_useFog);
-			this.enabler_cam_ppOverride.Location = new System.Drawing.Point(10, 15);
-			this.enabler_cam_ppOverride.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.enabler_cam_ppOverride.Name = "enabler_cam_ppOverride";
-			this.enabler_cam_ppOverride.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.enabler_cam_ppOverride.Size = new System.Drawing.Size(272, 284);
-			this.enabler_cam_ppOverride.TabIndex = 0;
-			this.enabler_cam_ppOverride.TabStop = false;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label3.Location = new System.Drawing.Point(10, 133);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(49, 13);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "(MS?)AA";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// antiAliasing
-			// 
-			this.antiAliasing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.antiAliasing.FormattingEnabled = true;
-			this.antiAliasing.Items.AddRange(new object[] {
-            "None",
-            "2x",
-            "4x",
-            "8x",
-            "16x",
-            "32x"});
-			this.antiAliasing.Location = new System.Drawing.Point(125, 130);
-			this.antiAliasing.Name = "antiAliasing";
-			this.antiAliasing.Size = new System.Drawing.Size(136, 21);
-			this.antiAliasing.TabIndex = 5;
-			// 
-			// masterTextureLimit
-			// 
-			this.masterTextureLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.masterTextureLimit.FormattingEnabled = true;
-			this.masterTextureLimit.Items.AddRange(new object[] {
-            "Full res",
-            "1/2 res",
-            "1/4 res",
-            "1/8 res"});
-			this.masterTextureLimit.Location = new System.Drawing.Point(125, 77);
-			this.masterTextureLimit.Name = "masterTextureLimit";
-			this.masterTextureLimit.Size = new System.Drawing.Size(136, 21);
-			this.masterTextureLimit.TabIndex = 7;
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label6.Location = new System.Drawing.Point(10, 104);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(81, 13);
-			this.label6.TabIndex = 8;
-			this.label6.Text = "Anisotropic filter";
-			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// anisotropicFiltering
-			// 
-			this.anisotropicFiltering.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.anisotropicFiltering.FormattingEnabled = true;
-			this.anisotropicFiltering.Items.AddRange(new object[] {
-            "Disable",
-            "Auto",
-            "Forced"});
-			this.anisotropicFiltering.Location = new System.Drawing.Point(125, 102);
-			this.anisotropicFiltering.Name = "anisotropicFiltering";
-			this.anisotropicFiltering.Size = new System.Drawing.Size(136, 21);
-			this.anisotropicFiltering.TabIndex = 9;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label7.Location = new System.Drawing.Point(9, 54);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(81, 13);
-			this.label7.TabIndex = 10;
-			this.label7.Text = "Pixel light count";
-			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// resolution
-			// 
-			this.resolution.FormattingEnabled = true;
-			this.resolution.Location = new System.Drawing.Point(13, 72);
-			this.resolution.Name = "resolution";
-			this.resolution.Size = new System.Drawing.Size(193, 21);
-			this.resolution.TabIndex = 3;
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label8.Location = new System.Drawing.Point(10, 80);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(76, 13);
-			this.label8.TabIndex = 11;
-			this.label8.Text = "Texture quality";
-			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// pixelLightCount
-			// 
-			this.pixelLightCount.Location = new System.Drawing.Point(125, 52);
-			this.pixelLightCount.Name = "pixelLightCount";
-			this.pixelLightCount.Size = new System.Drawing.Size(136, 20);
-			this.pixelLightCount.TabIndex = 28;
-			// 
-			// softParticles
-			// 
-			this.softParticles.AutoSize = true;
-			this.softParticles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.softParticles.Location = new System.Drawing.Point(12, 160);
-			this.softParticles.Name = "softParticles";
-			this.softParticles.Size = new System.Drawing.Size(87, 17);
-			this.softParticles.TabIndex = 31;
-			this.softParticles.Text = "Soft particles";
-			this.softParticles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.softParticles.UseVisualStyleBackColor = true;
-			// 
-			// cam_renderingPath
-			// 
-			this.cam_renderingPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cam_renderingPath.FormattingEnabled = true;
-			this.cam_renderingPath.Items.AddRange(new object[] {
-            "Vertex lit",
-            "Forward",
-            "Deferred lighting",
-            "Deferred shadows"});
-			this.cam_renderingPath.Location = new System.Drawing.Point(125, 22);
-			this.cam_renderingPath.Name = "cam_renderingPath";
-			this.cam_renderingPath.Size = new System.Drawing.Size(136, 21);
-			this.cam_renderingPath.TabIndex = 30;
-			// 
-			// label20
-			// 
-			this.label20.AutoSize = true;
-			this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label20.Location = new System.Drawing.Point(10, 30);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(80, 13);
-			this.label20.TabIndex = 32;
-			this.label20.Text = "Rendering path";
-			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this.label20);
-			this.groupBox1.Controls.Add(this.cam_renderingPath);
-			this.groupBox1.Controls.Add(this.softParticles);
-			this.groupBox1.Controls.Add(this.pixelLightCount);
-			this.groupBox1.Controls.Add(this.label8);
-			this.groupBox1.Controls.Add(this.label7);
-			this.groupBox1.Controls.Add(this.anisotropicFiltering);
-			this.groupBox1.Controls.Add(this.label6);
-			this.groupBox1.Controls.Add(this.masterTextureLimit);
-			this.groupBox1.Controls.Add(this.antiAliasing);
-			this.groupBox1.Controls.Add(this.label3);
-			this.groupBox1.Location = new System.Drawing.Point(10, 101);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(280, 223);
-			this.groupBox1.TabIndex = 4;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Rendering";
-			// 
-			// setRes
-			// 
-			this.setRes.Location = new System.Drawing.Point(213, 71);
-			this.setRes.Name = "setRes";
-			this.setRes.Size = new System.Drawing.Size(75, 23);
-			this.setRes.TabIndex = 35;
-			this.setRes.Text = "Apply";
-			this.setRes.UseVisualStyleBackColor = true;
-			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(7, 410);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(857, 27);
-			this.replInput.TabIndex = 0;
+			this.label25.AutoSize = true;
+			this.label25.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label25.Location = new System.Drawing.Point(9, 47);
+			this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(28, 13);
+			this.label25.TabIndex = 82;
+			this.label25.Text = "Limit";
 			// 
 			// SettingsForm
 			// 
@@ -2738,10 +2796,14 @@ partial class SettingsForm
 			this.groupBox3.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
 			this.enabler_shadowOverride.ResumeLayout(false);
 			this.enabler_shadowOverride.PerformLayout();
+			this.enabler_cam_ppOverride.ResumeLayout(false);
+			this.enabler_cam_ppOverride.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
 			this.groupBox14.ResumeLayout(false);
@@ -2779,10 +2841,8 @@ partial class SettingsForm
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
-			this.enabler_cam_ppOverride.ResumeLayout(false);
-			this.enabler_cam_ppOverride.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
+			this.groupBox16.ResumeLayout(false);
+			this.groupBox16.PerformLayout();
 			this.ResumeLayout(false);
 
 	}
@@ -3002,5 +3062,10 @@ partial class SettingsForm
 	public System.Windows.Forms.ComboBox antiAliasing;
 	private System.Windows.Forms.Label label3;
 	private System.Windows.Forms.Button setRes;
+	private System.Windows.Forms.GroupBox groupBox16;
+	private System.Windows.Forms.TextBox cumLimit;
+	private System.Windows.Forms.Label label25;
+	private System.Windows.Forms.TextBox cumMult;
+	private System.Windows.Forms.Label label1;
 }
 

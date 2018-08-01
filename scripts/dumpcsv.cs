@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public partial class ScriptEnv
 {
-	public static string subdir = "";
+	public static string subdir = "h/list";
 	public static void dumpassets()
 	{
 		print("Dumping all text serializable assets");

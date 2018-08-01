@@ -107,6 +107,7 @@ public class ScriptEvents
 	/// <param name="nopng">true if savefile</param>
 	public virtual void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng) { }
 
+	public virtual void OnCumShoot(UpdateMeta meta, MetaballShoot shoot, float next) { }
 	/// <summary>
 	/// A category item is being added.
 	/// </summary>
