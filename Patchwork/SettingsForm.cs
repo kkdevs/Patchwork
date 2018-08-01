@@ -357,4 +357,14 @@ public partial class SettingsForm : Form
 	{
 
 	}
+
+	private void label46_Click(object sender, EventArgs e)
+	{
+
+	}
+
+	private void cam_useSunShafts_CheckedChanged(object sender, EventArgs e)
+	{
+
+	}
 }

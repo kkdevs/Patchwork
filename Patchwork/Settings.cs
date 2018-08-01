@@ -23,6 +23,7 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public float cumAmount = 2.5f;
 		public bool boneRoot = false;
 		public bool asyncAnim = true;
 		public bool fixGuides = false;
