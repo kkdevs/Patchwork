@@ -108,6 +108,12 @@ public class ScriptEvents
 	public virtual void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng) { }
 
 	public virtual void OnCumShoot(UpdateMeta meta, MetaballShoot shoot, float next) { }
+
+	public virtual void OnHPlay(HActionBase ha, string anim) { }
+	public virtual void OnSceneImport(string path, BinaryReader br) { }
+	public virtual void OnSceneLoad(string path, BinaryReader br) { }
+	public virtual void OnSceneSave(string path, BinaryWriter bw) { }
+	public virtual void OnHSound(HSeCtrl hse, int animkey, int soundkey) { }
 	/// <summary>
 	/// A category item is being added.
 	/// </summary>

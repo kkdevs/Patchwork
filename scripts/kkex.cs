@@ -37,17 +37,22 @@ public class ImportKKEx : ScriptEvents
 		{
 			Ext.Raise<ExtendedSave>(null, "CardBeingLoaded", f);
 		}
-		catch { };
+		catch (Exception ex) {
+			print(ex);
+		};
 	}
 
 	public override void OnCardSave(ChaFile f, BinaryWriter w, List<object> blocks, bool nopng)
 	{
-		blocks.Add(f.dict.Get<KKEx>("kkex"));
 		try
 		{
 			Ext.Raise<ExtendedSave>(null, "CardBeingSaved", f);
 		}
-		catch { };
+		catch (Exception ex) {
+			print(ex);
+		};
+		blocks.Add(f.dict.Get<KKEx>("kkex"));
 	}
+
 }
 

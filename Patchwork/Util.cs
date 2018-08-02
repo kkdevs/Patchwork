@@ -288,7 +288,7 @@ public static class Ext
 	}
 	public static object Raise<T>(object inst, string name, params object[] args)
 	{
-		return (typeof(T).GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(inst) as Delegate).DynamicInvoke(inst, args);
+		return (typeof(T).GetField(name, BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetValue(inst) as Delegate)?.DynamicInvoke(args);
 	}
 
 	public static Dictionary<Assembly, string> locSpoof;
