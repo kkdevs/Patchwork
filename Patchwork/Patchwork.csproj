@@ -43,7 +43,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Managed\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -51,6 +51,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>CS0169,CS0649,CS0219,CS0105,CS0414,CS0642,CS0618,CS0642,CS1522,CS0164,CS0162,CS0067,CS1717,CS8012,CS0626</NoWarn>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_local|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
