@@ -58,7 +58,8 @@ public partial class SettingsForm : Form
 				{
 					l.TextChanged += (e, o) =>
 					{
-						s.Update(f.Name, l.Text);
+						if (f.Name != "resolution")
+							s.Update(f.Name, l.Text);
 					};
 				}
 			}
@@ -79,6 +80,10 @@ public partial class SettingsForm : Form
 				};
 			}
 		}
+		setRes.Click += (o, e) =>
+		{
+			s.Update("resolution", resolution.Text);
+		};
 		f_qualitySelect.SelectionChangeCommitted += (e, o) =>
 		{
 			s.qualitySelect = (byte)f_qualitySelect.SelectedIndex;
@@ -172,18 +177,6 @@ public partial class SettingsForm : Form
 	public bool updating;
 	public void UpdateForm()
 	{
-		if (launched) return;
-		scriptList.Items.Clear();
-		foreach (var script in ScriptEntry.list)
-		{
-			var item = new ListViewItem(new[] { script.name, script.version, script.ass == null ? "Script" : "DLL", script.info });
-			item.Tag = script;
-			item.Checked = script.enabled;
-			if (script.ass == null && script.info == "")
-				continue;
-			script.listView = item;
-			scriptList.Items.Add(item);
-		}
 		updating = true;
 		var enabled = s.qualitySelect == 0;
 		foreach (var f in typeof(Settings).GetFields())
@@ -192,12 +185,10 @@ public partial class SettingsForm : Form
 			var ff = typeof(SettingsForm).GetField(f.Name, flags);
 			if (ff == null) continue;
 			var control = ff.GetValue(this) as Control;
-			if (f.Name != "fullscreen" && f.Name != "resolution")
-			{
-				Control[] parents = { groupBox1, groupBox2, groupBox3 };
-				if (parents.Contains(control.Parent))
-					control.Enabled = enabled;
-			}
+			Control[] parents = { groupBox1, groupBox2, groupBox3 };
+			if (parents.Contains(control.Parent))
+				control.Enabled = enabled;
+
 			//Trace.Log($"UpdateForm(): Setting {f.Name} to {val}");
 			var t = control as TextBox;
 			if (t != null)
@@ -227,6 +218,18 @@ public partial class SettingsForm : Form
 		}
 		f_qualitySelect.SelectedIndex = s.qualitySelect;
 		updating = false;
+		if (launched) return;
+		scriptList.Items.Clear();
+		foreach (var script in ScriptEntry.list)
+		{
+			var item = new ListViewItem(new[] { script.name, script.version, script.ass == null ? "Script" : "DLL", script.info });
+			item.Tag = script;
+			item.Checked = script.enabled;
+			if (script.ass == null && script.info == "")
+				continue;
+			script.listView = item;
+			scriptList.Items.Add(item);
+		}
 	}
 
 	private void tabPage2_Click(object sender, EventArgs e)
