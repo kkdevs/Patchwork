@@ -156,12 +156,10 @@ public class HSubs : GhettoUI
 		var audioSource = v.audioSource;
 		if (audioSource == null || v.audioSource.loop)
 			return;
-		print("playing " + v.audioSource.clip.name);
 		currentVoice = v;
 		KeyValuePair<int, string> currentPair = new KeyValuePair<int, string>(-1, v.word);
 		dict.TryGetValue(v.assetName.ToLower(), out currentPair);
-		if (settings.enableSpam)
-			print($"[HSUBS] [{v.assetName}] '{v.word}' => '{currentPair.Value}'");
+		spam($"[HSUBS] [{v.assetName}] '{v.word}' => '{currentPair.Value}'");
 		if (!cfg.sheet.IsNullOrEmpty() && currentPair.Key >= 0)
 			editrow = cfg.sheet + "/edit#gid="+cfg.gid+"&range=C" + currentPair.Key;
 		if (cfg.copyToClipboard)

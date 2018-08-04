@@ -140,6 +140,11 @@ public class ScriptEvents
 	{
 		Script.print(o);
 	}
+	public static void spam(object o)
+	{
+		if (Patchwork.settings.enableSpam)
+			Script.print(o);
+	}
 
 	/// <summary>
 	/// Pretty print an object.
