@@ -115,7 +115,6 @@
     <Compile Include="EditLine.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Init.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="EzHook.cs" />
     <Compile Include="MonoScript.cs" />
