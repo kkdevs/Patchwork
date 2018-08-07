@@ -145,6 +145,11 @@ partial class SettingsForm
 			this.bothClass = new System.Windows.Forms.CheckBox();
 			this.bothMC = new System.Windows.Forms.CheckBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.groupBox16 = new System.Windows.Forms.GroupBox();
+			this.cumLimit = new System.Windows.Forms.TextBox();
+			this.label25 = new System.Windows.Forms.Label();
+			this.cumMult = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.groupBox15 = new System.Windows.Forms.GroupBox();
 			this.linkLabel10 = new System.Windows.Forms.LinkLabel();
@@ -238,13 +243,9 @@ partial class SettingsForm
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replInput = new EditLine();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.groupBox16 = new System.Windows.Forms.GroupBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.cumMult = new System.Windows.Forms.TextBox();
-			this.cumLimit = new System.Windows.Forms.TextBox();
-			this.label25 = new System.Windows.Forms.Label();
+			this.studioLoader = new System.Windows.Forms.CheckBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -260,6 +261,7 @@ partial class SettingsForm
 			this.groupBox11.SuspendLayout();
 			this.enabler_tumblr.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			this.groupBox16.SuspendLayout();
 			this.groupBox15.SuspendLayout();
 			this.groupBox10.SuspendLayout();
 			this.enabler_noscopeClipMask.SuspendLayout();
@@ -272,7 +274,6 @@ partial class SettingsForm
 			this.groupBox5.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.tabPage6.SuspendLayout();
-			this.groupBox16.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// launchButton
@@ -1272,6 +1273,7 @@ partial class SettingsForm
 			// groupBox14
 			// 
 			this.groupBox14.AutoSize = true;
+			this.groupBox14.Controls.Add(this.studioLoader);
 			this.groupBox14.Controls.Add(this.blackFade);
 			this.groupBox14.Controls.Add(this.capJPG);
 			this.groupBox14.Controls.Add(this.geass);
@@ -1284,7 +1286,7 @@ partial class SettingsForm
 			this.groupBox14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox14.Name = "groupBox14";
 			this.groupBox14.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox14.Size = new System.Drawing.Size(336, 216);
+			this.groupBox14.Size = new System.Drawing.Size(336, 237);
 			this.groupBox14.TabIndex = 44;
 			this.groupBox14.TabStop = false;
 			this.groupBox14.Text = "General";
@@ -1293,7 +1295,7 @@ partial class SettingsForm
 			// 
 			this.blackFade.AutoSize = true;
 			this.blackFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.blackFade.Location = new System.Drawing.Point(7, 132);
+			this.blackFade.Location = new System.Drawing.Point(7, 152);
 			this.blackFade.Name = "blackFade";
 			this.blackFade.Size = new System.Drawing.Size(77, 17);
 			this.blackFade.TabIndex = 38;
@@ -1304,7 +1306,7 @@ partial class SettingsForm
 			// 
 			this.capJPG.AutoSize = true;
 			this.capJPG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.capJPG.Location = new System.Drawing.Point(7, 178);
+			this.capJPG.Location = new System.Drawing.Point(7, 198);
 			this.capJPG.Name = "capJPG";
 			this.capJPG.Size = new System.Drawing.Size(148, 17);
 			this.capJPG.TabIndex = 37;
@@ -1315,7 +1317,7 @@ partial class SettingsForm
 			// 
 			this.geass.AutoSize = true;
 			this.geass.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.geass.Location = new System.Drawing.Point(7, 43);
+			this.geass.Location = new System.Drawing.Point(7, 63);
 			this.geass.Name = "geass";
 			this.geass.Size = new System.Drawing.Size(304, 17);
 			this.geass.TabIndex = 36;
@@ -1326,7 +1328,7 @@ partial class SettingsForm
 			// 
 			this.unlockH.AutoSize = true;
 			this.unlockH.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.unlockH.Location = new System.Drawing.Point(7, 20);
+			this.unlockH.Location = new System.Drawing.Point(7, 40);
 			this.unlockH.Name = "unlockH";
 			this.unlockH.Size = new System.Drawing.Size(121, 17);
 			this.unlockH.TabIndex = 0;
@@ -1337,7 +1339,7 @@ partial class SettingsForm
 			// 
 			this.watchFolder.AutoSize = true;
 			this.watchFolder.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.watchFolder.Location = new System.Drawing.Point(7, 89);
+			this.watchFolder.Location = new System.Drawing.Point(7, 109);
 			this.watchFolder.Name = "watchFolder";
 			this.watchFolder.Size = new System.Drawing.Size(276, 17);
 			this.watchFolder.TabIndex = 2;
@@ -1348,7 +1350,7 @@ partial class SettingsForm
 			// 
 			this.equality.AutoSize = true;
 			this.equality.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.equality.Location = new System.Drawing.Point(7, 66);
+			this.equality.Location = new System.Drawing.Point(7, 86);
 			this.equality.Name = "equality";
 			this.equality.Size = new System.Drawing.Size(237, 17);
 			this.equality.TabIndex = 8;
@@ -1359,7 +1361,7 @@ partial class SettingsForm
 			// 
 			this.skipLogo.AutoSize = true;
 			this.skipLogo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.skipLogo.Location = new System.Drawing.Point(7, 155);
+			this.skipLogo.Location = new System.Drawing.Point(7, 175);
 			this.skipLogo.Name = "skipLogo";
 			this.skipLogo.Size = new System.Drawing.Size(177, 17);
 			this.skipLogo.TabIndex = 29;
@@ -1370,7 +1372,7 @@ partial class SettingsForm
 			// 
 			this.noFade.AutoSize = true;
 			this.noFade.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.noFade.Location = new System.Drawing.Point(7, 109);
+			this.noFade.Location = new System.Drawing.Point(7, 129);
 			this.noFade.Name = "noFade";
 			this.noFade.Size = new System.Drawing.Size(64, 17);
 			this.noFade.TabIndex = 30;
@@ -1390,7 +1392,7 @@ partial class SettingsForm
 			this.groupBox13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox13.Name = "groupBox13";
 			this.groupBox13.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox13.Size = new System.Drawing.Size(343, 216);
+			this.groupBox13.Size = new System.Drawing.Size(343, 237);
 			this.groupBox13.TabIndex = 43;
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Card data";
@@ -1460,7 +1462,7 @@ partial class SettingsForm
 			// 
 			this.tumblr.AutoSize = true;
 			this.tumblr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.tumblr.Location = new System.Drawing.Point(24, 235);
+			this.tumblr.Location = new System.Drawing.Point(24, 257);
 			this.tumblr.Name = "tumblr";
 			this.tumblr.Size = new System.Drawing.Size(131, 17);
 			this.tumblr.TabIndex = 23;
@@ -1473,7 +1475,7 @@ partial class SettingsForm
 			this.groupBox12.Controls.Add(this.sliderMin);
 			this.groupBox12.Controls.Add(this.label33);
 			this.groupBox12.Controls.Add(this.sliderMax);
-			this.groupBox12.Location = new System.Drawing.Point(431, 241);
+			this.groupBox12.Location = new System.Drawing.Point(431, 262);
 			this.groupBox12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox12.Name = "groupBox12";
 			this.groupBox12.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1526,7 +1528,7 @@ partial class SettingsForm
 			this.groupBox11.Controls.Add(this.spectateADV);
 			this.groupBox11.Controls.Add(this.lowPolyADV);
 			this.groupBox11.Controls.Add(this.hiPoly);
-			this.groupBox11.Location = new System.Drawing.Point(189, 241);
+			this.groupBox11.Location = new System.Drawing.Point(189, 262);
 			this.groupBox11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox11.Name = "groupBox11";
 			this.groupBox11.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1598,7 +1600,7 @@ partial class SettingsForm
 			this.enabler_tumblr.Controls.Add(this.bothEdit);
 			this.enabler_tumblr.Controls.Add(this.bothClass);
 			this.enabler_tumblr.Controls.Add(this.bothMC);
-			this.enabler_tumblr.Location = new System.Drawing.Point(10, 241);
+			this.enabler_tumblr.Location = new System.Drawing.Point(10, 262);
 			this.enabler_tumblr.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.enabler_tumblr.Name = "enabler_tumblr";
 			this.enabler_tumblr.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1678,6 +1680,57 @@ partial class SettingsForm
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = " H config ";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// groupBox16
+			// 
+			this.groupBox16.Controls.Add(this.cumLimit);
+			this.groupBox16.Controls.Add(this.label25);
+			this.groupBox16.Controls.Add(this.cumMult);
+			this.groupBox16.Controls.Add(this.label1);
+			this.groupBox16.Location = new System.Drawing.Point(343, 161);
+			this.groupBox16.Name = "groupBox16";
+			this.groupBox16.Size = new System.Drawing.Size(200, 100);
+			this.groupBox16.TabIndex = 68;
+			this.groupBox16.TabStop = false;
+			this.groupBox16.Text = "Cum";
+			// 
+			// cumLimit
+			// 
+			this.cumLimit.Location = new System.Drawing.Point(73, 44);
+			this.cumLimit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cumLimit.Name = "cumLimit";
+			this.cumLimit.Size = new System.Drawing.Size(112, 20);
+			this.cumLimit.TabIndex = 81;
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label25.Location = new System.Drawing.Point(9, 47);
+			this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(28, 13);
+			this.label25.TabIndex = 82;
+			this.label25.Text = "Limit";
+			// 
+			// cumMult
+			// 
+			this.cumMult.Location = new System.Drawing.Point(73, 14);
+			this.cumMult.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.cumMult.Name = "cumMult";
+			this.cumMult.Size = new System.Drawing.Size(112, 20);
+			this.cumMult.TabIndex = 80;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.label1.Location = new System.Drawing.Point(10, 18);
+			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(48, 13);
+			this.label1.TabIndex = 80;
+			this.label1.Text = "Multiplier";
 			// 
 			// linkLabel1
 			// 
@@ -2699,17 +2752,6 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(7, 410);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(857, 27);
-			this.replInput.TabIndex = 0;
-			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2727,56 +2769,27 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// groupBox16
+			// studioLoader
 			// 
-			this.groupBox16.Controls.Add(this.cumLimit);
-			this.groupBox16.Controls.Add(this.label25);
-			this.groupBox16.Controls.Add(this.cumMult);
-			this.groupBox16.Controls.Add(this.label1);
-			this.groupBox16.Location = new System.Drawing.Point(343, 161);
-			this.groupBox16.Name = "groupBox16";
-			this.groupBox16.Size = new System.Drawing.Size(200, 100);
-			this.groupBox16.TabIndex = 68;
-			this.groupBox16.TabStop = false;
-			this.groupBox16.Text = "Cum";
+			this.studioLoader.AutoSize = true;
+			this.studioLoader.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.studioLoader.Location = new System.Drawing.Point(7, 16);
+			this.studioLoader.Name = "studioLoader";
+			this.studioLoader.Size = new System.Drawing.Size(192, 17);
+			this.studioLoader.TabIndex = 39;
+			this.studioLoader.Text = "Load studio scenes as free H maps";
+			this.studioLoader.UseVisualStyleBackColor = true;
 			// 
-			// label1
+			// replInput
 			// 
-			this.label1.AutoSize = true;
-			this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label1.Location = new System.Drawing.Point(10, 18);
-			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(48, 13);
-			this.label1.TabIndex = 80;
-			this.label1.Text = "Multiplier";
-			// 
-			// cumMult
-			// 
-			this.cumMult.Location = new System.Drawing.Point(73, 14);
-			this.cumMult.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cumMult.Name = "cumMult";
-			this.cumMult.Size = new System.Drawing.Size(112, 20);
-			this.cumMult.TabIndex = 80;
-			// 
-			// cumLimit
-			// 
-			this.cumLimit.Location = new System.Drawing.Point(73, 44);
-			this.cumLimit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cumLimit.Name = "cumLimit";
-			this.cumLimit.Size = new System.Drawing.Size(112, 20);
-			this.cumLimit.TabIndex = 81;
-			// 
-			// label25
-			// 
-			this.label25.AutoSize = true;
-			this.label25.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label25.Location = new System.Drawing.Point(9, 47);
-			this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(28, 13);
-			this.label25.TabIndex = 82;
-			this.label25.Text = "Limit";
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(7, 410);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(857, 27);
+			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 
@@ -2818,6 +2831,8 @@ partial class SettingsForm
 			this.enabler_tumblr.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			this.groupBox16.ResumeLayout(false);
+			this.groupBox16.PerformLayout();
 			this.groupBox15.ResumeLayout(false);
 			this.groupBox15.PerformLayout();
 			this.groupBox10.ResumeLayout(false);
@@ -2841,8 +2856,6 @@ partial class SettingsForm
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
-			this.groupBox16.ResumeLayout(false);
-			this.groupBox16.PerformLayout();
 			this.ResumeLayout(false);
 
 	}
@@ -3067,5 +3080,6 @@ partial class SettingsForm
 	private System.Windows.Forms.Label label25;
 	private System.Windows.Forms.TextBox cumMult;
 	private System.Windows.Forms.Label label1;
+	private System.Windows.Forms.CheckBox studioLoader;
 }
 

@@ -1,6 +1,5 @@
-﻿//@INFO: XRay experiment
+﻿//@INFO: Animated H xray
 //@VER: 1
-
 
 using System;
 using System.Collections.Generic;
@@ -26,14 +25,19 @@ public class XRay : ScriptEvents
 		// after how many seconds we hide the clip
 		public float expires = 1;
 
-		// sound file activating this entry
 		[System.NonSerialized]
 		public Texture2D[][] frames;
 	}
 	public List<RayInfo> infos = new List<RayInfo>();
 	public override void Start()
 	{
-		foreach (var dir in Directory.GetDirectories(Dir.pw + "xray"))
+		var xdir = Dir.pw + "xray";
+		if (!Directory.Exists(xdir))
+		{
+			print("No XRay animation clips found; disabling.");
+			return;
+		}
+		foreach (var dir in Directory.GetDirectories(xdir))
 		{
 			var info = dir + "/info.json";
 			if (!File.Exists(info)) continue;
@@ -69,7 +73,10 @@ public class XRay : ScriptEvents
 
 	public override void OnHPlay(HActionBase ha, string anim)
 	{
-		var id = (int)ha?.flags.selectedAnimationListInfo?.id;
+		var sel = ha?.flags?.selectedAnimationListInfo;
+		if (sel == null)
+			return;
+		var id = sel.id;
 		spam("Setting up position " + id + anim);
 		var entry = infos.Find(x => x.animsync && x.positions.Contains(id) && x.anims.Contains(anim));
 		if (entry == null)
@@ -86,9 +93,13 @@ public class XRay : ScriptEvents
 
 	public override void OnHSound(HSeCtrl hse, int animkey, int soundkey)
 	{
+		var sel = hse?.flags?.selectedAnimationListInfo;
+		if (sel == null)
+			return;
+		var id = sel.id;
+
 		var ai = hse.lstInfo[animkey];
 		var key = ai.key[soundkey];
-		var id = (int)hse.flags.selectedAnimationListInfo?.id;
 		spam("H sound "+key.nameSE+"for " + id);
 
 		var entry = infos.Find(x=>x.animsync == false && x.positions.Contains(id) && x.sound == key.nameSE);
@@ -166,77 +177,4 @@ public class XRay : ScriptEvents
 		Graphics.DrawTexture(new Rect(0, Screen.height / 4, tw * h / th, h), tex);
 	}
 
-#if false
-	public Texture2D[] texes;
-	public override void OnHPlay(HActionBase ha, string anim)
-	{
-		if (ha.flags && ha.flags.selectedAnimationListInfo != null)
-			print("Selected anim " + ha.flags.selectedAnimationListInfo.id);
-	}
-	public override void OnHSound(HSeCtrl hse, int animkey, int soundkey)
-	{
-		var ai = hse.lstInfo[animkey];
-		var key = ai.key[soundkey];
-		if (hse.flags?.selectedAnimationListInfo != null)
-		{
-			print("H sound for " + hse.flags.selectedAnimationListInfo.id);
-		} 
-		print("hsound key "+ai.nameAnimation + " " + key.nameSE + " " + key.isLoop);
-		if (key.nameSE == "khse_06")
-		{
-			xray = 0;
-			t = 0;
-			expires = 1f;
-			loop = 3;
-			keydelta = 1.5f / texes.Length / loop;
-		}
-	}
-	public Material mat;
-	public int tick;
-	public float t;
-	public int loop;
-	public float keydelta;
-	public float expires;
-
-	public override void Update()
-	{
-		if (xray < 0)
-			return;
-		t += Time.deltaTime;
-		if (t > keydelta)
-		{
-			if (xray < texes.Length - 1)
-			{
-				t -= keydelta;
-				xray++;
-			}
-			else if (loop > 1)
-			{
-				xray = 0;
-				loop--;
-			}
-		}
-		if (t > expires)
-			xray = -1;
-	}
-	public int xray = -1;
-	public override void OnGUI()
-	{
-		/*if (Event.current.type == EventType.KeyDown)
-		{
-			if (Event.current.keyCode == KeyCode.KeypadMinus)
-				keydelta
-		}*/
-		if (!Event.current.type.Equals(EventType.Repaint))
-			return;
-		if (xray < 0)
-			return;
-		int pos = (tick / 4) % texes.Length;
-		var g = new Color(1.5f, 1.5f, 1.5f);
-		var h = Screen.height / 4;
-		var tw = texes[pos].width;
-		var th = texes[pos].height;
-		Graphics.DrawTexture(new Rect(0, Screen.height/4, tw * h / th, h), texes[xray]);
-	}
-#endif
 }
