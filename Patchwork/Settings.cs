@@ -23,6 +23,7 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool peepAcs = true;
 		public bool studioLoader = true;
 		public int chaUpdateTick = -1;
 		public float cumMult = 2.5f;

@@ -52,7 +52,7 @@ public class unzip : ScriptEvents
 	{
 		
 		var target = Dir.mod + "abdata/";
-		if (!settings.withoutManifest && Directory.Exists(target)) return false;
+		if (settings.withoutManifest && Directory.Exists(target)) return false;
 		bool res = false;
 		foreach (var sfn in Directory.GetFiles(Dir.abdata, "*.unity3d", SearchOption.AllDirectories))
 		{

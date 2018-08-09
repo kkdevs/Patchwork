@@ -9,8 +9,7 @@ using System.Collections.Generic;
 
 public partial class ScriptEnv
 {
-	public static string subdir = "h/list";
-	public static void dumpassets()
+	public static void dumpassets(string subdir="")
 	{
 		print("Dumping all text serializable assets");
 		var dumpdir = Dir.mod + "!base/";
