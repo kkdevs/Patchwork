@@ -111,6 +111,7 @@ partial class SettingsForm
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
+			this.studioLoader = new System.Windows.Forms.CheckBox();
 			this.blackFade = new System.Windows.Forms.CheckBox();
 			this.capJPG = new System.Windows.Forms.CheckBox();
 			this.geass = new System.Windows.Forms.CheckBox();
@@ -243,9 +244,10 @@ partial class SettingsForm
 			this.dontshow = new System.Windows.Forms.CheckBox();
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.studioLoader = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
+			this.replOutput = new System.Windows.Forms.RichTextBox();
+			this.altLow = new System.Windows.Forms.CheckBox();
+			this.showAcs = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1286,10 +1288,21 @@ partial class SettingsForm
 			this.groupBox14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox14.Name = "groupBox14";
 			this.groupBox14.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox14.Size = new System.Drawing.Size(336, 237);
+			this.groupBox14.Size = new System.Drawing.Size(336, 258);
 			this.groupBox14.TabIndex = 44;
 			this.groupBox14.TabStop = false;
 			this.groupBox14.Text = "General";
+			// 
+			// studioLoader
+			// 
+			this.studioLoader.AutoSize = true;
+			this.studioLoader.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.studioLoader.Location = new System.Drawing.Point(7, 16);
+			this.studioLoader.Name = "studioLoader";
+			this.studioLoader.Size = new System.Drawing.Size(192, 17);
+			this.studioLoader.TabIndex = 39;
+			this.studioLoader.Text = "Load studio scenes as free H maps";
+			this.studioLoader.UseVisualStyleBackColor = true;
 			// 
 			// blackFade
 			// 
@@ -1392,7 +1405,7 @@ partial class SettingsForm
 			this.groupBox13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox13.Name = "groupBox13";
 			this.groupBox13.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox13.Size = new System.Drawing.Size(343, 237);
+			this.groupBox13.Size = new System.Drawing.Size(343, 258);
 			this.groupBox13.TabIndex = 43;
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Card data";
@@ -1462,7 +1475,7 @@ partial class SettingsForm
 			// 
 			this.tumblr.AutoSize = true;
 			this.tumblr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.tumblr.Location = new System.Drawing.Point(24, 257);
+			this.tumblr.Location = new System.Drawing.Point(24, 281);
 			this.tumblr.Name = "tumblr";
 			this.tumblr.Size = new System.Drawing.Size(131, 17);
 			this.tumblr.TabIndex = 23;
@@ -1475,7 +1488,7 @@ partial class SettingsForm
 			this.groupBox12.Controls.Add(this.sliderMin);
 			this.groupBox12.Controls.Add(this.label33);
 			this.groupBox12.Controls.Add(this.sliderMax);
-			this.groupBox12.Location = new System.Drawing.Point(431, 262);
+			this.groupBox12.Location = new System.Drawing.Point(431, 286);
 			this.groupBox12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox12.Name = "groupBox12";
 			this.groupBox12.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1523,19 +1536,20 @@ partial class SettingsForm
 			// 
 			// groupBox11
 			// 
+			this.groupBox11.Controls.Add(this.showAcs);
 			this.groupBox11.Controls.Add(this.linkLabel11);
 			this.groupBox11.Controls.Add(this.spectateH);
 			this.groupBox11.Controls.Add(this.spectateADV);
 			this.groupBox11.Controls.Add(this.lowPolyADV);
 			this.groupBox11.Controls.Add(this.hiPoly);
-			this.groupBox11.Location = new System.Drawing.Point(189, 262);
+			this.groupBox11.Location = new System.Drawing.Point(189, 286);
 			this.groupBox11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox11.Name = "groupBox11";
 			this.groupBox11.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox11.Size = new System.Drawing.Size(234, 147);
 			this.groupBox11.TabIndex = 40;
 			this.groupBox11.TabStop = false;
-			this.groupBox11.Text = "Character rendering";
+			this.groupBox11.Text = "Overworld options";
 			// 
 			// linkLabel11
 			// 
@@ -1600,7 +1614,7 @@ partial class SettingsForm
 			this.enabler_tumblr.Controls.Add(this.bothEdit);
 			this.enabler_tumblr.Controls.Add(this.bothClass);
 			this.enabler_tumblr.Controls.Add(this.bothMC);
-			this.enabler_tumblr.Location = new System.Drawing.Point(10, 262);
+			this.enabler_tumblr.Location = new System.Drawing.Point(10, 286);
 			this.enabler_tumblr.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.enabler_tumblr.Name = "enabler_tumblr";
 			this.enabler_tumblr.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2542,6 +2556,7 @@ partial class SettingsForm
 			// 
 			// groupBox5
 			// 
+			this.groupBox5.Controls.Add(this.altLow);
 			this.groupBox5.Controls.Add(this.linkLabel4);
 			this.groupBox5.Controls.Add(this.bodyHiPoly);
 			this.groupBox5.Controls.Add(this.bodyLowPoly);
@@ -2559,7 +2574,7 @@ partial class SettingsForm
 			this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox5.Size = new System.Drawing.Size(320, 162);
+			this.groupBox5.Size = new System.Drawing.Size(320, 203);
 			this.groupBox5.TabIndex = 56;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Painted texture sizes";
@@ -2752,6 +2767,17 @@ partial class SettingsForm
 			this.tabPage6.Text = " Evaluator ";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(7, 410);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(857, 27);
+			this.replInput.TabIndex = 0;
+			// 
 			// replOutput
 			// 
 			this.replOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -2769,27 +2795,27 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// studioLoader
+			// altLow
 			// 
-			this.studioLoader.AutoSize = true;
-			this.studioLoader.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.studioLoader.Location = new System.Drawing.Point(7, 16);
-			this.studioLoader.Name = "studioLoader";
-			this.studioLoader.Size = new System.Drawing.Size(192, 17);
-			this.studioLoader.TabIndex = 39;
-			this.studioLoader.Text = "Load studio scenes as free H maps";
-			this.studioLoader.UseVisualStyleBackColor = true;
+			this.altLow.AutoSize = true;
+			this.altLow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.altLow.Location = new System.Drawing.Point(19, 147);
+			this.altLow.Name = "altLow";
+			this.altLow.Size = new System.Drawing.Size(205, 17);
+			this.altLow.TabIndex = 60;
+			this.altLow.Text = "load standard variant if _low is missing";
+			this.altLow.UseVisualStyleBackColor = true;
 			// 
-			// replInput
+			// showAcs
 			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(7, 410);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(857, 27);
-			this.replInput.TabIndex = 0;
+			this.showAcs.AutoSize = true;
+			this.showAcs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.showAcs.Location = new System.Drawing.Point(7, 109);
+			this.showAcs.Name = "showAcs";
+			this.showAcs.Size = new System.Drawing.Size(146, 17);
+			this.showAcs.TabIndex = 69;
+			this.showAcs.Text = "Always show accessories";
+			this.showAcs.UseVisualStyleBackColor = true;
 			// 
 			// SettingsForm
 			// 
@@ -3081,5 +3107,7 @@ partial class SettingsForm
 	private System.Windows.Forms.TextBox cumMult;
 	private System.Windows.Forms.Label label1;
 	private System.Windows.Forms.CheckBox studioLoader;
+	private System.Windows.Forms.CheckBox showAcs;
+	private System.Windows.Forms.CheckBox altLow;
 }
 
