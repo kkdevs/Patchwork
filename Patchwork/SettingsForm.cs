@@ -375,4 +375,9 @@ public partial class SettingsForm : Form
 	{
 
 	}
+
+	private void groupBox11_Enter(object sender, EventArgs e)
+	{
+
+	}
 }
