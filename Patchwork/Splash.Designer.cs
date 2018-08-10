@@ -26,36 +26,36 @@
 	/// </summary>
 	private void InitializeComponent()
 	{
-		this.label1 = new System.Windows.Forms.Label();
-		this.SuspendLayout();
-		// 
-		// label1
-		// 
-		this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-        | System.Windows.Forms.AnchorStyles.Left) 
-        | System.Windows.Forms.AnchorStyles.Right)));
-		this.label1.Location = new System.Drawing.Point(88, 42);
-		this.label1.Name = "label1";
-		this.label1.Size = new System.Drawing.Size(81, 44);
-		this.label1.TabIndex = 0;
-		this.label1.Text = "Loading";
-		this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-		// 
-		// Splash
-		// 
-		this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-		this.ClientSize = new System.Drawing.Size(258, 131);
-		this.ControlBox = false;
-		this.Controls.Add(this.label1);
-		this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-		this.MaximizeBox = false;
-		this.MinimizeBox = false;
-		this.Name = "Splash";
-		this.ShowIcon = false;
-		this.ShowInTaskbar = false;
-		this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-		this.TopMost = true;
-		this.ResumeLayout(false);
+			this.label1 = new System.Windows.Forms.Label();
+			this.SuspendLayout();
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.Location = new System.Drawing.Point(88, 42);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(81, 44);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Loading";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// Splash
+			// 
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+			this.ClientSize = new System.Drawing.Size(254, 127);
+			this.ControlBox = false;
+			this.Controls.Add(this.label1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "Splash";
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.TopMost = true;
+			this.ResumeLayout(false);
 
 	}
 

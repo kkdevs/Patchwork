@@ -323,7 +323,8 @@ public class FakeID : ScriptEvents
 	public override void OnCoordinate(ChaFile f, ChaFileCoordinate co, bool isLoad)
 	{
 		if (coordRewriter.map == null)
-			return;
+			coordRewriter.map = new GuidMap();
+
 		coordRewriter.map.baseprefix = null;
 		if (isLoad)
 			coordRewriter.ToFake(co);

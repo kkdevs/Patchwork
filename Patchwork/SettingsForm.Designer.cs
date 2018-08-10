@@ -134,6 +134,8 @@ partial class SettingsForm
 			this.label33 = new System.Windows.Forms.Label();
 			this.sliderMax = new System.Windows.Forms.TextBox();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.altLow = new System.Windows.Forms.CheckBox();
+			this.showAcs = new System.Windows.Forms.CheckBox();
 			this.linkLabel11 = new System.Windows.Forms.LinkLabel();
 			this.spectateH = new System.Windows.Forms.CheckBox();
 			this.spectateADV = new System.Windows.Forms.CheckBox();
@@ -245,9 +247,7 @@ partial class SettingsForm
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.showAcs = new System.Windows.Forms.CheckBox();
 			this.replInput = new EditLine();
-			this.altLow = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1000,7 +1000,6 @@ partial class SettingsForm
 			// 
 			// enabler_shadowOverride
 			// 
-			this.enabler_shadowOverride.AutoSize = true;
 			this.enabler_shadowOverride.Controls.Add(this.customShadowStrengthLimit);
 			this.enabler_shadowOverride.Controls.Add(this.label34);
 			this.enabler_shadowOverride.Controls.Add(this.label21);
@@ -1085,7 +1084,6 @@ partial class SettingsForm
 			// 
 			// enabler_cam_ppOverride
 			// 
-			this.enabler_cam_ppOverride.AutoSize = true;
 			this.enabler_cam_ppOverride.Controls.Add(this.label46);
 			this.enabler_cam_ppOverride.Controls.Add(this.cam_aoeRadius);
 			this.enabler_cam_ppOverride.Controls.Add(this.label45);
@@ -1274,7 +1272,6 @@ partial class SettingsForm
 			// 
 			// groupBox14
 			// 
-			this.groupBox14.AutoSize = true;
 			this.groupBox14.Controls.Add(this.studioLoader);
 			this.groupBox14.Controls.Add(this.blackFade);
 			this.groupBox14.Controls.Add(this.capJPG);
@@ -1394,7 +1391,6 @@ partial class SettingsForm
 			// 
 			// groupBox13
 			// 
-			this.groupBox13.AutoSize = true;
 			this.groupBox13.Controls.Add(this.cardFmt);
 			this.groupBox13.Controls.Add(this.chardb);
 			this.groupBox13.Controls.Add(this.label35);
@@ -1553,6 +1549,28 @@ partial class SettingsForm
 			this.groupBox11.Text = "Overworld options";
 			this.groupBox11.Enter += new System.EventHandler(this.groupBox11_Enter);
 			// 
+			// altLow
+			// 
+			this.altLow.AutoSize = true;
+			this.altLow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.altLow.Location = new System.Drawing.Point(7, 130);
+			this.altLow.Name = "altLow";
+			this.altLow.Size = new System.Drawing.Size(160, 17);
+			this.altLow.TabIndex = 70;
+			this.altLow.Text = "Load hipoly if _low is missing";
+			this.altLow.UseVisualStyleBackColor = true;
+			// 
+			// showAcs
+			// 
+			this.showAcs.AutoSize = true;
+			this.showAcs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.showAcs.Location = new System.Drawing.Point(7, 109);
+			this.showAcs.Name = "showAcs";
+			this.showAcs.Size = new System.Drawing.Size(146, 17);
+			this.showAcs.TabIndex = 69;
+			this.showAcs.Text = "Always show accessories";
+			this.showAcs.UseVisualStyleBackColor = true;
+			// 
 			// linkLabel11
 			// 
 			this.linkLabel11.AutoSize = true;
@@ -1610,7 +1628,6 @@ partial class SettingsForm
 			// 
 			// enabler_tumblr
 			// 
-			this.enabler_tumblr.AutoSize = true;
 			this.enabler_tumblr.Controls.Add(this.bothFreeH);
 			this.enabler_tumblr.Controls.Add(this.benderClothes);
 			this.enabler_tumblr.Controls.Add(this.bothEdit);
@@ -1761,7 +1778,6 @@ partial class SettingsForm
 			// 
 			// groupBox15
 			// 
-			this.groupBox15.AutoSize = true;
 			this.groupBox15.Controls.Add(this.linkLabel10);
 			this.groupBox15.Controls.Add(this.fixPenis);
 			this.groupBox15.Controls.Add(this.fixVagina);
@@ -1845,7 +1861,6 @@ partial class SettingsForm
 			// 
 			// groupBox10
 			// 
-			this.groupBox10.AutoSize = true;
 			this.groupBox10.Controls.Add(this.studioBase);
 			this.groupBox10.Controls.Add(this.linkLabel2);
 			this.groupBox10.Controls.Add(this.ooMale);
@@ -1961,7 +1976,6 @@ partial class SettingsForm
 			// 
 			// enabler_noscopeClipMask
 			// 
-			this.enabler_noscopeClipMask.AutoSize = true;
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeSimGomu);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeHead);
 			this.enabler_noscopeClipMask.Controls.Add(this.noscopeAlphaClampEnd);
@@ -2250,7 +2264,6 @@ partial class SettingsForm
 			// 
 			// groupBox9
 			// 
-			this.groupBox9.AutoSize = true;
 			this.groupBox9.Controls.Add(this.withoutManifest);
 			this.groupBox9.Controls.Add(this.linkLabel5);
 			this.groupBox9.Controls.Add(this.loadMods);
@@ -2310,7 +2323,6 @@ partial class SettingsForm
 			// 
 			// groupBox8
 			// 
-			this.groupBox8.AutoSize = true;
 			this.groupBox8.Controls.Add(this.linkLabel8);
 			this.groupBox8.Controls.Add(this.enableTrace);
 			this.groupBox8.Controls.Add(this.enableSpam);
@@ -2358,7 +2370,6 @@ partial class SettingsForm
 			// 
 			// groupBox7
 			// 
-			this.groupBox7.AutoSize = true;
 			this.groupBox7.Controls.Add(this.asyncAnim);
 			this.groupBox7.Controls.Add(this.asyncMaker);
 			this.groupBox7.Controls.Add(this.cacheScripts);
@@ -2370,7 +2381,7 @@ partial class SettingsForm
 			this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox7.Name = "groupBox7";
 			this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox7.Size = new System.Drawing.Size(192, 203);
+			this.groupBox7.Size = new System.Drawing.Size(192, 208);
 			this.groupBox7.TabIndex = 57;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Performance";
@@ -2575,7 +2586,7 @@ partial class SettingsForm
 			this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox5.Size = new System.Drawing.Size(320, 203);
+			this.groupBox5.Size = new System.Drawing.Size(320, 208);
 			this.groupBox5.TabIndex = 56;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Painted texture sizes";
@@ -2695,7 +2706,6 @@ partial class SettingsForm
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.AutoSize = true;
 			this.groupBox4.Controls.Add(this.noFrillsExit);
 			this.groupBox4.Controls.Add(this.noBustNorm);
 			this.groupBox4.Controls.Add(this.dontshow);
@@ -2785,17 +2795,6 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// showAcs
-			// 
-			this.showAcs.AutoSize = true;
-			this.showAcs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.showAcs.Location = new System.Drawing.Point(7, 109);
-			this.showAcs.Name = "showAcs";
-			this.showAcs.Size = new System.Drawing.Size(146, 17);
-			this.showAcs.TabIndex = 69;
-			this.showAcs.Text = "Always show accessories";
-			this.showAcs.UseVisualStyleBackColor = true;
-			// 
 			// replInput
 			// 
 			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -2807,20 +2806,9 @@ partial class SettingsForm
 			this.replInput.Size = new System.Drawing.Size(857, 27);
 			this.replInput.TabIndex = 0;
 			// 
-			// altLow
-			// 
-			this.altLow.AutoSize = true;
-			this.altLow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.altLow.Location = new System.Drawing.Point(7, 130);
-			this.altLow.Name = "altLow";
-			this.altLow.Size = new System.Drawing.Size(160, 17);
-			this.altLow.TabIndex = 70;
-			this.altLow.Text = "Load hipoly if _low is missing";
-			this.altLow.UseVisualStyleBackColor = true;
-			// 
 			// SettingsForm
 			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.AutoSize = true;
 			this.ClientSize = new System.Drawing.Size(899, 495);
 			this.Controls.Add(this.tabControl1);

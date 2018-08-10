@@ -115,8 +115,10 @@ public class unzip : ScriptEvents
 
 	public bool CanonizeZip() {
 		var target = Dir.mod;
-		print("Unzipping mods into " + Path.GetFullPath(target));
 		var zipdir = Dir.root + "mods";
+		if (!Directory.Exists(zipdir))
+			return false;
+		print("Unzipping mods into " + Path.GetFullPath(target));
 		bool needRescan = false;
 		LoadedAssetBundle.GCBundles();
 		foreach (var zipfn in Directory.GetFiles(zipdir, "*.zip", SearchOption.AllDirectories))
