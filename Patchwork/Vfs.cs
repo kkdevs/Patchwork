@@ -306,7 +306,7 @@ public static class Vfs
 			if (caching)
 				Save();
 		}
-		else LoadManifests(false);
+		else LoadManifests(true);
 	}
 
 	public static bool initialized;

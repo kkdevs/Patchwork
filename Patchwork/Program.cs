@@ -386,7 +386,7 @@ public static partial class Patchwork {
 	{
 		if (Singleton<Character>.Instance != null && !Singleton<Character>.Instance.enableCharaLoadGCClear)
 			return;
-		Debug.Log("[GC] Requested by ", who);
+		Debug.Spam("[GC] Requested by ", who);
 		if (asset && !settings.lazyAssetGC) {
 #if !USE_OLD_ABM
 			LoadedAssetBundle.Flush(true);

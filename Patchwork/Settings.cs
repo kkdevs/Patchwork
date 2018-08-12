@@ -23,9 +23,9 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
-		public bool altLow = true;
-		public bool showAcs = true;
-		public bool studioLoader = true;
+		public bool altLow = false;
+		public bool showAcs = false;
+		public bool studioLoader = false;
 		public int chaUpdateTick = -1;
 		public float cumMult = 2.5f;
 		public float cumLimit = 150f;
@@ -49,9 +49,9 @@ public static partial class Patchwork
 		public bool studioBase = false;
 		public bool nukeMat = false;
 		public bool withoutManifest = false;
-		public bool loadMods = false;
-		public bool loadUnsafe = false;
-		public bool asyncMaker = true;
+		public bool loadMods = true;
+		public bool loadUnsafe = true;
+		public bool asyncMaker = false;
 		public bool abinfoCache = false;
 
 		public bool blackFade = true;
@@ -95,14 +95,14 @@ public static partial class Patchwork
 		public bool noBustNorm = false;
 		public bool mcChange = true;
 		public bool noFade = true;
-		public bool skipLogo = false;
+		public bool skipLogo = true;
 		public float rimOverride = -1;
 		public int visTick = 1;
 		public int shaderTick = 1;
 		public bool resizable = true;
 		public bool dontshow = false;
 		public bool useBOM = false;
-		public bool showFPS = true;
+		public bool showFPS = false;
 		public bool useLR = true;
 		public bool fetchAssets = true;
 		public bool dumpAssets = true;
@@ -137,14 +137,14 @@ public static partial class Patchwork
 		public bool assetCache = true;
 		public bool compCache = true;
 		public bool assetAsync = true;
-		public bool tumblr = true;
+		public bool tumblr = false;
 		public bool watchFolder = true;
 
 		// Text input fields
 		public float sliderMin = -1f;
 		public float sliderMax = 2f;
 		public float _rimG = 1.0f;
-		public float shadowDistance = 80;
+		public float shadowDistance = 50;
 		public float shadowNearPlaneOffset = 4;
 		public float maximumLODLevel = 0;
 		public float lodBias = 2;
@@ -168,17 +168,17 @@ public static partial class Patchwork
 		public int eyeHiPoly = 512;
 
 		// Dropdowns
-		public byte shadows = 2;
+		public byte shadows = 1;
 		public byte shadowResolution = 3;
 		public byte shadowProjection = 0;
 		public byte shadowCascades = 2;
 		public byte blendWeights = 2;
-		public byte vSyncCount = 0;
+		public byte vSyncCount = 1;
 		public byte masterTextureLimit = 0;
 		public byte anisotropicFiltering = 1;
 		public byte antiAliasing = 3;
 
-		public bool softParticles = true;
+		public bool softParticles = false;
 		public bool realtimeReflectionProbes = false;
 		public bool fullscreen = false;
 

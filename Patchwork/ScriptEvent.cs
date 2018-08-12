@@ -17,6 +17,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ScriptEvents
 {
+	public virtual void OnTalk(SaveData.Heroine heroine, ref ActionGame.Communication.Info.TalkData talkdata) { }
+	public virtual void OnADV(ADV.CommandBase cmd) { }
 	public virtual void OnPostRender() { }
 	public virtual void OnChaControlInit(ChaControl c) { }
 	public virtual void OnCardUpdated(ChaFileControl c) { }
