@@ -23,6 +23,13 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public bool bundleExtract = true;
+		public bool bundleBG = true;
+		public bool bundleFrame = true;
+		public bool bundleJPG = true;
+		public int faceJPGq = 70;
+		public int bundleJPGq = 70;
+		public bool studioBaseBypass = true;
 		public bool altLow = false;
 		public bool showAcs = false;
 		public bool studioLoader = false;

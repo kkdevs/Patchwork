@@ -62,10 +62,10 @@ public static class Debug
 			DoLog("TRACEBACK", new object[] { Environment.StackTrace });
 	}
 
-	[Conditional("GAME_DEBUG")]
 #if GAME_DEBUG
 	[MethodImpl(MethodImplOptions.NoInlining)]
 #endif
+	[Conditional("GAME_DEBUG")]
 	public static void Stack(params object[] a)
 	{
 		if (Patchwork.settings.enableTrace)

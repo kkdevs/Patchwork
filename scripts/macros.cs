@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ParadoxNotion.Serialization.FullSerializer;
-
+using System.Linq;
 
 public class Macros : ScriptEvents {
 	public bool first;
@@ -22,6 +22,19 @@ public class Macros : ScriptEvents {
 
 public partial class ScriptEnv
 {
+	public static void gotree(GameObject go)
+	{
+		gotree(go.transform);
+	}
+	public static void gotree(Transform tr, string pfx="")
+	{
+		var comlist = string.Join(",", tr.GetComponents<Component>().Select(x => x.GetType().Name).ToArray());
+		print($"{pfx}{tr.name} ({comlist})");
+		for (int i = 0; i < tr.childCount; i++) {
+			gotree(tr.GetChild(i), pfx+" ");
+		}
+	}
+	public static HSceneProc hproc => Object.FindObjectOfType<HSceneProc>();
 	//public static HSubsConfig hscfg => HSubs.cfg;
 	public static Lookat_dan lookatdan => Object.FindObjectOfType<Lookat_dan>();
 	//public static GameObject female => GameObject.Find("chaF_001");

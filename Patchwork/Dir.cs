@@ -12,11 +12,13 @@
 	public static string conf;
 	public static string abdata;
 	public static string map;
+	public static string userdata;
 	public static void Init(string path)
 	{
 		path = path.Replace("\\", "/");
 		Debug.Log(path);
 		root = path;
+		userdata = path + "userdata/";
 		pw = root + "patchwork/";
 		mod = pw + "mod/";
 		modcsv = mod + "!csv/";

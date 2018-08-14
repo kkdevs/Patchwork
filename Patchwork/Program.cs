@@ -74,6 +74,7 @@ public static partial class Patchwork {
 			form.launchButton.Enabled = false;
 			form.runChara.Enabled = false;
 			form.scriptReload.Enabled = false;
+			form.tabControl1.SelectedIndex = form.tabControl1.Controls.Count - 1;
 			return;
 		}
 		form.scriptReload.Click += (o, e) =>

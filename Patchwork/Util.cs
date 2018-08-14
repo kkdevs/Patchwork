@@ -11,9 +11,31 @@ using UnityEngine;
 using MessagePack.LZ4;
 using static Patchwork;
 using System.Windows.Forms;
+using System.Collections;
 
 public static class Ext
 {
+	public static List<Control> Find(this Control.ControlCollection ctrl, Func<Control, string, bool> pred, bool recurse = true, List<Control> res = null)
+	{
+		res = res ?? new List<Control>();
+		foreach (Control c in ctrl)
+		{
+			string name = (c.Tag is System.String) ? c.Tag as string : c.Name;
+			if (pred(c, name))
+				res.Add(c);
+			if (recurse && c.HasChildren)
+				Find(c.Controls, pred, recurse, res);
+		}
+		return res;
+	}
+
+
+	public static void RunCoroutine(IEnumerator en)
+	{
+		while (en.MoveNext())
+			if (en.Current is IEnumerator enc)
+				RunCoroutine(enc);
+	}
 	public static IEnumerable<Control> GetAll(this Control control, Type type)
 	{
 		var controls = control.Controls.Cast<Control>();

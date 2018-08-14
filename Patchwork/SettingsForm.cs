@@ -66,7 +66,7 @@ public partial class SettingsForm : Form
 			var c = control as CheckBox; if (c != null) c.CheckedChanged += (o, e) =>
 			{
 				s.Update(f.Name, c.Checked);
-				foreach (var en in Controls.Find("enabler_" + f.Name, true))
+				foreach (var en in Controls.Find((_,x)=> x==("enabler_" + f.Name), true))
 					en.Enabled = c.Checked;
 			};
 			var b = control as Button; if (b != null)
@@ -211,7 +211,7 @@ public partial class SettingsForm : Form
 			var b = control as CheckBox;
 			if (b != null)
 			{
-				foreach (var en in Controls.Find("enabler_" + f.Name, true))
+				foreach (var en in Controls.Find((_, x) => x == ("enabler_" + f.Name), true))
 					en.Enabled = (bool)val;
 				b.Checked = (bool)val;
 			}
@@ -377,6 +377,16 @@ public partial class SettingsForm : Form
 	}
 
 	private void groupBox11_Enter(object sender, EventArgs e)
+	{
+
+	}
+
+	private void checkBox3_CheckedChanged(object sender, EventArgs e)
+	{
+
+	}
+
+	private void label40_Click(object sender, EventArgs e)
 	{
 
 	}

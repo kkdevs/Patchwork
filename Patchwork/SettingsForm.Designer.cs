@@ -110,6 +110,13 @@ partial class SettingsForm
 			this.cam_useAmplifyColor = new System.Windows.Forms.CheckBox();
 			this.cam_useFog = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.groupBox17 = new System.Windows.Forms.GroupBox();
+			this.label40 = new System.Windows.Forms.Label();
+			this.bundleJPGq = new System.Windows.Forms.TextBox();
+			this.bundleJPG = new System.Windows.Forms.CheckBox();
+			this.bundleFrame = new System.Windows.Forms.CheckBox();
+			this.bundleBG = new System.Windows.Forms.CheckBox();
+			this.studioBase = new System.Windows.Forms.CheckBox();
 			this.groupBox14 = new System.Windows.Forms.GroupBox();
 			this.studioLoader = new System.Windows.Forms.CheckBox();
 			this.blackFade = new System.Windows.Forms.CheckBox();
@@ -121,6 +128,8 @@ partial class SettingsForm
 			this.skipLogo = new System.Windows.Forms.CheckBox();
 			this.noFade = new System.Windows.Forms.CheckBox();
 			this.groupBox13 = new System.Windows.Forms.GroupBox();
+			this.label51 = new System.Windows.Forms.Label();
+			this.faceJPGq = new System.Windows.Forms.TextBox();
 			this.cardFmt = new System.Windows.Forms.TextBox();
 			this.chardb = new System.Windows.Forms.ComboBox();
 			this.label35 = new System.Windows.Forms.Label();
@@ -162,7 +171,6 @@ partial class SettingsForm
 			this.noTelescope = new System.Windows.Forms.CheckBox();
 			this.noscopeClipMask = new System.Windows.Forms.CheckBox();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
-			this.studioBase = new System.Windows.Forms.CheckBox();
 			this.linkLabel2 = new System.Windows.Forms.LinkLabel();
 			this.ooMale = new System.Windows.Forms.TextBox();
 			this.label42 = new System.Windows.Forms.Label();
@@ -248,6 +256,7 @@ partial class SettingsForm
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
 			this.replInput = new EditLine();
+			this.bundleExtract = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -257,6 +266,7 @@ partial class SettingsForm
 			this.enabler_shadowOverride.SuspendLayout();
 			this.enabler_cam_ppOverride.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.groupBox17.SuspendLayout();
 			this.groupBox14.SuspendLayout();
 			this.groupBox13.SuspendLayout();
 			this.groupBox12.SuspendLayout();
@@ -1124,6 +1134,7 @@ partial class SettingsForm
 			this.cam_aoeRadius.Name = "cam_aoeRadius";
 			this.cam_aoeRadius.Size = new System.Drawing.Size(55, 20);
 			this.cam_aoeRadius.TabIndex = 38;
+			this.cam_aoeRadius.Tag = "enabler_cam_useAmplifyOcclus";
 			// 
 			// label45
 			// 
@@ -1143,6 +1154,7 @@ partial class SettingsForm
 			this.cam_amplColorExposure.Name = "cam_amplColorExposure";
 			this.cam_amplColorExposure.Size = new System.Drawing.Size(55, 20);
 			this.cam_amplColorExposure.TabIndex = 36;
+			this.cam_amplColorExposure.Tag = "enabler_cam_useAmplifyColor";
 			// 
 			// cam_useSepia
 			// 
@@ -1255,6 +1267,7 @@ partial class SettingsForm
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.groupBox17);
 			this.tabPage2.Controls.Add(this.groupBox14);
 			this.tabPage2.Controls.Add(this.groupBox13);
 			this.tabPage2.Controls.Add(this.tumblr);
@@ -1269,6 +1282,85 @@ partial class SettingsForm
 			this.tabPage2.Text = " Game ";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+			// 
+			// groupBox17
+			// 
+			this.groupBox17.Controls.Add(this.bundleExtract);
+			this.groupBox17.Controls.Add(this.label40);
+			this.groupBox17.Controls.Add(this.bundleJPGq);
+			this.groupBox17.Controls.Add(this.bundleJPG);
+			this.groupBox17.Controls.Add(this.bundleFrame);
+			this.groupBox17.Controls.Add(this.bundleBG);
+			this.groupBox17.Controls.Add(this.studioBase);
+			this.groupBox17.Location = new System.Drawing.Point(431, 262);
+			this.groupBox17.Name = "groupBox17";
+			this.groupBox17.Size = new System.Drawing.Size(418, 158);
+			this.groupBox17.TabIndex = 45;
+			this.groupBox17.TabStop = false;
+			this.groupBox17.Text = "Studio";
+			// 
+			// label40
+			// 
+			this.label40.AutoSize = true;
+			this.label40.Location = new System.Drawing.Point(181, 87);
+			this.label40.Name = "label40";
+			this.label40.Size = new System.Drawing.Size(48, 13);
+			this.label40.TabIndex = 74;
+			this.label40.Text = "% quality";
+			this.label40.Click += new System.EventHandler(this.label40_Click);
+			// 
+			// bundleJPGq
+			// 
+			this.bundleJPGq.Location = new System.Drawing.Point(137, 83);
+			this.bundleJPGq.Name = "bundleJPGq";
+			this.bundleJPGq.Size = new System.Drawing.Size(37, 20);
+			this.bundleJPGq.TabIndex = 21;
+			this.bundleJPGq.Tag = "enabler_bundleJPG";
+			// 
+			// bundleJPG
+			// 
+			this.bundleJPG.AutoSize = true;
+			this.bundleJPG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.bundleJPG.Location = new System.Drawing.Point(8, 86);
+			this.bundleJPG.Name = "bundleJPG";
+			this.bundleJPG.Size = new System.Drawing.Size(123, 17);
+			this.bundleJPG.TabIndex = 73;
+			this.bundleJPG.Text = "Bundled files as JPG";
+			this.bundleJPG.UseVisualStyleBackColor = true;
+			this.bundleJPG.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+			// 
+			// bundleFrame
+			// 
+			this.bundleFrame.AutoSize = true;
+			this.bundleFrame.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.bundleFrame.Location = new System.Drawing.Point(8, 63);
+			this.bundleFrame.Name = "bundleFrame";
+			this.bundleFrame.Size = new System.Drawing.Size(166, 17);
+			this.bundleFrame.TabIndex = 72;
+			this.bundleFrame.Text = "Bundle frame into scene PNG";
+			this.bundleFrame.UseVisualStyleBackColor = true;
+			// 
+			// bundleBG
+			// 
+			this.bundleBG.AutoSize = true;
+			this.bundleBG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.bundleBG.Location = new System.Drawing.Point(8, 40);
+			this.bundleBG.Name = "bundleBG";
+			this.bundleBG.Size = new System.Drawing.Size(207, 17);
+			this.bundleBG.TabIndex = 71;
+			this.bundleBG.Text = "Bundle backgrounds into scene PNGs";
+			this.bundleBG.UseVisualStyleBackColor = true;
+			// 
+			// studioBase
+			// 
+			this.studioBase.AutoSize = true;
+			this.studioBase.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.studioBase.Location = new System.Drawing.Point(8, 19);
+			this.studioBase.Name = "studioBase";
+			this.studioBase.Size = new System.Drawing.Size(370, 17);
+			this.studioBase.TabIndex = 70;
+			this.studioBase.Text = "Use game character model instead (oo_base, bo_head etc) of studio one";
+			this.studioBase.UseVisualStyleBackColor = true;
 			// 
 			// groupBox14
 			// 
@@ -1391,6 +1483,8 @@ partial class SettingsForm
 			// 
 			// groupBox13
 			// 
+			this.groupBox13.Controls.Add(this.label51);
+			this.groupBox13.Controls.Add(this.faceJPGq);
 			this.groupBox13.Controls.Add(this.cardFmt);
 			this.groupBox13.Controls.Add(this.chardb);
 			this.groupBox13.Controls.Add(this.label35);
@@ -1405,6 +1499,23 @@ partial class SettingsForm
 			this.groupBox13.TabIndex = 43;
 			this.groupBox13.TabStop = false;
 			this.groupBox13.Text = "Card data";
+			// 
+			// label51
+			// 
+			this.label51.AutoSize = true;
+			this.label51.Location = new System.Drawing.Point(184, 159);
+			this.label51.Name = "label51";
+			this.label51.Size = new System.Drawing.Size(48, 13);
+			this.label51.TabIndex = 75;
+			this.label51.Text = "% quality";
+			// 
+			// faceJPGq
+			// 
+			this.faceJPGq.Location = new System.Drawing.Point(141, 153);
+			this.faceJPGq.Name = "faceJPGq";
+			this.faceJPGq.Size = new System.Drawing.Size(37, 20);
+			this.faceJPGq.TabIndex = 75;
+			this.faceJPGq.Tag = "enabler_faceJPG";
 			// 
 			// cardFmt
 			// 
@@ -1484,11 +1595,11 @@ partial class SettingsForm
 			this.groupBox12.Controls.Add(this.sliderMin);
 			this.groupBox12.Controls.Add(this.label33);
 			this.groupBox12.Controls.Add(this.sliderMax);
-			this.groupBox12.Location = new System.Drawing.Point(431, 262);
+			this.groupBox12.Location = new System.Drawing.Point(705, 26);
 			this.groupBox12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox12.Name = "groupBox12";
 			this.groupBox12.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox12.Size = new System.Drawing.Size(262, 158);
+			this.groupBox12.Size = new System.Drawing.Size(144, 226);
 			this.groupBox12.TabIndex = 42;
 			this.groupBox12.TabStop = false;
 			this.groupBox12.Text = "Other";
@@ -1640,6 +1751,7 @@ partial class SettingsForm
 			this.enabler_tumblr.Size = new System.Drawing.Size(171, 158);
 			this.enabler_tumblr.TabIndex = 39;
 			this.enabler_tumblr.TabStop = false;
+			this.enabler_tumblr.Tag = "enabler_tumblr";
 			// 
 			// bothFreeH
 			// 
@@ -1861,7 +1973,6 @@ partial class SettingsForm
 			// 
 			// groupBox10
 			// 
-			this.groupBox10.Controls.Add(this.studioBase);
 			this.groupBox10.Controls.Add(this.linkLabel2);
 			this.groupBox10.Controls.Add(this.ooMale);
 			this.groupBox10.Controls.Add(this.label42);
@@ -1879,17 +1990,6 @@ partial class SettingsForm
 			this.groupBox10.TabIndex = 65;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Custom uncensor";
-			// 
-			// studioBase
-			// 
-			this.studioBase.AutoSize = true;
-			this.studioBase.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.studioBase.Location = new System.Drawing.Point(12, 99);
-			this.studioBase.Name = "studioBase";
-			this.studioBase.Size = new System.Drawing.Size(313, 17);
-			this.studioBase.TabIndex = 69;
-			this.studioBase.Text = "Use this game skeleton in studio (instead of base/00.unity3d)";
-			this.studioBase.UseVisualStyleBackColor = true;
 			// 
 			// linkLabel2
 			// 
@@ -2330,7 +2430,7 @@ partial class SettingsForm
 			this.groupBox8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox8.Name = "groupBox8";
 			this.groupBox8.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox8.Size = new System.Drawing.Size(173, 85);
+			this.groupBox8.Size = new System.Drawing.Size(173, 111);
 			this.groupBox8.TabIndex = 55;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Logging";
@@ -2381,7 +2481,7 @@ partial class SettingsForm
 			this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox7.Name = "groupBox7";
 			this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.groupBox7.Size = new System.Drawing.Size(192, 208);
+			this.groupBox7.Size = new System.Drawing.Size(192, 234);
 			this.groupBox7.TabIndex = 57;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Performance";
@@ -2710,7 +2810,7 @@ partial class SettingsForm
 			this.groupBox4.Controls.Add(this.noBustNorm);
 			this.groupBox4.Controls.Add(this.dontshow);
 			this.groupBox4.Controls.Add(this.onTop);
-			this.groupBox4.Location = new System.Drawing.Point(10, 233);
+			this.groupBox4.Location = new System.Drawing.Point(10, 259);
 			this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2806,6 +2906,17 @@ partial class SettingsForm
 			this.replInput.Size = new System.Drawing.Size(857, 27);
 			this.replInput.TabIndex = 0;
 			// 
+			// bundleExtract
+			// 
+			this.bundleExtract.AutoSize = true;
+			this.bundleExtract.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+			this.bundleExtract.Location = new System.Drawing.Point(8, 109);
+			this.bundleExtract.Name = "bundleExtract";
+			this.bundleExtract.Size = new System.Drawing.Size(121, 17);
+			this.bundleExtract.TabIndex = 75;
+			this.bundleExtract.Text = "Extract bundled files";
+			this.bundleExtract.UseVisualStyleBackColor = true;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2834,6 +2945,8 @@ partial class SettingsForm
 			this.enabler_cam_ppOverride.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			this.groupBox17.ResumeLayout(false);
+			this.groupBox17.PerformLayout();
 			this.groupBox14.ResumeLayout(false);
 			this.groupBox14.PerformLayout();
 			this.groupBox13.ResumeLayout(false);
@@ -3061,7 +3174,6 @@ partial class SettingsForm
 	private System.Windows.Forms.CheckBox withoutManifest;
 	private System.Windows.Forms.CheckBox noscopeSimGomu;
 	private System.Windows.Forms.CheckBox boneRoot;
-	private System.Windows.Forms.CheckBox studioBase;
 	private System.Windows.Forms.GroupBox enabler_cam_ppOverride;
 	private System.Windows.Forms.Label label46;
 	private System.Windows.Forms.TextBox cam_aoeRadius;
@@ -3098,5 +3210,15 @@ partial class SettingsForm
 	private System.Windows.Forms.CheckBox studioLoader;
 	private System.Windows.Forms.CheckBox showAcs;
 	private System.Windows.Forms.CheckBox altLow;
+	private System.Windows.Forms.GroupBox groupBox17;
+	private System.Windows.Forms.TextBox bundleJPGq;
+	private System.Windows.Forms.CheckBox bundleJPG;
+	private System.Windows.Forms.CheckBox bundleFrame;
+	private System.Windows.Forms.CheckBox bundleBG;
+	private System.Windows.Forms.CheckBox studioBase;
+	private System.Windows.Forms.Label label40;
+	private System.Windows.Forms.Label label51;
+	private System.Windows.Forms.TextBox faceJPGq;
+	private System.Windows.Forms.CheckBox bundleExtract;
 }
 

@@ -1,4 +1,5 @@
 ﻿using ChaCustom;
+using Studio;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -112,9 +113,9 @@ public class ScriptEvents
 	public virtual void OnCumShoot(UpdateMeta meta, MetaballShoot shoot, float next) { }
 
 	public virtual void OnHPlay(HActionBase ha, string anim) { }
-	public virtual void OnSceneImport(string path, BinaryReader br) { }
-	public virtual void OnSceneLoad(string path, BinaryReader br) { }
-	public virtual void OnSceneSave(string path, BinaryWriter bw) { }
+	public virtual void OnSceneImport(SceneInfo info, string path, BinaryReader br) { }
+	public virtual void OnSceneLoad(SceneInfo info, string path, BinaryReader br) { }
+	public virtual void OnSceneSave(SceneInfo info, string path, BinaryWriter bw) { }
 	public virtual void OnHSound(HSeCtrl hse, int animkey, int soundkey) { }
 	/// <summary>
 	/// A category item is being added.
