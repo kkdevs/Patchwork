@@ -23,6 +23,8 @@ public static partial class Patchwork
 	[Serializable]
 	public partial class Settings
 	{
+		public string bundleFrame_except = "koi_studio_frame_";
+		public string bundleBG_except = "bg_";
 		public bool bundleExtract = true;
 		public bool bundleBG = true;
 		public bool bundleFrame = true;

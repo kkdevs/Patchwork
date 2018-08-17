@@ -255,8 +255,10 @@ partial class SettingsForm
 			this.onTop = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.replOutput = new System.Windows.Forms.RichTextBox();
-			this.replInput = new EditLine();
 			this.bundleExtract = new System.Windows.Forms.CheckBox();
+			this.bundleBG_except = new System.Windows.Forms.TextBox();
+			this.bundleFrame_except = new System.Windows.Forms.TextBox();
+			this.replInput = new EditLine();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1285,6 +1287,8 @@ partial class SettingsForm
 			// 
 			// groupBox17
 			// 
+			this.groupBox17.Controls.Add(this.bundleFrame_except);
+			this.groupBox17.Controls.Add(this.bundleBG_except);
 			this.groupBox17.Controls.Add(this.bundleExtract);
 			this.groupBox17.Controls.Add(this.label40);
 			this.groupBox17.Controls.Add(this.bundleJPGq);
@@ -1302,7 +1306,7 @@ partial class SettingsForm
 			// label40
 			// 
 			this.label40.AutoSize = true;
-			this.label40.Location = new System.Drawing.Point(181, 87);
+			this.label40.Location = new System.Drawing.Point(215, 87);
 			this.label40.Name = "label40";
 			this.label40.Size = new System.Drawing.Size(48, 13);
 			this.label40.TabIndex = 74;
@@ -1311,7 +1315,7 @@ partial class SettingsForm
 			// 
 			// bundleJPGq
 			// 
-			this.bundleJPGq.Location = new System.Drawing.Point(137, 83);
+			this.bundleJPGq.Location = new System.Drawing.Point(171, 84);
 			this.bundleJPGq.Name = "bundleJPGq";
 			this.bundleJPGq.Size = new System.Drawing.Size(37, 20);
 			this.bundleJPGq.TabIndex = 21;
@@ -1323,9 +1327,9 @@ partial class SettingsForm
 			this.bundleJPG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.bundleJPG.Location = new System.Drawing.Point(8, 86);
 			this.bundleJPG.Name = "bundleJPG";
-			this.bundleJPG.Size = new System.Drawing.Size(123, 17);
+			this.bundleJPG.Size = new System.Drawing.Size(160, 17);
 			this.bundleJPG.TabIndex = 73;
-			this.bundleJPG.Text = "Bundled files as JPG";
+			this.bundleJPG.Text = "Encode background as JPG";
 			this.bundleJPG.UseVisualStyleBackColor = true;
 			this.bundleJPG.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
 			// 
@@ -1333,22 +1337,22 @@ partial class SettingsForm
 			// 
 			this.bundleFrame.AutoSize = true;
 			this.bundleFrame.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bundleFrame.Location = new System.Drawing.Point(8, 63);
+			this.bundleFrame.Location = new System.Drawing.Point(8, 40);
 			this.bundleFrame.Name = "bundleFrame";
-			this.bundleFrame.Size = new System.Drawing.Size(166, 17);
+			this.bundleFrame.Size = new System.Drawing.Size(205, 17);
 			this.bundleFrame.TabIndex = 72;
-			this.bundleFrame.Text = "Bundle frame into scene PNG";
+			this.bundleFrame.Text = "Bundle frame into scene data, except:";
 			this.bundleFrame.UseVisualStyleBackColor = true;
 			// 
 			// bundleBG
 			// 
 			this.bundleBG.AutoSize = true;
 			this.bundleBG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.bundleBG.Location = new System.Drawing.Point(8, 40);
+			this.bundleBG.Location = new System.Drawing.Point(8, 63);
 			this.bundleBG.Name = "bundleBG";
-			this.bundleBG.Size = new System.Drawing.Size(207, 17);
+			this.bundleBG.Size = new System.Drawing.Size(236, 17);
 			this.bundleBG.TabIndex = 71;
-			this.bundleBG.Text = "Bundle backgrounds into scene PNGs";
+			this.bundleBG.Text = "Bundle background into scene data, except:";
 			this.bundleBG.UseVisualStyleBackColor = true;
 			// 
 			// studioBase
@@ -1359,7 +1363,7 @@ partial class SettingsForm
 			this.studioBase.Name = "studioBase";
 			this.studioBase.Size = new System.Drawing.Size(370, 17);
 			this.studioBase.TabIndex = 70;
-			this.studioBase.Text = "Use game character model instead (oo_base, bo_head etc) of studio one";
+			this.studioBase.Text = "Use game character model (oo_base, bo_head etc) instead of studio one";
 			this.studioBase.UseVisualStyleBackColor = true;
 			// 
 			// groupBox14
@@ -1503,7 +1507,7 @@ partial class SettingsForm
 			// label51
 			// 
 			this.label51.AutoSize = true;
-			this.label51.Location = new System.Drawing.Point(184, 159);
+			this.label51.Location = new System.Drawing.Point(184, 156);
 			this.label51.Name = "label51";
 			this.label51.Size = new System.Drawing.Size(48, 13);
 			this.label51.TabIndex = 75;
@@ -2895,17 +2899,6 @@ partial class SettingsForm
 			this.replOutput.TabStop = false;
 			this.replOutput.Text = "";
 			// 
-			// replInput
-			// 
-			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.replInput.FormattingEnabled = true;
-			this.replInput.Location = new System.Drawing.Point(7, 410);
-			this.replInput.Name = "replInput";
-			this.replInput.Size = new System.Drawing.Size(857, 27);
-			this.replInput.TabIndex = 0;
-			// 
 			// bundleExtract
 			// 
 			this.bundleExtract.AutoSize = true;
@@ -2916,6 +2909,33 @@ partial class SettingsForm
 			this.bundleExtract.TabIndex = 75;
 			this.bundleExtract.Text = "Extract bundled files";
 			this.bundleExtract.UseVisualStyleBackColor = true;
+			// 
+			// bundleBG_except
+			// 
+			this.bundleBG_except.Location = new System.Drawing.Point(252, 60);
+			this.bundleBG_except.Name = "bundleBG_except";
+			this.bundleBG_except.Size = new System.Drawing.Size(138, 20);
+			this.bundleBG_except.TabIndex = 76;
+			this.bundleBG_except.Tag = "enabler_bundleBG";
+			// 
+			// bundleFrame_except
+			// 
+			this.bundleFrame_except.Location = new System.Drawing.Point(252, 36);
+			this.bundleFrame_except.Name = "bundleFrame_except";
+			this.bundleFrame_except.Size = new System.Drawing.Size(139, 20);
+			this.bundleFrame_except.TabIndex = 77;
+			this.bundleFrame_except.Tag = "enabler_bundleFrame";
+			// 
+			// replInput
+			// 
+			this.replInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.replInput.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.replInput.FormattingEnabled = true;
+			this.replInput.Location = new System.Drawing.Point(7, 410);
+			this.replInput.Name = "replInput";
+			this.replInput.Size = new System.Drawing.Size(857, 27);
+			this.replInput.TabIndex = 0;
 			// 
 			// SettingsForm
 			// 
@@ -3220,5 +3240,7 @@ partial class SettingsForm
 	private System.Windows.Forms.Label label51;
 	private System.Windows.Forms.TextBox faceJPGq;
 	private System.Windows.Forms.CheckBox bundleExtract;
+	private System.Windows.Forms.TextBox bundleFrame_except;
+	private System.Windows.Forms.TextBox bundleBG_except;
 }
 
